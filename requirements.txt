@@ -1,0 +1,3 @@
+uncertainties
+matplotlib
+numpy
