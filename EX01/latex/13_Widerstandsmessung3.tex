@@ -28,7 +28,7 @@ $\theta_\mathrm{RT} = \SI{24.1}{\celsius}$.
         \draw (L2.wiper) -- (L2.wiper |- V1)
             to[ameter, i=$I_A$] ++(2,0) coordinate (k1) 
             to[vmeter, v=$U_V$, *-*] (k1 |- GND) -- (2,0);
-        \draw (k1) -- ++(1,0) to[R, l=$R_\mathrm{W}$, i>^=$I_R$] ++(0,-2) -- (k1 |- GND);
+        \draw (k1) -- ++(1,0) to[lamp, l=$R_\mathrm{W}$, i>^=$I_R$] ++(0,-2) -- (k1 |- GND);
     \end{circuitikz}
     \caption{Aufbau der Messung}\label{fig:13-aufbau}
 \end{wrapfigure}
@@ -65,7 +65,7 @@ daraus resultierende Widerstand sind in \autoref{tab:13-values} dargestellt.
         columns/IA/.style={column name={$I_A / \si{\milli\ampere}$}, column type=Y, precision=3, fixed},
         columns/R/.style={column name={$R / \si{\ohm}$}, column type=Y, precision=2, fixed},
         columns/T/.style={column name={$T / \si{\celsius}$}, column type=Y, precision=2, fixed},
-    ]{data/13_Values.csv}
+    ]{../data/13_Values.csv}
 \end{table}
 
 \marginref{\ref{itm:P3-4}}
@@ -89,16 +89,3 @@ Einsetzen der Messwerte aus \autoref{itm:P3-1} und \ref{itm:P3-2} in
 Nun kann man die berechneten Widerstands Werte in die Linke Seite von \autoref{eq:gluehfaden}
 einsetzen und mit einem Mathematik-Programm nach der Temperatur $\theta$ lösen. Die errechneten
 Temperaturen wurden zu \autoref{tab:13-values} hinzugefügt.
-
-\newpage
-\subsection{Widerstandsmessung IV: Impedanzen}\label{sec:01-4}
-
-\begin{highlightblock}[Messung Impedanzen, Drei-Voltmeter-Methode]
-Funktionsgenerator $\SI{20}{\volt}_\mathrm{SS}$. $\SI{50}{\ohm}$ Shuntwiderstand, 
-\begin{enumerate}
-    \item Frequenz geeignet wählen.
-    \item Real- und Imaginärteil der Impedanz bestimmen
-    \item Spannungsdreieck zeichnen. Daraus Betrag und Phase ablesen.
-    \item Rechnung und Messung vergleichen.
-\end{enumerate}
-\end{highlightblock}\medskip

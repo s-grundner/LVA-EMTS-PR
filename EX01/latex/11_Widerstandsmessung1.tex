@@ -17,7 +17,7 @@ Ohmscher Leistungswiderstand, $R=\SI{68}{\ohm}, P_{\max}=\SI{50}{\watt}$
 \marginref{\ref{itm:P1-1}}
 Da der Widerstand sehr klein ist, wird für dessen Ermittlung eine
 spannungsrichtige U-I-Messung durchgeführt
-\cite[p.~183]{SchrüferElmar2022EM:M}.
+\cite[S.~183]{SchrüferElmar2022EM:M}.
 
 \marginref{\ref{itm:P1-2}}
 Um eine passende Spannung zu wählen, werden erst die Messbereiche der Geräte
@@ -78,16 +78,16 @@ Die Garantiefehlergrenzen der Messgeräte (Tabelle~\ref{tab:geraeteliste}; Pos 1
 \end{itemize}
 
 \newpage
-\begin{wrapfigure}[17]{r}{6cm}
+\begin{wrapfigure}[13]{r}{5cm}
     \vspace{-12pt}\centering
-    \includegraphics[width=6cm]{images/11_Aufbau.JPEG}
+    \includegraphics[width=5cm]{images/11_Aufbau.JPEG}
     \caption{Aufbau der Messung}\label{fig:11_aufbau}
 \end{wrapfigure}
 
 \marginref{\ref{itm:P1-5}}
 Durchführung der Messung liefert die Messwerte für Strom und Spannung.
 Anschließend wird der Widerstand mit Gleichung \ref{eq:r-spannungsrichtig} unter Anwendung der
-Fehlerfortpflanzung~\cite[gl.~1.80]{SchrüferElmar2022EM:M} berechnet.
+Fehlerfortpflanzung~\cite[Gl.~1.80]{SchrüferElmar2022EM:M} berechnet.
 
 \begin{itemize}
     \item $U_V = \SI{4.852}{\volt} \pm \SI{0.013}{\volt}$
@@ -101,10 +101,9 @@ Berechnung der Unsicherheit des Widerstandswertes:
 \]
 mit
 \[
-    \frac{\partial R}{\partial U}\Big|_{U=U_V} = \frac{I_A R_{iV}^2}{(-I_A R_{iV} + U_V)^2} =
+    \frac{\partial R}{\partial U}\Big|_{U=U_V} = \frac{I_A R_{iV}^2}{{(-I_A R_{iV} + U_V)}^2} =  \SI{14.00}{\ohm\per\volt}
 \]
 und
 \[
-    \frac{\partial R}{\partial I}\Big|_{I=I_A}
+    \frac{\partial R}{\partial I}\Big|_{I=I_A} = -\frac{U_{V}}{{(I_A - U_V/R_{iV})}^2} = -951.5 \si{\ohm\per\ampere}
 \]
-\vspace{1mm}
