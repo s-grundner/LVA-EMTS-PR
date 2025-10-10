@@ -1,0 +1,13 @@
+main-report.pdf
+*.aux
+*.nlo
+*.toc
+*.lol
+*.idx
+*.log
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.bbl
+*.blg
