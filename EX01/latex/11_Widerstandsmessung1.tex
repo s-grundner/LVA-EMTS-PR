@@ -12,7 +12,22 @@ Ohmscher Leistungswiderstand, $R=\SI{68}{\ohm}, P_{\max}=\SI{50}{\watt}$
     \item Garantiefehlergrenzen abschätzen.\label{itm:P1-4}
     \item Messung durchführen.\label{itm:P1-5}
 \end{enumerate}
-\end{highlightblock}\medskip
+\end{highlightblock}
+
+\subsubsection{Verwendetes Material}
+
+\begin{table}[h]
+	\centering
+	\caption{Verwendetes Material}
+	\begin{tabularx}{\textwidth}{XXX}
+		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
+		&  &  \\
+		&  &  \\
+		&  &  \\
+	\end{tabularx}	
+\end{table}
+
+\subsubsection{Versuchsaufbau}
 
 \marginref{\ref{itm:P1-1}}
 Da der Widerstand sehr klein ist, wird für dessen Ermittlung eine
@@ -35,7 +50,7 @@ und der Innenwiderstand des Voltmeters über alle Messbereiche $R_{iV} =
         to[vmeter, v=$U_V$, i>^=$I_V$, *-*] (3,0) coordinate (k2) -- (0,0);
     \draw (k1) -- ++(1,0) to[R, l=$R$, i>^=$I_R$] ++(0,-3) -- (k2);
 \end{circuitikz}
-\caption{Spannungsrichtige\\U-I-Messung}\label{fig:u-i-spannungsrichtig}
+\caption{Schaltplan der Messung}\label{fig:u-i-spannungsrichtig}
 \end{wrapfigure}
 
 Daraus ergeben sich folgende Abschätzungen für den Messbereich in abhängigkeit der gewählten Spannung:
@@ -53,7 +68,7 @@ Sei die gewählte Spannung $U=\SI{5}{\volt}$, so ergibt sich:
 \end{itemize}
 
 \marginref{\ref{itm:P1-3}}
-Aus der Schaltung~\ref{fig:u-i-spannungsrichtig} ergibt sich folgende
+Aus der \autoref{fig:u-i-spannungsrichtig} ergibt sich folgende
 Gleichung für den gemessenen Widerstand:
 
 \begin{equation}
@@ -77,17 +92,10 @@ Die Garantiefehlergrenzen der Messgeräte (Tabelle~\ref{tab:geraeteliste}; Pos 1
         = \pm \SI{0.63}{\milli\ampere}$
 \end{itemize}
 
-\newpage
-\begin{wrapfigure}[13]{r}{5cm}
-    \vspace{-12pt}\centering
-    \includegraphics[width=5cm]{images/11_Aufbau.JPEG}
-    \caption{Aufbau der Messung}\label{fig:11_aufbau}
-\end{wrapfigure}
-
 \marginref{\ref{itm:P1-5}}
 Durchführung der Messung liefert die Messwerte für Strom und Spannung.
 Anschließend wird der Widerstand mit Gleichung \ref{eq:r-spannungsrichtig} unter Anwendung der
-Fehlerfortpflanzung~\cite[Gl.~1.80]{SchrüferElmar2022EM:M} berechnet.
+Fehlerfortpflanzung \cite[Gl.~1.80]{SchrüferElmar2022EM:M} berechnet.
 
 \begin{itemize}
     \item $U_V = \SI{4.852}{\volt} \pm \SI{0.013}{\volt}$
@@ -107,3 +115,5 @@ und
 \[
     \frac{\partial R}{\partial I}\Big|_{I=I_A} = -\frac{U_{V}}{{(I_A - U_V/R_{iV})}^2} = -951.5 \si{\ohm\per\ampere}
 \]
+
+\subsubsection{Erkenntnisse}

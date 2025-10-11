@@ -10,8 +10,22 @@ Temperatur bei $U=\{40, 80, 120, 160, 200, 240\}$ Volt
     \item Berechnung von $R(\theta_0)$ für $\theta_0=\SI{20}{\celsius}$.\label{itm:P3-4}
     \item Berechnung der Glühfadentemperatur bei bei den obrigen Spannungen aus $R_\mathrm{heiss}$.\label{itm:P3-5}
 \end{enumerate}
-\end{highlightblock}\medskip
+\end{highlightblock}
 
+\subsubsection{Verwendetes Material}
+
+\begin{table}[h]
+	\centering
+	\caption{Verwendetes Material}
+	\begin{tabularx}{\textwidth}{XXX}
+		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
+		&  &  \\
+		&  &  \\
+		&  &  \\
+	\end{tabularx}	
+\end{table}
+
+\subsubsection{Versuchsaufbau}
 \marginref{\ref{itm:P3-1},~\ref{itm:P3-2}}
 Messung wie oben beschreiben ergibt $R_\mathrm{kalt} = \SI{30.9}{\ohm}$ und
 $\theta_\mathrm{RT} = \SI{24.1}{\celsius}$.
@@ -21,16 +35,16 @@ $\theta_\mathrm{RT} = \SI{24.1}{\celsius}$.
 \begin{wrapfigure}[8]{r}{7cm}
     \vspace{-20pt}
     \centering
-    \begin{circuitikz}[american inductors]
+    \begin{circuitikz}[american inductors, scale=0.9, transform shape] 
         \ctikzset{inductors/coils=6}
-        \draw (0,0) coordinate (GND) to [sV] ++(0,2) coordinate (V1) -- ++(1,0) to[L] ++(0,-2) -- (GND);
+        \draw (0,0) coordinate (GND) to [sV, v<=$U$] ++(0,2) coordinate (V1) -- ++(1,0) to[L] ++(0,-2) -- (GND);
         \draw (2,0) to[vL, name=L2] ++(0,2);
         \draw (L2.wiper) -- (L2.wiper |- V1)
             to[ameter, i=$I_A$] ++(2,0) coordinate (k1) 
             to[vmeter, v=$U_V$, *-*] (k1 |- GND) -- (2,0);
         \draw (k1) -- ++(1,0) to[lamp, l=$R_\mathrm{W}$, i>^=$I_R$] ++(0,-2) -- (k1 |- GND);
     \end{circuitikz}
-    \caption{Aufbau der Messung}\label{fig:13-aufbau}
+    \caption{Schaltplan der Messung}\label{fig:13-aufbau}
 \end{wrapfigure}
 
 Mit einem Variablen Trafo wurden die verschiedenen Spannungen eingestellt. Die
@@ -68,8 +82,9 @@ daraus resultierende Widerstand sind in \autoref{tab:13-values} dargestellt.
     ]{../data/13_Values.csv}
 \end{table}
 
+\newpage
 \marginref{\ref{itm:P3-4}}
-Für die Temperaturabhängigkeit des Widerstands gilt die Näherung:
+Für die Temperaturabhängigkeit des Widerstands gilt die Näherung \cite[S.~17,~Gl.~1.24]{EMTPraktikum2025}
 
 \begin{equation}
     R(\theta) = R(\theta_0) \cdot (1 + \alpha \cdot (\theta - \theta_0) + \beta \cdot (\theta - \theta_0)^2)
