@@ -64,6 +64,7 @@ jobs:
         # configure git
         git config user.name "s-grundner"
         git config user.email "s-grundner@users.noreply.github.com"
+        git switch pages
         
         # create docs directory
         mkdir -p docs
@@ -82,4 +83,4 @@ jobs:
         # commit all PDFs in a single commit
         git add docs/*.pdf
         git commit -m "🤖 [ACTION] update LaTeX reports (${{ needs.generate_matrix.outputs.exercises_list }})"
-        git push
+        git push -u origin pages
