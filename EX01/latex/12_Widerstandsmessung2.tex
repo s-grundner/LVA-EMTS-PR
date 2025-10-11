@@ -2,15 +2,15 @@
 
 \begin{highlightblock}[Wiederholte Messungen mit statistischen Abweichungen]
 \begin{enumerate}[label=\textbf{\alph*:}, ref=\alph*]
-    \item Statistisch unabhängige Messung:\label{itm:P2-1}
-    \begin{itemize}
-        \item Unterschiedliche Werte von Strom- / Spannungswerte + Messbereiche
-        \item Messgeräte tauschen.
-        \item Kabel ein- und ausstecken
-    \end{itemize}
-    \item Messreihe statistisch auswerten (Schätzwert des Mittelwertes $\bar{x}$ und Standardabweichung~$s$)
-    \item Konfidenzintervalle für Vertrauensniveaus: $1-\alpha =\{68.26\%, 99.5\%\}$ 
-    \item Diskussion des Einflusses der unterschiedlichen Spannungsniveaus.
+	\item Statistisch unabhängige Messung:\label{itm:P2-1}
+	\begin{itemize}
+		\item Unterschiedliche Werte von Strom- / Spannungswerte + Messbereiche
+		\item Messgeräte tauschen.
+		\item Kabel ein- und ausstecken
+	\end{itemize}
+	\item Messreihe statistisch auswerten (Schätzwert des Mittelwertes $\bar{x}$ und Standardabweichung~$s$)
+	\item Konfidenzintervalle für Vertrauensniveaus: $1-\alpha =\{68.26\%, 99.5\%\}$ 
+	\item Diskussion des Einflusses der unterschiedlichen Spannungsniveaus.
 \end{enumerate} 
 \end{highlightblock}\medskip
 
@@ -18,32 +18,32 @@
 Hier wurde der gleiche Versuchsaufbau wie in Abschnitt~\ref{sec:01-1} verwendet und folgende Messwerte Aufgenommen:
 
 \begin{table}[h]
-    \centering
-    \caption{Messwerte Widerstandsmessung II}\label{tab:01-2-values}
-    \pgfplotstabletypeset[
-        col sep=comma,
-        header=true,
-        every head row/.style={after row=\midrule},
-        begin table={\begin{tabularx}{\textwidth}},
-        end table={\end{tabularx}},
-        columns/desc/.style={column name={Bemerkung}, column type=|X, string type},
-        columns/Nr/.style={column name={Nr}, column type=c},
-        columns/U/.style={column name={$U / \si{\volt}$}, column type=c, precision=2, fixed},
-        columns/UV/.style={column name={$U_V / \si{\volt}$}, column type=c, precision=2, fixed},
-        columns/IA/.style={column name={$I_A / \si{\milli\ampere}$}, column type=c, precision=3, fixed},
-        columns/R/.style={column name={$R / \si{\ohm}$}, column type=c, precision=2, fixed},
-    ]{../data/12_Values.csv}
+	\centering
+	\caption{Messwerte Widerstandsmessung II}\label{tab:01-2-values}
+	\pgfplotstabletypeset[
+		col sep=comma,
+		header=true,
+		every head row/.style={after row=\midrule},
+		begin table={\begin{tabularx}{\textwidth}},
+		end table={\end{tabularx}},
+		columns/desc/.style={column name={Bemerkung}, column type=|X, string type},
+		columns/Nr/.style={column name={Nr}, column type=c},
+		columns/U/.style={column name={$U / \si{\volt}$}, column type=c, precision=2, fixed},
+		columns/UV/.style={column name={$U_V / \si{\volt}$}, column type=c, precision=2, fixed},
+		columns/IA/.style={column name={$I_A / \si{\milli\ampere}$}, column type=c, precision=3, fixed},
+		columns/R/.style={column name={$R / \si{\ohm}$}, column type=c, precision=2, fixed},
+	]{../data/12_Values.csv}
 \end{table}
 
 \reversemarginpar\marginnote{\textbf{(\ref{itm:P1-2})}}[5pt]
-Die Berechnung des Mittelwertes ($\bar{x}$) und der Standardabweichung ($s$) \cite[S.~7]{EMTPraktikum2025}:
+Die Berechnung des Mittelwertes ($\bar{x}$) und der Standardabweichung~$s$~\cite[S.~7]{EMTPraktikum2025}:
 \begin{align}
-	 & \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i = 67,94 \si{\ohm}                                           \\
-	 & s = \sqrt{\frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2)} = 0.006775 \si{\ohm} \approx 0.07 \si{\ohm}
+	& \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i = \SI{67.94}{\ohm} \\
+	& s = \sqrt{\frac{1}{n-1} \sum_{i=1}^n {(x_i - \bar{x})}^2} = \SI{0.08451}{\ohm} \approx \SI{0.08}{\ohm}
 \end{align}
 
 \reversemarginpar\marginnote{\textbf{(\ref{itm:P1-3})}}[5pt]
-Das erweiterte Unsicherheitsintervall berechnet sich nach \cite[S.~10, Tabelle~1.1]{EMTPraktikum2025} zu
+Das erweiterte Unsicherheitsintervall berechnet sich nach~\cite[S.~10, Tabelle~1.1]{EMTPraktikum2025} zu
 \[
 	u_{z} = t_{0} \frac{s}{\sqrt{n}} \, .
 \]
@@ -52,22 +52,22 @@ Für $n=5$ ergibt sich:
 
 \begin{itemize}
 	\item 68,26\% Vertrauensniveau ($t_{0}/\sqrt{n} = 0.51$):
-	      \[
-		      u_{z} = 0.51 \cdot 0.07 \si{\ohm} \approx 0.036 \si{\ohm},
-	      \]
-	      also das Konfidenzintervall
-	      \[
-		      \bar{x} \pm u_{z} = (67.94 \pm 0.04) \, \si{\ohm}.
-	      \]
+		\[
+			u_{z} = 0.51 \cdot \SI{0.08}{\ohm} \approx \SI{0.041}{\ohm},
+		\]
+		also das Konfidenzintervall
+		\[
+			\bar{x} \pm u_{z} = (67.94 \pm 0.04) \, \si{\ohm}.
+		\]
 
 	\item 99,5\% Vertrauensniveau ($t_{0}/\sqrt{n} = 2.50$):
-	      \[
-		      u_{z} = 2.50 \cdot 0.07 \si{\ohm} \approx 0.175 \si{\ohm},
-	      \]
-	      also das Konfidenzintervall
-	      \[
-		      \bar{x} \pm u_{z} = (67.94 \pm 0.18) \, \si{\ohm}.
-	      \]
+		\[
+			u_{z} = 2.50 \cdot \SI{0.08}{\ohm} \approx \SI{0.175}{\ohm},
+		\]
+		also das Konfidenzintervall
+		\[
+			\bar{x} \pm u_{z} = (67.94 \pm 0.18) \, \si{\ohm}.
+		\]
 \end{itemize}
 
 \reversemarginpar\marginnote{\textbf{(\ref{itm:P1-4})}}[5pt]
