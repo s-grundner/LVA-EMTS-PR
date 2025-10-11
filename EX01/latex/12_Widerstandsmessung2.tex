@@ -2,16 +2,19 @@
 \subsection{Widerstandsmessung II: Statistische Auswertung}\label{sec:01-2}
 
 \begin{highlightblock}[Wiederholte Messungen mit statistischen Abweichungen]
-\begin{enumerate}[label=\textbf{\alph*:}, ref=\alph*]
-	\item Statistisch unabhängige Messung:\label{itm:P2-1}
-	\begin{itemize}
+	Mit dem gleichen Versuchsaufbau wie in \autoref{sec:01-1} wird nun
+		für die genauere Ermittlung des Widerstands eine Wiederholungsmessung
+		durchgeführt. Diese umfasst folgende Schritte:
+\begin{enumerate}[label=\textbf{\alph*:}, ref=\alph*,noitemsep]
+	\item\label{itm:1-P2-1} 5 statistisch unabhängige Messungen aufnehmen:
+	\begin{itemize}[noitemsep]
 		\item Unterschiedliche Werte von Strom- / Spannungswerte + Messbereiche
 		\item Messgeräte tauschen.
 		\item Kabel ein- und ausstecken
 	\end{itemize}
-	\item Messreihe statistisch auswerten (Schätzwert des Mittelwertes $\bar{x}$ und Standardabweichung~$s$)
-	\item Konfidenzintervalle für Vertrauensniveaus: $1-\alpha =\{68.26\%, 99.5\%\}$ 
-	\item Diskussion des Einflusses der unterschiedlichen Spannungsniveaus.
+	\item\label{itm:1-P2-2} Messreihe statistisch auswerten\\(Schätzwert des Mittelwertes $\bar{x}$ und Standardabweichung~$s$)
+	\item\label{itm:1-P2-3} Konfidenzintervalle für die Vertrauensniveaus $1-\alpha =\{68.26\%, 99.5\%\}$ 
+	\item\label{itm:1-P2-4} Diskussion des Einflusses der unterschiedlichen Spannungsniveaus.
 \end{enumerate} 
 \end{highlightblock}
 
@@ -22,20 +25,21 @@
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
 		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
-		&  &  \\
-		&  &  \\
-		&  &  \\
+		M-4630B & Ampere-/Voltmeter &  \\
+		M-4630B & Ampere-/Voltmeter &  \\
+		Leistungswiderstand & Device Under Test & Auf dem Steckbrett \\
 	\end{tabularx}	
 \end{table}
 
 \subsubsection{Versuchsaufbau}
 
-\marginref{\ref{itm:P2-1}}
-Hier wurde der gleiche Versuchsaufbau wie in Abschnitt~\ref{sec:01-1} verwendet und folgende Messwerte Aufgenommen:
+\marginref{\ref{itm:1-P2-1}}
+Hier wurde der gleiche Versuchsaufbau wie in \autoref{fig:u-i-spannungsrichtig}
+verwendet und folgende Messwerte aufgenommen:
 
 \begin{table}[h]
 	\centering
-	\caption{Messwerte Widerstandsmessung II}\label{tab:12-values}
+	\caption{Messergebnisse der Widerstandsmessung}\label{tab:12-values}
 	\pgfplotstabletypeset[
 		col sep=comma,
 		header=true,
@@ -51,14 +55,16 @@ Hier wurde der gleiche Versuchsaufbau wie in Abschnitt~\ref{sec:01-1} verwendet 
 	]{../data/12_Values.csv}
 \end{table}
 
-\reversemarginpar\marginnote{\textbf{(\ref{itm:P1-2})}}[5pt]
+\newpage
+\marginref{\ref{itm:1-P2-2},~\ref{itm:1-P2-3}}
 Die Berechnung des Mittelwertes $\bar{R}$ und der Standardabweichung~$s$~\cite[S.~7]{EMTPraktikum2025}:
 \begin{align}
 	& \bar{R} = \frac{1}{n} \sum_{i=1}^{n} R_i = \SI{67.94}{\ohm} \\
 	& s = \sqrt{\frac{1}{n-1} \sum_{i=1}^n {(R_i - \bar{R})}^2} = \SI{0.08451}{\ohm} \approx \SI{0.08}{\ohm}
+	& \bar{R} = \frac{1}{n} \sum_{i=1}^{n} R_i = \SI{67.94}{\ohm} \\
+	& s = \sqrt{\frac{1}{n-1} \sum_{i=1}^n {(R_i - \bar{R})}^2} = \SI{0.08451}{\ohm} \approx \SI{0.08}{\ohm}
 \end{align}
 
-\reversemarginpar\marginnote{\textbf{(\ref{itm:P1-3})}}[5pt]
 Die zufällige Messunsicherheit berechnet sich nach~\cite[S.~9, Gl.~1.13]{EMTPraktikum2025} zu
 \[
 	u_{z} = t_{0} \frac{s}{\sqrt{n}} \, .
@@ -69,26 +75,29 @@ Für $n=5$ ergibt sich:
 \begin{itemize}
 	\item 68,26\% Vertrauensniveau ($t_{0}/\sqrt{n} = 0.51$):
 		\[
-			\begin{aligned}
-				u_{z} &= 0.51 \cdot \SI{0.08}{\ohm} \approx \SI{0.041}{\ohm} \\
-				R &= \bar{R} \pm u_{z} = (67.94 \pm 0.04) \, \si{\ohm}
-			\end{aligned}
+			\begin{gathered}
+				u_{z} = 0.51 \cdot \SI{0.08}{\ohm} \approx \SI{0.041}{\ohm} \\
+				R = \bar{R} \pm u_{z} = (67.94 \pm 0.04) \, \si{\ohm}
+			\end{gathered}
 		\]
+		also das Konfidenzintervall $[67.90; 67.98]\si{\ohm}$
 		also das Konfidenzintervall $[67.90; 67.98]\si{\ohm}$
 
 	\item 99,5\% Vertrauensniveau ($t_{0}/\sqrt{n} = 2.50$):
 		\[
-			\begin{aligned}
-				u_{z} &= 2.50 \cdot \SI{0.08}{\ohm} \approx \SI{0.175}{\ohm} \\
-				R &= \bar{R} \pm u_{z} = (67.94 \pm 0.18) \, \si{\ohm}
-			\end{aligned}
+			\begin{gathered}
+				u_{z} = 2.50 \cdot \SI{0.08}{\ohm} \approx \SI{0.175}{\ohm} \\
+				R = \bar{R} \pm u_{z} = (67.94 \pm 0.18) \, \si{\ohm}
+			\end{gathered}
 		\]
+		also das Konfidenzintervall $[67.76; 68.12]\si{\ohm}$
 		also das Konfidenzintervall $[67.76; 68.12]\si{\ohm}$
 \end{itemize}
 
-\reversemarginpar\marginnote{\textbf{(\ref{itm:P1-4})}}[5pt]
+\marginref{\ref{itm:1-P2-4}}
 Einflusses der unterschiedlichen Spannungsniveaus:
 
+Am Anfang des Strommessbereichs ist der relative Fehler am kleinsten (vgl.~\autoref{tab:12-values}, Messung~3).
 Am Anfang des Strommessbereichs ist der relative Fehler am kleinsten (vgl.~\autoref{tab:12-values}, Messung~3).
 Dies entspricht den Herstellerangaben zum Digitalmultimeter METEX~4600
 (vgl. \cite[S.~143]{EMTPraktikum2025}), wonach der Fehler als Prozentwert des Anzeigewerts

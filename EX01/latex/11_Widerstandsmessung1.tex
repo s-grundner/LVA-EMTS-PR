@@ -4,13 +4,14 @@
 \subsection{Widerstandsmessung I: Einzelmessung}\label{sec:01-1}
 
 \begin{highlightblock}[Widerstand mit nur einer Messung bestimmen]
-Ohmscher Leistungswiderstand, $R=\SI{68}{\ohm}, P_{\max}=\SI{50}{\watt}$
-\begin{enumerate}[label=\textbf{\alph*:}, ref=\alph*]
-    \item Strom oder Spannungsrichtig messen?\label{itm:P1-1}
-    \item Passende Spannung wählen.\label{itm:P1-2}
-    \item Kontrollieren, ob der systematische Fehler vernachlässigbar ist.\label{itm:P1-3}
-    \item Garantiefehlergrenzen abschätzen.\label{itm:P1-4}
-    \item Messung durchführen.\label{itm:P1-5}
+Ein Ohmscher Leistungswiderstand, $R=\SI{68}{\ohm}, P_{\max}=\SI{50}{\watt}$ soll durch eine einzige Messung
+so genau wie möglich bestimmt werden. Dazu sind folgende Punkte zu beachten:
+\begin{enumerate}[label=\textbf{\alph*:}, ref=\alph*, noitemsep]
+    \item\label{itm:P1-1} Strom oder Spannungsrichtig messen?
+    \item\label{itm:P1-2} Passende Spannung wählen.
+    \item\label{itm:P1-3} Kontrollieren, ob der systematische Fehler vernachlässigbar ist.
+    \item\label{itm:P1-4} Garantiefehlergrenzen abschätzen.
+    \item\label{itm:P1-5} Messung durchführen.
 \end{enumerate}
 \end{highlightblock}
 
@@ -21,9 +22,9 @@ Ohmscher Leistungswiderstand, $R=\SI{68}{\ohm}, P_{\max}=\SI{50}{\watt}$
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
 		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
-		&  &  \\
-		&  &  \\
-		&  &  \\
+		Metex M-4600 & Voltmeter &  \\
+		Metex M-4630B & Amperemeter &  \\
+		Leistungswiderstand & Device Under Test & Auf dem Steckbrett \\
 	\end{tabularx}	
 \end{table}
 
@@ -31,41 +32,43 @@ Ohmscher Leistungswiderstand, $R=\SI{68}{\ohm}, P_{\max}=\SI{50}{\watt}$
 
 \marginref{\ref{itm:P1-1}}
 Da der Widerstand sehr klein ist, wird für dessen Ermittlung eine
-spannungsrichtige U-I-Messung durchgeführt
-\cite[S.~183]{SchrüferElmar2022EM:M}.
+spannungsrichtige U-I-Messung durchgeführt~\cite[S.~183]{SchrüferElmar2022EM:M}, abgebildet in
+\autoref{fig:u-i-spannungsrichtig}.
 
 \marginref{\ref{itm:P1-2}}
 Um eine passende Spannung zu wählen, werden erst die Messbereiche der Geräte
-abgeschätzt. Relevante Daten der verwendeten Messgeräte (Tabelle
-\ref{tab:geraeteliste}; Pos 1, 2) sind die $\SI{100}{\milli\volt}$ über den Amperemeter shunt
-und der Innenwiderstand des Voltmeters über alle Messbereiche $R_{iV} =
-\SI{10}{\mega\ohm}$.
+abgeschätzt. Relevante Daten der verwendeten Messgeräte sind die $\SI{200}{\milli\volt}$
+über den Amperemeter Shunt und der Innenwiderstand des Voltmeters über alle Messbereiche
+$R_{iV} = \SI{10}{\mega\ohm}$. Daraus ergeben sich folgende Abschätzungen für
+den Messbereich in abhängigkeit der gewählten Spannung:
 
-\begin{wrapfigure}[7]{r}{5cm}
-\vspace{-20pt}\raggedleft
+\begin{minipage}[c]{0.58\textwidth}
+\begin{itemize}[noitemsep]
+    \item $U_V \sim U - \SI{200}{\milli\volt}$
+    \item $I_A \sim (U - \SI{200}{\milli\volt}) \left(\frac{1}{R} + \frac{1}{R_{iV}}\right)$
+\end{itemize}
+
+\medskip
+Sei die gewählte Spannung $U=\SI{5}{\volt}$, so ergibt sich:
+\medskip
+
+\begin{itemize}[noitemsep]
+    \item $U_V \sim \SI{4.8}{\volt} \implies \text{MB:}~\SI{20}{\volt}$
+    \item $I_A \sim \SI{71}{\milli\ampere} \implies \text{MB:}~\SI{200}{\milli\ampere}$
+\end{itemize}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.38\textwidth}
+\raggedleft
 \captionsetup{justification=raggedleft, singlelinecheck=false, margin=10pt}
-\begin{circuitikz}[scale=0.85, transform shape]
+\begin{circuitikz}[scale=0.96, transform shape]
     \draw (0,0) to[voltage source, v<=$U$] (0,3) 
         to[ameter, i=$I_A$] (3,3) coordinate (k1)
         to[vmeter, v=$U_V$, i>^=$I_V$, *-*] (3,0) coordinate (k2) -- (0,0);
     \draw (k1) -- ++(1,0) to[R, l=$R$, i>^=$I_R$] ++(0,-3) -- (k2);
 \end{circuitikz}
-\caption{Schaltplan der Messung}\label{fig:u-i-spannungsrichtig}
-\end{wrapfigure}
+\captionof{figure}{Schaltplan der Messung}\label{fig:u-i-spannungsrichtig}
+\end{minipage}
 
-Daraus ergeben sich folgende Abschätzungen für den Messbereich in abhängigkeit der gewählten Spannung:
-
-\begin{itemize}
-    \item $U_V \sim U - \SI{200}{\milli\volt}$
-    \item $I_A \sim (U - \SI{200}{\milli\volt}) \left(\dfrac{1}{R} + \dfrac{1}{R_{iV}}\right)$
-\end{itemize}
-
-Sei die gewählte Spannung $U=\SI{5}{\volt}$, so ergibt sich:
-
-\begin{itemize}
-    \item $U_V \sim \SI{4.8}{\volt} \implies \text{MB:}~\SI{20}{\volt}$
-    \item $I_A \sim \SI{71}{\milli\ampere} \implies \text{MB:}~\SI{200}{\milli\ampere}$
-\end{itemize}
 
 \marginref{\ref{itm:P1-3}}
 Aus der \autoref{fig:u-i-spannungsrichtig} ergibt sich folgende
@@ -94,16 +97,21 @@ Die Garantiefehlergrenzen der Messgeräte (Tabelle~\ref{tab:geraeteliste}; Pos 1
 
 \marginref{\ref{itm:P1-5}}
 Durchführung der Messung liefert die Messwerte für Strom und Spannung.
-Anschließend wird der Widerstand mit Gleichung \ref{eq:r-spannungsrichtig} unter Anwendung der
-Fehlerfortpflanzung \cite[Gl.~1.80]{SchrüferElmar2022EM:M} berechnet.
 
 \begin{itemize}
     \item $U_V = \SI{4.852}{\volt} \pm \SI{0.013}{\volt}$
     \item $I_A = \SI{71.41}{\milli\ampere} \pm \SI{0.63}{\milli\ampere}$ 
-    \item $R = \SI{67.9}{\ohm} \pm \SI{0.6}{\ohm}$
 \end{itemize}
 
-Berechnung der Unsicherheit des Widerstandswertes:
+Einsetzen in \autoref{eq:r-spannungsrichtig} liefert den Widerstand:
+
+\begin{equation}
+    R = \frac{U_V}{I_A - U_V/R_{iV}} = \frac{\SI{4.852}{\volt}}{\SI{71.41}{\milli\ampere} - \SI{485.2}{\nano\ampere}} = \SI{67.9}{\ohm}
+    \label{eq:r-value}
+\end{equation}
+
+Anschließend wird unter Verwendung der Gauß'schen Fehlerfortpflanzung~\cite[Gl.~1.80]{SchrüferElmar2022EM:M}
+die Unsicherheit des Widerstands berechnet:
 \[
     u_R = \sqrt{{\left(\frac{\partial R}{\partial U}u_{U_V}\right)}^2 + {\left(\frac{\partial R}{\partial I}u_{I_A}\right)}^2} = \SI{0.6265}{\ohm}
 \]
@@ -116,4 +124,14 @@ und
     \frac{\partial R}{\partial I}\Big|_{I=I_A} = -\frac{U_{V}}{{(I_A - U_V/R_{iV})}^2} = -951.5 \si{\ohm\per\ampere}
 \]
 
+Der Endwert des Widerstands ist somit: 
+
+\[
+    R = \SI{67.9}{\ohm} \pm \SI{0.6}{\ohm}
+\]
+
 \subsubsection{Erkenntnisse}
+
+Bei der Berechnung des Widerstandes in \autoref{eq:r-value}, ist gut die Vernachlässigbarkeit des
+systematischen Fehlers zu erkennen, da sich der Korrekturterm nur im
+Nano-Ampere Bereich befindet:
