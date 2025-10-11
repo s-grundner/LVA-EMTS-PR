@@ -35,7 +35,7 @@ Hier wurde der gleiche Versuchsaufbau wie in Abschnitt~\ref{sec:01-1} verwendet 
 
 \begin{table}[h]
 	\centering
-	\caption{Messwerte Widerstandsmessung II}\label{tab:01-2-values}
+	\caption{Messwerte Widerstandsmessung II}\label{tab:12-values}
 	\pgfplotstabletypeset[
 		col sep=comma,
 		header=true,
@@ -52,14 +52,14 @@ Hier wurde der gleiche Versuchsaufbau wie in Abschnitt~\ref{sec:01-1} verwendet 
 \end{table}
 
 \reversemarginpar\marginnote{\textbf{(\ref{itm:P1-2})}}[5pt]
-Die Berechnung des Mittelwertes ($\bar{x}$) und der Standardabweichung~$s$~\cite[S.~7]{EMTPraktikum2025}:
+Die Berechnung des Mittelwertes $\bar{R}$ und der Standardabweichung~$s$~\cite[S.~7]{EMTPraktikum2025}:
 \begin{align}
-	& \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i = \SI{67.94}{\ohm} \\
-	& s = \sqrt{\frac{1}{n-1} \sum_{i=1}^n {(x_i - \bar{x})}^2} = \SI{0.08451}{\ohm} \approx \SI{0.08}{\ohm}
+	& \bar{R} = \frac{1}{n} \sum_{i=1}^{n} R_i = \SI{67.94}{\ohm} \\
+	& s = \sqrt{\frac{1}{n-1} \sum_{i=1}^n {(R_i - \bar{R})}^2} = \SI{0.08451}{\ohm} \approx \SI{0.08}{\ohm}
 \end{align}
 
 \reversemarginpar\marginnote{\textbf{(\ref{itm:P1-3})}}[5pt]
-Das erweiterte Unsicherheitsintervall berechnet sich nach~\cite[S.~10, Tabelle~1.1]{EMTPraktikum2025} zu
+Die zufällige Messunsicherheit berechnet sich nach~\cite[S.~9, Gl.~1.13]{EMTPraktikum2025} zu
 \[
 	u_{z} = t_{0} \frac{s}{\sqrt{n}} \, .
 \]
@@ -69,27 +69,27 @@ Für $n=5$ ergibt sich:
 \begin{itemize}
 	\item 68,26\% Vertrauensniveau ($t_{0}/\sqrt{n} = 0.51$):
 		\[
-			u_{z} = 0.51 \cdot \SI{0.08}{\ohm} \approx \SI{0.041}{\ohm},
+			\begin{aligned}
+				u_{z} &= 0.51 \cdot \SI{0.08}{\ohm} \approx \SI{0.041}{\ohm} \\
+				R &= \bar{R} \pm u_{z} = (67.94 \pm 0.04) \, \si{\ohm}
+			\end{aligned}
 		\]
-		also das Konfidenzintervall
-		\[
-			\bar{x} \pm u_{z} = (67.94 \pm 0.04) \, \si{\ohm}.
-		\]
+		also das Konfidenzintervall $[67.90; 67.98]\si{\ohm}$
 
 	\item 99,5\% Vertrauensniveau ($t_{0}/\sqrt{n} = 2.50$):
 		\[
-			u_{z} = 2.50 \cdot \SI{0.08}{\ohm} \approx \SI{0.175}{\ohm},
+			\begin{aligned}
+				u_{z} &= 2.50 \cdot \SI{0.08}{\ohm} \approx \SI{0.175}{\ohm} \\
+				R &= \bar{R} \pm u_{z} = (67.94 \pm 0.18) \, \si{\ohm}
+			\end{aligned}
 		\]
-		also das Konfidenzintervall
-		\[
-			\bar{x} \pm u_{z} = (67.94 \pm 0.18) \, \si{\ohm}.
-		\]
+		also das Konfidenzintervall $[67.76; 68.12]\si{\ohm}$
 \end{itemize}
 
 \reversemarginpar\marginnote{\textbf{(\ref{itm:P1-4})}}[5pt]
 Einflusses der unterschiedlichen Spannungsniveaus:
 
-Am Anfang des Strommessbereichs ist der relative Fehler am kleinsten (vgl. Messung~3).
+Am Anfang des Strommessbereichs ist der relative Fehler am kleinsten (vgl.~\autoref{tab:12-values}, Messung~3).
 Dies entspricht den Herstellerangaben zum Digitalmultimeter METEX~4600
 (vgl. \cite[S.~143]{EMTPraktikum2025}), wonach der Fehler als Prozentwert des Anzeigewerts
 angegeben wird. Bei kleinen Strömen (niedriges Spannungsniveau) ergibt sich daher die
