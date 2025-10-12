@@ -19,7 +19,7 @@
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
 		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
-		TDS2014C & Oszilloskop &  \\
+		TDS2014C & Oszilloskop & $Z_E = \SI{1}{\mega\ohm}||\SI{20}{\pico\farad}$ \\
 		Agilent 33250A & Funktionsgenerator &  \\
 	\end{tabularx}	
 \end{table}
@@ -34,7 +34,7 @@ Koaxialkabeln mit beiden Kanälen des Oszilloskops verbunden.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=7cm]{images/21_Aufbau.png}
-	\caption{Schaltplan des Versuchsaufbaus}
+	\caption{Schaltplan des Versuchsaufbaus}\label{fig:21-aufbau}
 \end{figure}
 
 Die Geräte werden folgdendermaßen konfiguriert:
@@ -54,6 +54,7 @@ Einstellungen des Funktionsgenerators:
 \begin{itemize}[noitemsep]
 	\item Frequenz: $\SI{50}{\hertz}$
 	\item Amplitude: $\SI{5}{\volt}_{PP}$
+	\item Wellenform: Rechteck
 \end{itemize}
 \end{minipage}
 
@@ -62,7 +63,7 @@ Am Bildschirm des Oszilloskops sind nun die beiden Rechtecksignale zu sehen.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=6cm]{images/21_AC-DC-oszillogramm.jpg}
+	\includegraphics[width=5.5cm]{images/21_AC-DC-oszillogramm.jpg}
 	\caption{Oszillogramm des Rechtecksignals beider Kanäle}
 \end{figure}
 
@@ -75,10 +76,10 @@ Rechtecksignal übernimmt, während der Kanal mit AC Kopplung das Signal verform
 \textbf{Im Zeitbereich} ist diese Verformung charakteristisch für die Entladekurve eines Kondensators,
 welcher sich in Serie zur Messspitze befindet, um Gleichspannungsanteile zu blockieren.
 
-\begin{wrapfigure}[7]{r}{8cm}
+\begin{wrapfigure}[7]{r}{7cm}
 	\centering
 	\vspace{-25pt}
-	\begin{circuitikz}[scale=0.9, transform shape]
+	\begin{circuitikz}[scale=0.8, transform shape]
 		\draw (0,0) node[anchor=east]{$U_\mathrm{E}$} to[C, l=$C_\mathrm{AC}$, o-*] ++(2,0) coordinate (k1)
 			to[R=$R_\mathrm{E}$] ++(0,-2) node[rground] {};
 		\draw (k1) -- ++(2,0) to[C=$C_\mathrm{E}$, color=lightgray] ++(0,-2) node[rground] {};
@@ -90,7 +91,8 @@ welcher sich in Serie zur Messspitze befindet, um Gleichspannungsanteile zu bloc
 Der Kondensator $C_\mathrm{AC}$ bildet zusammen mit der Eingangsimpedanz
 $R_\mathrm{E}||C_\mathrm{E}$ des Oszilloskops einen Hochpass erster Ordnung. Die
 Eingangsstufe des AC-gekoppelten Kanals kann somit durch folgende Schaltung
-beschrieben werden.
+beschrieben werden. Die geringe Kapazität $C_\mathrm{E}$ des Oszilloskopeingangs
+kann in diesem Frequenzbereich vernachlässigt werden.
 
 \textbf{Im Frequenzbereich} belegt ein Periodisches Rechtecksignal alle ungeraden
 Harmonischen seiner Grundfrequenz. Die Amplituden der Harmonischen nehmen mit
@@ -102,12 +104,12 @@ Verformung des Rechtecksignals bemerkbar.
 \begin{figure}[h]
 	\begin{minipage}[t]{.48\textwidth}
 		\centering
-		\includegraphics[height=4.1cm]{images/Spektrum-Squarewave.jpg}
+		\includegraphics[height=4cm]{images/Spektrum-Squarewave.jpg}
 		\caption{Spektrum eines Rechtecksignals}
 	\end{minipage}\hfill
 	\begin{minipage}[t]{.48\textwidth}
 		\centering
-		\includegraphics[height=4.1cm]{images/HochpassAbs.png}
+		\includegraphics[height=4cm]{images/HochpassAbs.png}
 		\caption{Betrag der Übertragungsfunktion des Hochpasses}
 	\end{minipage}
 \end{figure}
