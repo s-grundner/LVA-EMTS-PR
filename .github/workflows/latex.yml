@@ -83,4 +83,4 @@ jobs:
         # commit all PDFs in a single commit
         git add docs/*.pdf
         git commit -m "🤖 [ACTION] update LaTeX reports (${{ needs.generate_matrix.outputs.exercises_list }})"
-        git push -u origin pages
+        git push
