@@ -3,7 +3,7 @@
 
 \begin{highlightblock}[Messung Impedanzen, Drei-Voltmeter-Methode]
     Funktionsgenerator $20\mathrm{V_{SS}}$. $50\Omega$ Shuntwiderstand, 
-    \begin{enumerate}[label=\textbf{\alph*:}, ref=\alph*]
+    \begin{enumerate}[label=\textbf{\alph*:}, ref=\alph*, noitemsep]
         \item\label{itm:1-P4-1} Frequenz geeignet wählen.
         \item\label{itm:1-P4-2} Spannungsdreieck zeichnen. Daraus Betrag und Phase ablesen.
         \item\label{itm:1-P4-3} Ergebnis mit der Rechnung vergleichen.
@@ -16,10 +16,11 @@
 	\centering
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
-		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
-		&  &  \\
-		&  &  \\
-		&  &  \\
+		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
+        METEX M-4600 & Voltmeter & $U_R$ \\
+        METEX M-4630B & Voltmeter & $U_Z$  \\
+        Fluke 175 & Voltmeter & $U$ \\
+        Leistungswiderstand $\SI{50}{\ohm}$, Kondensator, Spule & Devices Under Test & Auf dem Steckbrett \\
 	\end{tabularx}	
 \end{table}
 
@@ -33,8 +34,19 @@ $Z$ ist hier entweder die zur verfügung gestellte Spule oder der Kondensator.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=7cm]{images/14_Aufbau.png}
-    \caption{Aufbau der Messung}\label{fig:14-aufbau}
+    \begin{circuitikz}[scale=0.77, transform shape]
+        \coordinate (IN) at (0,0);
+        \draw (IN) to[open, o-o, v=$\underline{U}$] ++(0,-3) coordinate (GND);
+        \draw (1,0) to[vmeter, *-*] ++(0,-3);
+        \draw (IN) -- ++(2,0) coordinate (k1)
+            to[R=$R$, v_=$\underline{U_R}$, *-*] ++(2,0) coordinate (k2)
+            -- ++(1,0) coordinate (k3)
+            to[vmeter, *-*] ++(0,-3);
+        \draw (k2) ++(1,0) -- ++(1.5,0)
+            to[generic, l_=$\underline{Z}$, v^=$\underline{U_Z}$] ++(0,-3) -- (GND);
+        \draw (k1) -- ++(0,-1.5) to[vmeter] ++(2,0) -- (k2);
+    \end{circuitikz}
+    \caption{Schaltung der Messung}
 \end{figure}
 
 \marginref{\ref{itm:1-P4-2}}
@@ -50,10 +62,9 @@ Für die drei Messgeräte ergeben sich folgende Einzelmesswerte:
     \end{tabularx}
 \end{table}
 
-\newpage
-
-Mit diesen Effektivwerten der Spannungen können nun die Spannungsdreiecke
-mit Lineal und Zirkel konstruiert werden, oder wie hier in GeoGebra:
+Mit den Effektivwerten der Spannungen in \autoref{tab:14-values}  können nun
+die Spannungsdreiecke mit Lineal und Zirkel konstruiert werden, oder wie hier
+in GeoGebra:
 
 \begin{figure}[h]
 \begin{minipage}[position]{0.48\textwidth}
@@ -68,15 +79,15 @@ mit Lineal und Zirkel konstruiert werden, oder wie hier in GeoGebra:
 \end{minipage}
 \end{figure}
 
-Formeln für Betrag und Phase der Impedanz~\cite[S.~21]{EMTPraktikum2025}:
-
+In die Formeln für Betrag und Phase der Impedanz~\cite[S.~21]{EMTPraktikum2025}
+werden die Messwerte aus \autoref{tab:14-values} eingesetzt:
 \[
     |Z| = \frac{U_C}{U_R/R} \qquad |\varphi_C| = \arccos\left(\frac{U^2-U_R^2-U_Z^2}{2U_Z U_R}\right)
 \]
 
-\begin{minipage}[t]{0.48\textwidth}
+Der Kosinussatz gibt keine Auskunft über das Vorzeichen des Winkels, es gilt jedoch stets $\varphi_C < 0$ für kapazitive und $\varphi_L > 0$ für induktive Lasten.
 
-    Da bekannt ist, dass die gemessene impedanz Kapazitiv ist, ist das Vorzeichen des Winkels negativ.
+\begin{minipage}[t]{0.48\textwidth}
 
     \[
         \begin{aligned}
@@ -84,11 +95,8 @@ Formeln für Betrag und Phase der Impedanz~\cite[S.~21]{EMTPraktikum2025}:
             \varphi_C & = \SI{-1.349}{\radian} = \SI{-77.3}{\degree}\\
         \end{aligned}
     \]
-
 \end{minipage}\hfill
 \begin{minipage}[t]{0.48\textwidth}
-
-    Da bekannt ist, dass die gemessene impedanz Induktiv ist, ist das Vorzeichen des Winkels positiv.
 
     \[
         \begin{aligned}
@@ -96,7 +104,6 @@ Formeln für Betrag und Phase der Impedanz~\cite[S.~21]{EMTPraktikum2025}:
             \varphi_L &= \SI{1.431}{\radian} = \SI{82.0}{\degree} \\
         \end{aligned}
     \]
-
 \end{minipage}
 
 \marginref{\ref{itm:1-P4-3}}
@@ -104,6 +111,7 @@ Um die einzelnen Werte der Komponenten zu erhalten, werden die Impedanzen in in
 Real- und Imaginärteil zerlegt: $Z = R + \jmath X$
 
 \begin{minipage}[position]{0.48\textwidth}
+
     \[
         \begin{aligned}
             R_C &= |Z_C| \cdot \cos(\varphi_C) = \SI{1.029}{\ohm} \\
@@ -112,6 +120,7 @@ Real- und Imaginärteil zerlegt: $Z = R + \jmath X$
     \]
 \end{minipage}\hfill
 \begin{minipage}[position]{0.48\textwidth}
+
     \[
         \begin{aligned}
             R_L &= |Z_L| \cdot \cos(\varphi_L) = \SI{15.62}{\ohm} \\
@@ -127,7 +136,7 @@ Umrechnen in Kapazität und Induktivität und den äquivalenten Serienwiderstand
     \[
         \begin{aligned}
             C &= -\frac{1}{2\pi f X_C} = \SI{35.1}{\micro\farad} \\
-            R_{\mathrm{ESR}} &= R_C = \SI{1.029}{\ohm}
+            R_{\mathrm{ESR}} &= R_C = \SI{1.03}{\ohm}
         \end{aligned}
     \]
 \end{minipage}\hfill
