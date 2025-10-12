@@ -64,7 +64,6 @@ jobs:
         # configure git
         git config user.name "s-grundner"
         git config user.email "s-grundner@users.noreply.github.com"
-        git switch pages
         
         # create docs directory
         mkdir -p docs
