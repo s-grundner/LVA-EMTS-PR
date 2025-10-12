@@ -1,6 +1,6 @@
 %%% logischer Schalter 0=dvi, 1=pdf definieren
 %%% notwendig, da 'pdftricks' fragil
-\ifpdfoutput{
+\Ifpdfoutput{
 	\def\pdfout{1}
 }{
 	\def\pdfout{0}
@@ -71,7 +71,7 @@ footskip=10mm,
 driver=auto]{geometry}
 
 %%% for graphics and colours
-\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[dvipsnames]{xcolor}
 \GetGinDriver                                   % verwendeten Treiber erkennen (dvips/pdftex)
 \usepackage[\GinDriver]{graphicx}
 
