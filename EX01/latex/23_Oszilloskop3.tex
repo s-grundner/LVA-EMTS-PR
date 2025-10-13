@@ -1,13 +1,10 @@
-\subsection{Name des Aufbaus}\label{sec:2-3}
+\subsection{Eingangsimpedanz bei AC-Kopplung}\label{sec:2-3}
 
 \begin{highlightblock}[Kurze Beschreibung des Aufbaus]
-	Todo liste
-	\begin{enumerate}[label=\textbf{\alph*:}, ref=\alph*]
-		\item\label{itm:2-P3-1}
-		\item\label{itm:2-P3-2}
-		\item\label{itm:2-P3-3}
-	\end{enumerate}
-	
+	Rechnerische Ermittlung des Betrages der gesamten Eingangsimpedanz des verwendeten
+	Oszilloskops mit angeschlossenem Kabel und AC–Kopplung für eine Kabelkapazität von
+	$C_K = \SI{100}{\pico\farad}$ und eine Frequenz von $f = \SI{1}{\mega\hertz}$.
+
 \end{highlightblock}
 
 \subsubsection{Verwendetes Material}
@@ -16,17 +13,57 @@
 	\centering
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
-		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
-		&  &  \\
-		&  &  \\
-		&  &  \\
-	\end{tabularx}	
+		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen}                            \\ \midrule
+		TDS2014C           & Oszilloskop         & $Z_E = \SI{1}{\mega\ohm}||\SI{20}{\pico\farad}$ \\
+		Agilent 33250A     & Funktionsgenerator  &                                                 \\
+	\end{tabularx}
 \end{table}
 
 \subsubsection{Versuchsaufbau}
 
-\marginref{\ref{itm:2-P3-1}}
-\marginref{\ref{itm:2-P3-2}}
-\marginref{\ref{itm:2-P3-3}}
+\begin{minipage}[c]{0.38\textwidth}
+	\raggedleft
+	\captionsetup{justification=raggedleft, singlelinecheck=false, margin=10pt}
+	\begin{circuitikz}[scale=0.96, transform shape]
+		% Eingangsspannung
+		\draw (0,0) node[ocirc]{}
+		(0,3) node[ocirc]{};
+		\draw[<-] (0,0.3) -- (0,2.7) node[midway,left]{$U_E$};
 
-\subsubsection{Erkenntnisse}
+		% Bauteile
+		\draw (1.5,0) to[C, l=$C_K$]   (1.5,3) coordinate (k1);
+		\draw (1.5,3) to[C, l=$C_{AC}$] (4,3) coordinate (k2);
+		\draw (4,0) to[C, l=$C_E$]   (4,3) coordinate (k3);
+		\draw (5.5,0) to[R, l=$R_E$]   (5.5,3) coordinate (k4);
+
+		% Kabel 
+		\draw (0,0) -- (5.5,0);
+		\draw (0,3) -- (1.5,3);
+		\draw (4,3) -- (5.5,3);
+	\end{circuitikz}
+	\captionof{figure}{Eingangsimpedanz des Oszilloskops bei AC-Kopplung}\label{fig:impedanz-oszi-ac-kopplung}
+\end{minipage}
+
+\subsubsection{Berechnung}
+
+\begin{gather}
+	R_E=\SI{1}{\mega\ohm},\quad
+	C_E=\SI{20}{\pico\farad},\quad
+	C_k=\SI{100}{\pico\farad},\quad
+	C_{AC}=\SI{22.7}{\nano\farad},\quad
+	\omega=2\pi\cdot \SI{1}{\mega\hertz}.
+\end{gather}
+
+
+\begin{align}
+	Z_E              & = jX_k \parallel \bigl(jX_{AC} + (jX_{E} \parallel R_E)\bigr)        \\
+	                 & = \frac{ 1 + \mathrm{j}\,\omega\!\bigl(R_E C_{E} + R_E C_{AC}\bigr)}
+	{\omega^2 R_E\!\bigl(-C_E C_k - C_{AC} C_k - C_E C_{AC}\bigr)
+	+ \mathrm{j}\,\omega\!\bigl(C_k + C_{AC}\bigr)}                                         \\[4pt]
+	\lvert Z_E\rvert & =
+	\frac{\sqrt{\,1 + \bigl(\omega R_E (C_{E}+C_{AC})\bigr)^2\,}}
+	{\omega\,\sqrt{\,\bigl(\omega R_E (C_E C_k + C_{AC} C_k + C_E C_{AC})\bigr)^2
+	+ (C_k + C_{AC})^2\,}}                                                                  \\[4pt]
+	                 & \approx \SI{1326.5}{\ohm}.
+\end{align}
+
