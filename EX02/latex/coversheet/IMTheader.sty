@@ -1,0 +1,124 @@
+%%% logischer Schalter 0=dvi, 1=pdf definieren
+%%% notwendig, da 'pdftricks' fragil
+\Ifpdfoutput{
+	\def\pdfout{1}
+}{
+	\def\pdfout{0}
+}
+
+%%% Abs?tze bei tieferen Ebenen einschalten
+\makeatletter %% Sonderbedeutung von @ aufheben
+\renewcommand{\paragraph}{\@startsection
+	{paragraph} % name
+	{4} % ebene
+	{0mm} % einzug
+	{-\baselineskip} % vorabstand
+	{0.1\baselineskip} % nachabstand
+	{\normalfont\normalsize\bfseries}} % stil
+\makeatother %% Sonderbedeutung von @ wieder
+
+\makeatletter %% Sonderbedeutung von @ aufheben
+\renewcommand{\subparagraph}{\@startsection
+	{subparagraph} % name
+	{5} % ebene
+	{0mm} % einzug
+	{-\baselineskip} % vorabstand
+	{0.1\baselineskip} % nachabstand
+	{\normalfont\normalsize\bfseries}} % stil
+\makeatother %% Sonderbedeutung von @ wieder
+
+\makeatletter
+\renewcommand*\itemize{%
+	\ifnum \@itemdepth >\thr@@\@toodeep\else
+	\advance\@itemdepth\@ne
+	\edef\@itemitem{labelitem\romannumeral\the\@itemdepth}%
+	\expandafter
+	\list
+	\csname\@itemitem\endcsname
+	{\def\makelabel##1{\hss\llap{##1}}%
+		\setlength{\itemsep}{0pt}%
+		\setlength{\parsep}{0pt}}%
+	\fi}
+\makeatother
+
+
+% Sprache
+\usepackage[ngerman]{babel}
+\usepackage{scrlfile}
+\ReplacePackage{scrpage2}{scrlayer-scrpage}
+% Eingabe von Umlauten
+\usepackage[latin1]{inputenc}
+% Verwenden von T1 Fonts
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+
+%%% 1.5x line spacing
+\usepackage{setspace}
+\onehalfspacing
+
+%%% fill pages by expanding spaces between paragraphs
+\flushbottom
+
+%%% change page settings
+\usepackage[
+left=30mm,
+right=18mm,
+top=30mm,
+bottom=25mm,
+headsep=9mm,
+headheight=15mm,
+footskip=10mm,
+driver=auto]{geometry}
+
+%%% for graphics and colours
+\usepackage[dvipsnames]{xcolor}
+\GetGinDriver                                   % verwendeten Treiber erkennen (dvips/pdftex)
+\usepackage[\GinDriver]{graphicx}
+
+%%% Abst?nde von float-Umgebungen
+\setlength{\textfloatsep}{15pt plus5pt minus5pt}
+\setlength{\intextsep}{15pt plus5pt minus5pt}
+
+% Abs?tze nicht einr?cken
+\setlength{\parindent}{0pt}
+
+%%% Fallunterscheidungen erm?glichen
+\usepackage{ifthen}
+
+%%% Kopfzeile
+\usepackage[automark]{scrpage2}
+\automark[section]{chapter}
+
+%%% Schriftarten
+\addtokomafont{chapter}{\sffamily}
+\addtokomafont{sectioning}{\sffamily}
+\addtokomafont{caption}{\small}
+
+%% Gliederung TOC und Nummerierungstiefe
+%\setcounter{tocdepth}{\subsubsectionlevel}
+%\setcounter{secnumdepth}{\paragraphlevel}
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{2}
+
+% references
+\usepackage[english]{varioref}
+
+% URLs
+\usepackage[obeyspaces]{url}
+
+%%% Schusterjungen und Hurenkinder
+\clubpenalty = 10000
+\widowpenalty = 10000
+\displaywidowpenalty = 10000
+
+%%% index erzeugen
+\usepackage{makeidx}
+\renewcommand*{\indexpagestyle}{scrheadings}
+\makeindex
+
+%%% Symbolverzeichnis erzeugen
+\usepackage{nomencl}
+\setlength{\nomlabelwidth}{.20\hsize}
+\renewcommand{\nomlabel}[1]{#1 \dotfill}
+\makenomenclature
+
