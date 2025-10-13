@@ -1,7 +1,7 @@
 \subsection{Eingangsimpedanz bei AC-Kopplung}\label{sec:2-3}
 
 \begin{highlightblock}[Kurze Beschreibung des Aufbaus]
-	Rechnerische Ermittlung des Betrages der gesamten Eingangsimpedanz des verwendeten
+	Rechnerische Ermittlung des Betrages der gesamten Eingangsimpedanz (Abb.~\ref{fig:impedanz-oszi-ac-kopplung}) des verwendeten
 	Oszilloskops mit angeschlossenem Kabel und AC–Kopplung für eine Kabelkapazität von
 	$C_K = \SI{100}{\pico\farad}$ und eine Frequenz von $f = \SI{1}{\mega\hertz}$.
 
@@ -13,9 +13,9 @@
 	\centering
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
-		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen}                            \\ \midrule
-		TDS2014C           & Oszilloskop         & $Z_E = \SI{1}{\mega\ohm}||\SI{20}{\pico\farad}$ \\
-		Agilent 33250A     & Funktionsgenerator  &                                                 \\
+		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen}                                \\ \midrule
+		TDS2014C           & Oszilloskop         & $Z_E = \SI{1}{\mega\ohm}\,||\,\SI{20}{\pico\farad}$ \\
+		Agilent 33250A     & Funktionsgenerator  &                                                     \\
 	\end{tabularx}
 \end{table}
 
@@ -64,6 +64,6 @@
 	\frac{\sqrt{\,1 + \bigl(\omega R_E (C_{E}+C_{AC})\bigr)^2\,}}
 	{\omega\,\sqrt{\,\bigl(\omega R_E (C_E C_k + C_{AC} C_k + C_E C_{AC})\bigr)^2
 	+ (C_k + C_{AC})^2\,}}                                                                  \\[4pt]
-	                 & \approx \SI{1326.5}{\ohm}.
+	                 & \approx \SI{1326.5}{\ohm}. \label{eq:eingangswiderstand_oszi}
 \end{align}
 
