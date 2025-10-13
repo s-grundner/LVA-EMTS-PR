@@ -1,8 +1,5 @@
 name: Build LaTeX documents
-on:
-  push:
-    branches:
-      - '*'
+on: workflow_dispatch
 
 permissions:
   contents: write
