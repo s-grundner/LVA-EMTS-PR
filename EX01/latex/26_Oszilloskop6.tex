@@ -1,14 +1,14 @@
-\newpage
 \subsection{Name des Aufbaus}\label{sec:2-6}
 
-\begin{highlightblock}[Kurze Beschreibung des Aufbaus]
-	Todo liste
+\begin{highlightblock}[Strom- und Spannungsverlauf an der Spule]
+	Untersuchung des Strom- und Spannungsverlaufs einer Spule mit offenem bzw. geschlossenem Eisenkern.
 	\begin{enumerate}[label=\textbf{\alph*:}, ref=\alph*]
-		\item\label{itm:2-P6-1}
-		\item\label{itm:2-P6-2}
-		\item\label{itm:2-P6-3}
+		\item\label{itm:2-P6-1} Strommessung über $\SI{50}{\ohm}$ Serienwiderstand mit Funktionsgenerator.
+		\item\label{itm:2-P6-2} Frequenz variieren und Auswirkungen kommentieren.
+		\item\label{itm:2-P6-3} Phasenwinkel zwischen Strom und Spannung messen (beide Methoden aus Abs.~1.5.4).
+		\item\label{itm:2-P6-4} Spule mit Eisenkern schließen und Veränderungen beobachten.
+		\item\label{itm:2-P6-5} Serienersatzschaltung $R_S + L_S$ berechnen.
 	\end{enumerate}
-
 \end{highlightblock}
 
 \subsubsection{Verwendetes Material}
@@ -17,14 +17,20 @@
 	\centering
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
-		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen} \\ \midrule
-		                   &                     &                      \\
-		                   &                     &                      \\
-		                   &                     &                      \\
+		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen}                                \\ \midrule
+		TDS2014C           & Oszilloskop         & $Z_E = \SI{1}{\mega\ohm}\,||\,\SI{20}{\pico\farad}$ \\
 	\end{tabularx}
 \end{table}
 
 \subsubsection{Versuchsaufbau}
+
+\begin{figure}[h]
+	\begin{minipage}[t]{.98\textwidth}
+		\centering
+		\includegraphics[height=4cm]{images/Schaltung-induktivitaet-phasenellipse.png}
+		\caption{Abgleich eines Tastkopfes am Oszilloskop mittels Testsignal}\label{fig:schaltung-induktivitaet-phasenellipse.png}
+	\end{minipage}\hfill
+\end{figure}
 
 \begin{gather}
 	U_{PP}/2=\SI{2.5}{\volt}
@@ -34,8 +40,26 @@
 \end{gather}
 
 \marginref{\ref{itm:2-P6-1}}
+strom messung
 \marginref{\ref{itm:2-P6-2}}
+\begin{figure}[h]
+	\begin{minipage}[t]{.48\textwidth}
+		\centering
+		\includegraphics[height=4cm]{images/25_L-Eisenkern-offen-500Hz.JPEG}
+    \caption{Spule Eisenkern offen $\SI{500}{\hertz}$}\label{fig:L-Eisenkern-offen-500Hz}
+	\end{minipage}\hfill
+	\begin{minipage}[t]{.48\textwidth}
+		\centering
+    \includegraphics[height=4cm]{images/25_L-Eisenkern-offen-1kHz.JPEG}
+    \caption{Spule Eisenkern offen $\SI{1}{\kilo\hertz}$}\label{fig:L-Eisenkern-offen-1kHz}
+	\end{minipage}
+\end{figure}
+
+
+
 \marginref{\ref{itm:2-P6-3}}
+\marginref{\ref{itm:2-P6-4}}
+\marginref{\ref{itm:2-P6-5}}
 
 \subsubsection{Erkenntnisse}
 
