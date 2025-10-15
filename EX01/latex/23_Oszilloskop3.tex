@@ -7,56 +7,65 @@
 
 \end{highlightblock}
 
-\subsubsection{Versuchsaufbau}
+\subsubsection{Verwendetes Material}
 
-\begin{figure}[h]
-	\begin{minipage}[c]{0.48\textwidth}
-		\centering{}
-		\begin{circuitikz}[scale=0.96, transform shape]
-			% Eingangsspannung
-			\draw (0,0) node[ocirc]{}
-			(0,3) node[ocirc]{};
-			\draw[<-] (0,0.3) -- (0,2.7) node[midway,left]{$U_E$};
-
-			% Bauteile
-			\draw (1.5,0) to[C, l=$C_K$]   (1.5,3) coordinate (k1);
-			\draw (1.5,3) to[C, l=$C_{AC}$] (4,3) coordinate (k2);
-			\draw (4,0) to[C, l=$C_E$]   (4,3) coordinate (k3);
-			\draw (5.5,0) to[R, l=$R_E$]   (5.5,3) coordinate (k4);
-
-			% Kabel 
-			\draw (0,0) -- (5.5,0);
-			\draw (0,3) -- (1.5,3);
-			\draw (4,3) -- (5.5,3);
-		\end{circuitikz}
-		\captionof{figure}{Eingangsimpedanz des Oszilloskops bei AC-Kopplung}\label{fig:impedanz-oszi-ac-kopplung}
-	\end{minipage}
-	\begin{minipage}[c]{.48\textwidth}
-		\raggedleft
-		\begin{align*}
-			R_E=\SI{1}{\mega\ohm}                & \\
-			C_E=\SI{20}{\pico\farad}             & \\
-			C_k=\SI{100}{\pico\farad}            & \\
-			C_{AC}=\SI{22.7}{\nano\farad}        & \\
-			\omega=2\pi\cdot \SI{1}{\mega\hertz} & \\
-		\end{align*}
-	\end{minipage}
-\end{figure}
-
-
-
+\begin{table}[h]
+	\centering
+	\caption{Verwendetes Material}
+	\begin{tabularx}{\textwidth}{XXX}
+		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen}                                \\ \midrule
+		TDS2014C           & Oszilloskop         & $Z_E = \SI{1}{\mega\ohm}\,||\,\SI{20}{\pico\farad}$ \\
+		Agilent 33250A     & Funktionsgenerator  &                                                     \\
+	\end{tabularx}
+\end{table}
 
 \subsubsection{Berechnung}
 
+\begin{wrapfigure}[6]{r}{0.4\textwidth}
+	\vspace{-32pt}\centering
+	\begin{circuitikz}[scale=1.1]
+		\ctikzset{bipoles/length=1cm}
+		\draw (0,2) to[open, v=$U_E$, o-o] (0,0);
+		\draw (0,2)
+			-- ++(1,0) coordinate (k1)
+			to[C, l=$C_{AC}$] ++(2,0) coordinate (k2)
+			-- ++(1,0)
+			to[R, l=$R_E$] ++(0,-2)
+			-- (0,0); 
+		\draw (k1) to[C, l=$C_K$, *-*] ++(0,-2);
+		\draw (k2) to[C, l=$C_E$, *-*] ++(0,-2);
+	\end{circuitikz}
+	\caption{Eingangsimpedanz des Oszilloskopes bei AC-Kopplung}\label{fig:impedanz-oszi-ac-kopplung}
+\end{wrapfigure}
+
+Zur Berechnung der Gesamt-Eingangsimpedanz $Z$ betrachtet man das Ersatzbild in \autoref{fig:impedanz-oszi-ac-kopplung}. $C_{AC}$ ist der errechnete Wert aus \autoref{sec:2-3} \autoref{itm:2-P2-3}
+\begin{itemize}[noitemsep]
+	\item $R_E =\SI{1}{\mega\ohm}$
+	\item $C_E =\SI{20}{\pico\farad}, C_K=\SI{100}{\pico\farad}, C_{AC}=\SI{22.7}{\nano\farad}$
+	\item $\omega =2\pi\cdot \SI{1}{\mega\hertz}$
+\end{itemize}
+
+Es ergibt sich für die Gesamteingangsimpedanz $Z$ der Ausdruck:
 \begin{align}
-	Z_E              & = jX_k \parallel \bigl(jX_{AC} + (jX_{E} \parallel R_E)\bigr) \\
-	%                  & = \frac{ 1 + \mathrm{j}\,\omega\!\bigl(R_E C_{E} + R_E C_{AC}\bigr)}
-	% {\omega^2 R_E\!\bigl(-C_E C_k - C_{AC} C_k - C_E C_{AC}\bigr)
-	% + \mathrm{j}\,\omega\!\bigl(C_k + C_{AC}\bigr)}                                         \\[4pt]
-	\lvert Z_E\rvert & =
-	\frac{\sqrt{\,1 + \bigl(\omega R_E (C_{E}+C_{AC})\bigr)^2\,}}
-	{\omega\,\sqrt{\,\bigl(\omega R_E (C_E C_k + C_{AC} C_k + C_E C_{AC})\bigr)^2
-	+ (C_k + C_{AC})^2\,}}                                                           \\[4pt]
-	                 & \approx \SI{1326.5}{\ohm}. \label{eq:eingangswiderstand_oszi}
+	Z &= \jmath X_K \parallel \bigl(\jmath X_{AC} + (\jmath X_{E} \parallel R_E)\bigr)\\
+	&= \frac{
+		1 + \jmath\omega R_E\bigl(C_{E} + C_{AC}\bigr)
+	}{
+		\omega^2 R_E\bigl(-C_E C_K - C_{AC} C_K - C_E C_{AC}\bigr) +
+		\jmath \omega\bigl(C_K + C_{AC}\bigr)
+	}
+\label{eq:eingangswiderstand_oszi}
 \end{align}
+
+Ergebnis für eingesetzte Bauteilwerte:
+\[
+Z = (1.76-\jmath 1326.48)\si{\ohm} 
+  = \SI{1326.48}{\ohm} \angle \SI{-89.92}{\degree}
+  \implies |Z| \approx \SI{1346.5}{\ohm}
+\]
+
+\subsubsection{Erkenntnisse}
+
+Die Eingangsimpedanz ist beinahe nur kapazitiv, da der Winkel $\approx \SI{90}{\degree}$ ist. Da jedoch die Impedanz abhängig von $\omega$ ist, würde das Oszilloskop für jede gemessene Frequenz eine unterschiedliche Eingangsimpedanz aufweisen.
+
 
