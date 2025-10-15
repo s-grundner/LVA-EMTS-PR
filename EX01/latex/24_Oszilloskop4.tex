@@ -75,10 +75,10 @@ Aufgestellt werden (wobei $X = 1/\jmath\omega C$).
 	& Z_{ges} = (17.5905 - \jmath13262.9)\si{\ohm} = \SI{13262.9}{\ohm}\angle \SI{-89.9}{\degree} \implies |Z_\mathrm{ges}| = \SI{13262.9}{\ohm}
 	\label{eq:eingangswiderstand_oszi_mit_taskopf}
 \end{align}
-Hier ist gezeigt, wie sich die Kompensation auf das Eingangs
-Spannungsverhältnis $|\tilde{Z}_E/Z_\mathrm{ges}|(\jmath\omega)$ auswirkt. Für
-die Plots wurde der $C_T$ Wert bei Überkompensation etwas vermindert und bei
-Unterkompensation erhöht.
+Hier ist gezeigt, wie sich die Kompensation auf das Spannungsteilerverhältnis
+$|\tilde{Z}_E/Z_\mathrm{ges}|(\jmath\omega)$ auswirkt. Für die Plots wurde der
+$C_T$ Wert bei Überkompensation etwas vermindert und bei Unterkompensation
+erhöht.
 \begin{figure}[h]
 	\begin{minipage}{0.32\textwidth}
 		\includegraphics[width=\textwidth]{images/24-richtig.png}
@@ -95,7 +95,9 @@ Unterkompensation erhöht.
 \end{figure}
 
 \subsubsection{Erkenntnisse}
-Es ist zu erkennen, dass das Spannungsteilerverhältnis am Eingang über das
-gesamte Spektrum konstan ist, und somit alle Frequenzen ohne Verzerrung
-gemessen werden können. Für eine Beschaltung ohne Tastkopf wie in
-\autoref{fig:impedanz-oszi-ac-kopplung} ist das nicht der Fall.
+Die Gesamtimpedanz ist hier sehr viel höher, wodurch die Messschaltung nicht
+mehr so stark belastet wird. Es ist auch zu erkennen, dass das
+Spannungsteilerverhältnis am Eingang über das gesamte Spektrum konstant ist, und
+somit alle Frequenzen ohne Verzerrung gemessen werden können. Für eine
+Beschaltung ohne Tastkopf wie in \autoref{fig:impedanz-oszi-ac-kopplung} ist
+das nicht der Fall.

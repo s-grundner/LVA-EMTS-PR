@@ -1,7 +1,9 @@
 \subsection{U-I-Kennlinien einer Silizium- und Zenerdiode}\label{sec:2-5}
 
 \begin{highlightblock}[U-I-Kennlinien einer Silizium- und Zenerdiode]
-	Es geht um die UI-Kennlinie von einer Silizium- und einer Zenerdiode. Gemessen wird diese mit der schaltung in Abbildung~\ref{fig:schaltung-dioden-kennlinie.png}
+	Es geht um die UI-Kennlinie von einer Silizium- und einer Zenerdiode.
+	Gemessen wird diese mit der Schaltung in
+	\autoref{fig:schaltung-dioden-kennlinie.png}
 	\begin{enumerate}[label=\textbf{\alph*:}, ref=\alph*, noitemsep]
 		\item\label{itm:2-P5-1} Dimensionieren der Messspannungen und Vorwiderstände
 		\item\label{itm:2-P5-2} UI-Kennlinie inklusive Spannungs- und Strommaßstab des Schirmbildes.
@@ -27,19 +29,20 @@
 
 \subsubsection{Versuchsaufbau}
 
+Um über die Masse des Oszilloskopes keinen Kurzschluss über die Erde zur
+verursachen wird ein Trenntransformator verwendet.
+
 \begin{figure}[h]
-	\begin{minipage}[t]{.98\textwidth}
-		\centering
-		\includegraphics[height=4cm]{images/25-Schaltung-dioden-kennlinie.png}
-		\caption{U-I-Kennlinien-Messung einer Diode mit Oszilloskop im XY-Betrieb}\label{fig:schaltung-dioden-kennlinie.png}
-	\end{minipage}\hfill
+	\centering
+	\includegraphics[height=3.3cm]{images/25-Schaltung-dioden-kennlinie.png}
+	\caption{U-I-Kennlinien-Messung einer Diode mit Oszilloskop im XY-Betrieb}\label{fig:schaltung-dioden-kennlinie.png}
 \end{figure}
 
 
 \marginref{\ref{itm:2-P5-1}} 
 \textbf{Dimensionierung:}
 Der Strom darf laut \cite[S.~146, Tbl.~A.6]{EMTPraktikum2025}
-$\SI{100}{\milli\ampere}$ nicht überschreiten. Daher wurde zunächst die
+\SI{100}{\milli\ampere} nicht überschreiten. Daher wurde zunächst die
 Spannung auf $U_{PP}=\SI{10}{\volt}$ fixiert und der Vorwiderstand auf einen
 Strom von \SI{20}{\milli\ampere} dimensioniert:
 \[
@@ -58,12 +61,12 @@ den Vorwiderstand auf einen Strom umgerechnet.
 \begin{figure}[h]
 	\begin{minipage}[t]{.48\textwidth}
 		\centering
-		\includegraphics[height=4cm]{images/24_Si-Diode.JPEG}
+		\includegraphics[height=3.6cm]{images/24_Si-Diode.JPEG}
 		\caption{UI-Kennlinie SI-Diode 1N4148}\label{fig:ui-kennlinie-si-diode}
 	\end{minipage}\hfill
 	\begin{minipage}[t]{.48\textwidth}
 		\centering
-		\includegraphics[height=4cm]{images/24_Zener-Diode.JPEG}
+		\includegraphics[height=3.6cm]{images/24_Zener-Diode.JPEG}
 		\caption{UI-Kennlinie Zener-Diode}\label{fig:ui-kennlinie-zener-diode}
 	\end{minipage}
 \end{figure}
