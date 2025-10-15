@@ -2,14 +2,14 @@
 \subsection{AC-DC Kopplung}\label{sec:2-1}
 
 \begin{highlightblock}[Darstellung eines Rechtecksignals mit AC-DC Kopplung]
-	Hier wird die AC- und DC-Kopplung des Oszilloskops verglichen, indem ein Rechtecksignal 
+	Hier wird die AC- und DC-Kopplung des Oszilloskops verglichen, indem ein Rechtecksignal
 	auf zwei Kanäle mit den unterschiedlichen Kopplungsarten aufgeschalten wird.
 	\begin{enumerate}[label=\textbf{\alph*:}, ref=\alph*, noitemsep]
 		\item\label{itm:2-P1-1} Kanal 1 auf DC- und Kanal 2 auf AC-Kopplung einstellen.
 		\item\label{itm:2-P1-2} Rechtecksignal mit $\SI{50}{\hertz}$ und $\SI{5}{\volt}_{PP}$ Amplitude ohne DC-offset aufschalten.
 		\item\label{itm:2-P1-3} Kurvenformen vergleichen. Signale im Zeit- und Frequenzbereich analysieren.
 	\end{enumerate}
-	
+
 \end{highlightblock}
 
 \subsubsection{Verwendetes Material}
@@ -18,10 +18,10 @@
 	\centering
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
-		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
-		TDS2014C & Oszilloskop & $Z_E = \SI{1}{\mega\ohm}||\SI{20}{\pico\farad}$ \\
-		Agilent 33250A & Funktionsgenerator &  \\
-	\end{tabularx}	
+		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen}                            \\ \midrule
+		TDS2014C           & Oszilloskop         & $Z_E = \SI{1}{\mega\ohm}||\SI{20}{\pico\farad}$ \\
+		Agilent 33250A     & Funktionsgenerator  &                                                 \\
+	\end{tabularx}
 \end{table}
 
 \subsubsection{Versuchsaufbau}
@@ -40,31 +40,30 @@ Koaxialkabeln mit beiden Kanälen des Oszilloskops verbunden.
 Die Geräte werden folgdendermaßen konfiguriert:
 
 \begin{minipage}[t]{.48\textwidth}
-Einstellungen des Oszilloskops:
+	Einstellungen des Oszilloskops:
 
-\begin{itemize}[noitemsep]
-	\item Kanal 1 (DC): $\SI{2}{\volt}/\text{Div}$, $\SI{2.50}{\ms}/\text{Div}$
-	\item Kanal 2 (AC): $\SI{2}{\volt}/\text{Div}$, $\SI{2.50}{\ms}/\text{Div}$
-	\item Trigger: Kanal 1, falling edge
-\end{itemize}
+	\begin{itemize}[noitemsep]
+		\item Kanal 1 (DC): $\SI{2}{\volt}/\text{Div}$, $\SI{2.50}{\ms}/\text{Div}$
+		\item Kanal 2 (AC): $\SI{2}{\volt}/\text{Div}$, $\SI{2.50}{\ms}/\text{Div}$
+		\item Trigger: Kanal 1, falling edge
+	\end{itemize}
 \end{minipage}\hfill
 \begin{minipage}[t]{.48\textwidth}
-Einstellungen des Funktionsgenerators:
+	Einstellungen des Funktionsgenerators:
 
-\begin{itemize}[noitemsep]
-	\item Frequenz: $\SI{50}{\hertz}$
-	\item Amplitude: $\SI{5}{\volt}_{PP}$
-	\item Wellenform: Rechteck
-\end{itemize}
+	\begin{itemize}[noitemsep]
+		\item Frequenz: $\SI{50}{\hertz}$
+		\item Amplitude: $\SI{5}{\volt}_{PP}$
+		\item Wellenform: Rechteck
+	\end{itemize}
 \end{minipage}
 
-\newpage
-Am Bildschirm des Oszilloskops sind nun die beiden Rechtecksignale zu sehen. 
+Am Bildschirm des Oszilloskops (Abb.~\ref{fig:oszi-recktecksignal-beider-kanaele}) sind nun die beiden Rechtecksignale zu sehen.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=5.5cm]{images/21_AC-DC-oszillogramm.jpg}
-	\caption{Oszillogramm des Rechtecksignals beider Kanäle}
+	\caption{Oszillogramm des Rechtecksignals beider Kanäle}\label{fig:oszi-recktecksignal-beider-kanaele}
 \end{figure}
 
 \subsubsection{Erkenntnisse}
@@ -81,9 +80,9 @@ welcher sich in Serie zur Messspitze befindet, um Gleichspannungsanteile zu bloc
 	\vspace{-25pt}
 	\begin{circuitikz}[scale=0.8, transform shape]
 		\draw (0,0) node[anchor=east]{$U_\mathrm{E}$} to[C, l=$C_\mathrm{AC}$, o-*] ++(2,0) coordinate (k1)
-			to[R=$R_\mathrm{E}$] ++(0,-2) node[rground] {};
+		to[R=$R_\mathrm{E}$] ++(0,-2) node[rground] {};
 		\draw (k1) -- ++(2,0) to[C=$C_\mathrm{E}$, color=lightgray] ++(0,-2) node[rground] {};
-		\draw (k1) ++(2,0) to[short, *-o] ++(2,0) node[anchor=west]{$U_\mathrm{A}$}; 
+		\draw (k1) ++(2,0) to[short, *-o] ++(2,0) node[anchor=west]{$U_\mathrm{A}$};
 	\end{circuitikz}
 	\caption{Eingangsstufe eines AC-gekoppelten Kanals}
 \end{wrapfigure}

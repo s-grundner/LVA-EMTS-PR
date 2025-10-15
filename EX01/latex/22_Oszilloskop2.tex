@@ -1,4 +1,3 @@
-\newpage
 \subsection{Grenzfrequenz des Hochpasses}\label{sec:2-2}
 
 \begin{highlightblock}[Grenzfrequenz des Hochpasses der AC-Kopplung]
@@ -18,10 +17,10 @@
 	\centering
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
-		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
-		TDS2014C & Oszilloskop & $Z_E = \SI{1}{\mega\ohm}||\SI{20}{\pico\farad}$ \\
-		Agilent 33250A & Funktionsgenerator & \\
-	\end{tabularx}	
+		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen}                            \\ \midrule
+		TDS2014C           & Oszilloskop         & $Z_E = \SI{1}{\mega\ohm}||\SI{20}{\pico\farad}$ \\
+		Agilent 33250A     & Funktionsgenerator  &                                                 \\
+	\end{tabularx}
 \end{table}
 
 \subsubsection{Versuchsaufbau}
@@ -30,22 +29,22 @@
 Die Verdrahtung ist gleich wie in \autoref{fig:21-aufbau}, mit den folgenden
 Geräteeinstellungen:
 \begin{minipage}[t]{.48\textwidth}
-Einstellungen des Oszilloskops:
+	Einstellungen des Oszilloskops:
 
-\begin{itemize}[noitemsep]
-	\item Kanal 1 (DC): $\SI{2}{\volt}/\text{Div}$, $\SI{2.50}{\ms}/\text{Div}$
-	\item Kanal 2 (AC): $\SI{2}{\volt}/\text{Div}$, $\SI{2.50}{\ms}/\text{Div}$
-	\item Trigger: Kanal 1, falling edge
-\end{itemize}
+	\begin{itemize}[noitemsep]
+		\item Kanal 1 (DC): $\SI{2}{\volt}/\text{Div}$, $\SI{2.50}{\ms}/\text{Div}$
+		\item Kanal 2 (AC): $\SI{2}{\volt}/\text{Div}$, $\SI{2.50}{\ms}/\text{Div}$
+		\item Trigger: Kanal 1, falling edge
+	\end{itemize}
 \end{minipage}\hfill
 \begin{minipage}[t]{.48\textwidth}
-Einstellungen des Funktionsgenerators:
+	Einstellungen des Funktionsgenerators:
 
-\begin{itemize}[noitemsep]
-	\item Frequenz: Variabel, start $\sim\SI{50}{\hertz}$
-	\item Amplitude: $\SI{10}{\volt}_{PP}$
-	\item Wellenform: Sinus
-\end{itemize}
+	\begin{itemize}[noitemsep]
+		\item Frequenz: Variabel, start $\sim\SI{50}{\hertz}$
+		\item Amplitude: $\SI{10}{\volt}_{PP}$
+		\item Wellenform: Sinus
+	\end{itemize}
 \end{minipage}
 
 \medskip
@@ -60,11 +59,9 @@ Einstellungen des Funktionsgenerators:
 \textbf{Methode A:} Bei der 3-dB Grenzfrequenz hat die Amplitude des Eingangssignals nur mehr das $1/\sqrt{2}$
 Fache der Eingangsamplitudes, hier:
 \[
-U_\mathrm{3dB,peak} = \frac{U_\mathrm{PP}}{2\cdot \sqrt{2}}=\frac{\SI{5}{\volt}}{\sqrt{2}} \approx \SI{3.54}{\volt}
+	U_\mathrm{3dB,peak} = \frac{U_\mathrm{PP}}{2\cdot \sqrt{2}}=\frac{\SI{5}{\volt}}{\sqrt{2}} \approx \SI{3.54}{\volt}
 \]
-
-\newpage
-
+\vspace{6em}
 \begin{wrapfigure}[9]{r}{0.45\textwidth}
 	\centering
 	\includegraphics[width=0.4\textwidth]{images/22_C-AC_Methode1.JPEG}
@@ -82,22 +79,22 @@ bestätigt werden.
 Die Verdrahtung ist gleich wie in \autoref{fig:21-aufbau}, mit den folgenden
 Geräteeinstellungen:
 \begin{minipage}[t]{.48\textwidth}
-Einstellungen des Oszilloskops:
+	Einstellungen des Oszilloskops:
 
-\begin{itemize}[noitemsep]
-	\item Kanal 1: Aus, kein vergleich notwendig.
-	\item Kanal 2 (AC): $\SI{2}{\volt}/\text{Div}$, $\SI{25.0}{\ms}/\text{Div}$
-	\item Trigger: Kanal 2, falling edge
-\end{itemize}
+	\begin{itemize}[noitemsep]
+		\item Kanal 1: Aus, kein vergleich notwendig.
+		\item Kanal 2 (AC): $\SI{2}{\volt}/\text{Div}$, $\SI{25.0}{\ms}/\text{Div}$
+		\item Trigger: Kanal 2, falling edge
+	\end{itemize}
 \end{minipage}\hfill
 \begin{minipage}[t]{.48\textwidth}
-Einstellungen des Funktionsgenerators:
+	Einstellungen des Funktionsgenerators:
 
-\begin{itemize}[noitemsep]
-	\item Frequenz: $\SI{3}{\hertz}$
-	\item Amplitude: $\SI{10}{\volt}_{PP}$
-	\item Wellenform: Rechteck
-\end{itemize}
+	\begin{itemize}[noitemsep]
+		\item Frequenz: $\SI{3}{\hertz}$
+		\item Amplitude: $\SI{10}{\volt}_{PP}$
+		\item Wellenform: Rechteck
+	\end{itemize}
 \end{minipage}
 
 \medskip
@@ -113,7 +110,7 @@ beobachtet, wie der Kanal auf die Flanken des Signals reagiert. In
 \autoref{fig:21-10-90-anstiegszeit}  wird die Zeit gemessen, die das Signal
 benötigt, um von $\SI{90}{\percent}$ auf $\SI{10}{\percent}$ anzusteigen. Aus
 dieser Zeit lässt sich die Grenzfrequenz folgendermaßen berechnen \cite[S.~27,
-Gl.~1.46]{EMTPraktikum2025}.
+	Gl.~1.46]{EMTPraktikum2025}.
 \[ f_g \approx \frac{0.35}{t_a} \]
 
 \begin{wrapfigure}[10]{r}{0.48\textwidth}
@@ -126,8 +123,8 @@ Gl.~1.46]{EMTPraktikum2025}.
 \textbf{Messung:} Der Spitzenwert des Signals ist hier $\SI{-10}{\volt}$. Um
 $t_a$ zu messen, werden die Cursor wiefolgt platziert:
 \begin{itemize}[noitemsep]
-	\item $U_{90\%} = \SI{-10}{\volt}\cdot 0.9 = \SI{-9}{\volt}$ 
-	\item $U_{10\%} = \SI{-10}{\volt}\cdot 0.1 = \SI{-1}{\volt}$ 
+	\item $U_{90\%} = \SI{-10}{\volt}\cdot 0.9 = \SI{-9}{\volt}$
+	\item $U_{10\%} = \SI{-10}{\volt}\cdot 0.1 = \SI{-1}{\volt}$
 	\item $\Rightarrow \Delta t = t_a = \SI{50}{\ms}$
 \end{itemize}
 
@@ -139,7 +136,7 @@ Es Ergibt sich die Grenzfrequenz
 Mit der bekannten Grenzfrequenz kann die Zeitkonstante des RC-Glieds durch folgenden Zusammenhang für Hochpässe erster Ordnung bestimmt werden. Der ohmsche Eingangswiderstand des Oszilloskops ist $R_\mathrm{E} = \SI{1}{\mega\ohm}$
 
 \[
-\omega_g = 2\pi f_g = \frac{1}{\tau} = \frac{1}{RC_\mathrm{AC}} \implies C_\mathrm{AC} = \frac{1}{2\pi f_g R_\mathrm{E}} = \frac{1}{2\pi\cdot \SI{7}{\hertz}\cdot\SI{1}{\mega\ohm}} = \SI{22.7}{\nano\farad}
+	\omega_g = 2\pi f_g = \frac{1}{\tau} = \frac{1}{RC_\mathrm{AC}} \implies C_\mathrm{AC} = \frac{1}{2\pi f_g R_\mathrm{E}} = \frac{1}{2\pi\cdot \SI{7}{\hertz}\cdot\SI{1}{\mega\ohm}} = \SI{22.7}{\nano\farad}
 \]
 
 \subsubsection{Erkenntnisse}

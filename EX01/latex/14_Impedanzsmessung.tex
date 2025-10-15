@@ -1,13 +1,12 @@
-\newpage
 \subsection{Widerstandsmessung IV: Impedanzen}\label{sec:1-4}
 
 \begin{highlightblock}[Messung Impedanzen, Drei-Voltmeter-Methode]
-    Funktionsgenerator $20\mathrm{V_{SS}}$. $50\Omega$ Shuntwiderstand, 
-    \begin{enumerate}[label=\textbf{\alph*:}, ref=\alph*, noitemsep]
-        \item\label{itm:1-P4-1} Frequenz geeignet wählen.
-        \item\label{itm:1-P4-2} Spannungsdreieck zeichnen. Daraus Betrag und Phase ablesen.
-        \item\label{itm:1-P4-3} Ergebnis mit der Rechnung vergleichen.
-    \end{enumerate}
+	Funktionsgenerator $20\mathrm{V_{SS}}$. $50\Omega$ Shuntwiderstand,
+	\begin{enumerate}[label=\textbf{\alph*:}, ref=\alph*, noitemsep]
+		\item\label{itm:1-P4-1} Frequenz geeignet wählen.
+		\item\label{itm:1-P4-2} Spannungsdreieck zeichnen. Daraus Betrag und Phase ablesen.
+		\item\label{itm:1-P4-3} Ergebnis mit der Rechnung vergleichen.
+	\end{enumerate}
 \end{highlightblock}
 
 \subsubsection{Verwendetes Material}
@@ -16,12 +15,12 @@
 	\centering
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
-		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
-        METEX M-4600 & Voltmeter & $U_R$ \\
-        METEX M-4630B & Voltmeter & $U_Z$  \\
-        Fluke 175 & Voltmeter & $U$ \\
-        Leistungswiderstand $\SI{50}{\ohm}$, Kondensator, Spule & Devices Under Test & Auf dem Steckbrett \\
-	\end{tabularx}	
+		\textbf{Material}                                       & \textbf{Verwendung} & \textbf{Anmerkungen} \\ \midrule
+		METEX M-4600                                            & Voltmeter           & $U_R$                \\
+		METEX M-4630B                                           & Voltmeter           & $U_Z$                \\
+		Fluke 175                                               & Voltmeter           & $U$                  \\
+		Leistungswiderstand $\SI{50}{\ohm}$, Kondensator, Spule & Devices Under Test  & Auf dem Steckbrett   \\
+	\end{tabularx}
 \end{table}
 
 \subsubsection{Versuchsaufbau}
@@ -33,20 +32,20 @@ Anstelle von $R$ wurde ein Shuntwiderstand von $R=\SI{50}{\ohm}$ verwendet.
 $Z$ ist hier entweder die zur verfügung gestellte Spule oder der Kondensator.
 
 \begin{figure}[h]
-    \centering
-    \begin{circuitikz}[scale=0.77, transform shape]
-        \coordinate (IN) at (0,0);
-        \draw (IN) to[open, o-o, v=$\underline{U}$] ++(0,-3) coordinate (GND);
-        \draw (1,0) to[vmeter, *-*] ++(0,-3);
-        \draw (IN) -- ++(2,0) coordinate (k1)
-            to[R=$R$, v_=$\underline{U_R}$, *-*] ++(2,0) coordinate (k2)
-            -- ++(1,0) coordinate (k3)
-            to[vmeter, *-*] ++(0,-3);
-        \draw (k2) ++(1,0) -- ++(1.5,0)
-            to[generic, l_=$\underline{Z}$, v^=$\underline{U_Z}$] ++(0,-3) -- (GND);
-        \draw (k1) -- ++(0,-1.5) to[vmeter] ++(2,0) -- (k2);
-    \end{circuitikz}
-    \caption{Schaltung der Messung}
+	\centering
+	\begin{circuitikz}[scale=0.77, transform shape]
+		\coordinate (IN) at (0,0);
+		\draw (IN) to[open, o-o, v=$\underline{U}$] ++(0,-3) coordinate (GND);
+		\draw (1,0) to[vmeter, *-*] ++(0,-3);
+		\draw (IN) -- ++(2,0) coordinate (k1)
+		to[R=$R$, v_=$\underline{U_R}$, *-*] ++(2,0) coordinate (k2)
+		-- ++(1,0) coordinate (k3)
+		to[vmeter, *-*] ++(0,-3);
+		\draw (k2) ++(1,0) -- ++(1.5,0)
+		to[generic, l_=$\underline{Z}$, v^=$\underline{U_Z}$] ++(0,-3) -- (GND);
+		\draw (k1) -- ++(0,-1.5) to[vmeter] ++(2,0) -- (k2);
+	\end{circuitikz}
+	\caption{Schaltung der Messung}
 \end{figure}
 
 \marginref{\ref{itm:1-P4-2}}
@@ -54,12 +53,12 @@ $Z$ ist hier entweder die zur verfügung gestellte Spule oder der Kondensator.
 Für die drei Messgeräte ergeben sich folgende Einzelmesswerte:
 
 \begin{table}[h]
-    \caption{Messergebnisse der 3-Voltmeter-Methode}\label{tab:14-values}
-    \begin{tabularx}{\textwidth}{XYYY}
-        \textbf{Bauteil} & $U / \si{\volt}$ & $U_R / \si{\volt}$ & $U_Z / \si{\volt}$ \\ \midrule
-        Kondensator & 3.45 & 3.367 & 0.315 \\
-        Spule & 5.534 & 2,151 & 4.807
-    \end{tabularx}
+	\caption{Messergebnisse der 3-Voltmeter-Methode}\label{tab:14-values}
+	\begin{tabularx}{\textwidth}{XYYY}
+		\textbf{Bauteil} & $U / \si{\volt}$ & $U_R / \si{\volt}$ & $U_Z / \si{\volt}$ \\ \midrule
+		Kondensator      & 3.45             & 3.367              & 0.315              \\
+		Spule            & 5.534            & 2,151              & 4.807
+	\end{tabularx}
 \end{table}
 
 Mit den Effektivwerten der Spannungen in \autoref{tab:14-values}  können nun
@@ -67,43 +66,43 @@ die Spannungsdreiecke mit Lineal und Zirkel konstruiert werden, oder wie hier
 in GeoGebra:
 
 \begin{figure}[h]
-\begin{minipage}[position]{0.48\textwidth}
-    \centering
-    \includegraphics[height=4.5cm]{images/14_3-Voltmeter_C.png}
-    \caption{Spannungsdreieck des Kondensators}
-\end{minipage}\hfill
-\begin{minipage}[position]{0.48\textwidth}
-    \centering
-    \includegraphics[height=4.5cm]{images/14_3-Voltmeter_L.png}
-    \caption{Spannungsdreieck der Spule}
-\end{minipage}
+	\begin{minipage}[position]{0.48\textwidth}
+		\centering
+		\includegraphics[height=4.5cm]{images/14_3-Voltmeter_C.png}
+		\caption{Spannungsdreieck des Kondensators}
+	\end{minipage}\hfill
+	\begin{minipage}[position]{0.48\textwidth}
+		\centering
+		\includegraphics[height=4.5cm]{images/14_3-Voltmeter_L.png}
+		\caption{Spannungsdreieck der Spule}
+	\end{minipage}
 \end{figure}
 
 In die Formeln für Betrag und Phase der Impedanz~\cite[S.~21]{EMTPraktikum2025}
 werden die Messwerte aus \autoref{tab:14-values} eingesetzt:
 \[
-    |Z| = \frac{U_C}{U_R/R} \qquad |\varphi_C| = \arccos\left(\frac{U^2-U_R^2-U_Z^2}{2U_Z U_R}\right)
+	|Z| = \frac{U_C}{U_R/R} \qquad |\varphi_C| = \arccos\left(\frac{U^2-U_R^2-U_Z^2}{2U_Z U_R}\right)
 \]
 
 Der Kosinussatz gibt keine Auskunft über das Vorzeichen des Winkels, es gilt jedoch stets $\varphi_C < 0$ für kapazitive und $\varphi_L > 0$ für induktive Lasten.
 
 \begin{minipage}[t]{0.48\textwidth}
 
-    \[
-        \begin{aligned}
-            |Z_C| &= \frac{\SI{0.315}{\volt}}{\SI{3.367}{\volt}/\SI{50}{\ohm}} = \SI{4.678}{\ohm} \\
-            \varphi_C & = \SI{-1.349}{\radian} = \SI{-77.3}{\degree}\\
-        \end{aligned}
-    \]
+	\[
+		\begin{aligned}
+			|Z_C|     & = \frac{\SI{0.315}{\volt}}{\SI{3.367}{\volt}/\SI{50}{\ohm}} = \SI{4.678}{\ohm} \\
+			\varphi_C & = \SI{-1.349}{\radian} = \SI{-77.3}{\degree}                                   \\
+		\end{aligned}
+	\]
 \end{minipage}\hfill
 \begin{minipage}[t]{0.48\textwidth}
 
-    \[
-        \begin{aligned}
-            |Z_L| &= \frac{\SI{4.807}{\volt}}{\SI{2.151}{\volt}/\SI{50}{\ohm}} = \SI{111.7}{\ohm} \\
-            \varphi_L &= \SI{1.431}{\radian} = \SI{82.0}{\degree} \\
-        \end{aligned}
-    \]
+	\[
+		\begin{aligned}
+			|Z_L|     & = \frac{\SI{4.807}{\volt}}{\SI{2.151}{\volt}/\SI{50}{\ohm}} = \SI{111.7}{\ohm} \\
+			\varphi_L & = \SI{1.431}{\radian} = \SI{82.0}{\degree}                                     \\
+		\end{aligned}
+	\]
 \end{minipage}
 
 \marginref{\ref{itm:1-P4-3}}
@@ -112,41 +111,41 @@ Real- und Imaginärteil zerlegt: $Z = R + \jmath X$
 
 \begin{minipage}[position]{0.48\textwidth}
 
-    \[
-        \begin{aligned}
-            R_C &= |Z_C| \cdot \cos(\varphi_C) = \SI{1.029}{\ohm} \\
-            \jmath X_C &= \jmath |Z_C| \cdot \sin(\varphi_C) = -\jmath\SI{4.536}{\ohm}
-        \end{aligned}
-    \]
+	\[
+		\begin{aligned}
+			R_C        & = |Z_C| \cdot \cos(\varphi_C) = \SI{1.029}{\ohm}               \\
+			\jmath X_C & = \jmath |Z_C| \cdot \sin(\varphi_C) = -\jmath\SI{4.536}{\ohm}
+		\end{aligned}
+	\]
 \end{minipage}\hfill
 \begin{minipage}[position]{0.48\textwidth}
 
-    \[
-        \begin{aligned}
-            R_L &= |Z_L| \cdot \cos(\varphi_L) = \SI{15.62}{\ohm} \\
-            \jmath X_L &= \jmath |Z_L| \cdot \sin(\varphi_L) = \jmath\SI{111.7}{\ohm}
-        \end{aligned}
-    \]
+	\[
+		\begin{aligned}
+			R_L        & = |Z_L| \cdot \cos(\varphi_L) = \SI{15.62}{\ohm}              \\
+			\jmath X_L & = \jmath |Z_L| \cdot \sin(\varphi_L) = \jmath\SI{111.7}{\ohm}
+		\end{aligned}
+	\]
 \end{minipage}
 
 \medskip
 Umrechnen in Kapazität und Induktivität und den äquivalenten Serienwiderstand (ESR), jeweils bei $f=\SI{1}{\kilo\hertz}$:
 
 \begin{minipage}[position]{0.48\textwidth}
-    \[
-        \begin{aligned}
-            C &= -\frac{1}{2\pi f X_C} = \SI{35.1}{\micro\farad} \\
-            R_{\mathrm{ESR}} &= R_C = \SI{1.03}{\ohm}
-        \end{aligned}
-    \]
+	\[
+		\begin{aligned}
+			C                & = -\frac{1}{2\pi f X_C} = \SI{35.1}{\micro\farad} \\
+			R_{\mathrm{ESR}} & = R_C = \SI{1.03}{\ohm}
+		\end{aligned}
+	\]
 \end{minipage}\hfill
 \begin{minipage}[position]{0.48\textwidth}
-    \[
-        \begin{aligned}
-            L &= \frac{X_L}{2\pi f} = \SI{17.8}{\milli\henry} \\
-            R_{\mathrm{ESR}} &= R_L = \SI{15.62}{\ohm}
-        \end{aligned}
-    \]
+	\[
+		\begin{aligned}
+			L                & = \frac{X_L}{2\pi f} = \SI{17.8}{\milli\henry} \\
+			R_{\mathrm{ESR}} & = R_L = \SI{15.62}{\ohm}
+		\end{aligned}
+	\]
 \end{minipage}
 
 \subsubsection{Erkenntnisse}
