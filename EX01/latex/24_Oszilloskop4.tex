@@ -3,8 +3,10 @@
 \begin{highlightblock}[Abgleich des Tastkopfes bei DC-Kopplung]
 	\begin{enumerate}[label=\textbf{\alph*:}, ref=\alph*,noitemsep]
 		\item\label{itm:2-P4-1} Abgleich des Tastkopfes (Rechtecksignal)
-		\item\label{itm:2-P4-2}Ersatzschaltung (10:1-Tastkopf, DC-Kopplung) (Abb.~\ref{fig:impedanz-oszi-taskopf}) \\
-		      Tastkopf $R_T = \SI{9}{\mega\ohm} \,||\, C_T$, in Serie zum Oszilloskopeingang ($\SI{1}{\mega\ohm} \,||\, \SI{20}{\pico\farad}$). Mit Kabelkapazität $C_K = \SI{100}{\pico\farad}$
+		\item\label{itm:2-P4-2}
+			Ersatzschaltung (10:1-Tastkopf, DC-Kopplung) (\autoref{fig:impedanz-oszi-taskopf})\\
+		    Tastkopf $R_T = \SI{9}{\mega\ohm} \parallel C_T$, in Serie zum Oszilloskopeingang ($\SI{1}{\mega\ohm} \parallel \SI{20}{\pico\farad}$). \\
+			Mit Kabelkapazität $C_K = \SI{100}{\pico\farad}$
 		\item\label{itm:2-P4-3} Berechnung der Eingangsimpedanz bei 1 MHz
 	\end{enumerate}
 
@@ -16,62 +18,84 @@
 	\centering
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
-		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen}                                \\ \midrule
-		TDS2014C           & Oszilloskop         & $Z_E = \SI{1}{\mega\ohm}\,||\,\SI{20}{\pico\farad}$ \\
+		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen} \\ \midrule
+		TDS2014C & Oszilloskop & $Z_E = \SI{1}{\mega\ohm}\parallel\SI{20}{\pico\farad}$ \\
+		Tastkopf & Device Under Test & $Z_T = \SI{9}{\ohm}\parallel C_T$
 	\end{tabularx}
 \end{table}
 
-\marginref{\ref{itm:2-P4-1}} Abgleichen des Tastkopfes
+\marginref{\ref{itm:2-P4-1}, \ref{itm:2-P4-2}}
 
-Hier wird die Kapazität im Tastkopf so verstellt, dass bei $U_E$=Rechtecksignal das Oszilloskop ein schönen unverzerrtes Rechtecksignals wie in Abb.~\ref{fig:oszi-tastkopf-testsignal} anzeigt. Überschwingt das Signal, so ist $C_T$ zu klein, ist das Rechteck an den vorderen Flangekn abgerundet, so ist $C_T$ zu groß.
-
-\marginref{\ref{itm:2-P4-2}} Die Ersatzschaltung ist in Abb.~\ref{fig:impedanz-oszi-taskopf} zu sehen.
+\textbf{Abgleichen des Tastkopfes:} Hier wird die Kapazität im Tastkopf so
+verstellt, dass ein eingespeistes Rechtecksignal wie in \autoref{fig:oszi-tastkopf-testsignal} unverzerrt am Bildschirm 
+wiedergegeben wird. Überschwingt das Signal, so ist $C_T$ zu klein, ist das Rechteck an
+den Flanken abgerundet, so ist $C_T$ zu groß. Die Ersatzschaltung ist
+in \autoref{fig:impedanz-oszi-taskopf} zu sehen.
 
 \begin{figure}[h]
-	\begin{minipage}[t]{.45\textwidth}
+	\begin{minipage}[t]{.48\textwidth}
 		\centering
-		\includegraphics[height=4.8cm]{images/TastkopCal.JPEG}
+		\includegraphics[height=4cm]{images/TastkopCal.JPEG}
 		\caption{Abgleich eines Tastkopfes am Oszilloskop mittels Testsignal}\label{fig:oszi-tastkopf-testsignal}
 	\end{minipage}\hfill
 	\begin{minipage}[t]{.48\textwidth}
 		\centering
+		\newcommand{\hght}{3}
 		\begin{circuitikz}[scale=0.75, transform shape]
-			% Eingangsspannung
-			\draw (0,0) node[ocirc]{}
-			(0,4) node[ocirc]{};
-			\draw[<-] (0,0.3) -- (0,3.7) node[midway,left]{$U_E$};
-
+			\draw (0,0) to[open, v<=$U_E$, o-o] (0,\hght);
+			\draw (0,\hght) -- ++(1,0) coordinate (k1) to[open, *-*] ++(2,0) coordinate (k2);
 			% Bauteile
-			\draw (1,5) to[R, l=$R_{T}$] (3,5) coordinate (k1);
-			\draw (1,3) to[variable capacitor, l=$C_{T}$] (3,3) coordinate (k2);
-			\draw (5,0) to[C, l=$C_K$]   (5,4) coordinate (k3);
-			\draw (7,0) to[C, l=$C_E$]   (7,4) coordinate (k4);
-			\draw (9,0) to[R, l=$R_E$]   (9,4) coordinate (k5);
-
-			% Kabel horizontal
-			\draw (0,0) -- (9,0);
-			\draw (0,4) -- (1,4);
-			\draw (3,4) -- (9,4);
-			% Kabel vertical
-			\draw (1,3) -- (1,5);
-			\draw (3,3) -- (3,5);
+			\draw (k1) -- ++(0,1) to[R, l=$R_{T}$] ++(2,0) -- (k2);
+			\draw (k1) -- ++(0,-1) to[variable capacitor, l=$C_{T}$] ++(2,0) -- (k2);
+			\draw (k2)
+				-- ++(1,0) coordinate (k3)
+				-- ++(2,0) coordinate (k4)
+				-- ++(2,0) to[R=$R_E$] ++(0,-\hght)
+				-- (0,0);
+			\draw (k3) to[C, l=$C_K$, *-*] ++(0,-\hght);
+			\draw (k4) to[C, l=$C_E$, *-*] ++(0,-\hght);
 		\end{circuitikz}
-		\captionof{figure}{Eingangsimpedanz des Oszilloskops bei AC-Kopplung}\label{fig:impedanz-oszi-taskopf}
+		\caption{Eingangsimpedanz mit Tastkopf bei DC-Kopplung}\label{fig:impedanz-oszi-taskopf}
 	\end{minipage}
 \end{figure}
 
+\marginref{\ref{itm:2-P4-3}}
+Aus der Abgleichbedinung $R_T C_T = R_E \tilde{C}_E$ kann man sich $C_T$
+berechnen mit $\tilde{C}_E = C_E + C_K$.
+\[
+	C_T = \frac{R_E}{R_T}(C_E + C_K) = \frac{\SI{1}{\mega\ohm}}{\SI{9}{\mega\ohm}}(\SI{20}{\pico\farad} + \SI{100}{\pico\farad}) = \SI{13.3}{\pico\farad}
+\]
 
-
-\marginref{\ref{itm:2-P4-3}} Berechnung der Eingangsimpedanz bei 1 MHz
-
-Aus der Abgleichbedinung $R_T C_T = R_E \tilde{C_E}$ kann man sich $C_T$ berechnen mit $\tilde{C_E} = C_E + C_K$.
-
+Anschließend kann aus \autoref{fig:impedanz-oszi-taskopf} ein Ausdruck für die
+Gesamtimpedanz $Z_{ges}$ bei $\omega = 2\pi\cdot\SI{1}{\mega\hertz}$
+Aufgestellt werden (wobei $X = 1/\jmath\omega C$).
 \begin{align}
-	 & C_T        = \frac{R_E}{R_T}(C_E + C_K) = \frac{\SI{1}{\mega\ohm}}{\SI{9}{\mega\ohm}}(\SI{20}{\pico\farad} + \SI{100}{\pico\farad}) = \SI{13.3}{\pico\farad} \\
-	 & Z_{ges}    = Z_T + \tilde{Z_E} = \frac{R_T}{1+j\omega R_T C_T} + \frac{R_E}{1+j\omega R_E (C_k+C_E)} = \SI{17.67}{\ohm} - j\SI{13292.81}{\ohm}               \\
-	 & |Z_{ges}|  = \SI{13292.82}{\ohm} \label{eq:eingangswiderstand_oszi_mit_taskopf}
+	& Z_T = R_T \parallel \jmath X_T, \quad \tilde{Z}_E = R_E \parallel \jmath X_K \parallel \jmath X_E\\
+	& Z_{ges} = Z_T + \tilde{Z}_E = \frac{R_T}{1+\jmath\omega R_T C_T} + \frac{R_E}{1+\jmath\omega R_E (C_k+C_E)} \\
+	& Z_{ges} = (17.5905 - \jmath13262.9)\si{\ohm} = \SI{13262.9}{\ohm}\angle \SI{-89.9}{\degree} \implies |Z_\mathrm{ges}| = \SI{13262.9}{\ohm}
+	\label{eq:eingangswiderstand_oszi_mit_taskopf}
 \end{align}
+Hier ist gezeigt, wie sich die Kompensation auf das Eingangs
+Spannungsverhältnis $|\tilde{Z}_E/Z_\mathrm{ges}|(\jmath\omega)$ auswirkt. Für
+die Plots wurde der $C_T$ Wert bei Überkompensation etwas vermindert und bei
+Unterkompensation erhöht.
+\begin{figure}[h]
+	\begin{minipage}{0.32\textwidth}
+		\includegraphics[width=\textwidth]{images/24-richtig.png}
+		\caption{Kompensiert}
+	\end{minipage}\hfill
+	\begin{minipage}{0.32\textwidth}
+		\includegraphics[width=\textwidth]{images/24-ueber.png}
+		\caption{Überkompensiert}
+	\end{minipage}\hfill
+	\begin{minipage}{0.32\textwidth}
+		\includegraphics[width=\textwidth]{images/24-unter.png}
+		\caption{Unterkompensiert}
+	\end{minipage}
+\end{figure}
 
 \subsubsection{Erkenntnisse}
-Mit dem Tastkopfe (Gl.~\ref{eq:eingangswiderstand_oszi_mit_taskopf}) ist $|Z_{ges}|$ ca. 10-mal so groß wie ohne (Gl.~\ref{eq:eingangswiderstand_oszi}). Dadurch ver-10-facht sich auch der Messbereich des Oszilloskops, was für große Signale notwendig ist. Allerdings verringert es auch die Empfindlichkeit was die Messung kleiner Signale ungenauer macht.
-
+Es ist zu erkennen, dass das Spannungsteilerverhältnis am Eingang über das
+gesamte Spektrum konstan ist, und somit alle Frequenzen ohne Verzerrung
+gemessen werden können. Für eine Beschaltung ohne Tastkopf wie in
+\autoref{fig:impedanz-oszi-ac-kopplung} ist das nicht der Fall.

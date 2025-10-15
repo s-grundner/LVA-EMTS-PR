@@ -13,3 +13,5 @@
 *.DS_Store
 *.xdv
 main-report.pdf
+*.ilg
+*.ind

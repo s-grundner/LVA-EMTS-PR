@@ -1,7 +1,7 @@
 \subsection{Eingangsimpedanz bei AC-Kopplung}\label{sec:2-3}
 
 \begin{highlightblock}[Berechnung der Eingangsimpedanz bei AC-Kopplung]
-	Rechnerische Ermittlung des Betrages der gesamten Eingangsimpedanz (Abb.~\ref{fig:impedanz-oszi-ac-kopplung}) des verwendeten
+	Rechnerische Ermittlung des Betrages der gesamten Eingangsimpedanz (\autoref{fig:impedanz-oszi-ac-kopplung}) des verwendeten
 	Oszilloskops mit angeschlossenem Kabel und AC–Kopplung für eine Kabelkapazität von
 	$C_K = \SI{100}{\pico\farad}$ und eine Frequenz von $f = \SI{1}{\mega\hertz}$.
 
@@ -38,16 +38,18 @@
 	\caption{Eingangsimpedanz des Oszilloskopes bei AC-Kopplung}\label{fig:impedanz-oszi-ac-kopplung}
 \end{wrapfigure}
 
-Zur Berechnung der Gesamt-Eingangsimpedanz $Z$ betrachtet man das Ersatzbild in \autoref{fig:impedanz-oszi-ac-kopplung}. $C_{AC}$ ist der errechnete Wert aus \autoref{sec:2-3} \autoref{itm:2-P2-3}
+Zur Berechnung der Gesamt-Eingangsimpedanz $Z$ betrachtet man das Ersatzbild in
+\autoref{fig:impedanz-oszi-ac-kopplung}. $C_{AC}$ ist der errechnete Wert aus
+\autoref{sec:2-3} \autoref{itm:2-P2-3}
 \begin{itemize}[noitemsep]
 	\item $R_E =\SI{1}{\mega\ohm}$
 	\item $C_E =\SI{20}{\pico\farad}, C_K=\SI{100}{\pico\farad}, C_{AC}=\SI{22.7}{\nano\farad}$
 	\item $\omega =2\pi\cdot \SI{1}{\mega\hertz}$
 \end{itemize}
 
-Es ergibt sich für die Gesamteingangsimpedanz $Z$ der Ausdruck:
+Es ergibt sich für die Gesamteingangsimpedanz $Z$ der Ausdruck (wobei $\jmath X = 1/\jmath\omega C$):
 \begin{align}
-	Z &= \jmath X_K \parallel \bigl(\jmath X_{AC} + (\jmath X_{E} \parallel R_E)\bigr)\\
+	Z &= \jmath X_K \parallel \bigl(\jmath X_{AC} + (\jmath X_{E} \parallel R_E)\bigr) \nonumber\\
 	&= \frac{
 		1 + \jmath\omega R_E\bigl(C_{E} + C_{AC}\bigr)
 	}{
@@ -66,6 +68,8 @@ Z = (1.76-\jmath 1326.48)\si{\ohm}
 
 \subsubsection{Erkenntnisse}
 
-Die Eingangsimpedanz ist beinahe nur kapazitiv, da der Winkel $\approx \SI{90}{\degree}$ ist. Da jedoch die Impedanz abhängig von $\omega$ ist, würde das Oszilloskop für jede gemessene Frequenz eine unterschiedliche Eingangsimpedanz aufweisen.
+Die Eingangsimpedanz befindet sich hier im Kiloohm Bereich. Für empfindliche
+Messungen könnte das bereits eine zu hohe belastung sein, und das Ergebnis
+würde verfälscht werden.
 
 

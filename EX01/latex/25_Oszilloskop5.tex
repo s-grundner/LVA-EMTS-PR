@@ -2,7 +2,7 @@
 
 \begin{highlightblock}[U-I-Kennlinien einer Silizium- und Zenerdiode]
 	Es geht um die UI-Kennlinie von einer Silizium- und einer Zenerdiode. Gemessen wird diese mit der schaltung in Abbildung~\ref{fig:schaltung-dioden-kennlinie.png}
-	\begin{enumerate}[label=\textbf{\alph*:}, ref=\alph*]
+	\begin{enumerate}[label=\textbf{\alph*:}, ref=\alph*, noitemsep]
 		\item\label{itm:2-P5-1} Dimensionieren der Messspannungen und Vorwiderstände
 		\item\label{itm:2-P5-2} UI-Kennlinie inklusive Spannungs- und Strommaßstab des Schirmbildes.
 		\item\label{itm:2-P5-3}Knick- und Zenerspannung
@@ -11,14 +11,17 @@
 
 \end{highlightblock}
 
+\newpage
 \subsubsection{Verwendetes Material}
 
 \begin{table}[h]
 	\centering
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
-		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen}                                \\ \midrule
-		TDS2014C           & Oszilloskop         & $Z_E = \SI{1}{\mega\ohm}\,||\,\SI{20}{\pico\farad}$ \\
+		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen} \\ \midrule
+		TDS2014C & Oszilloskop & $Z_E = \SI{1}{\mega\ohm}\parallel\SI{20}{\pico\farad}$ \\
+		Agilent 33250A & Funktionsgenerator & \\
+		& Trenntransformator & Oszilloskop hier anstecken 
 	\end{tabularx}
 \end{table}
 
@@ -33,21 +36,24 @@
 \end{figure}
 
 
-\marginref{\ref{itm:2-P5-1}} Dimensionierung
+\marginref{\ref{itm:2-P5-1}} 
+\textbf{Dimensionierung:}
+Der Strom darf laut \cite[S.~146, Tbl.~A.6]{EMTPraktikum2025}
+$\SI{100}{\milli\ampere}$ nicht überschreiten. Daher wurde zunächst die
+Spannung auf $U_{PP}=\SI{10}{\volt}$ fixiert und der Vorwiderstand auf einen
+Strom von \SI{20}{\milli\ampere} dimensioniert:
+\[
+	R_V=\frac{U_{SS}/2 - U_V}{I_{\text{max, gewählt}}}=\frac{\SI{5}{\volt}-\SI{0.7}{\volt}}{\SI{0.02}{\ampere}} = \SI{215}{\ohm} \implies R_V=\SI{250}{\ohm}
+\]
 
-Wir haben uns für $U_{SS}=\SI{5}{\volt}$ entschieden und der Strom musste laut Tabelle A.6 auf Seite 146 in \cite{EMTPraktikum2025} maximal $\SI{100}{\milli\ampere}$ sein. Wir entschieden uns dass \SI{20}{\milli\ampere} reichen und sind so auf $R_V=\SI{100}{\ohm}$ gekommen.
-
-\begin{gather}
-	R_V=\frac{U_{SS}/2 - U_V}{I_{\text{max, gewählt}}}=\frac{\SI{2.5}{\volt}-\SI{0.7}{\volt}}{\SI{0.02}{\ampere}} = \SI{90}{\ohm} \rightarrow{} R_V=\SI{100}{\ohm}
-\end{gather}
-
-\marginref{\ref{itm:2-P5-2}} UI-Kennlinien
-
-Die Masstäbe sind fuer beide Dioden gleich. Auf der X-Achse $\SI{1}{\volt}$ und auf der Y-Achse $\SI{10}{\milli\ampere}$ pro Rastereinheit.
-
-\begin{gather}
-	I_{RE}=\frac{U_{RE}}{R_V}=\frac{\SI{1}{\volt}}{\SI{100}{\ohm}} = \SI{10}{\milli\ampere}
-\end{gather}
+\marginref{\ref{itm:2-P5-2}}
+\textbf{UI-Kennlinien:}
+Der Maßstab wird mit der Kanalauflösung eingestellt.
+Auf der X-Achse gilt $\SI{1}{\volt} / RE$. Auf der Y-Achse wird die Spannung über
+den Vorwiderstand auf einen Strom umgerechnet.
+\[
+	I_{RE}=\frac{U_{RE}}{R_V}=\frac{\SI{1}{\volt}}{\SI{250}{\ohm}} = \SI{4}{\milli\ampere}
+\]
 
 \begin{figure}[h]
 	\begin{minipage}[t]{.48\textwidth}
@@ -62,14 +68,20 @@ Die Masstäbe sind fuer beide Dioden gleich. Auf der X-Achse $\SI{1}{\volt}$ und
 	\end{minipage}
 \end{figure}
 
+\marginref{\ref{itm:2-P5-3}}
+\textbf{Knick- und Zenerspannung:}
+Aus der Abbildung~\ref{fig:ui-kennlinie-si-diode} kann man die die
+Knickspannung der SI-Diode ablesen: $\SI{0.7}{\volt}$. Für die Zener-Diode kann
+man aus Abbildung~\ref{fig:ui-kennlinie-zener-diode} die Knickspannung:
+$\approx\SI{0.7}{\volt}$ und die Zenerspannung: $\approx\SI{3.8}{\volt}$ ablesen.
 
-\marginref{\ref{itm:2-P5-3}} Knick- und Zenerspannung
-
-Aus der Abbildung~\ref{fig:ui-kennlinie-si-diode} kann man die die Knickspannung der SI-Diode ablesen: $\SI{0.7}{\volt}$. Für die Zener-Diode kann man aus Abbildung~\ref{fig:ui-kennlinie-zener-diode} die Knickspannung: $\SI{0.7}{\volt}$ und die Zenerspannung: $\SI{3.8}{\volt}$ ablesen.
-
-\vspace{1em}
-\marginref{\ref{itm:2-P5-4}} Unterschied der Kennlinien
-
-Beide Dioden haben die selbe Knickspannung ($\SI{0.7}{\volt}$). Das deutet darauf hin, dass auch die die Zener-Diode aus Silizium ist. Die Zener-Diode ist so gebaut, dass sie eine Durchbruchsspannung(=Zenerspannung) innerhalb des erlaubte $U_{max}$ hat, die Silizium-Diode geht höchst wahrscheinlich kaputt wenn man sie bis zu ihrer (viel höher liegenden) Durchbruchsspannung betreibt.
+\marginref{\ref{itm:2-P5-4}}
+\textbf{Unterschied der Kennlinien:}
+Beide Dioden haben die selbe Knickspannung ($\SI{0.7}{\volt}$). Das deutet
+darauf hin, dass auch die die Zener-Diode aus Silizium ist. Die Zener-Diode ist
+so gebaut, dass sie auch im Sperrbereich eine Durchbruchsspannung
+(=Zenerspannung) im erlaubten Spannungsbereich hat. Die Silizium-Diode würde
+hingegen zerstört werden, wenn man sie bis zu ihrer (viel höher liegenden)
+Durchbruchsspannung betreibt.
 
 
