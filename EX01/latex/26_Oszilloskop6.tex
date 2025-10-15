@@ -3,11 +3,10 @@
 \begin{highlightblock}[Strom- und Spannungsverlauf an der Spule]
 	Untersuchung des Strom- und Spannungsverlaufs einer Spule mit offenem bzw. geschlossenem Eisenkern.
 	\begin{enumerate}[label=\textbf{\alph*:}, ref=\alph*]
-		\item\label{itm:2-P6-1} Strommessung über $\SI{50}{\ohm}$ Serienwiderstand mit Funktionsgenerator.
-		\item\label{itm:2-P6-2} Frequenz variieren und Auswirkungen kommentieren.
-		\item\label{itm:2-P6-3} Phasenwinkel zwischen Strom und Spannung messen (beide Methoden aus Abs.~1.5.4).
-		\item\label{itm:2-P6-4} Spule mit Eisenkern schließen und Veränderungen beobachten.
-		\item\label{itm:2-P6-5} Serienersatzschaltung $R_S + L_S$ berechnen.
+		\item\label{itm:2-P6-1} Strommessung über $R_N = \SI{50}{\ohm}$ mit Funktionsgenerator. Frequenz variieren und Auswirkungen kommentieren.
+		\item\label{itm:2-P6-2} Phasenwinkel zwischen Strom und Spannung messen (beide Methoden aus Abs.~1.5.4).
+		\item\label{itm:2-P6-3} Spule mit Eisenkern schließen und Veränderungen beobachten.
+		\item\label{itm:2-P6-4} Serienersatzschaltung $R_S + L_S$ berechnen.
 	\end{enumerate}
 \end{highlightblock}
 
@@ -22,12 +21,12 @@
 	\end{tabularx}
 \end{table}
 
-\subsubsection{Versuchsaufbau}
+\subsubsection{Versuchsaufbau (Abb.~\ref{fig:schaltung-induktivitaet-phasenellipse.png})}
 
 \begin{figure}[h]
 	\begin{minipage}[t]{.98\textwidth}
 		\centering
-		\includegraphics[height=4cm]{images/Schaltung-induktivitaet-phasenellipse.png}
+		\includegraphics[height=4cm]{images/26-Schaltung-induktivitaet-phasenellipse.png}
 		\caption{Abgleich eines Tastkopfes am Oszilloskop mittels Testsignal}\label{fig:schaltung-induktivitaet-phasenellipse.png}
 	\end{minipage}\hfill
 \end{figure}
@@ -39,27 +38,109 @@
 	I = \frac{\SI{2.5}{\volt}}{\SI{16}{\ohm}+\SI{100}{\ohm}} \approx \SI{22}{\milli\ampere}
 \end{gather}
 
-\marginref{\ref{itm:2-P6-1}}
-strom messung
+\marginref{\ref{itm:2-P6-1}} Strom- Spannungsverlauf bei verschiedenen Frequenzen.
+
+Am Widerstand ist Strom und Spannung in Phase. Da $L$ und $R$ in Reihe geschalten sind fliest durch sie der selbe Strom. Bei Abb.~\ref{fig:L-Eisenkern-offen} sieht man, dass die Phase bei hohen Frequenzen gege $\frac{\pi}{2}$ geht und bei niedrigen gegen $0$, weil dann der Blindwiderstand gegen $0$ geht. (Der Strom eilt der Spannung nach)
+
 \marginref{\ref{itm:2-P6-2}}
 \begin{figure}[h]
 	\begin{minipage}[t]{.48\textwidth}
 		\centering
 		\includegraphics[height=4cm]{images/25_L-Eisenkern-offen-500Hz.JPEG}
-		\caption{Spule Eisenkern offen $\SI{500}{\hertz}$}\label{fig:L-Eisenkern-offen-500Hz}
-	\end{minipage}\hfill
+		\caption*{$f=\SI{500}{\hertz}$,\; $\Phi = 2\pi*\Delta t * f = \frac{\pi}{4}$}	\end{minipage}\hfill
 	\begin{minipage}[t]{.48\textwidth}
 		\centering
 		\includegraphics[height=4cm]{images/25_L-Eisenkern-offen-1kHz.JPEG}
-		\caption{Spule Eisenkern offen $\SI{1}{\kilo\hertz}$}\label{fig:L-Eisenkern-offen-1kHz}
+		\caption*{$f=\SI{1}{\kilo\hertz}$, \; $\Phi = \frac{\pi}{2}$}
 	\end{minipage}
+	\caption{Spule Eisenkern offen. CH1: Spannung an $L$, CH2: Spannung an $R_N$}\label{fig:L-Eisenkern-offen}
 \end{figure}
 
 
+\marginref{\ref{itm:2-P6-3}} Phasenwinkel mit zwei Metoden bestimmen. Alle Messungen wurden mit \SI{50}{\hertz} durchgeführt.
 
-\marginref{\ref{itm:2-P6-3}}
-\marginref{\ref{itm:2-P6-4}}
-\marginref{\ref{itm:2-P6-5}}
+Die erste Methode ist wie in Abb.~\ref{fig:Messung des Phasenwinkels durch Kurvenvergleich}, $\Delta t$ der Nullduchgänge und $\Tau$ zu messen.
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=0.75\textwidth]{images/26-Messung des Phasenwinkels-durch-Kurvenvergleich.png}
+	\end{center}
+	\caption{Messung des Phasenwinkels durch Kurvenvergleich}\label{fig:Messung des Phasenwinkels durch Kurvenvergleich}
+\end{figure}
+
+Die zweite Methode ist die Messung mittels Phasenellipse (Abb.~\ref{fig:26-Messung mittels Phasenellipse}). Die Phase wird mit der Formel~\ref{eq:phasenellipse} berechnet.
+
+\begin{figure}[h]
+	\begin{minipage}[c]{.38\textwidth}
+		\centering
+		\includegraphics[width=0.95\textwidth]{images/26-Messung mittels Phasenellipse.png}
+		\caption{Messung mittels Phasenellipse}\label{fig:26-Messung mittels Phasenellipse}
+	\end{minipage}\hfill
+	\begin{minipage}[c]{.48\textwidth}
+		\centering
+		\begin{equation}
+			\phi = \arcsin{\frac{y_0}{y_{max}}}=\arcsin\frac{x_0}{x_{max}}
+			\label{eq:phasenellipse}
+		\end{equation}
+		\vspace{4em}
+	\end{minipage}
+\end{figure}
+
+\marginref{\ref{itm:2-P6-4}} Serienersatzschaltung $R_S + L_S$
+
+\begin{equation}
+	Z_{R_S, L_S}
+	= \frac{U_L}{I} e^{j\varphi_Z}
+	= \underbrace{\frac{U_L R_N}{U_{R_N}} \cos \varphi_Z}_{R_S}
+	+ j \underbrace{\frac{U_L R_N}{U_{R_N}} \sin \varphi_Z}_{X_{L_S}}
+	\qquad L_S = \frac{X_{L_S}}{2 \pi f} \label{eq:RL-Serienersatzschaltung}
+\end{equation}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|ccc|ccc|}
+		\hline
+		 & \multicolumn{3}{c|}{Methode 1} & \multicolumn{3}{c|}{Methode 2}                     \\
+		\hline
+		Variante
+		 & $\varphi$[RE]                  & $T$[RE]                        & $\varphi[^\circ]$
+		 & $\varphi$[RE]                  & $T$[RE]                        & $\varphi[^\circ]$ \\
+		\hline
+		ohne Eisenkern
+		 & 0.3                            & 7.2                            & 15.00
+		 & 0.5                            & 1.7                            & 17.10             \\
+		mit offenem Eisenkern
+		 & 1.2                            & -                              & 60.00
+		 & 1.5                            & 1.7                            & 61.93             \\
+		mit geschlossenem Eisenkern
+		 & 1.3                            & -                              & 65.00
+		 & 1.6                            & 1.7                            & 70.25             \\
+		\hline
+	\end{tabular}
+	\captionsetup{justification=raggedright}
+	\caption{Phasenwinkelbestimmung nach Methode 1 und Methode 2 \\ RE ... Rastereinheit}
+	\label{tab:phase-methoden-1-und-2}
+\end{table}
+
+
+Mit Gleichung~\ref{eq:RL-Serienersatzschaltung} und den Phasenwinkeln von Methode 1 der Tabelle~\ref{tab:phase-methoden-1-und-2} wurden die $R_S, L_S$ -Werte fuer die Serienersatzschaltung berechnet (Sehe Tabelle~\ref{tab:RS_LS_50Hz}).
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{l S S S S S}
+		\toprule
+		Variante                    & { $\hat{U}_L$ in \si{\volt} } & { $\hat{U}_{R_N}$ in \si{\volt} } & { $\varphi_Z$ in Grad } & {$R_S$ in \si{\ohm}} & {$L_S$ in \si{\henry}} \\
+		\midrule
+		ohne Eisenkern              & 3.6                           & 4                                 & 15                      & 43.47                & 0.0371                 \\
+		mit offenem Eisenkern       & 3.9                           & 3.7                               & 60                      & 26.35                & 0.1453                 \\
+		mit geschlossenem Eisenkern & 9                             & 0.52                              & 65                      & 365.73               & 2.4965                 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Serienersatzschaltung $R_S + L_S$ bei 50\,Hz, Spannungen}
+	\label{tab:RS_LS_50Hz}
+\end{table}
+
 
 \subsubsection{Erkenntnisse}
 
+In Tabelle~\ref{tab:phase-methoden-1-und-2} sieht man, dass mit beiden Methoden die Phase ohne Eisenkern am kleinsten und mit gescholossenem am Größsten ist. Das liegt daran dass die Induktivität mit kleinerer Reluktanz größer ist.
