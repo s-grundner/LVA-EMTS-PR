@@ -6,8 +6,8 @@
 		\item\label{itm:2-P6-1} Strommessung über $\SI{50}{\ohm}$ Serienwiderstand mit Funktionsgenerator.
 		\item\label{itm:2-P6-2} Frequenz variieren und Auswirkungen kommentieren.
 		\item\label{itm:2-P6-3} Phasenwinkel zwischen Strom und Spannung messen (beide Methoden aus Abs.~1.5.4).
-		\item\label{itm:2-P6-4} Spule mit Eisenkern schließen und Veränderungen beobachten.
-		\item\label{itm:2-P6-5} Serienersatzschaltung $R_S + L_S$ berechnen.
+		\item\label{itm:2-P6-4} Serienersatzschaltung $R_S + L_S$ berechnen.
+		\item\label{itm:2-P6-5} Spule mit Eisenkern schließen und Veränderungen beobachten.
 	\end{enumerate}
 \end{highlightblock}
 
@@ -45,16 +45,20 @@
 	\end{itemize}
 \end{minipage}
 
-\begin{wrapfigure}[8]{r}{.5\textwidth}
-	\vspace{-11pt}\centering
-	\includegraphics[width=0.5\textwidth]{26-Schaltung-induktivitaet-phasenellipse.png}
-	\caption{Messschaltung Induktivität}\label{fig:schaltung-induktivitaet-phasenellipse.png}
-\end{wrapfigure}
-
-Der Vorwiderstand wird so gewählt, dass \SI{0.5}{\ampere} nicht Überschritten werden.
-\[ \frac{U_{PP}}{R_{L,ESR}+R_N} < \SI{0.5}{\ampere} \]
-mit $R_N = \SI{250}{\ohm}$:
-\[ I = \frac{\SI{10}{\volt}}{\SI{18}{\ohm} + \SI{250}{\ohm}} = \SI{37.4}{\milli\ampere} \]
+\begin{figure}[t]
+	\centering
+	\begin{minipage}[t]{.48\textwidth}
+		Der Vorwiderstand wird so gewählt, dass \SI{0.5}{\ampere} nicht Überschritten werden.
+		\[ \frac{U_{PP}}{R_{L,ESR}+R_N} < \SI{0.5}{\ampere} \]
+		mit $R_N = \SI{250}{\ohm}$:
+		\[ I = \frac{\SI{10}{\volt}}{\SI{18}{\ohm} + \SI{250}{\ohm}} = \SI{37.4}{\milli\ampere} \]
+	\end{minipage}\hfill
+	\begin{minipage}[t]{.48\textwidth}
+		\vspace{-11pt}\centering
+		\includegraphics[width=1\textwidth]{26-Schaltung-induktivitaet-phasenellipse.png}
+		\caption{Messschaltung Induktivität}\label{fig:schaltung-induktivitaet-phasenellipse.png}
+	\end{minipage}
+\end{figure}
 
 \marginref{\ref{itm:2-P6-1}}
 \textbf{Strom- Spannungsverlauf bei verschiedenen Frequenzen:}
@@ -137,7 +141,9 @@ Die zweite Methode ist die Messung mittels Phasenellipse (\autoref{fig:26-Messun
 	\qquad L_S = \frac{X_{L_S}}{2 \pi f} \label{eq:RL-Serienersatzschaltung}
 \end{equation}
 
-\begin{table}[h]
+\marginref{\ref{itm:2-P6-5}} Spule mit Eisenkern schließen und Veränderungen beobachten
+
+\begin{table}[!ht]
 	\centering
 	\begin{tabular}{|l|ccc|ccc|}
 		\hline
@@ -158,16 +164,14 @@ Die zweite Methode ist die Messung mittels Phasenellipse (\autoref{fig:26-Messun
 		 & 1.6                            & 1.7                            & 70.25             \\
 		\hline
 	\end{tabular}
-	\captionsetup{justification=raggedright}
 	\caption{Phasenwinkelbestimmung nach Methode 1 und Methode 2 \\ RE ... Rastereinheit}
 	\label{tab:phase-methoden-1-und-2}
 \end{table}
 
 Mit Gleichung~\ref{eq:RL-Serienersatzschaltung} und den Phasenwinkeln von Methode 1 der Tabelle~\ref{tab:phase-methoden-1-und-2} wurden die $R_S, L_S$ -Werte fuer die Serienersatzschaltung berechnet (Sehe Tabelle~\ref{tab:RS_LS_50Hz}).
 
-\begin{table}[h]
+\begin{table}[!ht]
 	\centering
-	\caption{Serienersatzschaltung $R_S + L_S$ bei \SI{50}{\hertz} Spannungen}
 	\begin{tabularx}{\textwidth}{p{5cm}YYYYY}
 		Variante                    & $\hat{U}_L / \si{\volt}$ & $\hat{U}_{R_N} / \si{\volt}$ & $\varphi_Z / \si{\degree}$ & $R_S / \si{\ohm}$ & $L_S / \si{\henry}$ \\
 		\midrule
@@ -176,6 +180,7 @@ Mit Gleichung~\ref{eq:RL-Serienersatzschaltung} und den Phasenwinkeln von Method
 		mit geschlossenem Eisenkern & 9                        & 0.52                         & 65                         & 365.73            & 2.4965              \\
 	\end{tabularx}
 	\label{tab:RS_LS_50Hz}
+	\caption{Serienersatzschaltung $R_S + L_S$ bei \SI{50}{\hertz} Spannungen}
 \end{table}
 
 
