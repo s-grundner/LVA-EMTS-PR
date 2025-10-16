@@ -16,3 +16,4 @@ main-report.pdf
 *.ilg
 *.ind
 *.drawio.bkp
+*.auxlock

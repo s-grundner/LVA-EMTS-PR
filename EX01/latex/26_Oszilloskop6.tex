@@ -3,11 +3,11 @@
 \begin{highlightblock}[Strom- und Spannungsverlauf an der Spule]
 	Untersuchung des Strom- und Spannungsverlaufs einer Spule mit offenem bzw. geschlossenem Eisenkern.
 	\begin{enumerate}[label=\textbf{\alph*:}, ref=\alph*, noitemsep]
-		\item\label{itm:2-P6-1} Strommessung über $\SI{50}{\ohm}$ Serienwiderstand mit Funktionsgenerator.
+		\item\label{itm:2-P6-1} Strommessung über Serienwiderstand mit Funktionsgenerator.
 		\item\label{itm:2-P6-2} Frequenz variieren und Auswirkungen kommentieren.
-		\item\label{itm:2-P6-3} Phasenwinkel zwischen Strom und Spannung messen (beide Methoden aus Abs.~1.5.4).
-		\item\label{itm:2-P6-4} Serienersatzschaltung $R_S + L_S$ berechnen.
-		\item\label{itm:2-P6-5} Spule mit Eisenkern schließen und Veränderungen beobachten.
+		\item\label{itm:2-P6-3} Zwei Methoden zur Phasenmessung
+		\item\label{itm:2-P6-4} Spule mit Eisenkern schließen und Veränderungen beobachten.
+		\item\label{itm:2-P6-5} Serienersatzschaltung $R_S + L_S$ berechnen.
 	\end{enumerate}
 \end{highlightblock}
 
@@ -31,8 +31,9 @@
 \begin{minipage}[t]{.48\textwidth}
 	Einstellungen des Oszilloskops:
 	\begin{itemize}[noitemsep]
-		\item Kanal 1: (DC): $\SI{2}{\volt}/\text{Div}$, $\SI{250}{\micro\second}/\text{Div}$
-		\item Kanal 2: (DC): $\SI{2}{\volt}/\text{Div}$
+		\item Kanal 1 (DC): $U_L$, $\SI{2}{\volt}/\text{Div}$
+		\item Kanal 2 (DC): $U_R$, $\SI{2}{\volt}/\text{Div}$ 
+		\item $\SI{250}{\micro\second}/\text{Div}$ 
 		\item Trigger: Kanal 1
 	\end{itemize}
 \end{minipage}\hfill
@@ -45,20 +46,17 @@
 	\end{itemize}
 \end{minipage}
 
-\begin{figure}[t]
-	\centering
-	\begin{minipage}[t]{.48\textwidth}
-		Der Vorwiderstand wird so gewählt, dass \SI{0.5}{\ampere} nicht Überschritten werden.
-		\[ \frac{U_{PP}}{R_{L,ESR}+R_N} < \SI{0.5}{\ampere} \]
-		mit $R_N = \SI{250}{\ohm}$:
-		\[ I = \frac{\SI{10}{\volt}}{\SI{18}{\ohm} + \SI{250}{\ohm}} = \SI{37.4}{\milli\ampere} \]
-	\end{minipage}\hfill
-	\begin{minipage}[t]{.48\textwidth}
-		\vspace{-11pt}\centering
-		\includegraphics[width=1\textwidth]{26-Schaltung-induktivitaet-phasenellipse.png}
-		\caption{Messschaltung Induktivität}\label{fig:schaltung-induktivitaet-phasenellipse.png}
-	\end{minipage}
-\end{figure}
+\newpage
+\begin{wrapfigure}[8]{r}{.48\textwidth}
+	\vspace{-11pt}\centering
+	\includegraphics[width=0.5\textwidth]{images/26-Schaltung-induktivitaet-phasenellipse.png}
+	\caption{Messschaltung Induktivität}\label{fig:schaltung-induktivitaet-phasenellipse.png}
+\end{wrapfigure}
+
+Der Vorwiderstand wird so gewählt, dass \SI{0.5}{\ampere} nicht Überschritten werden.
+\[ \frac{U_{PP}/2}{R_{L,ESR}+R_N} < \SI{0.5}{\ampere} \]
+mit $R_N = \SI{50}{\ohm}$:
+\[ I = \frac{\SI{5}{\volt}}{\SI{18}{\ohm} + \SI{50}{\ohm}} = \SI{73.5}{\milli\ampere} \]
 
 \marginref{\ref{itm:2-P6-1}}
 \textbf{Strom- Spannungsverlauf bei verschiedenen Frequenzen:}
@@ -66,19 +64,20 @@
 \begin{figure}[h]
 	\begin{minipage}[t]{.48\textwidth}
 		\centering
-		\includegraphics[height=4cm]{26_L-500Hz.JPEG}
-		\caption{$f=\SI{500}{\hertz}$, CH1: $U_R$, CH2: $U_L$}
+		\includegraphics[height=4cm]{images/26_L-500Hz.JPEG}
+		\caption{$f=\SI{500}{\hertz}$, CH1: $U_L$, CH2: $U_R$}
 	\end{minipage}\hfill
 	\begin{minipage}[t]{.48\textwidth}
 		\centering
-		\includegraphics[height=4cm]{26_L-1kHz.JPEG}
-		\caption{$f=\SI{1}{\kilo\hertz}$, CH1: $U_R$, CH2: $U_L$}
+		\includegraphics[height=4cm]{images/26_L-1kHz.JPEG}
+		\caption{$f=\SI{1}{\kilo\hertz}$, CH1: $U_L$, CH2: $U_R$}
 	\end{minipage}
 \end{figure}
 
 Hier sind die einzelnen Spannungen bei den Frequenzen \SI{500}{\hertz} und
 \SI{1}{\kilo\hertz} an Widerstand und Spule zu sehen. Da der selbe Strom durch
 $L$ und $R$ fließt weißt die Spannung an der Spule eine Phasenverschiebung auf.
+Da die Impedanz einer Spule mit steigender Frequenz ansteigt, ist hier 
 Zusammen addieren sich die Wellenformen zur der vom Funktionsgenerator
 eingespeißte Versorgungsspannung.
 
@@ -88,7 +87,29 @@ eingespeißte Versorgungsspannung.
 \marginref{\ref{itm:2-P6-3}}
 Der Phasenwinkel kann aus dem Oszillogramm mit zwei Metoden bestimmet werden.
 
+\begin{wrapfigure}[5]{r}{.3\textwidth}
+	\vspace{-11pt}\centering
+	\includegraphics[width=.3\textwidth]{images/26_Kurvenvergleich.png}
+	\caption{Kurvenvergleich}
+\end{wrapfigure}
+\textbf{Methode 1:} Es wird die Zeit $\Delta t$ zwischen den Nullduchgängen gemessen und die Phasenverschiebung folgendermaßen berechnet:
+\begin{equation}
+	\varphi = 2\pi\cdot \Delta t\cdot f
+	\label{eq:kurvenvergleich}
+\end{equation}
 
+\begin{wrapfigure}[6]{r}{.3\textwidth}
+	\centering
+	\includegraphics[width=.3\textwidth]{images/26_Phasenellipse.png}
+	\caption{Phasenellipse}
+\end{wrapfigure}
+\textbf{Methode 2:} Bei der zweiten Methode wird im XY-Betrieb die
+Phasenellipse der beiden Wellenformen betrachtet. Wobei sich die
+Phasenverschiebung wiefolgt ergibt \cite[S.~33, Gl.~1.48]{EMTPraktikum2025}:
+\begin{equation}
+	\varphi = \arcsin{\frac{y_0}{y_{max}}}=\arcsin\frac{x_0}{x_{max}}
+	\label{eq:phasenellipse}
+\end{equation}
 
 \begin{figure}[h]
 	\begin{minipage}[t]{.48\textwidth}
@@ -104,32 +125,7 @@ Der Phasenwinkel kann aus dem Oszillogramm mit zwei Metoden bestimmet werden.
 	\caption{Spule Eisenkern offen. CH1: Spannung an $L$, CH2: Spannung an $R_N$}\label{fig:L-Eisenkern-offen}
 \end{figure}
 
-Die erste Methode ist wie in \autoref{fig:Messung des Phasenwinkels durch Kurvenvergleich}, $\Delta t$ der Nullduchgänge und $\tau$ zu messen.
-
-\begin{figure}
-	\begin{center}
-		\includegraphics[width=0.75\textwidth]{26-Messung-des-Phasenwinkels-durch-Kurvenvergleich.png}
-	\end{center}
-	\caption{Messung des Phasenwinkels durch Kurvenvergleich}\label{fig:Messung des Phasenwinkels durch Kurvenvergleich}
-\end{figure}
-
-Die zweite Methode ist die Messung mittels Phasenellipse (\autoref{fig:26-Messung mittels Phasenellipse}). Die Phase wird mit der \autoref{eq:phasenellipse} berechnet.
-
-\begin{figure}[h]
-	\begin{minipage}[c]{.38\textwidth}
-		\centering
-		\includegraphics[width=0.95\textwidth]{26-Messung-mittels-Phasenellipse.png}
-		\caption{Messung mittels Phasenellipse}\label{fig:26-Messung mittels Phasenellipse}
-	\end{minipage}\hfill
-	\begin{minipage}[c]{.48\textwidth}
-		\centering
-		\begin{equation}
-			\phi = \arcsin{\frac{y_0}{y_{max}}}=\arcsin\frac{x_0}{x_{max}}
-			\label{eq:phasenellipse}
-		\end{equation}
-		\vspace{4em}
-	\end{minipage}
-\end{figure}
+\newpage
 
 \marginref{\ref{itm:2-P6-4}} Serienersatzschaltung $R_S + L_S$
 
