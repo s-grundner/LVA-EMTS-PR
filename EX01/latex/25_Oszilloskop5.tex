@@ -10,7 +10,8 @@
 		\item\label{itm:2-P5-3}Knick- und Zenerspannung
 		\item\label{itm:2-P5-4} Unterschied zwischen den beiden Kennlinien diskutieren.
 	\end{enumerate}
-
+	Um über die Masse des Oszilloskopes keinen Kurzschluss über die Erde zur
+	verursachen, wird ein Trenntransformator verwendet.
 \end{highlightblock}
 
 \newpage
@@ -20,17 +21,17 @@
 	\centering
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
-		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen} \\ \midrule
+		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen} \\ \midrule
 		TDS2014C & Oszilloskop & $Z_E = \SI{1}{\mega\ohm}\parallel\SI{20}{\pico\farad}$ \\
 		Agilent 33250A & Funktionsgenerator & \\
-		& Trenntransformator & Oszilloskop hier anstecken 
+		& Trenntransformator & Oszilloskop hier anstecken \\
+		R-DIG-6 & Verstellbarer Widerstand & \\
+		Dioden & Device under Test & Silizium- und Zenerdiode\\
 	\end{tabularx}
 \end{table}
 
 \subsubsection{Versuchsaufbau}
 
-Um über die Masse des Oszilloskopes keinen Kurzschluss über die Erde zur
-verursachen wird ein Trenntransformator verwendet.
 
 \begin{figure}[h]
 	\centering
@@ -46,7 +47,7 @@ Der Strom darf laut \cite[S.~146, Tbl.~A.6]{EMTPraktikum2025}
 Spannung auf $U_{PP}=\SI{10}{\volt}$ fixiert und der Vorwiderstand auf einen
 Strom von \SI{20}{\milli\ampere} dimensioniert:
 \[
-	R_V=\frac{U_{SS}/2 - U_V}{I_{\text{max, gewählt}}}=\frac{\SI{5}{\volt}-\SI{0.7}{\volt}}{\SI{0.02}{\ampere}} = \SI{215}{\ohm} \implies R_V=\SI{250}{\ohm}
+	R_V=\frac{U_{PP}/2 - U_V}{I_{\text{max, gewählt}}}=\frac{\SI{5}{\volt}-\SI{0.7}{\volt}}{\SI{0.02}{\ampere}} = \SI{215}{\ohm} \implies R_V=\SI{250}{\ohm}
 \]
 
 \marginref{\ref{itm:2-P5-2}}

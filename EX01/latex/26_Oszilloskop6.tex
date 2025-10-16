@@ -19,52 +19,92 @@
 	\begin{tabularx}{\textwidth}{XXX}
 		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen}                                \\ \midrule
 		TDS2014C & Oszilloskop & $Z_E = \SI{1}{\mega\ohm}\parallel\SI{20}{\pico\farad}$ \\
+		Agilent 33250A & Funktionsgenerator & \\
+		& Trenntransformator & Oszilloskop hier anstecken \\
+		R-DIG-6 & Verstellbarer Widerstand & \\
+		Spule & Device under Test & Auf dem Steckbrett \\
 	\end{tabularx}
 \end{table}
 
-\subsubsection{Versuchsaufbau (\autoref{fig:schaltung-induktivitaet-phasenellipse.png})}
+\subsubsection{Versuchsaufbau}
+
+\begin{minipage}[t]{.48\textwidth}
+	Einstellungen des Oszilloskops:
+	\begin{itemize}[noitemsep]
+		\item Kanal 1: (DC): $\SI{2}{\volt}/\text{Div}$, $\SI{250}{\micro\second}/\text{Div}$ 
+		\item Kanal 2: (DC): $\SI{2}{\volt}/\text{Div}$ 
+		\item Trigger: Kanal 1
+	\end{itemize}
+\end{minipage}\hfill
+\begin{minipage}[t]{.48\textwidth}
+	Einstellungen des Funktionsgenerators:
+	\begin{itemize}[noitemsep]
+		\item Frequenz: $\SI{500}{\hertz}-\SI{1}{\kilo\hertz}$
+		\item Amplitude: $\SI{10}{\volt}_{PP}$
+		\item Wellenform: Sinus
+	\end{itemize}
+\end{minipage}
+
+\begin{wrapfigure}[8]{r}{.5\textwidth}
+	\vspace{-11pt}\centering
+	\includegraphics[width=0.5\textwidth]{images/26-Schaltung-induktivitaet-phasenellipse.png}
+	\caption{Messschaltung Induktivität}\label{fig:schaltung-induktivitaet-phasenellipse.png}
+\end{wrapfigure}
+
+Der Vorwiderstand wird so gewählt, dass \SI{0.5}{\ampere} nicht Überschritten werden.
+\[ \frac{U_{PP}}{R_{L,ESR}+R_N} < \SI{0.5}{\ampere} \]
+mit $R_N = \SI{250}{\ohm}$:
+\[ I = \frac{\SI{10}{\volt}}{\SI{18}{\ohm} + \SI{250}{\ohm}} = \SI{37.4}{\milli\ampere} \]
+
+\marginref{\ref{itm:2-P6-1}}
+\textbf{Strom- Spannungsverlauf bei verschiedenen Frequenzen:}
 
 \begin{figure}[h]
-	\begin{minipage}[t]{.98\textwidth}
+	\begin{minipage}[t]{.48\textwidth}
 		\centering
-		\includegraphics[height=4cm]{images/26-Schaltung-induktivitaet-phasenellipse.png}
-		\caption{Abgleich eines Tastkopfes am Oszilloskop mittels Testsignal}\label{fig:schaltung-induktivitaet-phasenellipse.png}
+		\includegraphics[height=4cm]{images/26_L-500Hz.JPEG}
+		\caption{$f=\SI{500}{\hertz}$, CH1: $U_R$, CH2: $U_L$}
 	\end{minipage}\hfill
+	\begin{minipage}[t]{.48\textwidth}
+		\centering
+		\includegraphics[height=4cm]{images/26_L-1kHz.JPEG}
+		\caption{$f=\SI{1}{\kilo\hertz}$, CH1: $U_R$, CH2: $U_L$}
+	\end{minipage}
 \end{figure}
 
-\begin{gather}
-	U_{PP}/2=\SI{2.5}{\volt}
-	\frac{\SI{2.5}{\volt}}{\SI{16}{\ohm}+R} < \SI{0.5}{\ampere} \\
-	R=\SI{100}{\ohm} \\
-	I = \frac{\SI{2.5}{\volt}}{\SI{16}{\ohm}+\SI{100}{\ohm}} \approx \SI{22}{\milli\ampere}
-\end{gather}
-
-\marginref{\ref{itm:2-P6-1}} Strom- Spannungsverlauf bei verschiedenen Frequenzen.
-
-Am Widerstand ist Strom und Spannung in Phase. Da $L$ und $R$ in Reihe geschalten sind fliest durch sie der selbe Strom. Bei \autoref{fig:L-Eisenkern-offen} sieht man, dass die Phase bei hohen Frequenzen gege $\frac{\pi}{2}$ geht und bei niedrigen gegen $0$, weil dann der Blindwiderstand gegen $0$ geht. (Der Strom eilt der Spannung nach)
+Hier sind die einzelnen Spannungen bei den Frequenzen \SI{500}{\hertz} und
+\SI{1}{\kilo\hertz} an Widerstand und Spule zu sehen. Da der selbe Strom durch
+$L$ und $R$ fließt weißt die Spannung an der Spule eine Phasenverschiebung auf.
+Zusammen addieren sich die Wellenformen zur der vom Funktionsgenerator
+eingespeißte Versorgungsspannung.
 
 \marginref{\ref{itm:2-P6-2}}
+\textbf{Bei Erhöhung der Frequenz} steigt die Phasenverschiebung im verhältnis zur Periodendauer an. Siehe \autoref{itm:2-P6-3}.
+
+\marginref{\ref{itm:2-P6-3}}
+Der Phasenwinkel kann aus dem Oszillogramm mit zwei Metoden bestimmet werden.
+
+
+
 \begin{figure}[h]
 	\begin{minipage}[t]{.48\textwidth}
 		\centering
-		\includegraphics[height=4cm]{images/25_L-Eisenkern-offen-500Hz.JPEG}
-		\caption*{$f=\SI{500}{\hertz}$,\; $\Phi = 2\pi*\Delta t * f = \frac{\pi}{4}$}	\end{minipage}\hfill
+		\includegraphics[height=4cm]{images/26_L-Eisenkern-offen-500Hz.JPEG}
+		\caption*{$f=\SI{500}{\hertz}$,\; $\Phi = 2\pi*\Delta t * f = \frac{\pi}{4}$}
+	\end{minipage}\hfill
 	\begin{minipage}[t]{.48\textwidth}
 		\centering
-		\includegraphics[height=4cm]{images/25_L-Eisenkern-offen-1kHz.JPEG}
+		\includegraphics[height=4cm]{images/26_L-Eisenkern-offen-1kHz.JPEG}
 		\caption*{$f=\SI{1}{\kilo\hertz}$, \; $\Phi = \frac{\pi}{2}$}
 	\end{minipage}
 	\caption{Spule Eisenkern offen. CH1: Spannung an $L$, CH2: Spannung an $R_N$}\label{fig:L-Eisenkern-offen}
 \end{figure}
 
-
-\marginref{\ref{itm:2-P6-3}} Phasenwinkel mit zwei Metoden bestimmen. Alle Messungen wurden mit \SI{50}{\hertz} durchgeführt.
-
 Die erste Methode ist wie in \autoref{fig:Messung des Phasenwinkels durch Kurvenvergleich}, $\Delta t$ der Nullduchgänge und $\tau$ zu messen.
 
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.75\textwidth]{images/26-Messung des Phasenwinkels-durch-Kurvenvergleich.png}
+		\includegraphics[width=0.75\textwidth]{images/26-Messung-des-Phasenwinkels-durch-Kurvenvergleich.png}
 	\end{center}
 	\caption{Messung des Phasenwinkels durch Kurvenvergleich}\label{fig:Messung des Phasenwinkels durch Kurvenvergleich}
 \end{figure}
@@ -74,7 +114,7 @@ Die zweite Methode ist die Messung mittels Phasenellipse (\autoref{fig:26-Messun
 \begin{figure}[h]
 	\begin{minipage}[c]{.38\textwidth}
 		\centering
-		\includegraphics[width=0.95\textwidth]{images/26-Messung mittels Phasenellipse.png}
+		\includegraphics[width=0.95\textwidth]{images/26-Messung-mittels-Phasenellipse.png}
 		\caption{Messung mittels Phasenellipse}\label{fig:26-Messung mittels Phasenellipse}
 	\end{minipage}\hfill
 	\begin{minipage}[c]{.48\textwidth}
