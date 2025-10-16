@@ -17,12 +17,12 @@
 	\centering
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
-		\textbf{Messgerät} & \textbf{Verwendung} & \textbf{Anmerkungen}                                \\ \midrule
-		TDS2014C & Oszilloskop & $Z_E = \SI{1}{\mega\ohm}\parallel\SI{20}{\pico\farad}$ \\
-		Agilent 33250A & Funktionsgenerator & \\
-		& Trenntransformator & Oszilloskop hier anstecken \\
-		R-DIG-6 & Verstellbarer Widerstand & \\
-		Spule & Device under Test & Auf dem Steckbrett \\
+		\textbf{Messgerät} & \textbf{Verwendung}      & \textbf{Anmerkungen}                                   \\ \midrule
+		TDS2014C           & Oszilloskop              & $Z_E = \SI{1}{\mega\ohm}\parallel\SI{20}{\pico\farad}$ \\
+		Agilent 33250A     & Funktionsgenerator       &                                                        \\
+		                   & Trenntransformator       & Oszilloskop hier anstecken                             \\
+		R-DIG-6            & Verstellbarer Widerstand &                                                        \\
+		Spule              & Device under Test        & Auf dem Steckbrett                                     \\
 	\end{tabularx}
 \end{table}
 
@@ -31,8 +31,8 @@
 \begin{minipage}[t]{.48\textwidth}
 	Einstellungen des Oszilloskops:
 	\begin{itemize}[noitemsep]
-		\item Kanal 1: (DC): $\SI{2}{\volt}/\text{Div}$, $\SI{250}{\micro\second}/\text{Div}$ 
-		\item Kanal 2: (DC): $\SI{2}{\volt}/\text{Div}$ 
+		\item Kanal 1: (DC): $\SI{2}{\volt}/\text{Div}$, $\SI{250}{\micro\second}/\text{Div}$
+		\item Kanal 2: (DC): $\SI{2}{\volt}/\text{Div}$
 		\item Trigger: Kanal 1
 	\end{itemize}
 \end{minipage}\hfill
@@ -47,7 +47,7 @@
 
 \begin{wrapfigure}[8]{r}{.5\textwidth}
 	\vspace{-11pt}\centering
-	\includegraphics[width=0.5\textwidth]{images/26-Schaltung-induktivitaet-phasenellipse.png}
+	\includegraphics[width=0.5\textwidth]{26-Schaltung-induktivitaet-phasenellipse.png}
 	\caption{Messschaltung Induktivität}\label{fig:schaltung-induktivitaet-phasenellipse.png}
 \end{wrapfigure}
 
@@ -62,12 +62,12 @@ mit $R_N = \SI{250}{\ohm}$:
 \begin{figure}[h]
 	\begin{minipage}[t]{.48\textwidth}
 		\centering
-		\includegraphics[height=4cm]{images/26_L-500Hz.JPEG}
+		\includegraphics[height=4cm]{26_L-500Hz.JPEG}
 		\caption{$f=\SI{500}{\hertz}$, CH1: $U_R$, CH2: $U_L$}
 	\end{minipage}\hfill
 	\begin{minipage}[t]{.48\textwidth}
 		\centering
-		\includegraphics[height=4cm]{images/26_L-1kHz.JPEG}
+		\includegraphics[height=4cm]{26_L-1kHz.JPEG}
 		\caption{$f=\SI{1}{\kilo\hertz}$, CH1: $U_R$, CH2: $U_L$}
 	\end{minipage}
 \end{figure}
@@ -89,12 +89,12 @@ Der Phasenwinkel kann aus dem Oszillogramm mit zwei Metoden bestimmet werden.
 \begin{figure}[h]
 	\begin{minipage}[t]{.48\textwidth}
 		\centering
-		\includegraphics[height=4cm]{images/26_L-Eisenkern-offen-500Hz.JPEG}
+		\includegraphics[height=4cm]{26_L-Eisenkern-offen-500Hz.JPEG}
 		\caption*{$f=\SI{500}{\hertz}$,\; $\Phi = 2\pi*\Delta t * f = \frac{\pi}{4}$}
 	\end{minipage}\hfill
 	\begin{minipage}[t]{.48\textwidth}
 		\centering
-		\includegraphics[height=4cm]{images/26_L-Eisenkern-offen-1kHz.JPEG}
+		\includegraphics[height=4cm]{26_L-Eisenkern-offen-1kHz.JPEG}
 		\caption*{$f=\SI{1}{\kilo\hertz}$, \; $\Phi = \frac{\pi}{2}$}
 	\end{minipage}
 	\caption{Spule Eisenkern offen. CH1: Spannung an $L$, CH2: Spannung an $R_N$}\label{fig:L-Eisenkern-offen}
@@ -104,7 +104,7 @@ Die erste Methode ist wie in \autoref{fig:Messung des Phasenwinkels durch Kurven
 
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.75\textwidth]{images/26-Messung-des-Phasenwinkels-durch-Kurvenvergleich.png}
+		\includegraphics[width=0.75\textwidth]{26-Messung-des-Phasenwinkels-durch-Kurvenvergleich.png}
 	\end{center}
 	\caption{Messung des Phasenwinkels durch Kurvenvergleich}\label{fig:Messung des Phasenwinkels durch Kurvenvergleich}
 \end{figure}
@@ -114,7 +114,7 @@ Die zweite Methode ist die Messung mittels Phasenellipse (\autoref{fig:26-Messun
 \begin{figure}[h]
 	\begin{minipage}[c]{.38\textwidth}
 		\centering
-		\includegraphics[width=0.95\textwidth]{images/26-Messung-mittels-Phasenellipse.png}
+		\includegraphics[width=0.95\textwidth]{26-Messung-mittels-Phasenellipse.png}
 		\caption{Messung mittels Phasenellipse}\label{fig:26-Messung mittels Phasenellipse}
 	\end{minipage}\hfill
 	\begin{minipage}[c]{.48\textwidth}
@@ -169,11 +169,11 @@ Mit Gleichung~\ref{eq:RL-Serienersatzschaltung} und den Phasenwinkeln von Method
 	\centering
 	\caption{Serienersatzschaltung $R_S + L_S$ bei \SI{50}{\hertz} Spannungen}
 	\begin{tabularx}{\textwidth}{p{5cm}YYYYY}
-		Variante & $\hat{U}_L / \si{\volt}$ & $\hat{U}_{R_N} / \si{\volt}$ & $\varphi_Z / \si{\degree}$ & $R_S / \si{\ohm}$ & $L_S / \si{\henry}$ \\
+		Variante                    & $\hat{U}_L / \si{\volt}$ & $\hat{U}_{R_N} / \si{\volt}$ & $\varphi_Z / \si{\degree}$ & $R_S / \si{\ohm}$ & $L_S / \si{\henry}$ \\
 		\midrule
-		ohne Eisenkern              & 3.6 & 4    & 15 & 43.47  & 0.0371 \\
-		mit offenem Eisenkern       & 3.9 & 3.7  & 60 & 26.35  & 0.1453 \\
-		mit geschlossenem Eisenkern & 9   & 0.52 & 65 & 365.73 & 2.4965 \\
+		ohne Eisenkern              & 3.6                      & 4                            & 15                         & 43.47             & 0.0371              \\
+		mit offenem Eisenkern       & 3.9                      & 3.7                          & 60                         & 26.35             & 0.1453              \\
+		mit geschlossenem Eisenkern & 9                        & 0.52                         & 65                         & 365.73            & 2.4965              \\
 	\end{tabularx}
 	\label{tab:RS_LS_50Hz}
 \end{table}
