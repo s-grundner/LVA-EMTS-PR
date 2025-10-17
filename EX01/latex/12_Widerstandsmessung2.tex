@@ -6,11 +6,11 @@
 	durchgeführt. Diese umfasst folgende Schritte:
 	\begin{enumerate}[label=\textbf{\alph*:}, ref=\alph*,noitemsep]
 		\item\label{itm:1-P2-1} 5 statistisch unabhängige Messungen aufnehmen:
-		      \begin{itemize}[noitemsep]
-			      \item Unterschiedliche Werte von Strom- / Spannungswerte + Messbereiche
-			      \item Messgeräte tauschen.
-			      \item Kabel ein- und ausstecken
-		      \end{itemize}
+		\begin{itemize}[noitemsep]
+			\item Unterschiedliche Werte von Strom- / Spannungswerte + Messbereiche
+			\item Messgeräte tauschen.
+			\item Kabel ein- und ausstecken
+		\end{itemize}
 		\item\label{itm:1-P2-2} Messreihe statistisch auswerten\\(Schätzwert des Mittelwertes $\bar{R}$ und Standardabweichung~$s$)
 		\item\label{itm:1-P2-3} Konfidenzintervalle für die Vertrauensniveaus $1-\alpha =\{68.26\%, 99.5\%\}$
 		\item\label{itm:1-P2-4} Diskussion des Einflusses der unterschiedlichen Spannungsniveaus.
@@ -44,7 +44,7 @@ verwendet und folgende Messwerte aufgenommen:
 		header=true,
 		every head row/.style={after row=\midrule},
 		begin table={\begin{tabularx}{\textwidth}},
-					end table={\end{tabularx}},
+		end table={\end{tabularx}},
 		columns/desc/.style={column name={Bemerkung}, column type=|X, string type},
 		columns/Nr/.style={column name={Nr}, column type=c},
 		columns/U/.style={column name={$U / \si{\volt}$}, column type=c, precision=2, fixed},
@@ -54,11 +54,12 @@ verwendet und folgende Messwerte aufgenommen:
 	]{../data/12_Values.csv}
 \end{table}
 
+\newpage
 \marginref{\ref{itm:1-P2-2},~\ref{itm:1-P2-3}}
 Die Berechnung des Mittelwertes $\bar{R}$ und der Standardabweichung~$s$~\cite[S.~7]{EMTPraktikum2025}:
 \begin{align}
-	 & \bar{R} = \frac{1}{n} \sum_{i=1}^{n} R_i = \SI{67.94}{\ohm}                                            \\
-	 & s = \sqrt{\frac{1}{n-1} \sum_{i=1}^n {(R_i - \bar{R})}^2} = \SI{0.08451}{\ohm} \approx \SI{0.08}{\ohm}
+	& \bar{R} = \frac{1}{n} \sum_{i=1}^{n} R_i = \SI{67.94}{\ohm}                                            \\
+	& s = \sqrt{\frac{1}{n-1} \sum_{i=1}^n {(R_i - \bar{R})}^2} = \SI{0.08451}{\ohm} \approx \SI{0.08}{\ohm}
 \end{align}
 
 Die zufällige Messunsicherheit berechnet sich nach~\cite[S.~9, Gl.~1.13]{EMTPraktikum2025} zu
@@ -70,33 +71,30 @@ Für $n=5$ ergibt sich:
 
 \begin{itemize}
 	\item 68,26\% Vertrauensniveau ($t_{0}/\sqrt{n} = 0.51$):
-	      \[
-		      \begin{gathered}
-			      u_{z} = 0.51 \cdot \SI{0.08}{\ohm} \approx \SI{0.041}{\ohm} \\
-			      R = \bar{R} \pm u_{z} = (67.94 \pm 0.04) \, \si{\ohm}
-		      \end{gathered}
-	      \]
-	      also das Konfidenzintervall $[67.90; 67.98]\si{\ohm}$
-	      also das Konfidenzintervall $[67.90; 67.98]\si{\ohm}$
+		\begin{gather*}
+			u_{z} = 0.51 \cdot \SI{0.08}{\ohm} \approx \SI{0.041}{\ohm} \\
+			R = \bar{R} \pm u_{z} = (67.94 \pm 0.04) \, \si{\ohm}
+		\end{gather*}
+		also das Konfidenzintervall $[67.90; 67.98]\si{\ohm}$
+		also das Konfidenzintervall $[67.90; 67.98]\si{\ohm}$
 
 	\item 99,5\% Vertrauensniveau ($t_{0}/\sqrt{n} = 2.50$):
-	      \[
-		      \begin{gathered}
-			      u_{z} = 2.50 \cdot \SI{0.08}{\ohm} \approx \SI{0.175}{\ohm} \\
-			      R = \bar{R} \pm u_{z} = (67.94 \pm 0.18) \, \si{\ohm}
-		      \end{gathered}
-	      \]
-	      also das Konfidenzintervall $[67.76; 68.12]\si{\ohm}$
-	      also das Konfidenzintervall $[67.76; 68.12]\si{\ohm}$
+		\begin{gather*}
+			u_{z} = 2.50 \cdot \SI{0.08}{\ohm} \approx \SI{0.175}{\ohm} \\
+			R = \bar{R} \pm u_{z} = (67.94 \pm 0.18) \, \si{\ohm}
+		\end{gather*}
+		also das Konfidenzintervall $[67.76; 68.12]\si{\ohm}$
+		also das Konfidenzintervall $[67.76; 68.12]\si{\ohm}$
 \end{itemize}
 
 \marginref{\ref{itm:1-P2-4}}
-Einflusses der unterschiedlichen Spannungsniveaus:
-
-Am Anfang des Strommessbereichs ist der relative Fehler am kleinsten (vgl.~\autoref{tab:12-values}, Messung~3).
-Am Anfang des Strommessbereichs ist der relative Fehler am kleinsten (vgl.~\autoref{tab:12-values}, Messung~3).
+\textbf{Einflusses der unterschiedlichen Spannungsniveaus:} Am Anfang des
+Strommessbereichs ist der relative Fehler am kleinsten
+(vgl.~\autoref{tab:12-values}, Messung~3). Am Anfang des Strommessbereichs ist
+der relative Fehler am kleinsten (vgl.~\autoref{tab:12-values}, Messung~3).
 Dies entspricht den Herstellerangaben zum Digitalmultimeter METEX~4600
-(vgl.~\cite[S.~143]{EMTPraktikum2025}), wonach der Fehler als Prozentwert des Anzeigewerts
-angegeben wird. Bei kleinen Strömen (niedriges Spannungsniveau) ergibt sich daher die
-geringste Abweichung, während diese bei höheren Spannungsniveaus zunimmt.
+(vgl.~\cite[S.~143]{EMTPraktikum2025}), wonach der Fehler als Prozentwert des
+Anzeigewerts angegeben wird. Bei kleinen Strömen (niedriges Spannungsniveau)
+ergibt sich daher die geringste Abweichung, während diese bei höheren
+Spannungsniveaus zunimmt.
 

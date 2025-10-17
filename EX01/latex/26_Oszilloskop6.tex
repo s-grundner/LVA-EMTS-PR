@@ -20,7 +20,7 @@
 		\textbf{Messgerät} & \textbf{Verwendung}      & \textbf{Anmerkungen}                                   \\ \midrule
 		TDS2014C           & Oszilloskop              & $Z_E = \SI{1}{\mega\ohm}\parallel\SI{20}{\pico\farad}$ \\
 		Agilent 33250A     & Funktionsgenerator       &                                                        \\
-		                   & Trenntransformator       & Oszilloskop hier anstecken                             \\
+					       & Trenntransformator       & Oszilloskop hier anstecken                             \\
 		R-DIG-6            & Verstellbarer Widerstand &                                                        \\
 		Spule              & Device under Test        & Auf dem Steckbrett                                     \\
 	\end{tabularx}
@@ -34,7 +34,6 @@
 		\item Kanal 1 (DC): $U_L$, $\SI{2}{\volt}/\text{Div}$
 		\item Kanal 2 (DC): $U_R$, $\SI{2}{\volt}/\text{Div}$ 
 		\item $\SI{250}{\micro\second}/\text{Div}$ 
-		\item Trigger: Kanal 1
 	\end{itemize}
 \end{minipage}\hfill
 \begin{minipage}[t]{.48\textwidth}
@@ -56,7 +55,7 @@
 Der Vorwiderstand wird so gewählt, dass \SI{0.5}{\ampere} nicht Überschritten werden.
 \[ \frac{U_{PP}/2}{R_{L,ESR}+R_N} < \SI{0.5}{\ampere} \]
 mit $R_N = \SI{50}{\ohm}$:
-\[ I = \frac{\SI{5}{\volt}}{\SI{18}{\ohm} + \SI{50}{\ohm}} = \SI{73.5}{\milli\ampere} \]
+\[ I = \frac{\SI{5}{\volt}}{\SI{15.6}{\ohm} + \SI{50}{\ohm}} = \SI{73.5}{\milli\ampere} \]
 
 \marginref{\ref{itm:2-P6-1}}
 \textbf{Strom- Spannungsverlauf bei verschiedenen Frequenzen:}
@@ -82,7 +81,8 @@ Zusammen addieren sich die Wellenformen zur der vom Funktionsgenerator
 eingespeißte Versorgungsspannung.
 
 \marginref{\ref{itm:2-P6-2}}
-\textbf{Bei Erhöhung der Frequenz} steigt die Phasenverschiebung im verhältnis zur Periodendauer an. Siehe \autoref{itm:2-P6-3}.
+\textbf{Bei Erhöhung der Frequenz} steigt die Phasenverschiebung im verhältnis
+zur Periodendauer an.
 
 \marginref{\ref{itm:2-P6-3}}
 Der Phasenwinkel kann aus dem Oszillogramm mit zwei Metoden bestimmet werden.
@@ -92,9 +92,10 @@ Der Phasenwinkel kann aus dem Oszillogramm mit zwei Metoden bestimmet werden.
 	\includegraphics[width=.3\textwidth]{images/26_Kurvenvergleich.png}
 	\caption{Kurvenvergleich}
 \end{wrapfigure}
-\textbf{Methode 1:} Es wird die Zeit $\Delta t$ zwischen den Nullduchgängen gemessen und die Phasenverschiebung folgendermaßen berechnet:
+\textbf{Methode 1:} Es wird die Zeit $\Delta t$ zwischen den Nullduchgängen
+gemessen und die Phasenverschiebung folgendermaßen berechnet (RE \ldots Rastereinheiten am Bildschirm):
 \begin{equation}
-	\varphi = 2\pi\cdot \Delta t\cdot f
+	\varphi [\si{\radian}] = 2\pi\cdot \Delta t\cdot f
 	\label{eq:kurvenvergleich}
 \end{equation}
 
@@ -111,23 +112,55 @@ Phasenverschiebung wiefolgt ergibt \cite[S.~33, Gl.~1.48]{EMTPraktikum2025}:
 	\label{eq:phasenellipse}
 \end{equation}
 
+\newpage
+\marginref{\ref{itm:2-P6-5}}
+\textbf{Schließung des Eisenkerns} bewirkt eine starke Erhöhung der
+Induktivität, da die relative Permeabilität $\mu_r$ des Eisenkerns viel höher ist als die
+des Luftkerns. Die Induktivität und die Permeabilität hängen folgendermaßen zusammen:
+\[
+	L = \mu_0 \mu_r \frac{N^2 A}{l} \implies L \propto \mu_r
+\]
+Dadurch steigt der Blindwiderstand der Spule an, was zu einer stärkeren
+Phasenverschiebung gegen \SI{90}{\degree} führt, dadurch fällt auch an der
+Induktivität mehr Spannung ab. In den Oszillogrammen ist zu erkennen, dass
+Kanal 1 ($U_L$) rechts deutlich höher ausschlägt (Kanalskalierung beachten).
 \begin{figure}[h]
 	\begin{minipage}[t]{.48\textwidth}
 		\centering
-		\includegraphics[height=4cm]{26_L-Eisenkern-offen-500Hz.JPEG}
-		\caption*{$f=\SI{500}{\hertz}$,\; $\Phi = 2\pi*\Delta t * f = \frac{\pi}{4}$}
+		\includegraphics[height=4cm]{26_L-500Hz.JPEG}
+		\caption{Ohne Kern}
 	\end{minipage}\hfill
 	\begin{minipage}[t]{.48\textwidth}
 		\centering
-		\includegraphics[height=4cm]{26_L-Eisenkern-offen-1kHz.JPEG}
-		\caption*{$f=\SI{1}{\kilo\hertz}$, \; $\Phi = \frac{\pi}{2}$}
+		\includegraphics[height=4cm]{26_L-Eisenkern-offen-500Hz.JPEG}
+		\caption{Offener Eisenkern}
 	\end{minipage}
-	\caption{Spule Eisenkern offen. CH1: Spannung an $L$, CH2: Spannung an $R_N$}\label{fig:L-Eisenkern-offen}
 \end{figure}
 
-\newpage
+Es ist zu beachten, dass die eigentliche Phase $\SI{180}{\degree}-\varphi$ beträgt, da die Masse des Oszilloskops in der Mitte liegt und eine der Spannungen gegen die Stromrichtung gemessen wird. Für ein besseres Oszillgramm hätte man einen Kanal invertieren können.
 
-\marginref{\ref{itm:2-P6-4}} Serienersatzschaltung $R_S + L_S$
+\textbf{Messergebnisse: } Bei den obrigen Einstellungen wurde festgestellt,
+dass $\SI{500}{\hertz}$ zu hoch ist und die Phasenverschiebung zu schnell gegen
+\SI{90}{\degree} läuft. Die Messungen wurden daher bei $\SI{50}{\hertz}$
+wiederholt, und folgende Messdaten aufgenommen:
+
+\begin{table}[!ht]
+	\centering
+	\caption{Phasenwinkelbestimmung nach Methode 1 und Methode 2}
+	\begin{tabularx}{\textwidth}{lYY|YYY}
+		& \multicolumn{2}{c|}{Methode 1} & \multicolumn{3}{c}{Methode 2} \\ \midrule
+		Variante & $\Delta t / \si{\milli\second}$ & $\varphi / \si{\degree}$ & $x_0 / \mathrm{RM}$ & $x_{\max} / \mathrm{RM}$ & $\varphi / \si{\degree}$ \\ \midrule
+		ohne Eisenkern              & 1.1 & 19.8 & 3 & 9.5 & 18.4 \\
+		mit offenem Eisenkern       & 3.4 & 61.2 & 7 & 7.5 & 61.93 \\
+		mit geschlossenem Eisenkern & 4.9 & 88.2 & 3 & 3 & 90 \\
+	\end{tabularx}
+	\label{tab:phase-methoden-1-und-2}
+\end{table}
+
+Es wurden für Methode 1 \autoref{eq:kurvenvergleich} und für Methode 2 \autoref{eq:phasenellipse} zur Berechnung der Phasenverschiebung verwendet. Für $x_0$ und $x_{max}$ wurden direkt die anzahl der feinen Rastereinheiten eingesetzt da sich die Kanalskalierung kürzt. Beim geschlossenen Eisenkern konnte nicht meht zwischen $x_0$ und $x_{max}$ unterschieden werden, daher wurde hier $\varphi = \SI{90}{\degree}$ angenommen. Die Zeitmessung war hier genauer.
+
+\newpage
+\marginref{\ref{itm:2-P6-5}} \textbf{Serienersatzschaltung $R_S + L_S$}
 
 \begin{equation}
 	Z_{R_S, L_S}
@@ -137,48 +170,20 @@ Phasenverschiebung wiefolgt ergibt \cite[S.~33, Gl.~1.48]{EMTPraktikum2025}:
 	\qquad L_S = \frac{X_{L_S}}{2 \pi f} \label{eq:RL-Serienersatzschaltung}
 \end{equation}
 
-\marginref{\ref{itm:2-P6-5}} Spule mit Eisenkern schließen und Veränderungen beobachten
 
-\begin{table}[!ht]
-	\centering
-	\begin{tabular}{|l|ccc|ccc|}
-		\hline
-		 & \multicolumn{3}{c|}{Methode 1} & \multicolumn{3}{c|}{Methode 2}                     \\
-		\hline
-		Variante
-		 & $\varphi$[RE]                  & $T$[RE]                        & $\varphi[^\circ]$
-		 & $\varphi$[RE]                  & $T$[RE]                        & $\varphi[^\circ]$ \\
-		\hline
-		ohne Eisenkern
-		 & 0.3                            & 7.2                            & 15.00
-		 & 0.5                            & 1.7                            & 17.10             \\
-		mit offenem Eisenkern
-		 & 1.2                            & -                              & 60.00
-		 & 1.5                            & 1.7                            & 61.93             \\
-		mit geschlossenem Eisenkern
-		 & 1.3                            & -                              & 65.00
-		 & 1.6                            & 1.7                            & 70.25             \\
-		\hline
-	\end{tabular}
-	\caption{Phasenwinkelbestimmung nach Methode 1 und Methode 2 \\ RE ... Rastereinheit}
-	\label{tab:phase-methoden-1-und-2}
-\end{table}
-
-Mit Gleichung~\ref{eq:RL-Serienersatzschaltung} und den Phasenwinkeln von Methode 1 der Tabelle~\ref{tab:phase-methoden-1-und-2} wurden die $R_S, L_S$ -Werte fuer die Serienersatzschaltung berechnet (Sehe Tabelle~\ref{tab:RS_LS_50Hz}).
+Mit Gleichung~\ref{eq:RL-Serienersatzschaltung} und den Phasenwinkeln von Methode 1 der Tabelle~\ref{tab:phase-methoden-1-und-2} wurden die $R_S, L_S$-Werte für die Serienersatzschaltung berechnet:
 
 \begin{table}[!ht]
 	\centering
 	\begin{tabularx}{\textwidth}{p{5cm}YYYYY}
-		Variante                    & $\hat{U}_L / \si{\volt}$ & $\hat{U}_{R_N} / \si{\volt}$ & $\varphi_Z / \si{\degree}$ & $R_S / \si{\ohm}$ & $L_S / \si{\henry}$ \\
-		\midrule
-		ohne Eisenkern              & 3.6                      & 4                            & 15                         & 43.47             & 0.0371              \\
-		mit offenem Eisenkern       & 3.9                      & 3.7                          & 60                         & 26.35             & 0.1453              \\
-		mit geschlossenem Eisenkern & 9                        & 0.52                         & 65                         & 365.73            & 2.4965              \\
+		Variante & $\hat{U}_L / \si{\volt}$ & $\hat{U}_{R_N} / \si{\volt}$ & $\varphi_Z / \si{\degree}$ & $R_S / \si{\ohm}$ & $L_S / \si{\milli\henry}$ \\ \midrule
+		ohne Eisenkern & 1.2 & 4 & 3.8 & 5.43 & 17.0 \\
+		mit offenem Eisenkern & 2.2 & 3.5 & 61.2 & 27.5 & 87.7 \\
+		mit geschlossenem Eisenkern & 4.9 & 0.21 & 88.2 & 765.2 & 2436 \\
 	\end{tabularx}
 	\label{tab:RS_LS_50Hz}
 	\caption{Serienersatzschaltung $R_S + L_S$ bei \SI{50}{\hertz} Spannungen}
 \end{table}
-
 
 \subsubsection{Erkenntnisse}
 
