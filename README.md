@@ -2,9 +2,9 @@
 
 | Nr | Protokoll | Keywords |
 |-|-|-|
-| 1 | [EX01](docs/EX01-k12136610.pdf) | Messung grundlegender elektrischer Größen, Oszilloskop |
-| 2 | [EX02](docs/EX01-k12136610.pdf) |  |
-| 3 | [EX03](docs/EX01-k12136610.pdf) |  |
-| 4 | [EX04](docs/EX01-k12136610.pdf) |  |
-| 5 | [EX05](docs/EX01-k12136610.pdf) |  |
-| 6 | [EX06](docs/EX01-k12136610.pdf) |  |
+| 1 | [PR01](docs/EMTS-PR01-Kronegger-Grundner.pdf) | Messung grundlegender elektrischer Größen, Oszilloskop |
+| 2 | [PR02](docs/EMTS-PR02-Kronegger-Grundner.pdf) |  |
+| 3 | [PR03](docs/EMTS-PR03-Kronegger-Grundner.pdf) |  |
+| 4 | [PR04](docs/EMTS-PR04-Kronegger-Grundner.pdf) |  |
+| 5 | [PR05](docs/EMTS-PR05-Kronegger-Grundner.pdf) |  |
+| 6 | [PR06](docs/EMTS-PR06-Kronegger-Grundner.pdf) |  |

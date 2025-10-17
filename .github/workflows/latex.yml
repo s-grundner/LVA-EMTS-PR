@@ -5,8 +5,9 @@ permissions:
   contents: write
 
 env:
-  MATRICULATION_NUMBER: _Kronegger_Grundner
-  EXERCISES: "EX01"
+  LVA: "EMTSPR_WS25"
+  AUTHORS: Kronegger_Grundner
+  EXERCISES: "PR1"
 
 jobs:
   generate_matrix:
@@ -69,7 +70,7 @@ jobs:
         IFS=',' read -ra EXERCISES_ARRAY <<< "${{ needs.generate_matrix.outputs.exercises_list }}"
         for exercise in "${EXERCISES_ARRAY[@]}"; do
           if [ -f "artifacts/${exercise}-pdf/main-report.pdf" ]; then
-            cp "artifacts/${exercise}-pdf/main-report.pdf" "docs/${exercise}-${{ env.MATRICULATION_NUMBER }}.pdf"
+            cp "artifacts/${exercise}-pdf/main-report.pdf" "docs/${{ env.LVA }}_${exercise}_${{ env.AUTHORS }}.pdf"
             echo "Copied ${exercise} PDF"
           else
             echo "Warning: ${exercise} PDF not found"
@@ -79,4 +80,5 @@ jobs:
         # commit all PDFs in a single commit
         git add docs/*.pdf
         git commit -m "🤖 [ACTION] update LaTeX reports (${{ needs.generate_matrix.outputs.exercises_list }})"
-        git push
+        git pull --rebase origin dev
+        git push origin dev
