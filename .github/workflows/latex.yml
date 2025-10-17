@@ -5,7 +5,7 @@ permissions:
   contents: write
 
 env:
-  MATRICULATION_NUMBER: k12136610
+  MATRICULATION_NUMBER: _Kronegger_Grundner
   EXERCISES: "EX01"
 
 jobs:
