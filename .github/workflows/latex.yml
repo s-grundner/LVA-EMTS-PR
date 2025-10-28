@@ -19,10 +19,8 @@ jobs:
     - name: Generate exercise matrix
       id: set-matrix
       run: |
-        # Convert comma-separated string to JSON array for matrix
         exercises=$(echo '${{ env.EXERCISES }}' | jq -Rc 'split(",")')
         echo "exercises=$exercises" >> $GITHUB_OUTPUT
-        # Also keep the original string for the commit message
         echo "exercises_list=${{ env.EXERCISES }}" >> $GITHUB_OUTPUT
 
   build_latex:
