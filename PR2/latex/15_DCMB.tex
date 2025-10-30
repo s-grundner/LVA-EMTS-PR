@@ -1,14 +1,10 @@
 \newpage
-\section{Kapitel}\label{sec:1}
+\subsection{Temperaturmessung mit PT-100}\label{sec:1-5}
+\subsubsection{Aufgabenstellung}
 
-\subsection{Aufgabenstellung}\label{sec:1-1}
-
-\begin{highlightblock}[Aufgabenbezeichnung]
+\begin{highlightblock}[Temperaturmessung mit PT-100]
 Beschreibung (Nicht direkt aus dem Skriptum kopieren!)
 \end{highlightblock}
-
-
-\subsection{Aufbau}
 
 \subsubsection{Verwendetes Material}
 
@@ -28,23 +24,6 @@ Beschreibung (Nicht direkt aus dem Skriptum kopieren!)
 \textbf{Geräte Einstellungen}
 
 \begin{minipage}[t]{.48\textwidth}
-	Oszilloskop:
-	\begin{itemize}[noitemsep]
-		\item Kanal 1 (DC):
-		\item Kanal 2 (AC):
-		\item Trigger:
-	\end{itemize}
-\end{minipage}\hfill
-\begin{minipage}[t]{.48\textwidth}
-	Funktionsgenerators:
-	\begin{itemize}[noitemsep]
-		\item Frequenz: 
-		\item Amplitude: 
-		\item Wellenform: 
-	\end{itemize}
-\end{minipage}
-
-\begin{minipage}[t]{.48\textwidth}
 	Labornetzteil:
 	\begin{itemize}[noitemsep]
 		\item Spannung: 
@@ -61,8 +40,6 @@ Beschreibung (Nicht direkt aus dem Skriptum kopieren!)
 	\end{itemize}
 \end{minipage}
 
-
-\newpage
 \textbf{Messschaltung}
 
 \begin{figure}[h]
@@ -70,24 +47,17 @@ Beschreibung (Nicht direkt aus dem Skriptum kopieren!)
 	\begin{circuitikz}[scale=1.2]
 		\draw (0,4) to[open, v=$U_H$, o-o] (0,0)
 			-- ++(2, 0) coordinate (k1)
-			to[vR=$R_2$, i<_=$I_2$, *-] ++(0,2) coordinate (k2)
-			to[R=$R_1$, i_<=$I_1$, -*] ++(0,2) coordinate (k3)
+			to[R=$R_2$, i<_=$I_2$, *-] ++(0,2) coordinate (k2)
+			to[thRp=$R_1$, i_<=$I_1$, -*] ++(0,2) coordinate (k3)
 			-- ++(-2,0);
 		\draw (k1) -- ++(3,0)
 			to[vR=$R_4$, i<_=$I_4$] ++(0,2) coordinate (k4)
-			to[vR=$R_3$, i_<=$I_3$] ++(0,2) -- ++(-3,0);
-		\draw (k2) to[ni, v^=$U_0$, i>^=$I_0$, *-*] (k4);
+			to[R=$R_3$, i_<=$I_3$] ++(0,2) -- ++(-3,0);
+		\draw (k2) to[ai, v^=$U_0$, i>^=$I_0$, *-*] (k4);
 		\node[yshift=-20pt] at ($(k2)!0.5!(k4)$) {$R_0$};
 	\end{circuitikz}
 	\caption{Schaltung}
 \end{figure}
 
-\subsection{Berechnungen}
-\subsection{Ergebnisse}
-
-\begin{itemize}
-	\item Bei Oszibilder Rastermaße in der caption
-\end{itemize}
-
-\subsection{Erkenntnisse}
+\subsubsection{Erkenntnisse}
 

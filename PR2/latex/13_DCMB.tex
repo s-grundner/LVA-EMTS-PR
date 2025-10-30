@@ -1,14 +1,10 @@
 \newpage
-\section{Kapitel}\label{sec:1}
-
-\subsection{Aufgabenstellung}\label{sec:1-1}
+\subsection{Empfindlichkeit}\label{sec:1-3}
+\subsubsection{Aufgabenstellung}
 
 \begin{highlightblock}[Aufgabenbezeichnung]
 Beschreibung (Nicht direkt aus dem Skriptum kopieren!)
 \end{highlightblock}
-
-
-\subsection{Aufbau}
 
 \subsubsection{Verwendetes Material}
 
@@ -28,23 +24,6 @@ Beschreibung (Nicht direkt aus dem Skriptum kopieren!)
 \textbf{Geräte Einstellungen}
 
 \begin{minipage}[t]{.48\textwidth}
-	Oszilloskop:
-	\begin{itemize}[noitemsep]
-		\item Kanal 1 (DC):
-		\item Kanal 2 (AC):
-		\item Trigger:
-	\end{itemize}
-\end{minipage}\hfill
-\begin{minipage}[t]{.48\textwidth}
-	Funktionsgenerators:
-	\begin{itemize}[noitemsep]
-		\item Frequenz: 
-		\item Amplitude: 
-		\item Wellenform: 
-	\end{itemize}
-\end{minipage}
-
-\begin{minipage}[t]{.48\textwidth}
 	Labornetzteil:
 	\begin{itemize}[noitemsep]
 		\item Spannung: 
@@ -61,8 +40,6 @@ Beschreibung (Nicht direkt aus dem Skriptum kopieren!)
 	\end{itemize}
 \end{minipage}
 
-
-\newpage
 \textbf{Messschaltung}
 
 \begin{figure}[h]
@@ -71,23 +48,40 @@ Beschreibung (Nicht direkt aus dem Skriptum kopieren!)
 		\draw (0,4) to[open, v=$U_H$, o-o] (0,0)
 			-- ++(2, 0) coordinate (k1)
 			to[vR=$R_2$, i<_=$I_2$, *-] ++(0,2) coordinate (k2)
-			to[R=$R_1$, i_<=$I_1$, -*] ++(0,2) coordinate (k3)
+			to[R=$R_1+\Delta R_1$, i_<=$I_1$, -*] ++(0,2) coordinate (k3)
 			-- ++(-2,0);
 		\draw (k1) -- ++(3,0)
 			to[vR=$R_4$, i<_=$I_4$] ++(0,2) coordinate (k4)
 			to[vR=$R_3$, i_<=$I_3$] ++(0,2) -- ++(-3,0);
-		\draw (k2) to[vmeter, v^=$U_0$, i>^=$I_0$, *-*] (k4);
+		\draw (k2) to[ni, v^=$U_0$, i>^=$I_0$, *-*] (k4);
 		\node[yshift=-20pt] at ($(k2)!0.5!(k4)$) {$R_0$};
 	\end{circuitikz}
 	\caption{Schaltung}
 \end{figure}
 
-\subsection{Berechnungen}
-\subsection{Ergebnisse}
+$\Delta R_1$ wird zwischen $5..10\Omega$ gewählt und zu R1 dazugeschalten
 
-\begin{itemize}
-	\item Bei Oszibilder Rastermaße in der caption
-\end{itemize}
+\subsubsection{Messung von $U_0$}
 
-\subsection{Erkenntnisse}
+Berechnung Empfindlichkeit, kleinste absulute und relatiev Erfassbare Widerstandsänderung. U0 min ist wieder das kleinste spannungsinkrement
+
+\begin{table}[h]
+	\centering
+	\caption{Empfindlichkeit durch Messung von $U_0$}
+	\begin{tabularx}{\textwidth}{YYYYY}
+	Messung & $U_0$ / \si{\volt} & $E$ / \si{\volt} & $\Delta R_{1,\min}$ / \si{\ohm} & $\frac{\Delta R_{1,\min}}{R_1}$ \\ \midrule
+	\end{tabularx}
+\end{table}
+
+\subsubsection{Berechnung mit den Brückendaten}
+
+\begin{table}[h]
+	\centering
+	\caption{Empfindlichkeit durch Berechnung aus den Brückendaten}
+	\begin{tabularx}{\textwidth}{YYYYY}
+	Messung & $E$ / \si{\volt} & $\Delta R_{1,\min}$ / \si{\ohm} & $\frac{\Delta R_{1,\min}}{R_1}$ \\ \midrule
+	\end{tabularx}	
+\end{table}
+
+\subsubsection{Erkenntnisse}
 

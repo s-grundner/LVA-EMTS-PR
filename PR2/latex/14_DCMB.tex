@@ -1,0 +1,63 @@
+\newpage
+\subsection{Messung der Linearität beim Ausschlagverfahren}\label{sec:1-4}
+\subsubsection{Aufgabenstellung}
+
+\begin{highlightblock}[Messung der Linearität beim Ausschlagverfahren]
+Beschreibung (Nicht direkt aus dem Skriptum kopieren!)
+\end{highlightblock}
+
+\subsubsection{Verwendetes Material}
+
+\begin{table}[h]
+	\centering
+	\caption{Verwendetes Material}
+	\begin{tabularx}{\textwidth}{XXX}
+		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
+		& & \\
+		& & \\
+		& & \\
+	\end{tabularx}	
+\end{table}
+
+\subsubsection{Versuchsaufbau}
+
+\textbf{Geräte Einstellungen}
+
+\begin{minipage}[t]{.48\textwidth}
+	Labornetzteil:
+	\begin{itemize}[noitemsep]
+		\item Spannung: 
+		\item Strom: 
+		\item Toleranz:
+	\end{itemize}
+\end{minipage}\hfill
+\begin{minipage}[t]{.48\textwidth}
+	Multimeter:
+	\begin{itemize}[noitemsep]
+		\item Einstellung: (Ohm, Volt, Ampere)
+		\item Messbereich: 
+		\item Garantiefehlergrenzen: 
+	\end{itemize}
+\end{minipage}
+
+\textbf{Messschaltung}
+
+\begin{figure}[h]
+	\centering
+	\begin{circuitikz}[scale=1.2]
+		\draw (0,4) to[open, v=$U_H$, o-o] (0,0)
+			-- ++(2, 0) coordinate (k1)
+			to[vR=$R_2$, i<_=$I_2$, *-] ++(0,2) coordinate (k2)
+			to[R=$R_1$, i_<=$I_1$, -*] ++(0,2) coordinate (k3)
+			-- ++(-2,0);
+		\draw (k1) -- ++(3,0)
+			to[vR=$R_4$, i<_=$I_4$] ++(0,2) coordinate (k4)
+			to[vR=$R_3$, i_<=$I_3$] ++(0,2) -- ++(-3,0);
+		\draw (k2) to[ai, v^=$U_0$, i>^=$I_0$, *-*] (k4);
+		\node[yshift=-20pt] at ($(k2)!0.5!(k4)$) {$R_0$};
+	\end{circuitikz}
+	\caption{Schaltung}
+\end{figure}
+
+\subsubsection{Erkenntnisse}
+
