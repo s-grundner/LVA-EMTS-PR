@@ -1,6 +1,6 @@
 \newpage
 \section{Wechselstrommessbrücken}\label{sec:2}
-\subsection{Kondensatorm}\label{sec:2-1}
+\subsection{Messung an Kondensatoren}\label{sec:2-1}
 \subsubsection{Aufgabenstellung}
 
 \begin{highlightblock}[Temperaturmessung mit PT-100]
@@ -42,19 +42,21 @@ Beschreibung (Nicht direkt aus dem Skriptum kopieren!)
 \end{minipage}
 
 \textbf{Messschaltung}
-
 \begin{figure}[h]
 	\centering
 	\begin{circuitikz}[scale=1.2]
+		% \ctikzset{bipoles/length=1cm}
 		\draw (0,4) to[open, v=$U_H$, o-o] (0,0)
-			-- ++(2, 0) coordinate (k1)
-			to[R=$R_2$, i<_=$I_2$, *-] ++(0,2) coordinate (k2)
-			to[thRp=$R_1$, i_<=$I_1$, -*] ++(0,2) coordinate (k3)
-			-- ++(-2,0);
+			-- ++(3, 0) coordinate (k1)
+			to[vR=$R_2$,*-] ++(0,2) coordinate (k2)
+			to[R=$R_1$,-*] ++(0,2) coordinate (k3)
+			-- ++(-3,0);
 		\draw (k1) -- ++(3,0)
-			to[vR=$R_4$, i<_=$I_4$] ++(0,2) coordinate (k4)
-			to[R=$R_3$, i_<=$I_3$] ++(0,2) -- ++(-3,0);
+			to[vR=$R_4$] ++(0,2) coordinate (k4)
+			to[vR=$R_3$] ++(0,2) -- ++(-3,0);
 		\draw (k2) to[ai, v^=$U_0$, i>^=$I_0$, *-*] (k4);
+		\draw (1.5,0) to[vC=$C_2$,*-] ++(0,2) coordinate (c1) -- (k2);
+		\draw (c1) to[C=$C_1$,*-*] ++(0,2);
 		\node[yshift=-20pt] at ($(k2)!0.5!(k4)$) {$R_0$};
 	\end{circuitikz}
 	\caption{Schaltung}
