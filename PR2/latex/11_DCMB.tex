@@ -4,89 +4,103 @@
 \subsection{Abschätzung der Brückenwiderstände}\label{sec:1-1}
 \subsubsection{Aufgabenstellung}
 
-\begin{highlightblock}[Aufgabenbezeichnung]
-\end{highlightblock}
-
-\subsubsection{Verwendetes Material}
-
-\begin{table}[h]
-	\centering
-	\caption{Verwendetes Material}
-	\begin{tabularx}{\textwidth}{XXX}
-		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
-		& & \\
-		& & \\
-		& & \\
-	\end{tabularx}	
-\end{table}
+Zum Abgleich einer Wheatstone-Brücke mit einem unbekannten Widerstand $R_1$ ist
+ein geeignetes Nullinstrument zu wählen. Zu finden ist der kleinste messbare
+Spannungsausschlag des Messgerätes sowie der kleinste Widerstandsinkrement
+$\Delta R_4$ des Abgleichwiderstands $R_4$.	Anschleißend werden auf Basis der
+bestimmten Geräteparameter die Brückenwiderstände $R_2$, $R_3$ und $R_4$ für
+die Widerstandsverhältnisse $1:2$, $1:1$ und $2:1$ mittels Berechnungen
+abzuschätzen. Die Hilfsspannung $U_H$ beträgt \SI{3}{\volt}.
 
 \subsubsection{Versuchsaufbau}
 
+Es gilt, eine Wheatstone Abgleichbrücke wie in \autoref{fig:wheatstone} zu
+konfigurieren um den unbekannten Widerstand $R_1$ zu bestimmen.
+
 \begin{figure}[h]
 	\centering
-	\begin{circuitikz}[scale=1.2]
+	\begin{circuitikz}[scale=0.9, transform shape]
 		\draw (0,4) to[open, v={$U_H=\SI{3}{\volt}$}, o-o] (0,0)
 			-- ++(2, 0) coordinate (k1)
-			to[vR=$R_2$, i<_=$I_2$, *-] ++(0,2) coordinate (k2)
-			to[R=$R_1$, i_<=$I_1$, -*] ++(0,2) coordinate (k3)
+			to[vR=$R_2$, *-] ++(0,2) coordinate (k2)
+			to[R=$R_1$, -*] ++(0,2) coordinate (k3)
 			-- ++(-2,0);
 		\draw (k1) -- ++(3,0)
-			to[vR=$R_4$, i<_=$I_4$] ++(0,2) coordinate (k4)
-			to[vR=$R_3$, i_<=$I_3$] ++(0,2) -- ++(-3,0);
-		\draw (k2) to[ni, v^=$U_0$, i>^=$I_0$, *-*] (k4);
+			to[vR=$R_4$] ++(0,2) coordinate (k4)
+			to[vR=$R_3$] ++(0,2) -- ++(-3,0);
+		\draw (k2) to[ni, v^=$U_0$, *-*] (k4);
 		\node[yshift=-20pt] at ($(k2)!0.5!(k4)$) {$R_0$};
 		\node[anchor=west] at ([shift={(0.5,-1)}]k4) {Abgleichwiderstand};
 	\end{circuitikz}
-	\caption{Wheatstone-Abgleichbrücke}
+	\caption{Wheatstone-Abgleichbrücke}\label{fig:wheatstone}
 \end{figure}
 
-\textbf{Geräte Einstellungen}
-
-\begin{minipage}[t]{.48\textwidth}
-	Voltmeter:
-	\begin{itemize}[noitemsep]
-		\item Messbereich: 
-		\item Garantiefehlergrenzen: 
-	\end{itemize}
-\end{minipage}\hfill
-\begin{minipage}[t]{.48\textwidth}
-	Ohmmeter:
-	\begin{itemize}[noitemsep]
-		\item Messbereich: 
-		\item Garantiefehlergrenzen: 
-	\end{itemize}
-\end{minipage}
-
-\newpage
 \subsubsection{Geräteparameter des Nullinstruments}
 
-Geeignetes NI: Hoher Innenwiderstand, Garantiefehlergrenzen berücksichtigen
-\begin{enumerate}[label=\alph*)]
-	\item Kleinses Spannungsinkrement = Garantiefehler des Messfgerätes
-	\item $R_4$ ist der Abgleichwiderstand, Logarithmisch Abgestuft.
-		  Erhöhung von R4 um das Kleinste widerstandsinkrement soll das Kleinste Spannungsinkrement hervorrufen
-	\item $R_1$ mit Ohmmeter messen. $\pm$ Garantiefehler
-\end{enumerate}
+Für den Abgleich wurde der Kleinste Messbereich des Multimeters M-4600 verwendet.
+% \begin{tabularx}{\textwidth}{XXX}
+% 	Messbereich & Innenwiderstand & Genauigkeit \\ \midrule
+% 	\SI{200}{\milli\volt} & $R_{0} = \SI{10}{\mega\ohm}$ & $\pm (\SI{0.05}{\percent} + 3\text{ digits})$ 
+% \end{tabularx}
+\begin{itemize}[noitemsep]
+	\item Messbereich: \SI{200}{\milli\volt}
+	\item Innenwiderstand: $R_{0} = \SI{10}{\mega\ohm}$
+	\item Genauigkeit: $\pm (\SI{0.05}{\percent} + 3\text{ digits})$
+\end{itemize}
+
+Die Genauigkeit des Nullinstruments bei der Messung von \SI{0}{V} beträgt
+$\Delta U_0 = \pm (3\text{ digits}) = \pm\SI{30}{\micro\volt}$. Die
+Widerstandsdekate lässt sich in $\SI{1}{\ohm}$-Schritten verstellen, somit ist
+das kleinste messbare Widerstandsinkrement $\Delta R_4 = \SI{1}{\ohm}$.
 
 \subsubsection{Abschätzung des Messobjekts}
 
-Ergebnis für R1 plus Unsicherheit
+Mit einem Ohmmeter (Fluke 175) wurde der Widerstand des Messobjekts
+Abgeschätzt. Dieser beträgt $R_1 \approx \SI{3472}{\kilo\ohm}$. Die Genauigkeit
+in diesem Messbreich sind nach Datenblatt $\pm(\SI{0.9}{\percent} + 1 \text{ digit}) = \pm \SI{32}{\ohm}$.
+Somit ergibt sich ein Widerstandsbereich von $R_1 = \SI{3472(32)}{\ohm}$.
 
 \subsubsection{Berechnungen}
 
-Gleichung 2.5 plus Abgleichbedingung
+Zu finden ist nun der Wertebereich für den Abgleichwiderstand $R_4$, sodass
+diese genauigkeit erreicht werden kann. Dazu wird \cite[Gl.~2.5,
+S.~41]{EMTPraktikum2025} der Brückenspannung einer Viertelbrücke mit kleiner
+Widerstandsänderung und hinreichend Großem $R_0$ herangezogen. Da $R_1$ und
+$R_4$ gegenüberliegen, lässt sich $\frac{\Delta R_1}{R_1}$ gegen $\frac{\Delta
+R_4}{R_4}$ ersetzen und das Vorzeichen tauschen.
+\[
+U_0 \approx U_H \frac{\frac{\Delta R_4}{R_4}}{\left(1+\frac{R_2}{R_1}\right)\left(1+\frac{R_3}{R_4}\right)}
+\]
+Für $U_0$ wird die kleinste Messbare Spannungsänderung $\Delta U_0$ eingesetzt.
+Im Abgeglichenen Fall gilt $\frac{R_1}{R_2} = \frac{R_3}{R_4} = 1/r$. Umformen
+auf $R_4$ ergibt:
+\begin{equation}
+R_4 = \frac{U_H}{\Delta U_0} \frac{\Delta R_4}{(1+r)\left(1+1/r\right)}
+\label{eq:R4}
+\end{equation}
+Die Restlichen Widerstände ergeben sich aus der Abgleichbedingung:
+\[
+R_2 = R_1 \cdot r \quad , \quad R_3 = R_4 / r
+\]
 
 \begin{table}[h]
 	\centering
 	\caption{Abschätzung der Brückenwiderstände}\label{tab:brueckenabsch}
 	\begin{tabularx}{\textwidth}{c|YYYY}
-		Widerstandsverhältnis $R2:R1$ & $R_1 / \si{\ohm}$ & $R_2 / \si{\ohm}$ & $R_3 / \si{\ohm}$ & $R_4 / \si{\ohm}$ \\ \midrule
-		$1:2$ \\
-		$1:1$ \\
-		$2:1$	
+		Widerstandsverhältnis $R2:R1=r$ & $R_1 / \si{\ohm}$ & $R_2 / \si{\ohm}$ & $R_3 / \si{\ohm}$ & $R_4 / \si{\ohm}$ \\ \midrule
+		$0.5$ & $3472(32)$ & $1736(16)$ & $44444$ & $22222$ \\
+		$1.0$ & $3472(32)$ & $3472(32)$ & $25000$ & $25000$ \\
+		$2.0$ & $3472(32)$ & $6944(64)$ & $11111$ & $22222$ \\
 	\end{tabularx}
 \end{table}
 
 \subsubsection{Erkenntnisse}
+
+In \autoref{eq:R4} ist ersichtlich, dass gilt $R_4 \propto \frac{\Delta
+R_4}{\Delta U_0}$ bzw. $\Delta U_0 \propto \frac{\Delta R_4}{R_4}$. Um eine
+kleinere Spannung aufzulösen, muss also der Abgleichwiderstand sehr groß
+gewählt werden, bzw. muss das Widerstandsinkrement sehr klein sein. Beide
+Größen sind jedoch durch die verwendeten Geräte limitiert. 
+
 
 

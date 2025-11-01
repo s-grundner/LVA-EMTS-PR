@@ -2,3 +2,4 @@ uncertainties
 matplotlib
 numpy
 pandas
+jinja2
