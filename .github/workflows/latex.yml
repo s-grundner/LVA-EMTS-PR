@@ -7,7 +7,7 @@ permissions:
 env:
   LVA: "EMTSPR_WS25"
   AUTHORS: Kronegger_Grundner
-  EXERCISES: "PR1"
+  EXERCISES: "PR1, PR1" # Comma-separated list of exercise directories
 
 jobs:
   generate_matrix:
