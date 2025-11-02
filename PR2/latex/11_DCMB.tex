@@ -12,6 +12,18 @@ bestimmten Geräteparameter die Brückenwiderstände $R_2$, $R_3$ und $R_4$ für
 die Widerstandsverhältnisse $1:2$, $1:1$ und $2:1$ mittels Berechnungen
 abzuschätzen. Die Hilfsspannung $U_H$ beträgt \SI{3}{\volt}.
 
+\subsubsection{Verwendetes Material}
+
+\begin{table}[h]
+	\centering
+	\caption{Verwendetes Material}
+	\begin{tabularx}{\textwidth}{XXX}
+		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
+		M-4600 & Nullinstrument (NI) & \\
+		Fluke 175 & Ohmmeter & Abschätzung des DUT \\
+		RS-200 & Abgleichwiderstand ($R_4$) & $\pm (\SI{1}{\percent} + \SI{0.025}{\ohm})$\\
+	\end{tabularx}	
+\end{table}
 \subsubsection{Versuchsaufbau}
 
 Es gilt, eine Wheatstone Abgleichbrücke wie in \autoref{fig:wheatstone} zu
@@ -43,17 +55,15 @@ Für den Abgleich wurde der Kleinste Messbereich des Multimeters M-4600 verwende
 % 	\SI{200}{\milli\volt} & $R_{0} = \SI{10}{\mega\ohm}$ & $\pm (\SI{0.05}{\percent} + 3\text{ digits})$ 
 % \end{tabularx}
 \begin{itemize}[noitemsep]
-	\item Messbereich: \SI{200}{\milli\volt}
-	\item Innenwiderstand: $R_{0} = \SI{10}{\mega\ohm}$
-	\item Genauigkeit: $\pm (\SI{0.05}{\percent} + 3\text{ digits})$
+	\item Messbereich: \SI{200}{\milli\volt}, Innenwiderstand: $R_{0} = \SI{10}{\mega\ohm}$, Genauigkeit: $\pm (\SI{0.05}{\percent} + 3\text{ digits})$
 \end{itemize}
 
-Die Genauigkeit des Nullinstruments bei der Messung von \SI{0}{V} beträgt
+Die Genauigkeit des Nullinstruments bei der Messung in der Nähe von \SI{0}{V} beträgt
 $\Delta U_0 = \pm (3\text{ digits}) = \pm\SI{30}{\micro\volt}$. Die
 Widerstandsdekate lässt sich in $\SI{1}{\ohm}$-Schritten verstellen, somit ist
 das kleinste messbare Widerstandsinkrement $\Delta R_4 = \SI{1}{\ohm}$.
 
-\subsubsection{Abschätzung des Messobjekts}
+\subsubsection{Abschätzung des Messobjekts}\label{sec:1-1-5}
 
 Mit einem Ohmmeter (Fluke 175) wurde der Widerstand des Messobjekts
 Abgeschätzt. Dieser beträgt $R_1 \approx \SI{3472}{\kilo\ohm}$. Die Genauigkeit

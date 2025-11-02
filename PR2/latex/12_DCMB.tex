@@ -3,9 +3,12 @@
 
 \subsubsection{Aufgabenstellung}
 
-\begin{highlightblock}[Widerstandsbestimmung im Abgleichverfahren]
-Beschreibung (Nicht direkt aus dem Skriptum kopieren!)
-\end{highlightblock}
+Es sollen nun die Abgeschätztden Widerstände aus \autoref{sec:1-1} mit dem
+Abgleichverfahren genauer bestimmt werden und daraus der DUT-Widerstand $R_1$
+berechnet werden. Es sollen je zwei Messungen für die Widerstandsverhältnisse
+$0.5$, $1.0$ und $2.0$ durchgeführt werden. $R_2$ ist jeweils auf den am nächsten
+einstellbaren Wert zu setzen. $R_3$ soll erstens auf den nächsten einstellbaren
+Wert und zweitens auf den nächst kleineren einstellbaren Wert gesetzt werden. Im Anschluss sollen die Ergebnisse mit den Zuleitungswiderständen von jeweils \SI{0.2}{\ohm} korrigiert und auf ein Vertrauensintervall von \SI{95}{\percent} ausgewertet werden.
 
 \subsubsection{Verwendetes Material}
 
@@ -14,38 +17,21 @@ Beschreibung (Nicht direkt aus dem Skriptum kopieren!)
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
 		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
-		& & \\
-		& & \\
-		& & \\
+		Labornetzteil & Hilfsspannung ($U_H$) & \\
+		M-4600 & Nullinstrument (NI) & \\
+		RS-200 & Abgleichwiderstand ($R_4$) & $\pm (\SI{1}{\percent} + \SI{0.025}{\ohm})$\\
+		Widerstand & Device Under Test ($R_1$) & \\
 	\end{tabularx}	
 \end{table}
 
 \subsubsection{Versuchsaufbau}
 
-\textbf{Geräte Einstellungen}
-
-\begin{minipage}[t]{.48\textwidth}
-	Labornetzteil:
-	\begin{itemize}[noitemsep]
-		\item Spannung: 
-		\item Strom: 
-		\item Toleranz:
-	\end{itemize}
-\end{minipage}\hfill
-\begin{minipage}[t]{.48\textwidth}
-	Multimeter:
-	\begin{itemize}[noitemsep]
-		\item Einstellung: (Ohm, Volt, Ampere)
-		\item Messbereich: 
-		\item Garantiefehlergrenzen: 
-	\end{itemize}
-\end{minipage}
-
-\textbf{Messschaltung}
+$R_2$ und $R_3$ werden als erstes grob eingestellt, danach wird $R_4$ so lange
+verändert bis das NI $\sim\SI{0}{\volt}$ anzeigt.
 
 \begin{figure}[h]
 	\centering
-	\begin{circuitikz}[scale=1.2]
+	\begin{circuitikz}[scale=0.9, transform shape]
 		\draw (0,4) to[open, v=$U_H$, o-o] (0,0)
 			-- ++(2, 0) coordinate (k1)
 			to[vR=$R_2$, i<_=$I_2$, *-] ++(0,2) coordinate (k2)
@@ -54,40 +40,107 @@ Beschreibung (Nicht direkt aus dem Skriptum kopieren!)
 		\draw (k1) -- ++(3,0)
 			to[vR=$R_4$, i<_=$I_4$] ++(0,2) coordinate (k4)
 			to[vR=$R_3$, i_<=$I_3$] ++(0,2) -- ++(-3,0);
-		\draw (k2) to[ai, v^=$U_0$, i>^=$I_0$, *-*] (k4);
+		\draw (k2) to[ni, v^=$U_0$, i>^=$I_0$, *-*] (k4);
 		\node[yshift=-20pt] at ($(k2)!0.5!(k4)$) {$R_0$};
+		\node[anchor=west] at ([shift={(0.5,-1)}]k4) {Abgleichwiderstand};
 	\end{circuitikz}
 	\caption{Schaltung}
 \end{figure}
 
-Es sollen zwei Messungen je R2/R1 Verhältnis durchgeführt werden
-
 \subsubsection{Berechnungen}
 
-Abgleichbedingung: $R_1 R_4 = R_2 R_3$
-\begin{itemize}
-	\item R1 und R3 grob mit den werten aus \autoref{tab:brueckenabsch} Einstellen (Toleranzen)
-	\item R4 fein einstellen und messen (Garantiefehler)
-	\item R1 Berechnen
-\end{itemize}
-
-\[ R_1 = \frac{R_2R_3}{R_4} \]
+Sobald alle Brückenwiderständ ermittelt wurden, kann durch abgleichbedingung $R_1 R_4 = R_2 R_3$ der Widerstand $R_1$ berechnet werden.
+\begin{equation}
+	R_1 = \frac{R_2R_3}{R_4} \label{eq:abgleichbedingung}
+\end{equation}
 
 \subsubsection{Ergebnisse}
 
-Um Zeit zu sparen die Abgeglichenen Brücken in Schritt 1, 3 und 5 gleich mit dem Widerstand in \autoref{sec:1-3} Auslenken
+Für die Widerstände wurden die jeweilige Toleranzen berücksichtigt: $R_2$: $\pm
+\SI{1}{\percent}$, $R_3$: $\pm \SI{1}{\percent}$, $R_4$: $\pm (\SI{1}{\percent}
++ \SI{0.025}{\ohm})$. Für die Unsicherheiten der Widerstände wird eine
+Rechteckverteilung angenommen, somit gilt für die Unsicherheit jedes
+Widerstands $u(R_n) = \frac{a}{\sqrt{3}}, n=1,2,3,4$ wobei $a$ die jeweiligen
+Toleranzgrenzen des Widerstands ist. Mittels Fehlerfortpflanzung
+\cite[Gl.~1.22, S.~14]{EMTPraktikum2025} der Typ-B Unsicherheiten ergeben sich
+die in der \autoref{tab:brueckendaten} dargestellten Werte.
 
 \begin{table}[h]
 	\centering
 	\caption{Brückendaten}\label{tab:brueckendaten}
 	\begin{tabularx}{\textwidth}{Y|YYYY|Y}
 	Nummer & $R_2:R_1$ & $R_2$ / \si{\ohm} & $R_3$ / \si{\ohm} & $R_4$ / \si{\ohm} & $R_1$ / \si{\ohm} \\ \midrule
+	1 & $0.5$ & $2200(22)$ & $47000(470)$ & $29690(297)$ & $3482.7(60.3)$ \\
+	2 & $0.5$ & $2200(22)$ & $22000(220)$ & $13870(139)$ & $3489.5(60.4)$ \\
+	3 & $1.0$ & $4700(47)$ & $22000(220)$ & $29680(297)$ & $3483.8(60.3)$ \\
+	4 & $1.0$ & $4700(47)$ & $10000(100)$ & $13510(135)$ & $3478.9(60.3)$ \\
+	5 & $2.0$ & $10000(100)$ & $10000(100)$ & $29050(291)$ & $3442.3(59.6)$ \\
+	6 & $2.0$ & $10000(100)$ & $4700(47)$ & $13600(136)$ & $3455.9(59.9)$ \\
 	\end{tabularx}
 \end{table}
 
 \subsubsection{Auswertung}
 
-Messreihe statistisch auswerten. Am Ende vertrauensintervall angeben.
+Zur Korrektur der Messwertes wird je Zuleitung zu Widerstand \SI{0.2}{\ohm} addiert. Man beachte, dass jeder Widerstand zwei Zuleitungen hat. Somit gilt für jeden Widerstand:
+\[ 
+R_n \mapsto R_n + 2\cdot\SI{0.2}{\ohm}, \quad n=1,2,3,4
+\]
+Eingesetzt in \autoref{eq:abgleichbedingung} ergibt sich für den korrigierten
+Widerstand $R_1$:
+\[
+R_{1,\text{korr}} = \frac{(R_2 + 0.4)(R_3 + 0.4)}{R_4 + 0.4} - 0.4
+\]
+
+Der Lesbarkeit in den folgenden Berechnungen halber wird $R_{1,korr}$ ebenfalls als $R_1$ beichnet.
+
+\begin{table}[h]
+	\centering\caption{Korrigierte Widerstandswerte}\label{tab:korrigierte_widerstaende}
+	\begin{tabularx}{\textwidth}{YY|YY}
+	Nummer $i$ & $R_{1}$ / \si{\ohm} & $R_{1,nom}$ / \si{\ohm} & $u(R_{1,i})$ / \si{\ohm} \\ \midrule
+	$1$ &     $3482.9(60.3)$ & $3482.9$ & $60.3/\sqrt{3}$\\
+	$2$ &     $3489.7(60.5)$ & $3489.7$ & $60.5/\sqrt{3}$\\
+	$3$ &     $3483.7(60.3)$ & $3483.7$ & $60.3/\sqrt{3}$\\
+	$4$ &     $3478.8(60.3)$ & $3478.8$ & $60.3/\sqrt{3}$\\
+	$5$ &     $3442.2(59.6)$ & $3442.2$ & $59.6/\sqrt{3}$\\
+	$6(=n)$ & $3455.8(59.9)$ & $3455.8$ & $59.9/\sqrt{3}$\\
+	\end{tabularx}
+\end{table}
+
+Der Mittelwert $\bar{R}_1$ der Messreihe ist:
+\[
+\bar{R}_1 = \frac{1}{n} \sum_{i=1}^{n} R_{1,\text{nom},i} = \SI{3472.2}{\ohm}
+\]
+\textbf{Typ-B Unsicherheit:} Es wird zunächst der Beitrag der Typ-B Unsicherheiten zur Unsicherheit des Mittelwertes berechnet. Mit der Fehlerfortpflanzung \cite[S.~14, Gl.~1.22]{EMTPraktikum2025} und dem Mittelwert \cite[S.~7 Gl.~1.1]{EMTPraktikum2025}) folgt:
+\[
+\bar{R}_1 = \frac{1}{n} \sum_{i=1}^{n} R_{1,i} \qquad
+u_B^2(\bar{R}_1) = \sum_{i=1}^{n}\left(\frac{\partial \bar{R}_{1}}{\partial R_{1,i}}\right)^2 u(R_{1,i})^2
+\]
+Durch das partielle Ableiten und einsetzen von ergibt sich:
+\[
+\frac{\partial \bar{R}_1}{\partial R_{1,i}} = \frac{1}{n} \implies u_B(\bar{R}_1) = \sqrt{\frac{\sum_{i=1}^{n} u(R_{1,i})^2}{n^2}} = \SI{14.18}{\ohm}
+\]
+
+\textbf{Typ-A Unsicherheit:} Anschließend erfolgt die statistische Auswertung der Messreihe mit der Berechnung der Varianz $s^2$ und der Standardabweichung $s$ \cite[Gl.~1.3, S.~7]{EMTPraktikum2025}:
+\[
+s(R_{1,i})^2 = \frac{1}{n-1} \sum_{i=1}^{n} (R_{1,i} - \bar{R}_1)^2 = \SI{353.84}{\ohm^2} \implies s(R_{1,i})=\SI{18.81}{\ohm}
+\]
+und schließlich der Abweichung des Mittelwertes \cite[S.~38, Gl.~1.59]{SchrüferElmar2022EM:M}:
+\[
+u_A(\bar{R}_1) = s(\bar{R}_1) = \frac{s(R_{1,i})}{\sqrt{n}} = \SI{7.68}{\ohm}
+\]
+
+\textbf{Typ-A + Typ-B Unsicherheit:} Die Gesamtsicherheit ergibt sich wieder durch kombination der beiden Unsicherheiten \cite[S.~14, Gl.~1.22]{EMTPraktikum2025}:
+\[
+u_c = \sqrt{u_A^2 + u_B^2} = \SI{16.12}{\ohm}
+\]
+Mit der erfassung einer endlichen Anzahl an Messwerten wird die t-Verteilung verwendet, um die zufällige Messunsicherheit zu bestimmen \cite[Gl.~1.13, S.~9]{EMTPraktikum2025}. Der Ablesewert für das 95\%-Konfidenzintervall mit $n=6$ Messwerten ist $t_0=2.57$. Somit kann das Messergebnis wie in \cite[S.~9, Gl.~1.13]{EMTPraktikum2025} angegeben werden:
+\[
+u(R_1) = t_0\cdot u_c = \SI{41.44}{\ohm}
+\]
+Somit befindet sich der Widerstand $R_1$ zu $\SI{95}{\percent}$ im Intervall $[3430.76, 3513.64]\si{\ohm}$.
+
 
 \subsubsection{Erkenntnisse}
 
+Zunächst fällt auf, dass die Korrektur der Zuleitungswiderstände nur einen sehr
+geringen Einfluss auf den gemessenen Widerstand $R_1$ hat. Das Konfidenzintervall ist hier außerdem relativ groß im Vergleich zum gemessenen Wert in \autoref{sec:1-1-5}, würde man nur die statistische Abweichung der Einzelmesswerte betrachten so wäre die Unsicherheit wesentlich kleiner mit $u(R_1) = u_A(\bar{R}_1)\cdot t_0 = \SI{19.73}{\ohm}$. Man könnte daher die Unsicherheit reduzieren, indem man präzisere Brückenwiderstände verwendet.
