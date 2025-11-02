@@ -44,7 +44,7 @@ Beschreibung (Nicht direkt aus dem Skriptum kopieren!)
 
 \begin{figure}[h]
 	\centering
-	\begin{circuitikz}[scale=1.2]
+	\begin{circuitikz}[scale=0.9, transform shape]
 		\draw (0,4) to[open, v=$U_H$, o-o] (0,0)
 			-- ++(2, 0) coordinate (k1)
 			to[vR=$R_2$, i<_=$I_2$, *-] ++(0,2) coordinate (k2)
@@ -59,19 +59,23 @@ Beschreibung (Nicht direkt aus dem Skriptum kopieren!)
 	\caption{Schaltung}
 \end{figure}
 
-$\Delta R_1$ wird zwischen $5..10\Omega$ gewählt und zu R1 dazugeschalten
+$\Delta R_1$ beträgt $10.1\Omega$
 
 \subsubsection{Messung von $U_0$}
 
-Berechnung Empfindlichkeit, kleinste absulute und relatiev Erfassbare Widerstandsänderung. U0 min ist wieder das kleinste spannungsinkrement
+Berechnung Empfindlichkeit, kleinste absulute und relatiev Erfassbare Widerstandsänderung. U0 min ist wieder das kleinste Spannungsinkrement
 
 \begin{table}[h]
 	\centering
 	\caption{Empfindlichkeit durch Messung von $U_0$}
 	\begin{tabularx}{\textwidth}{YYYYY}
 	Messung & $U_0$ / \si{\volt} & $E$ / \si{\volt} & $\Delta R_{1,\min}$ / \si{\ohm} & $\frac{\Delta R_{1,\min}}{R_1}$ \\ \midrule
+	1 & -0.00220(3) & -0.759(15) & -0.1377(18) & -3.955(76)e-05 \\
+	3 & -0.00250(3) & -0.862(16) & -0.1212(14) & -3.479(64)e-05 \\
+	5 & -0.00160(3) & -0.545(13) & -0.1894(35) & -5.50(13)e-05 \\
 	\end{tabularx}
 \end{table}
+
 
 \subsubsection{Berechnung mit den Brückendaten}
 
@@ -80,8 +84,13 @@ Berechnung Empfindlichkeit, kleinste absulute und relatiev Erfassbare Widerstand
 	\caption{Empfindlichkeit durch Berechnung aus den Brückendaten}
 	\begin{tabularx}{\textwidth}{YYYYY}
 	Messung & $E$ / \si{\volt} & $\Delta R_{1,\min}$ / \si{\ohm} & $\frac{\Delta R_{1,\min}}{R_1}$ \\ \midrule
+	1 & -0.7118(16) & -0.1468(23) & -4.2147(96)e-05 \\
+	3 & -0.7334(11) & -0.1425(19) & -4.0903(61)e-05 \\
+	5 & -0.5715(28) & -0.1807(20) & -5.249(26)e-05 \\
 	\end{tabularx}	
 \end{table}
 
 \subsubsection{Erkenntnisse}
+
+Zu Erkennen ist, dass die Empfindlichkeit der Brücke beim Widerstandsverhältnis von 1:1 am höchsten ist. Weiters ist zu erkennen, dass die berechneten Werte etwas genauer sind, was auf die Ungenauigkeit der Spannungsmessung zurückzuführen ist.
 
