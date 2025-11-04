@@ -17,7 +17,7 @@ Wert und zweitens auf den nächst kleineren einstellbaren Wert gesetzt werden. I
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
 		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
-		Labornetzteil & Hilfsspannung ($U_H$) & \\
+		Labornetzteil & Hilfsspannung ($U_H$) & $U_H = \SI{3}{\volt}$ \\
 		M-4600 & Nullinstrument (NI) & \\
 		RS-200 & Abgleichwiderstand ($R_4$) & $\pm (\SI{1}{\percent} + \SI{0.025}{\ohm})$\\
 		Widerstand & Device Under Test ($R_1$) & \\
@@ -26,7 +26,7 @@ Wert und zweitens auf den nächst kleineren einstellbaren Wert gesetzt werden. I
 
 \subsubsection{Versuchsaufbau}
 
-$R_2$ und $R_3$ werden als erstes grob eingestellt, danach wird $R_4$ so lange
+Das Labornetzteil wird auf $U_H=\SI{3}{\volt}$ eingestellt. $R_2$ und $R_3$ werden als erstes grob eingestellt, danach wird $R_4$ so lange
 verändert bis das NI $\sim\SI{0}{\volt}$ anzeigt.
 
 \begin{figure}[h]
@@ -34,13 +34,13 @@ verändert bis das NI $\sim\SI{0}{\volt}$ anzeigt.
 	\begin{circuitikz}[scale=0.9, transform shape]
 		\draw (0,4) to[open, v=$U_H$, o-o] (0,0)
 			-- ++(2, 0) coordinate (k1)
-			to[vR=$R_2$, i<_=$I_2$, *-] ++(0,2) coordinate (k2)
-			to[R=$R_1$, i_<=$I_1$, -*] ++(0,2) coordinate (k3)
+			to[vR=$R_2$, *-] ++(0,2) coordinate (k2)
+			to[R=$R_1$, -*] ++(0,2) coordinate (k3)
 			-- ++(-2,0);
 		\draw (k1) -- ++(3,0)
-			to[vR=$R_4$, i<_=$I_4$] ++(0,2) coordinate (k4)
-			to[vR=$R_3$, i_<=$I_3$] ++(0,2) -- ++(-3,0);
-		\draw (k2) to[ni, v^=$U_0$, i>^=$I_0$, *-*] (k4);
+			to[vR=$R_4$] ++(0,2) coordinate (k4)
+			to[vR=$R_3$] ++(0,2) -- ++(-3,0);
+		\draw (k2) to[ni, v^=$U_0$, *-*] (k4);
 		\node[yshift=-20pt] at ($(k2)!0.5!(k4)$) {$R_0$};
 		\node[anchor=west] at ([shift={(0.5,-1)}]k4) {Abgleichwiderstand};
 	\end{circuitikz}
@@ -62,7 +62,7 @@ Für die Widerstände wurden die jeweilige Toleranzen berücksichtigt: $R_2$: $\
 Rechteckverteilung angenommen, somit gilt für die Unsicherheit jedes
 Widerstands $u(R_n) = \frac{a}{\sqrt{3}}, n=1,2,3,4$ wobei $a$ die jeweiligen
 Toleranzgrenzen des Widerstands ist. Mittels Fehlerfortpflanzung
-\cite[Gl.~1.22, S.~14]{EMTPraktikum2025} der Typ-B Unsicherheiten ergeben sich
+\cite[S.~14, Gl.~1.22]{EMTPraktikum2025} der Typ-B Unsicherheiten ergeben sich
 die in der \autoref{tab:brueckendaten} dargestellten Werte.
 
 \begin{table}[h]
@@ -120,27 +120,26 @@ Durch das partielle Ableiten und einsetzen von $\bar{R}_1$ ergibt sich:
 \frac{\partial \bar{R}_1}{\partial R_{1,i}} = \frac{1}{n} \implies u_B(\bar{R}_1) = \sqrt{\frac{\sum_{i=1}^{n} u(R_{1,i})^2}{n^2}} = \SI{14.18}{\ohm}
 \]
 
-\textbf{Typ-A Unsicherheit:} Anschließend erfolgt die statistische Auswertung der Messreihe mit der Berechnung der Varianz $s^2$ und der Standardabweichung $s$ \cite[Gl.~1.3, S.~7]{EMTPraktikum2025}:
+\textbf{Typ-A Unsicherheit:} Anschließend erfolgt die statistische Auswertung der Messreihe mit der Berechnung der Varianz $s^2$ und der Standardabweichung $s$ \cite[S.~7, Gl.~1.3]{EMTPraktikum2025}:
 \[
 s(R_{1,i})^2 = \frac{1}{n-1} \sum_{i=1}^{n} (R_{1,i} - \bar{R}_1)^2 = \SI{353.84}{\ohm^2} \implies s(R_{1,i})=\SI{18.81}{\ohm}
 \]
-und schließlich der Abweichung des Mittelwertes \cite[S.~38, Gl.~1.59]{SchrüferElmar2022EM:M}:
+und schließlich der Abweichung des Mittelwertes \cite[S.~38, Gl.~1.59]{SchrüferElmar2022EM:M}.
 \[
-u_A(\bar{R}_1) = s(\bar{R}_1) = \frac{s(R_{1,i})}{\sqrt{n}} = \SI{7.68}{\ohm}
+u_A(\bar{R}_1) = \frac{s(R_{1,i})}{\sqrt{n}} = \SI{7.68}{\ohm}
+\]
+Mit der erfassung einer endlichen Anzahl an Messwerten wird die t-Verteilung verwendet, um die zufällige Messunsicherheit zu bestimmen \cite[S.~9, Gl.~1.13]{EMTPraktikum2025}. Der Ablesewert aus \cite[S.~10, Tab.~1.1]{EMTPraktikum2025} für das 95\%-Konfidenzintervall mit $n=6$ Messwerten ist $t_0=2.57$.
+\[
+u_{A,\SI{95}{\percent}}(\bar{R}_1) = t_0\cdot u_A(\bar{R}_1) = \SI{19.73}{\ohm}
 \]
 
 \textbf{Typ-A + Typ-B Unsicherheit:} Die Gesamtsicherheit ergibt sich wieder durch kombination der beiden Unsicherheiten \cite[S.~14, Gl.~1.22]{EMTPraktikum2025}:
 \[
-u_c = \sqrt{u_A^2 + u_B^2} = \SI{16.12}{\ohm}
+U(\bar{R}_1) = \sqrt{u_{A,\SI{95}{\percent}}^2 + u_B^2} = \SI{24.30}{\ohm} 
 \]
-Mit der erfassung einer endlichen Anzahl an Messwerten wird die t-Verteilung verwendet, um die zufällige Messunsicherheit zu bestimmen \cite[Gl.~1.13, S.~9]{EMTPraktikum2025}. Der Ablesewert für das 95\%-Konfidenzintervall mit $n=6$ Messwerten ist $t_0=2.57$. Somit kann das Messergebnis wie in \cite[S.~9, Gl.~1.13]{EMTPraktikum2025} angegeben werden:
-\[
-u(R_1) = t_0\cdot u_c = \SI{41.44}{\ohm}
-\]
-Somit befindet sich der Widerstand $R_1$ zu $\SI{95}{\percent}$ im Intervall $[3430.76, 3513.64]\si{\ohm}$.
-
+Gemeinsam mit dem Mittelwert $\bar{R}_1=\SI{3472.2}{\ohm}$ befindet sich der Widerstand $R_1$ zu $\SI{95}{\percent}$ im Intervall $[3447.90, 3496.50]\si{\ohm}$.
 
 \subsubsection{Erkenntnisse}
 
 Zunächst fällt auf, dass die Korrektur der Zuleitungswiderstände nur einen sehr
-geringen Einfluss auf den gemessenen Widerstand $R_1$ hat. Das Konfidenzintervall ist hier außerdem relativ groß im Vergleich zum gemessenen Wert in \autoref{sec:1-1-5}, würde man nur die statistische Abweichung der Einzelmesswerte betrachten so wäre die Unsicherheit wesentlich kleiner mit $u(R_1) = u_A(\bar{R}_1)\cdot t_0 = \SI{19.73}{\ohm}$. Man könnte daher die Unsicherheit reduzieren, indem man präzisere Brückenwiderstände verwendet.
+geringen Einfluss auf den gemessenen Widerstand $R_1$ hat. Würde man nur die statistische Abweichung der Einzelmesswerte betrachten so wäre die Unsicherheit wesentlich kleiner mit $U(\bar{R}_1) = u_{A,\SI{95}{\percent}}(\bar{R}_1) = \SI{19.73}{\ohm}$. Man könnte daher die Unsicherheit reduzieren, indem man präzisere Brückenwiderstände verwendet.
