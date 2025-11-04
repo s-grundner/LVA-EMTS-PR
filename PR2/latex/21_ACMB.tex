@@ -1,11 +1,8 @@
-\newpage
 \section{Wechselstrommessbrücken}\label{sec:2}
 \subsection{Messung an Kondensatoren}\label{sec:2-1}
 \subsubsection{Aufgabenstellung}
 
-\begin{highlightblock}[Temperaturmessung mit PT-100]
-Beschreibung (Nicht direkt aus dem Skriptum kopieren!)
-\end{highlightblock}
+Mit einer Wien-Brücke sollen der Widerstands- und Kapazitätswert eines vom Übungsleiter vorgegebenen RC-Gliedes sowie der Verlustfaktor bestimmt werden. Dabei ist die Abgleichbedingung für eine RC-Parallelschaltung herzuleiten und ein Oszilloskop als Nullindikator zu verwenden. Zusätzlich ist anhand eines Zeigerdiagramms zu prüfen, ob durch Verlagerung des Abgleichwiderstands vom Brückenzweig 2 in den Brückenzweig 3 ein vereinfachter Abgleich möglich ist.
 
 \subsubsection{Verwendetes Material}
 
@@ -13,53 +10,101 @@ Beschreibung (Nicht direkt aus dem Skriptum kopieren!)
 	\centering
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
-		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
-		& & \\
-		& & \\
-		& & \\
-	\end{tabularx}	
+		\textbf{Material} & \textbf{Verwendung}    & \textbf{Anmerkungen} \\ \midrule
+    RC-Blackbox & Messobjekt ($C_1 + R_1$) & Seriell, da kein paralleler frei war (mit Übungsleiter abgesprochen)                       \\
+		C-dekade    & Abgleich Kondensator ($C_2$) &                       \\
+	  RS-200      & Abgleichwiderstand ($R_2$) & $\pm (1\% + \SI{0.025}{\ohm})$ \\
+    Funktionsgenerator & Hilfsspannung ($U_H$) & $U_H = \SI{3}{\volt}$ \\
+    Oszilloskop & Nullinstrument ($NI$) & \\
+	\end{tabularx}
 \end{table}
 
 \subsubsection{Versuchsaufbau}
 
-\textbf{Geräte Einstellungen}
+Der Funktionsgenerator wird auf $V_{PP}=\SI{10}{\volt}$ gestellt. Danach wird abgeglichen indem $R_2$ und $C_2$ angepasst werden. Wobei die am Oszilloskop gemessene Amplitude und Phase möglichst nahe $0$ sein soll.
 
-\begin{minipage}[t]{.48\textwidth}
-	Labornetzteil:
-	\begin{itemize}[noitemsep]
-		\item Spannung: 
-		\item Strom: 
-		\item Toleranz:
-	\end{itemize}
-\end{minipage}\hfill
-\begin{minipage}[t]{.48\textwidth}
-	Multimeter:
-	\begin{itemize}[noitemsep]
-		\item Einstellung: (Ohm, Volt, Ampere)
-		\item Messbereich: 
-		\item Garantiefehlergrenzen: 
-	\end{itemize}
-\end{minipage}
-
-\textbf{Messschaltung}
 \begin{figure}[h]
-	\centering
-	\begin{circuitikz}[scale=0.9, transform shape]
-		\draw (0,4) to[open, v=$U_H$, o-o] (0,0)
-			-- ++(3, 0) coordinate (k1)
-			to[vR=$R_2$,*-] ++(0,2) coordinate (k2)
-			to[R=$R_1$,-*] ++(0,2) coordinate (k3)
-			-- ++(-3,0);
-		\draw (k1) -- ++(3,0)
-			to[vR=$R_4$] ++(0,2) coordinate (k4)
-			to[vR=$R_3$] ++(0,2) -- ++(-3,0);
-		\draw (k2) to[ai, v^=$U_0$, i>^=$I_0$, *-*] (k4);
-		\draw (1.5,0) to[vC=$C_2$,*-] ++(0,2) coordinate (c1) -- (k2);
-		\draw (c1) to[C=$C_1$,*-*] ++(0,2);
-		\node[yshift=-20pt] at ($(k2)!0.5!(k4)$) {$R_0$};
-	\end{circuitikz}
-	\caption{Schaltung}
+  \begin{center}
+    \includegraphics[width=0.45\textwidth]{images/Wien-Bruecke-Kap-messung.png}
+  \end{center}
+  \caption{Schaltung}\label{fig:wien-bruecke-kap-messung}
 \end{figure}
 
-\subsubsection{Erkenntnisse}
+\subsection{Herleitung Abgleichbedingung}\label{sub:herleitung_abgleichbedingung} % (fold)
 
+Für die Wechselstrommessbrücke Gilt, dass Betrag und Phase Übereinstimmen müssen:
+\begin{align}
+  \underline{Z_1} \, \underline{Z_4} &= \underline{Z_2} \, \underline{Z_3} 
+\end{align}
+Für unsere Schaltung:
+\begin{align}
+\left( R_1 + \frac{1}{j \omega C_1} \right) R_4 &= \left( R_2 + \frac{1}{j \omega C_2} \right) R_3 \\
+R_1 R_4 - j \frac{R_4}{\omega C_1} &= R_2 R_3 - j \frac{R_3}{\omega C_2} 
+\end{align}
+Mit aufspalten in Imaginär- und Realteil:
+\begin{align}
+R_1 &= \frac{R_2 R_3}{R_4} \\
+C_1 &= C_2 \frac{R_4}{R_3}
+\end{align}
+Mit dem gewählten $R_3=R_4$:
+\begin{align}
+R_1 &= R_2 \\
+C_1 &= C_2 
+\end{align}
+Der Verlustfaktor ist:
+\begin{align}
+\tan \delta &= \omega C_1 R_1 = \omega C_2 R_2
+\end{align}
+% subsection Herleitung Abgleichbedingung (end)
+
+\subsection{Abgleich mit Oszilloskop}
+Nach Ableichen  
+\begin{gather}
+  R_3=R_4=\SI{1}{\kilo\ohm} \\ 
+  C_2 = \SI{96}{\nano\farad} \\ 
+  R_2=\SI{280}{\ohm}
+\end{gather}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=0.55\textwidth]{images/RC-Abgleich.JPG}
+	\end{center}
+	\caption{CH2=$U_H$ | CH1=$U_0$}\label{fig:rc-abgleich-oszi}
+\end{figure}
+
+\subsection{Berechnung}\label{sub:berechnung} % (fold)
+\begin{gather}
+  R_1 = \SI{280}{\ohm} \\
+  C_1 = \SI{96}{\nano\farad} \\
+  \tan \delta = \omega C_1 R_1 = 2\pi \cdot \SI{1}{\kilo\hertz} \cdot \SI{96}{\nano\farad}  \cdot          \SI{280}{\ohm} = 0.17 \\
+  \delta = \SI{0.17}{\radian} = \SI{9.74}{\degree}
+\end{gather}
+% subsection Berechnung (end)
+
+
+\subsection{Zeigerdiagram}\label{sub:zeigerdiagram} % (fold)
+\paragraph{Prüfung per Zeigerdiagramm}
+Die Verlagerung des Abgleichwiderstands \(R_2\) aus Zweig 2 nach Zweig 3 führt zu
+\(Z_1/Z_2'=(R_3+R_2)/R_4\) mit \(Z_2'=1/(j\omega C_2)\).
+Die rechte Seite ist rein reell, die linke Seite wegen \(Z_2'\) im Allgemeinen komplex.
+Damit können Real- und Imaginärteil der Abgleichbedingung nicht gleichzeitig erfüllt werden
+(\( \operatorname{Im}\{Z_1/Z_2'\}\neq 0\) für endliche \(\omega\)).
+Die Zeigerdiagramme (Abb.~\ref{fig:AC-Kond-Zeigerdiagramm}) zeigen entsprechend:
+im Originalfall decken sich \(U_{R3}\) und \(U_{R4}\) (\(U_0\approx 0\)), nach Verlagerung besteht eine
+deutliche Differenz (\(U_0\neq 0\)).
+\emph{Fazit:} Ein vereinfachter Abgleich durch Verlagerung von \(R_2\) in Zweig~3 ist nicht möglich
+\begin{figure}[h]
+	\begin{minipage}[position]{0.48\textwidth}
+		\centering
+    \includegraphics[height=3.5cm]{images/AC-Kond-Zeigerdiagramm-1.png}
+	\end{minipage}\hfill
+  \begin{minipage}[position]{0.48\textwidth}\label{fig:zb_verlagert}
+		\centering
+		\includegraphics[height=3.5cm]{images/AC-Kond-Zeigerdiagramm-2.png}
+	\end{minipage}
+  \caption{Zeigerdiagram}\label{fig:AC-Kond-Zeigerdiagramm}
+\end{figure}
+% subsection Zeigerdiagram (end)
+
+\subsubsection{Erkenntnisse}
+Zu erkennen ist, dass bei ($R_3=R_4$) der Abgleich entkoppelt ist ($R_1=R_2,; C_1=C_2$) und die berechneten Werte ($R_1=\SI{280}{\ohm}$), ($C_1\approx\SI{96}{\nano\farad}$) die Messung gut treffen; kleine Abweichungen erklären sich durch Bauteiltoleranzen, Leitungsparasiten und die Annahme idealer Verhältnisse in der Rechnung. Aus ($\tan\delta=\omega C_1 R_1\approx0{,}17<1$) folgt ein überwiegend kapazitiver Charakter ($|X_C|\gg R_1$). Die Zeigerdiagramme zeigen: im Originalfall ($U_0\approx0$); nach Verlagerung von ($R_2$) in Zweig 3 bleibt eine komplexe Restdifferenz bestehen ($U_0\neq0$). Ein vereinfachter Abgleich ist damit nicht möglich.
