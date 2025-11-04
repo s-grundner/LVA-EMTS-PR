@@ -19,8 +19,8 @@ abzuschätzen. Die Hilfsspannung $U_H$ beträgt \SI{3}{\volt}.
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
 		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
-		M-4600 & Nullinstrument (NI) & \\
-		Fluke 175 & Ohmmeter & Abschätzung des DUT \\
+		M-4600 & Nullinstrument ($U_0$) & Bezeichung: NI \\
+		Fluke 175 & Ohmmeter ($R_1$) & Abschätzung des DUT \\
 		RS-200 & Abgleichwiderstand ($R_4$) & $\pm (\SI{1}{\percent} + \SI{0.025}{\ohm})$\\
 	\end{tabularx}	
 \end{table}
@@ -88,9 +88,9 @@ auf $R_4$ ergibt:
 R_4 = \frac{U_H}{\Delta U_0} \frac{\Delta R_4}{(1+r)\left(1+1/r\right)}
 \label{eq:R4}
 \end{equation}
-Die Restlichen Widerstände ergeben sich aus der Abgleichbedingung:
+Die restlichen Widerstände ergeben sich aus der Abgleichbedingung:
 \[
-R_2 = R_1 \cdot r \quad , \quad R_3 = R_4 / r
+R_2 = R_1 \cdot r, \quad R_3 = R_4 / r
 \]
 
 \begin{table}[h]
