@@ -2,4 +2,8 @@ uncertainties
 matplotlib
 numpy
 pandas
+sympy
+matplot2tikz
+ipykernel
+notebook
 jinja2
