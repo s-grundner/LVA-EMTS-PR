@@ -11,8 +11,8 @@ Hier soll der nichtlineare Ausschlag am Anzeigeinstrument (AI) bei großen Wider
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
 		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
-		Labornetzteil Hameg & Hilfsspannung ($U_H$) & $U_H=\SI{3}{\volt}$ \\
-		M-4600 & Ausschlaginstrument (AI) & \\
+		HM8001 & Hilfsspannung ($U_H$) & $U_H=\SI{3}{\volt}$ \\
+		M-4600 & Ausschlaginstrument ($U_0$) & Bezeichung: AI \\
 		RS-200 & Abgleichwiderstand ($R_1$) & $\pm (\SI{1}{\percent} + \SI{0.025}{\ohm})$\\
 	\end{tabularx}	
 \end{table}
@@ -64,7 +64,7 @@ Die mit \autoref{eq:u0} Berechneten und gemessenen Werte sind in \autoref{tab:no
 \begin{table}[h]
 	\centering
 	\caption{Messergebnisse der Ausschlagspannung}\label{tab:nonlin}
-	\begin{tabularx}{\textwidth}{XXXX}
+	\begin{tabularx}{\textwidth}{YYYY}
 		$R_2'$ / \si{\ohm} & $\Delta R$ / \si{\ohm} & $U_{0,\text{meas}}$ / \si{\volt} & $U_0 = f(R_2)$ / \si{\volt}\\ \midrule
 		$100$   & $-900$ & $-1.200$ & $-1.227$ \\
 		$220$   & $-780$ & $-0.937$ & $-0.959$ \\

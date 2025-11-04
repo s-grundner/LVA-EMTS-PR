@@ -8,7 +8,10 @@ Abgleichverfahren genauer bestimmt werden und daraus der DUT-Widerstand $R_1$
 berechnet werden. Es sollen je zwei Messungen für die Widerstandsverhältnisse
 $0.5$, $1.0$ und $2.0$ durchgeführt werden. $R_2$ ist jeweils auf den am nächsten
 einstellbaren Wert zu setzen. $R_3$ soll erstens auf den nächsten einstellbaren
-Wert und zweitens auf den nächst kleineren einstellbaren Wert gesetzt werden. Im Anschluss sollen die Ergebnisse mit den Zuleitungswiderständen von jeweils \SI{0.2}{\ohm} korrigiert und auf ein Vertrauensintervall von \SI{95}{\percent} ausgewertet werden.
+Wert und zweitens auf den nächst kleineren einstellbaren Wert gesetzt werden.
+Im Anschluss sollen die Ergebnisse mit den Zuleitungswiderständen von jeweils
+\SI{0.2}{\ohm} korrigiert und auf ein Vertrauensintervall von \SI{95}{\percent}
+ausgewertet werden.
 
 \subsubsection{Verwendetes Material}
 
@@ -17,8 +20,8 @@ Wert und zweitens auf den nächst kleineren einstellbaren Wert gesetzt werden. I
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
 		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
-		Labornetzteil & Hilfsspannung ($U_H$) & $U_H = \SI{3}{\volt}$ \\
-		M-4600 & Nullinstrument (NI) & \\
+		HM8001 & Hilfsspannung ($U_H$) & $U_H = \SI{3}{\volt}$ \\
+		M-4600 & Nullinstrument ($U_0$) & Bezeichung: NI \\
 		RS-200 & Abgleichwiderstand ($R_4$) & $\pm (\SI{1}{\percent} + \SI{0.025}{\ohm})$\\
 		Widerstand & Device Under Test ($R_1$) & \\
 	\end{tabularx}	
@@ -26,7 +29,7 @@ Wert und zweitens auf den nächst kleineren einstellbaren Wert gesetzt werden. I
 
 \subsubsection{Versuchsaufbau}
 
-Das Labornetzteil wird auf $U_H=\SI{3}{\volt}$ eingestellt. $R_2$ und $R_3$ werden als erstes grob eingestellt, danach wird $R_4$ so lange
+Das Labornetzteil wird auf $U_H=\SI{3}{\volt}$ eingestellt. $R_2$ und $R_3$ werden als erstes grob nahe der Werte in \autoref{tab:brueckenabsch} eingestellt, danach wird $R_4$ so lange
 verändert bis das NI $\sim\SI{0}{\volt}$ anzeigt.
 
 \begin{figure}[h]
