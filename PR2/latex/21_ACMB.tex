@@ -10,12 +10,12 @@ Mit einer Wien-Brücke sollen der Widerstands- und Kapazitätswert eines vom Üb
 	\centering
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
-		\textbf{Material} & \textbf{Verwendung}    & \textbf{Anmerkungen} \\ \midrule
-    RC-Blackbox & Messobjekt ($C_1 + R_1$) & Seriell, da kein paralleler frei war (mit Übungsleiter abgesprochen)                       \\
-		C-dekade    & Abgleich Kondensator ($C_2$) &                       \\
-	  RS-200      & Abgleichwiderstand ($R_2$) & $\pm (1\% + \SI{0.025}{\ohm})$ \\
-    Funktionsgenerator & Hilfsspannung ($U_H$) & $U_H = \SI{3}{\volt}$ \\
-    Oszilloskop & Nullinstrument ($NI$) & \\
+		\textbf{Material}  & \textbf{Verwendung}          & \textbf{Anmerkungen}                                                 \\ \midrule
+		RC-Blackbox        & Messobjekt ($C_1 + R_1$)     & Seriell, da kein paralleler frei war (mit Übungsleiter abgesprochen) \\
+		C-dekade           & Abgleich Kondensator ($C_2$) &                                                                      \\
+		RS-200             & Abgleichwiderstand ($R_2$)   & $\pm (1\% + \SI{0.025}{\ohm})$                                       \\
+		Funktionsgenerator & Hilfsspannung ($U_H$)        & $V_{PP} = \SI{10}{\volt}$                                            \\
+		Oszilloskop        & Nullinstrument ($NI$)        &                                                                      \\
 	\end{tabularx}
 \end{table}
 
@@ -24,45 +24,45 @@ Mit einer Wien-Brücke sollen der Widerstands- und Kapazitätswert eines vom Üb
 Der Funktionsgenerator wird auf $V_{PP}=\SI{10}{\volt}$ gestellt. Danach wird abgeglichen indem $R_2$ und $C_2$ angepasst werden. Wobei die am Oszilloskop gemessene Amplitude und Phase möglichst nahe $0$ sein soll.
 
 \begin{figure}[h]
-  \begin{center}
-    \includegraphics[width=0.45\textwidth]{images/Wien-Bruecke-Kap-messung.png}
-  \end{center}
-  \caption{Schaltung}\label{fig:wien-bruecke-kap-messung}
+	\begin{center}
+		\includegraphics[width=0.45\textwidth]{images/Wien-Bruecke-Kap-messung.png}
+	\end{center}
+	\caption{Schaltung}\label{fig:wien-bruecke-kap-messung}
 \end{figure}
 
 \subsection{Herleitung Abgleichbedingung}\label{sub:herleitung_abgleichbedingung} % (fold)
 
 Für die Wechselstrommessbrücke Gilt, dass Betrag und Phase Übereinstimmen müssen:
 \begin{align}
-  \underline{Z_1} \, \underline{Z_4} &= \underline{Z_2} \, \underline{Z_3} 
+	\underline{Z_1} \, \underline{Z_4} & = \underline{Z_2} \, \underline{Z_3}
 \end{align}
 Für unsere Schaltung:
 \begin{align}
-\left( R_1 + \frac{1}{j \omega C_1} \right) R_4 &= \left( R_2 + \frac{1}{j \omega C_2} \right) R_3 \\
-R_1 R_4 - j \frac{R_4}{\omega C_1} &= R_2 R_3 - j \frac{R_3}{\omega C_2} 
+	\left( R_1 + \frac{1}{j \omega C_1} \right) R_4 & = \left( R_2 + \frac{1}{j \omega C_2} \right) R_3 \\
+	R_1 R_4 - j \frac{R_4}{\omega C_1}              & = R_2 R_3 - j \frac{R_3}{\omega C_2}
 \end{align}
 Mit aufspalten in Imaginär- und Realteil:
 \begin{align}
-R_1 &= \frac{R_2 R_3}{R_4} \\
-C_1 &= C_2 \frac{R_4}{R_3}
+	R_1 & = \frac{R_2 R_3}{R_4} \\
+	C_1 & = C_2 \frac{R_4}{R_3}
 \end{align}
 Mit dem gewählten $R_3=R_4$:
 \begin{align}
-R_1 &= R_2 \\
-C_1 &= C_2 
+	R_1 & = R_2 \\
+	C_1 & = C_2
 \end{align}
 Der Verlustfaktor ist:
 \begin{align}
-\tan \delta &= \omega C_1 R_1 = \omega C_2 R_2
+	\tan \delta & = \omega C_1 R_1 = \omega C_2 R_2
 \end{align}
 % subsection Herleitung Abgleichbedingung (end)
 
 \subsection{Abgleich mit Oszilloskop}
-Nach Ableichen  
+Nach Ableichen
 \begin{gather}
-  R_3=R_4=\SI{1}{\kilo\ohm} \\ 
-  C_2 = \SI{96}{\nano\farad} \\ 
-  R_2=\SI{280}{\ohm}
+	R_3=R_4=\SI{1}{\kilo\ohm} \\
+	C_2 = \SI{96}{\nano\farad} \\
+	R_2=\SI{280}{\ohm}
 \end{gather}
 
 \begin{figure}[h]
@@ -74,10 +74,10 @@ Nach Ableichen
 
 \subsection{Berechnung}\label{sub:berechnung} % (fold)
 \begin{gather}
-  R_1 = \SI{280}{\ohm} \\
-  C_1 = \SI{96}{\nano\farad} \\
-  \tan \delta = \omega C_1 R_1 = 2\pi \cdot \SI{1}{\kilo\hertz} \cdot \SI{96}{\nano\farad}  \cdot          \SI{280}{\ohm} = 0.17 \\
-  \delta = \SI{0.17}{\radian} = \SI{9.74}{\degree}
+	R_1 = \SI{280}{\ohm} \\
+	C_1 = \SI{96}{\nano\farad} \\
+	\tan \delta = \omega C_1 R_1 = 2\pi \cdot \SI{1}{\kilo\hertz} \cdot \SI{96}{\nano\farad}  \cdot          \SI{280}{\ohm} = 0.17 \\
+	\delta = \SI{0.17}{\radian} = \SI{9.74}{\degree}
 \end{gather}
 % subsection Berechnung (end)
 
@@ -96,13 +96,13 @@ deutliche Differenz (\(U_0\neq 0\)).
 \begin{figure}[h]
 	\begin{minipage}[position]{0.48\textwidth}
 		\centering
-    \includegraphics[height=3.5cm]{images/AC-Kond-Zeigerdiagramm-1.png}
+		\includegraphics[height=3.5cm]{images/AC-Kond-Zeigerdiagramm-1.png}
 	\end{minipage}\hfill
-  \begin{minipage}[position]{0.48\textwidth}\label{fig:zb_verlagert}
+	\begin{minipage}[position]{0.48\textwidth}\label{fig:zb_verlagert}
 		\centering
 		\includegraphics[height=3.5cm]{images/AC-Kond-Zeigerdiagramm-2.png}
 	\end{minipage}
-  \caption{Zeigerdiagram}\label{fig:AC-Kond-Zeigerdiagramm}
+	\caption{Zeigerdiagram}\label{fig:AC-Kond-Zeigerdiagramm}
 \end{figure}
 % subsection Zeigerdiagram (end)
 
