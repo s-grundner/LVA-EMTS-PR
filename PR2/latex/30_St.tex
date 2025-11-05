@@ -1,0 +1,56 @@
+\subsection{Störeinflüsse bei Wechselstrommessbrücken}\label{sec:3-1}
+
+\subsubsection{Aufgabenstellung}
+
+Es sind die Fehlerquellen der Wechselstrommessbrücken zu diskutieren. Und Unterdrückungen dieser anzugeben.
+
+\subsubsection{Störeinflüsse}
+Generell sind Wechselstrombrücken empfindlich gegenüber externen Feldern sowie der
+Qualität der Speisespannung. Im Folgenden werden die wichtigsten Einflüsse samt
+konkreter Maßnahmen kurz zusammengefasst.
+
+\paragraph{Magnetische Felder}
+Zeitlich veränderliche magnetische Felder induzieren Schleifenspannungen
+\[
+	u_{\text{ind}} \propto A\,\frac{\mathrm d B}{\mathrm dt}
+\]
+und verschieben den Brückenabgleich. \textit{Maßnahmen:} kleine Schleifenflächen,
+verdrillte/bifilare Leitungen zwischen Brückeneckpunkten, kurze Abstände der Knoten,
+magnetisch ruhige Aufstellung, ggf.\ Ferritkerne für kleinere Streufelder.
+
+\paragraph{Elektrische Felder \& parasitäre Kapazitäten}
+Potenzialunterschiede zwischen Knoten und Erde bilden parasitäre Kapazitäten. Ströme über
+diese erzeugen zusätzliche Spannungsabfälle an den
+Brückenimpedanzen. \textit{Maßnahmen:} geschirmte, verdrillte Paare; Schirme
+einseitig auf Referenzpotenzial/Erdung. Auch die räumliche Position des Erdknotens ist relevant. Meist wird ein Kontakt des Nullinstruments geerdet.
+
+\paragraph{Versorgung \& Speisesignal}
+Oberwellen (THD) und Frequenzdrift der Quelle sowie Sättigungseffekte des
+Übertragers (z.\,B.\ Übersetzung $4{,}7{:}1$) erzeugen hochfrequente Anteile und
+Phasenfehler. \textit{Maßnahmen:} Quelle mit wenig Oberwellen; frequenzstabile Quelle; ausreichend
+große Sättigungsreserve; Bandpass um die Betriebsfrequenz; konstante Amplitude.
+
+\paragraph{Masseschleifen \& Gleichtakt}
+Mehrfache Erdverbindungen koppeln Netzbrumm ein; Gleichtaktanteile belasten das
+Nullinstrument. \textit{Maßnahmen:} galvanische Trennung (Übertrager), einpunktige
+Masseführung, differenzieller Instrumentenverstärker mit hohem CMRR, nur eine
+Schirmanbindung.
+
+\paragraph{Temperatur- und Kontakteinflüsse}
+Kontaktwiderstände und thermoelektrische EMKs an Metallübergängen erzeugen Offsets;
+Bauteile driften mit der Temperatur. \textit{Maßnahmen:} feste, saubere Schraubklemmen,
+identische Materialien/isotherme Klemmen, Warmlaufzeit, ggf.\ AC-Erregung und
+synchrone Demodulation (Lock-In) zur Offset-Unterdrückung. (Hier eher nicht relevant, da die Ströme niedrig waren)
+
+\paragraph{Bauteiltoleranzen \& Frequenzgang}
+Toleranzen/Nichtlinearitäten der Brückenimpedanzen sowie der frequenzabhängige
+Übertrag von Verstärker und Übertrager verändern den Abgleich über die Frequenz $f$.
+\textit{Maßnahmen:} Dokumentation von Toleranzen und
+Temperaturkoeffizienten, Wahl einer Betriebsfrequenz abseits von Netz- und
+Resonanzbereichen, Antialias-Tiefpass und ausreichend hohe Abtastrate bei digitaler
+Erfassung.
+
+\medskip
+Mit geeigneter Leitungsführung (kurz, verdrillt, geschirmt), sauberer Erdung/Trennung
+und signaltechnischer Filterung lassen sich externe Felder sowie
+Versorgungsstörungen bei AC-Brücken wirkungsvoll minimieren.
