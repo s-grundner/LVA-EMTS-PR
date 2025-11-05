@@ -1,4 +1,3 @@
-\newpage
 \subsection{Messung an Spulen}\label{sec:2-2}
 \subsubsection{Aufgabenstellung}
 
@@ -22,7 +21,7 @@ In diesem Versuchsteil soll mit Hilfe einer Maxwell-Wien-Brücke die Induktivit�
 \subsubsection{Versuchsaufbau}
 
 Eine Induktivität und ein Wiederstand ($L_1 + R_1$) sind mithilfe der
-Maxwell-Wien-Brücke~\hyperref[fig:Maxwell–Wien-Schaltung]{(Abb.~\ref{fig:Maxwell–Wien-Schaltung})} zu bestimmen. Dafür muss $C_4 \, || \, R_4$ so lange angepasst werden, bis $U_0$ sehr nahe 0 ist.
+Maxwell-Wien-Brücke~\hyperref[fig:Maxwell–Wien-Schaltung]{(Abb.~\ref{fig:Maxwell–Wien-Schaltung})} zu bestimmen. Dafür muss $C_4 \, || \, R_4$ so lange angepasst werden, bis $U_0$ sehr nahe 0 ist. Folgende Werte wurden gewählt: $R_2=R_3=\SI{220}{\ohm}$, $f=1kHz$, $V_{PP}=10V$.
 
 \begin{figure}[h]
 	\begin{center}
@@ -31,4 +30,39 @@ Maxwell-Wien-Brücke~\hyperref[fig:Maxwell–Wien-Schaltung]{(Abb.~\ref{fig:Maxw
 	\caption{Maxwell-Wien-Brücke}\label{fig:Maxwell–Wien-Schaltung}
 \end{figure}
 
-% TODO
+\subsubsection{Berechnung}
+Gleichung für $U_0=0$:
+\begin{gather}
+	\left(R_1 + j\omega L_1\right)\,
+	\frac{R_4}{1 + j\omega R_4 C_4}
+	= R_2 R_3 \\[1em]
+	R_1 R_4 + j\omega R_4 L_1 = R_2 R_3 + j\omega R_2 R_3 R_4 C_4
+\end{gather}
+
+Nach Real- und Imaginärteil auflösen:
+\begin{align}
+	L_1 & = R_2 R_3 C_4   \label{eq:ac-l1}        \\
+	R_1 & = \frac{R_2 R_3}{R_4}  \label{eq:ac-r1}
+\end{align}
+
+\subsubsection{Messung}
+\begin{align}
+	R_4 & = \SI{321}{\ohm}       \\
+	C_4 & = \SI{0.97}{\mu\farad}
+\end{align}
+
+\begin{align}
+	L_1 & = \SI{220}{\ohm} \cdot \SI{220}{\ohm} \cdot \SI{0.97}{\mu\farad} = \SI{46.95}{\milli\henry} \\
+	R_1 & = \frac{\SI{220}{\ohm} \cdot \SI{220}{\ohm}}{\SI{321}{\ohm}} = \SI{151}{\ohm}               \\
+\end{align}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=0.55\textwidth]{images/RL-Abgleich.JPG}
+	\end{center}
+	\caption{RL-Ableich \\
+		CH1=$U_0$, CH2=$U_H$ \\ $U_{0,PP}=\SI{140}{\milli\volt}$, $U_{H,PP}=\SI{3}{\volt}$}\label{fig:rl-abgleich-oszi}
+\end{figure}
+
+\subsubsection{Erkenntnis}
+Ein exakter Abgleich ($U_0 = 0$) ist praktisch nicht erreichbar. Zum einen begrenzt die endliche Schrittweite der $R$- und $C$-Dekaden (Quantisierung) die Einstellgenauigkeit, zum anderen erhöhen Ablese- und Trigger-Unsicherheiten am Oszilloskop den verbleibenden Spitze-Spitze-Wert ($U_{0,PP}$).

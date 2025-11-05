@@ -15,7 +15,7 @@ Mit einer Wien-Brücke sollen der Widerstands- und Kapazitätswert eines vom Üb
 		C-dekade           & Abgleich Kondensator ($C_2$) &                                                                      \\
 		RS-200             & Abgleichwiderstand ($R_2$)   & $\pm (1\% + \SI{0.025}{\ohm})$                                       \\
 		Funktionsgenerator & Hilfsspannung ($U_H$)        & $V_{PP} = \SI{10}{\volt}$                                            \\
-		Oszilloskop        & Nullinstrument ($U_0$)       & Bezeichnung: NI                                                                     \\
+		Oszilloskop        & Nullinstrument ($U_0$)       & Bezeichnung: NI                                                      \\
 	\end{tabularx}
 \end{table}
 
@@ -69,7 +69,8 @@ Nach Abgleichen
 	\begin{center}
 		\includegraphics[width=0.55\textwidth]{images/RC-Abgleich.JPG}
 	\end{center}
-	\caption{CH2=$U_H$ | CH1=$U_0$}\label{fig:rc-abgleich-oszi}
+	\caption{RC-Ableich \\
+		CH1=$U_0$, CH2=$U_H$ \\ $U_{0,PP}=\SI{48}{\milli\volt}$, $U_{H,PP}=\SI{3.2}{\volt}$}\label{fig:rc-abgleich-oszi}
 \end{figure}
 
 \subsubsection{Berechnung}\label{sub:berechnung} % (fold)
@@ -83,7 +84,6 @@ Nach Abgleichen
 
 
 \subsubsection{Zeigerdiagram}\label{sub:zeigerdiagram} % (fold)
-\paragraph{Prüfung per Zeigerdiagramm}
 Die Verlagerung des Abgleichwiderstands \(R_2\) aus Zweig 2 nach Zweig 3 führt zu
 \(Z_1/Z_2'=(R_3+R_2)/R_4\) mit \(Z_2'=1/(j\omega C_2)\).
 Die rechte Seite ist rein reell, die linke Seite wegen \(Z_2'\) im Allgemeinen komplex.
@@ -108,11 +108,11 @@ deutliche Differenz (\(U_0\neq 0\)).
 
 \subsubsection{Erkenntnisse}
 Zu erkennen ist, dass bei ($R_3=R_4$) der Abgleich entkoppelt ist ($R_1=R_2,
-C_1=C_2$) und die berechneten Werte ($R_1=\SI{280}{\ohm}$),
+	C_1=C_2$) und die berechneten Werte ($R_1=\SI{280}{\ohm}$),
 ($C_1\approx\SI{96}{\nano\farad}$) die Messung gut treffen; kleine Abweichungen
 erklären sich durch Bauteiltoleranzen, Leitungsparasiten und die Annahme
 idealer Verhältnisse in der Rechnung. Aus ($\tan\delta=\omega C_1
-R_1\approx0{,}17<1$) folgt ein überwiegend kapazitiver Charakter ($|X_C|\gg
-R_1$). Die Zeigerdiagramme zeigen: im Originalfall ($U_0\approx0$); nach
+	R_1\approx0{,}17<1$) folgt ein überwiegend kapazitiver Charakter ($|X_C|\gg
+	R_1$). Die Zeigerdiagramme zeigen: im Originalfall ($U_0\approx0$); nach
 Verlagerung von ($R_2$) in Zweig 3 bleibt eine komplexe Restdifferenz bestehen
 ($U_0\neq0$). Ein vereinfachter Abgleich ist damit nicht möglich.
