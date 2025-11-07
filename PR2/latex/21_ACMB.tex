@@ -21,7 +21,7 @@ Mit einer Wien-Brücke sollen der Widerstands- und Kapazitätswert eines vom Üb
 
 \subsubsection{Versuchsaufbau}
 
-Der Funktionsgenerator wird auf $V_{PP}=\SI{10}{\volt}$ gestellt. Danach wird abgeglichen indem $R_2$ und $C_2$ angepasst werden. Wobei die am Oszilloskop gemessene Amplitude und Phase möglichst nahe $0$ sein soll.
+Der Funktionsgenerator wird auf $V_{PP}=\SI{10}{\volt}$, $f=\SI{1}{\kilo\hertz}$ gestellt. Danach wird abgeglichen indem $R_2$ und $C_2$ angepasst werden. Wobei die am Oszilloskop gemessene Amplitude und Phase möglichst nahe $0$ sein soll.
 Für die Widerstande $R_3=R_4$ wurde $\SI{1}{\kilo\ohm}$ gewählt um die weitere Berechnung zu vereinfachen (Gl.~\ref{eq:ac-rc-r3=r4}).
 
 \begin{figure}[h]
@@ -35,7 +35,7 @@ Für die Widerstande $R_3=R_4$ wurde $\SI{1}{\kilo\ohm}$ gewählt um die weitere
 
 Für die Wechselstrommessbrücke Gilt, dass Betrag und Phase Übereinstimmen müssen:
 \begin{align}
-	\underline{Z_1} \, \underline{Z_4} & = \underline{Z_2} \, \underline{Z_3}
+	\underline{Z_1} \, \underline{Z_4} & = \underline{Z_2} \, \underline{Z_3} \label{eq:ac-allgemeine-ableichsbedinung}
 \end{align}
 Für unsere Schaltung:
 \begin{align}
@@ -63,7 +63,7 @@ Für das RC-Glied gilt also folgendes
 % subsection Herleitung Abgleichbedingung (end)
 
 \subsubsection{Abgleich mit Oszilloskop}
-Nach Ableich war die $U_{0,PP}$ nur noch $U_{0,PP}=\SI{48}{\milli\volt}$ bei $U_{H,PP}=\SI{3.2}{\volt}$ (Abb.~\ref{fig:rc-abgleich-oszi}).
+Nach Ableich war $U_{0,PP}$ nur noch $\SI{48}{\milli\volt}$ bei $U_{H,PP}=\SI{3.2}{\volt}$ (Abb.~\ref{fig:rc-abgleich-oszi}).
 Die dafür gewählten Bauteilwerte lauten
 \begin{gather}
 	C_2 = \SI{96}{\nano\farad}, \;
@@ -123,4 +123,4 @@ idealer Verhältnisse in der Rechnung. Aus ($\tan\delta=\omega C_1
 	R_1\approx0{,}17<1$) folgt ein überwiegend kapazitiver Charakter ($|X_C|\gg
 	R_1$). Die Zeigerdiagramme zeigen: im Originalfall ($U_0\approx0$); nach
 Verlagerung von ($R_2$) in Zweig 3 bleibt eine komplexe Restdifferenz bestehen
-($U_0\neq0$). Ein vereinfachter Abgleich ist damit nicht möglich.
+($U_0\neq0$). Ein vereinfachter Abgleich ist damit nicht möglich. Weiteres ist Ein exakter Ableich nicht möglich wegen Quantisierungsfehler durch die nicht stufenloßeinstellbaren R- C-Dekaden. Auch ungenauigkeiten beim ablesen vom Oszilloskop spielen eine Rolle.

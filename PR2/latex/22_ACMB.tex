@@ -11,7 +11,7 @@ In diesem Versuchsteil soll mit Hilfe einer Maxwell-Wien-Brücke die Induktivit�
 	\begin{tabularx}{\textwidth}{XXX}
 		\textbf{Material}  & \textbf{Verwendung}          & \textbf{Anmerkungen}           \\ \midrule
 		RL-Blackbox        & Messobjekt ($L_1 + R_1$)     &                                \\
-		C-dekade           & Abgleich Kondensator ($C_2$) &                                \\
+		C-Dekade           & Abgleich Kondensator ($C_2$) &                                \\
 		RS-200             & Abgleichwiderstand ($R_2$)   & $\pm (1\% + \SI{0.025}{\ohm})$ \\
 		Funktionsgenerator & Hilfsspannung ($U_H$)        & $U_{PP} = \SI{10}{\volt}$      \\
 		Oszilloskop        & Nullinstrument ($U_0$)       & Bezeichnung: NI                \\
@@ -30,8 +30,8 @@ Maxwell-Wien-Brücke~\hyperref[fig:Maxwell–Wien-Schaltung]{(Abb.~\ref{fig:Maxw
 	\caption{Maxwell-Wien-Brücke}\label{fig:Maxwell–Wien-Schaltung}
 \end{figure}
 
-\subsubsection{Berechnung}
-Gleichung für $U_0=0$:
+\subsubsection{Herleitung der Ableichsbedinungen}
+Mit Gleichung~\ref{eq:ac-allgemeine-ableichsbedinung} folgt für diese Brücke
 \begin{gather}
 	\left(R_1 + j\omega L_1\right)\,
 	\frac{R_4}{1 + j\omega R_4 C_4}
@@ -39,18 +39,21 @@ Gleichung für $U_0=0$:
 	R_1 R_4 + j\omega R_4 L_1 = R_2 R_3 + j\omega R_2 R_3 R_4 C_4
 \end{gather}
 
-Nach Real- und Imaginärteil auflösen:
+Mit auflösen nach Real- und Imaginärteil ereben sich gleichungen für $L_1$ und $R_1$
 \begin{align}
 	L_1 & = R_2 R_3 C_4   \label{eq:ac-l1}        \\
 	R_1 & = \frac{R_2 R_3}{R_4}  \label{eq:ac-r1}
 \end{align}
 
-\subsubsection{Messung}
-\begin{align}
-	R_4 & = \SI{321}{\ohm}       \\
-	C_4 & = \SI{0.97}{\mu\farad}
-\end{align}
+\subsubsection{Abgleich mit Oszilloskop}
+Nach Ableich war $U_{0,PP}$ nur noch $\SI{140}{\milli\volt}$ bei $U_{H,PP}=\SI{3}{\volt}$ (Abb.~\ref{fig:rl-abgleich-oszi}).
+Die dafür gewählten Bauteilwerte lauten
+\begin{gather}
+	R_4 = \SI{321}{\ohm}, \;
+	C_4 = \SI{0.97}{\mu\farad}
+\end{gather}
 
+Über Gleichung~\ref{eq:ac-l1} und \ref{eq:ac-r1} errechnen sich die Werte von $L_1$ und $R_1$.
 \begin{align}
 	L_1 & = \SI{220}{\ohm} \cdot \SI{220}{\ohm} \cdot \SI{0.97}{\mu\farad} = \SI{46.95}{\milli\henry} \\
 	R_1 & = \frac{\SI{220}{\ohm} \cdot \SI{220}{\ohm}}{\SI{321}{\ohm}} = \SI{151}{\ohm}               \\
@@ -60,9 +63,9 @@ Nach Real- und Imaginärteil auflösen:
 	\begin{center}
 		\includegraphics[width=0.55\textwidth]{images/RL-Abgleich.JPG}
 	\end{center}
-	\caption{RL-Ableich \\
-		CH1=$U_0$, CH2=$U_H$ \\ $U_{0,PP}=\SI{140}{\milli\volt}$, $U_{H,PP}=\SI{3}{\volt}$}\label{fig:rl-abgleich-oszi}
+	\caption{Abgelichene Brückenspannung \\
+		CH1=$U_0$, CH2=$U_H$}\label{fig:rl-abgleich-oszi}
 \end{figure}
 
 \subsubsection{Erkenntnis}
-Ein exakter Abgleich ($U_0 = 0$) ist praktisch nicht erreichbar. Zum einen begrenzt die endliche Schrittweite der $R$- und $C$-Dekaden (Quantisierung) die Einstellgenauigkeit, zum anderen erhöhen Ablese- und Trigger-Unsicherheiten am Oszilloskop den verbleibenden Spitze-Spitze-Wert ($U_{0,PP}$).
+Ein exakter Abgleich ($U_0 = 0$) ist praktisch nicht erreichbar. Zum einen begrenzt die endliche Schrittweite der $R$- und $C$-Dekaden (Quantisierung) die Einstellgenauigkeit, als auch andere Störeinflüsse wie das Magnetische Feld (Sehe~\ref{sec:3-1-stoereinfluesse-wechselstrombruecken}) und ungenauigkeiten beim ablesen vom Bildschirm des Oszilloskops.
