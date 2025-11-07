@@ -10,13 +10,14 @@ Dem Messobjekt $R_1$ in der abgeglichenen Brücke wurde ein Widerstandsinkrement
 	\centering
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
-		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
-		HM8001 & Hilfsspannung ($U_H$) & $U_H=\SI{3}{\volt}$ \\
-		M-4600 & Ausschlaginstrument ($U_0$) & Bezeichung: AI\\
-		RS-200 & Abgleichwiderstand ($R_4$) & Tol. $\pm (\SI{1}{\percent} + \SI{0.025}{\ohm})$\\
-		Widerstand & Device Under Test ($R_1$) & $R_1 \approx \SI{3472}{\ohm}$ \\
-		Widerstand & Device Under Test ($\Delta R_1$) & $\Delta R_1 = \SI{10.1}{\ohm}$ \\
-	\end{tabularx}	
+		\textbf{Material} & \textbf{Verwendung}              & \textbf{Anmerkungen}                             \\ \midrule
+		Messbrücke Nr. 4  & Brücke und $R_2$, $R_3$          &                                                  \\
+		HM8001            & Hilfsspannung ($U_H$)            & $U_H=\SI{3}{\volt}$                              \\
+		M-4600            & Ausschlaginstrument ($U_0$)      & Bezeichung: AI                                   \\
+		RS-200            & Abgleichwiderstand ($R_4$)       & Tol. $\pm (\SI{1}{\percent} + \SI{0.025}{\ohm})$ \\
+		Widerstand        & Device Under Test ($R_1$)        & $R_1 \approx \SI{3472}{\ohm}$                    \\
+		Widerstand        & Device Under Test ($\Delta R_1$) & $\Delta R_1 = \SI{10.1}{\ohm}$                   \\
+	\end{tabularx}
 \end{table}
 
 \subsubsection{Versuchsaufbau}
@@ -27,13 +28,13 @@ Das Labornetzteil wird auf \SI{3}{\volt} eingestellt. Die Brücke wird anschlie�
 	\centering
 	\begin{circuitikz}[scale=0.9, transform shape]
 		\draw (0,4) to[open, v=$U_H$, o-o] (0,0)
-			-- ++(2, 0) coordinate (k1)
-			to[vR=$R_2$, *-] ++(0,2) coordinate (k2)
-			to[R=$R_1+\Delta R_1$, -*] ++(0,2) coordinate (k3)
-			-- ++(-2,0);
+		-- ++(2, 0) coordinate (k1)
+		to[vR=$R_2$, *-] ++(0,2) coordinate (k2)
+		to[R=$R_1+\Delta R_1$, -*] ++(0,2) coordinate (k3)
+		-- ++(-2,0);
 		\draw (k1) -- ++(3,0)
-			to[vR=$R_4$] ++(0,2) coordinate (k4)
-			to[vR=$R_3$] ++(0,2) -- ++(-3,0);
+		to[vR=$R_4$] ++(0,2) coordinate (k4)
+		to[vR=$R_3$] ++(0,2) -- ++(-3,0);
 		\draw (k2) to[ai, v^=$U_0$, *-*] (k4);
 		\node[yshift=-20pt] at ($(k2)!0.5!(k4)$) {$R_0$};
 	\end{circuitikz}
@@ -44,13 +45,13 @@ Das Labornetzteil wird auf \SI{3}{\volt} eingestellt. Die Brücke wird anschlie�
 
 Zur Berechnung der Empfidlichkeit wird \cite[S.~42, Gl.~2.6]{EMTPraktikum2025} heranzgezogen. Die Partielle Ableitung wird für die kleinste Spannungsänderung und die relative Widerstandsänderung angenähert:
 \begin{equation}
-E = \frac{\partial U_0}{\partial \Delta R_1/R_1} \approx \frac{U_0}{\Delta R_1/R_1}\label{eq:e1}
+	E = \frac{\partial U_0}{\partial \Delta R_1/R_1} \approx \frac{U_0}{\Delta R_1/R_1}\label{eq:e1}
 \end{equation}
 
 Die absolute und relative kleinste erfassbare Widerstansänderung berechnet sich wieder mit der Auflösung des Anzeigeinstruments nahe Null $\Delta U_0 = \SI{30}{\micro\volt}$.
 \begin{align}
-\Delta R_{1,\min} &= \Delta R_1 \frac{\Delta U_0}{U_0}\label{eq:abs_rmin}\\
-\frac{\Delta R_{1,\min}}{R_1} &= \frac{\Delta R_1}{R_1} \frac{\Delta U_0}{U_0} \label{eq:rel_rmin}
+	\Delta R_{1,\min}             & = \Delta R_1 \frac{\Delta U_0}{U_0}\label{eq:abs_rmin}              \\
+	\frac{\Delta R_{1,\min}}{R_1} & = \frac{\Delta R_1}{R_1} \frac{\Delta U_0}{U_0} \label{eq:rel_rmin}
 \end{align}
 
 Es wird für jede Brückenkonfiguration $U_0$ gemessen und anschließend die Werte in Gleichung \ref{eq:e1}, \ref{eq:abs_rmin} und \ref{eq:rel_rmin} eingesetzt und in \autoref{tab:empf_messung} dargestellt.
@@ -59,10 +60,10 @@ Es wird für jede Brückenkonfiguration $U_0$ gemessen und anschließend die Wer
 	\centering
 	\caption{Empfindlichkeit durch Messung von $U_0$}\label{tab:empf_messung}
 	\begin{tabularx}{\textwidth}{YYYYY}
-	Messung & $U_0$ / \si{\milli\volt} & $E$ / \si{\volt} & $\Delta R_{1,\min}$ / \si{\ohm} & $\frac{\Delta R_{1,\min}}{R_1}$ \\ \midrule
-	1 & -2.20 & -0.759 & -0.138 & -3.955e-05 \\
-	3 & -2.50 & -0.862 & -0.121 & -3.479e-05 \\
-	5 & -1.60 & -0.545 & -0.189 & -5.500e-05 \\
+		Messung & $U_0$ / \si{\milli\volt} & $E$ / \si{\volt} & $\Delta R_{1,\min}$ / \si{\ohm} & $\frac{\Delta R_{1,\min}}{R_1}$ \\ \midrule
+		1       & -2.20                    & -0.759           & -0.138                          & -3.955e-05                      \\
+		3       & -2.50                    & -0.862           & -0.121                          & -3.479e-05                      \\
+		5       & -1.60                    & -0.545           & -0.189                          & -5.500e-05                      \\
 	\end{tabularx}
 \end{table}
 
@@ -70,7 +71,7 @@ Es wird für jede Brückenkonfiguration $U_0$ gemessen und anschließend die Wer
 
 Für eine Wheatstone Ausschlagbrücke wie in \autoref{fig:wheatstone-ai} mit geringer Widerstandsänderung gilt -- wenn das AI einen hinreichend großen Innenwiderstand aufweist -- eine Vereinfachung von \cite[S.~42, Gl.~2.7]{EMTPraktikum2025}:
 \[
-E \approx \frac{-U_H}{\left(1+\frac{R_2}{R_1}\right)\left(1+\frac{R_3}{R_4}\right)}
+	E \approx \frac{-U_H}{\left(1+\frac{R_2}{R_1}\right)\left(1+\frac{R_3}{R_4}\right)}
 \]
 Wieder werden die Werte aus den Daten von \autoref{tab:korrigierte_widerstaende} eingesetzt und folgende Werte erhalten:
 
@@ -78,13 +79,13 @@ Wieder werden die Werte aus den Daten von \autoref{tab:korrigierte_widerstaende}
 	\centering
 	\caption{Empfindlichkeit durch Berechnung aus den Brückendaten}
 	\begin{tabularx}{\textwidth}{YYYYY}
-	Messung & $E$ / \si{\volt} & $\Delta R_{1,\min}$ / \si{\ohm} & $\frac{\Delta R_{1,\min}}{R_1}$ \\ \midrule
-	1 & -0.7118 & -0.1468 & -4.215e-05 \\
-	3 & -0.7334 & -0.1425 & -4.090e-05 \\
-	5 & -0.5715 & -0.1807 & -5.249e-05 \\
-	\end{tabularx}	
+		Messung & $E$ / \si{\volt} & $\Delta R_{1,\min}$ / \si{\ohm} & $\frac{\Delta R_{1,\min}}{R_1}$ \\ \midrule
+		1       & -0.7118          & -0.1468                         & -4.215e-05                      \\
+		3       & -0.7334          & -0.1425                         & -4.090e-05                      \\
+		5       & -0.5715          & -0.1807                         & -5.249e-05                      \\
+	\end{tabularx}
 \end{table}
 
 \subsubsection{Erkenntnisse}
 
-Zu Erkennen ist, dass die Empfindlichkeit der Brücke beim Widerstandsverhältnis von 1:1 am höchsten ist. Beim Vergleich der beiden Tabellen kann man erkennen, dass die berechneten Werte bereits sehr ähnlich zu den gemessenen sind. Abweichungen können dadurch entstehen, dass die gemessenen Werte unabhänig von der Brückenspannung (und dessen Schwankungen) $U_H$ sind, die Berechneten jedoch schon. 
+Zu Erkennen ist, dass die Empfindlichkeit der Brücke beim Widerstandsverhältnis von 1:1 am höchsten ist. Beim Vergleich der beiden Tabellen kann man erkennen, dass die berechneten Werte bereits sehr ähnlich zu den gemessenen sind. Abweichungen können dadurch entstehen, dass die gemessenen Werte unabhänig von der Brückenspannung (und dessen Schwankungen) $U_H$ sind, die Berechneten jedoch schon.

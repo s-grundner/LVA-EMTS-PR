@@ -3,7 +3,7 @@
 \subsubsection{Aufgabenstellung}
 
 Eine Wheatstone Brücke soll so dimensioniert werden, dass mit einem PT-100
-Metall-Widerstandsthermometer die Raumtemperatur gemessen werden kann. 
+Metall-Widerstandsthermometer die Raumtemperatur gemessen werden kann.
 Die Brücke soll bei einer Temperatur von \SI{0}{\degreeCelsius} die
 Abgleichbedingung erfüllen und dort auch das empfindlichste
 Widerstandsverhältnis $R_1/R_2$ aufweisen. Mittels der Hilfsspannung $U_H$ soll
@@ -18,12 +18,13 @@ Eigenerwärmung zu vermeiden.
 	\centering
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
-		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
-		HM8001 & Hilfsspannung ($U_H$) & \\
-		M-4600 & Nullinstrument ($U_0$) & Bezeichung: NI\\
-		PT-100 Simulator & Zur Dimensionierung ($R_1$) & Modul auf der Messbrücke\\
-		PT-100 & Temperatursensor ($R_1$) & \\
-	\end{tabularx}	
+		\textbf{Material} & \textbf{Verwendung}            & \textbf{Anmerkungen}                           \\ \midrule
+		Messbrücke Nr. 4  & Brücke und $R_2$, $R_3$, $R_4$ & $R_2=\SI{100}{\ohm}$, $R_3=R_4=\SI{120}{\ohm}$ \\
+		HM8001            & Hilfsspannung ($U_H$)          &                                                \\
+		M-4600            & Nullinstrument ($U_0$)         & Bezeichung: NI                                 \\
+		PT-100 Simulator  & Zur Dimensionierung ($R_1$)    & Modul auf der Messbrücke                       \\
+		PT-100            & Temperatursensor ($R_1$)       &                                                \\
+	\end{tabularx}
 \end{table}
 
 \subsubsection{Versuchsaufbau}
@@ -38,13 +39,13 @@ werden, um die Temperatur zu messen.
 	\centering
 	\begin{circuitikz}[scale=0.9, transform shape]
 		\draw (0,4) to[open, v=$U_H$, o-o] (0,0)
-			-- ++(2, 0) coordinate (k1)
-			to[R=$R_2$, *-] ++(0,2) coordinate (k2)
-			to[thRp=$R_1$, -*] ++(0,2) coordinate (k3)
-			-- ++(-2,0);
+		-- ++(2, 0) coordinate (k1)
+		to[R=$R_2$, *-] ++(0,2) coordinate (k2)
+		to[thRp=$R_1$, -*] ++(0,2) coordinate (k3)
+		-- ++(-2,0);
 		\draw (k1) -- ++(3,0)
-			to[vR=$R_4$] ++(0,2) coordinate (k4)
-			to[R=$R_3$] ++(0,2) -- ++(-3,0);
+		to[vR=$R_4$] ++(0,2) coordinate (k4)
+		to[R=$R_3$] ++(0,2) -- ++(-3,0);
 		\draw (k2) to[ai, v^=$U_0$, *-*] (k4);
 		\node[yshift=-20pt] at ($(k2)!0.5!(k4)$) {$R_0$};
 	\end{circuitikz}
@@ -57,18 +58,18 @@ Bei \SI{0}{\degreeCelsius} weist der PT-100 Simulator \SI{100}{\ohm} auf. Mit $R
 im Bereich \SI{120}{\ohm} lassen sich aus der Abgleichbedingung die Widerstände
 $R_2$ und $R_3$ geeignet wählen.
 \[
-R_1 R_4 = R_2 R_3 = \SI{100}{\ohm} \cdot \SI{120}{\ohm}
+	R_1 R_4 = R_2 R_3 = \SI{100}{\ohm} \cdot \SI{120}{\ohm}
 	\implies R_2 = \SI{100}{\ohm}, R_3 = \SI{120}{\ohm}
 \]
 Mit dieser Wahl gilt $R_1:R_2 = 1:1$ für maximale Empfindlichkeit. Nun
 kann eine geeignete Hilfsspannung eingestellt werden. Der Querstrom im zweig
 des PT-100 ist
 \[
-I_{R_1} = \frac{U_H}{R_1 + R_2} < \SI{4}{\milli\ampere}
+	I_{R_1} = \frac{U_H}{R_1 + R_2} < \SI{4}{\milli\ampere}
 	\implies U_H < \SI{4}{\milli\ampere} \cdot \SI{200}{\ohm} = \SI{0.8}{\volt}
 \]
 Beim ermitteln der zweiten Randbedingung, dass $T=\SI{100}{\degreeCelsius}
-\mapsto U_0=-\SI{50}{\milli\volt}$ wurde bei $U_H=\SI{0.8}{\volt}$ bereits
+	\mapsto U_0=-\SI{50}{\milli\volt}$ wurde bei $U_H=\SI{0.8}{\volt}$ bereits
 $\SI{-58.21}{\milli\volt}$ festgestellt und beschlossen mit diesem Wert
 fortzufahren. Die Auswirkung dieser Abweichung der Anforderungen werden im
 Anschluss diskutiert.
@@ -82,11 +83,11 @@ Spannung von $U_{0,\text{RT}} = \SI{-16.76}{\milli\volt}$ festgestellt.
 
 Mit der Gleichung \cite[S.~41, Gl.~2.5]{EMTPraktikum2025} für die Brückenspannung
 \begin{equation}
-U_0 \approx U_H \frac{-\frac{\Delta R_1}{R_1}}{\left(1+\frac{R_2}{R_1}\right)\left(1+\frac{R_3}{R_4}\right)}\label{eq:U0temp}
+	U_0 \approx U_H \frac{-\frac{\Delta R_1}{R_1}}{\left(1+\frac{R_2}{R_1}\right)\left(1+\frac{R_3}{R_4}\right)}\label{eq:U0temp}
 \end{equation}
-lässt sich auf den tatsächlichen Widerstandswert des PT-100 bei dieser Temperatur zurückschließen. Umformen auf $\Delta R_1$ 
+lässt sich auf den tatsächlichen Widerstandswert des PT-100 bei dieser Temperatur zurückschließen. Umformen auf $\Delta R_1$
 \[
-\Delta R_1 = -\frac{U_{0,\text{RT}}}{U_H}(R_1+R_2)\left(1+\frac{R_3}{R_4}\right) = \SI{8.38}{\ohm}
+	\Delta R_1 = -\frac{U_{0,\text{RT}}}{U_H}(R_1+R_2)\left(1+\frac{R_3}{R_4}\right) = \SI{8.38}{\ohm}
 \]
 
 Mit der linearen Taylorapproximation für Temperaturwiderstände
@@ -94,7 +95,7 @@ Mit der linearen Taylorapproximation für Temperaturwiderstände
 werden. Für den PT-100 beträgt der Temperaturkoeffizient erster Ordnung
 $\alpha=\SI{3.85e-3}{\per\kelvin}$.
 \[
-\Delta R_1(\theta) + R_1 = R_1(1+\alpha\theta) \implies \theta = \frac{1}{\alpha}\frac{\Delta R_1}{R_1} = \SI{21.77}{\degreeCelsius}
+	\Delta R_1(\theta) + R_1 = R_1(1+\alpha\theta) \implies \theta = \frac{1}{\alpha}\frac{\Delta R_1}{R_1} = \SI{21.77}{\degreeCelsius}
 \]
 Ein Referenzthermometer liefert einen Anzeigewert von ca. \SI{21}{\degreeCelsius}.
 

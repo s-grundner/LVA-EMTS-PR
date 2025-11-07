@@ -18,11 +18,12 @@ abzuschätzen. Die Hilfsspannung $U_H$ beträgt \SI{3}{\volt}.
 	\centering
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
-		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
-		M-4600 & Nullinstrument ($U_0$) & Bezeichung: NI \\
-		Fluke 175 & Ohmmeter ($R_1$) & Abschätzung des DUT \\
-		RS-200 & Abgleichwiderstand ($R_4$) & $\pm (\SI{1}{\percent} + \SI{0.025}{\ohm})$\\
-	\end{tabularx}	
+		\textbf{Material} & \textbf{Verwendung}        & \textbf{Anmerkungen}                        \\ \midrule
+		Messbrücke Nr. 4  & Brücke und $R_2$, $R_3$    &                                             \\
+		M-4600            & Nullinstrument ($U_0$)     & Bezeichung: NI                              \\
+		Fluke 175         & Ohmmeter ($R_1$)           & Abschätzung des DUT                         \\
+		RS-200            & Abgleichwiderstand ($R_4$) & $\pm (\SI{1}{\percent} + \SI{0.025}{\ohm})$ \\
+	\end{tabularx}
 \end{table}
 \subsubsection{Versuchsaufbau}
 
@@ -33,13 +34,13 @@ konfigurieren um den unbekannten Widerstand $R_1$ zu bestimmen.
 	\centering
 	\begin{circuitikz}[scale=0.9, transform shape]
 		\draw (0,4) to[open, v={$U_H=\SI{3}{\volt}$}, o-o] (0,0)
-			-- ++(2, 0) coordinate (k1)
-			to[vR=$R_2$, *-] ++(0,2) coordinate (k2)
-			to[R=$R_1$, -*] ++(0,2) coordinate (k3)
-			-- ++(-2,0);
+		-- ++(2, 0) coordinate (k1)
+		to[vR=$R_2$, *-] ++(0,2) coordinate (k2)
+		to[R=$R_1$, -*] ++(0,2) coordinate (k3)
+		-- ++(-2,0);
 		\draw (k1) -- ++(3,0)
-			to[vR=$R_4$] ++(0,2) coordinate (k4)
-			to[vR=$R_3$] ++(0,2) -- ++(-3,0);
+		to[vR=$R_4$] ++(0,2) coordinate (k4)
+		to[vR=$R_3$] ++(0,2) -- ++(-3,0);
 		\draw (k2) to[ni, v^=$U_0$, *-*] (k4);
 		\node[yshift=-20pt] at ($(k2)!0.5!(k4)$) {$R_0$};
 		\node[anchor=west] at ([shift={(0.5,-1)}]k4) {Abgleichwiderstand};
@@ -74,23 +75,23 @@ Somit ergibt sich ein Widerstandsbereich von $R_1 = \SI{3472(32)}{\ohm}$.
 
 Zu finden ist nun der Wertebereich für den Abgleichwiderstand $R_4$, sodass
 diese Genauigkeit erreicht werden kann. Dazu wird \cite[Gl.~2.5,
-S.~41]{EMTPraktikum2025} der Brückenspannung einer Viertelbrücke mit kleiner
+	S.~41]{EMTPraktikum2025} der Brückenspannung einer Viertelbrücke mit kleiner
 Widerstandsänderung und hinreichend Großem $R_0$ herangezogen. Da $R_1$ und
 $R_4$ gegenüberliegen, lässt sich $\frac{\Delta R_1}{R_1}$ gegen $\frac{\Delta
-R_4}{R_4}$ ersetzen und das Vorzeichen tauschen.
+		R_4}{R_4}$ ersetzen und das Vorzeichen tauschen.
 \[
-U_0 \approx U_H \frac{\frac{\Delta R_4}{R_4}}{\left(1+\frac{R_2}{R_1}\right)\left(1+\frac{R_3}{R_4}\right)}
+	U_0 \approx U_H \frac{\frac{\Delta R_4}{R_4}}{\left(1+\frac{R_2}{R_1}\right)\left(1+\frac{R_3}{R_4}\right)}
 \]
 Für $U_0$ wird die kleinste Messbare Spannungsänderung $\Delta U_0$ eingesetzt.
 Im abgeglichenen Fall gilt $\frac{R_1}{R_2} = \frac{R_3}{R_4} = 1/r$. Umformen
 auf $R_4$ ergibt:
 \begin{equation}
-R_4 = \frac{U_H}{\Delta U_0} \frac{\Delta R_4}{(1+r)\left(1+1/r\right)}
-\label{eq:R4}
+	R_4 = \frac{U_H}{\Delta U_0} \frac{\Delta R_4}{(1+r)\left(1+1/r\right)}
+	\label{eq:R4}
 \end{equation}
 Die restlichen Widerstände ergeben sich aus der Abgleichbedingung:
 \[
-R_2 = R_1 \cdot r, \quad R_3 = R_4 / r
+	R_2 = R_1 \cdot r, \quad R_3 = R_4 / r
 \]
 
 \begin{table}[h]
@@ -98,19 +99,19 @@ R_2 = R_1 \cdot r, \quad R_3 = R_4 / r
 	\caption{Abschätzung der Brückenwiderstände}\label{tab:brueckenabsch}
 	\begin{tabularx}{\textwidth}{c|YYYY}
 		Widerstandsverhältnis $R2:R1=r$ & $R_1 / \si{\ohm}$ & $R_2 / \si{\ohm}$ & $R_3 / \si{\ohm}$ & $R_4 / \si{\ohm}$ \\ \midrule
-		$0.5$ & $3472(32)$ & $1736(16)$ & $44444$ & $22222$ \\
-		$1.0$ & $3472(32)$ & $3472(32)$ & $25000$ & $25000$ \\
-		$2.0$ & $3472(32)$ & $6944(64)$ & $11111$ & $22222$ \\
+		$0.5$                           & $3472(32)$        & $1736(16)$        & $44444$           & $22222$           \\
+		$1.0$                           & $3472(32)$        & $3472(32)$        & $25000$           & $25000$           \\
+		$2.0$                           & $3472(32)$        & $6944(64)$        & $11111$           & $22222$           \\
 	\end{tabularx}
 \end{table}
 
 \subsubsection{Erkenntnisse}
 
 In \autoref{eq:R4} ist ersichtlich, dass gilt $R_4 \propto \frac{\Delta
-R_4}{\Delta U_0}$ bzw. $\Delta U_0 \propto \frac{\Delta R_4}{R_4}$. Um eine
+		R_4}{\Delta U_0}$ bzw. $\Delta U_0 \propto \frac{\Delta R_4}{R_4}$. Um eine
 kleinere Spannung aufzulösen, muss also der Abgleichwiderstand sehr groß
 gewählt werden, bzw. muss das Widerstandsinkrement sehr klein sein. Beide
-Größen sind jedoch durch die verwendeten Geräte limitiert. 
+Größen sind jedoch durch die verwendeten Geräte limitiert.
 
 
 
