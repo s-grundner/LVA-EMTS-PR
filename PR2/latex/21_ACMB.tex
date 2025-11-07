@@ -22,6 +22,7 @@ Mit einer Wien-Brücke sollen der Widerstands- und Kapazitätswert eines vom Üb
 \subsubsection{Versuchsaufbau}
 
 Der Funktionsgenerator wird auf $V_{PP}=\SI{10}{\volt}$ gestellt. Danach wird abgeglichen indem $R_2$ und $C_2$ angepasst werden. Wobei die am Oszilloskop gemessene Amplitude und Phase möglichst nahe $0$ sein soll.
+Für die Widerstande $R_3=R_4$ wurde $\SI{1}{\kilo\ohm}$ gewählt um die weitere Berechnung zu vereinfachen (Gl.~\ref{eq:ac-rc-r3=r4}).
 
 \begin{figure}[h]
 	\begin{center}
@@ -41,27 +42,31 @@ Für unsere Schaltung:
 	\left( R_1 + \frac{1}{j \omega C_1} \right) R_4 & = \left( R_2 + \frac{1}{j \omega C_2} \right) R_3 \\
 	R_1 R_4 - j \frac{R_4}{\omega C_1}              & = R_2 R_3 - j \frac{R_3}{\omega C_2}
 \end{align}
-Mit aufspalten in Imaginär- und Realteil:
+Mit Aufspalten in Imaginär- und Realteil:
 \begin{align}
-	R_1 & = \frac{R_2 R_3}{R_4} \\
-	C_1 & = C_2 \frac{R_4}{R_3}
+	R_1 & = \frac{R_2 R_3}{R_4}, \;
+	C_1 = C_2 \frac{R_4}{R_3}
 \end{align}
-Mit dem gewählten $R_3=R_4$:
+Da $R_3=R_4$ gewählt wurde vereinfacht sich das weiter
 \begin{align}
-	R_1 & = R_2 \\
-	C_1 & = C_2
+	R_1 & = R_2, \;
+	C_1  = C_2 \label{eq:ac-rc-r3=r4}
 \end{align}
-Der Verlustfaktor ist:
+Der Verlustfaktor berechnet sich aus
+\begin{gather}
+	\tan \delta = \frac{\Re(Z_1)}{\Im(Z_1)}
+\end{gather}
+Für das RC-Glied gilt also folgendes
 \begin{align}
-	\tan \delta & = \omega C_1 R_1 = \omega C_2 R_2
+	\tan \delta & = \omega C_1 R_1 = \omega C_2 R_2 \label{eq:ac-rc-tan-delta}
 \end{align}
 % subsection Herleitung Abgleichbedingung (end)
 
 \subsubsection{Abgleich mit Oszilloskop}
-Nach Abgleichen
+Nach Ableich war die $U_{0,PP}$ nur noch $U_{0,PP}=\SI{48}{\milli\volt}$ bei $U_{H,PP}=\SI{3.2}{\volt}$ (Abb.~\ref{fig:rc-abgleich-oszi}).
+Die dafür gewählten Bauteilwerte lauten
 \begin{gather}
-	R_3=R_4=\SI{1}{\kilo\ohm} \\
-	C_2 = \SI{96}{\nano\farad} \\
+	C_2 = \SI{96}{\nano\farad}, \;
 	R_2=\SI{280}{\ohm}
 \end{gather}
 
@@ -69,11 +74,12 @@ Nach Abgleichen
 	\begin{center}
 		\includegraphics[width=0.55\textwidth]{images/RC-Abgleich.JPG}
 	\end{center}
-	\caption{RC-Ableich \\
-		CH1=$U_0$, CH2=$U_H$ \\ $U_{0,PP}=\SI{48}{\milli\volt}$, $U_{H,PP}=\SI{3.2}{\volt}$}\label{fig:rc-abgleich-oszi}
+	\caption{Abgelichene Brückenspannung \\
+		CH1=$U_0$, CH2=$U_H$}\label{fig:rc-abgleich-oszi}
 \end{figure}
 
 \subsubsection{Berechnung}\label{sub:berechnung} % (fold)
+Nach Gleichung~\ref{eq:ac-rc-r3=r4} und \ref{eq:ac-rc-tan-delta} errechnet sich
 \begin{gather}
 	R_1 = \SI{280}{\ohm} \\
 	C_1 = \SI{96}{\nano\farad} \\
@@ -83,12 +89,10 @@ Nach Abgleichen
 % subsection Berechnung (end)
 
 
-\subsubsection{Zeigerdiagram}\label{sub:zeigerdiagram} % (fold)
-Die Verlagerung des Abgleichwiderstands \(R_2\) aus Zweig 2 nach Zweig 3 führt zu
-\(Z_1/Z_2'=(R_3+R_2)/R_4\) mit \(Z_2'=1/(j\omega C_2)\).
-Die rechte Seite ist rein reell, die linke Seite wegen \(Z_2'\) im Allgemeinen komplex.
-Damit können Real- und Imaginärteil der Abgleichbedingung nicht gleichzeitig erfüllt werden
-(\( \operatorname{Im}\{Z_1/Z_2'\}\neq 0\) für endliche \(\omega\)).
+\subsubsection{Verlagerung von $R_2$ (Zweig 2 zu Zweig 3)}\label{sub:zeigerdiagram} % (fold)
+Die Verlagerung des Abgleichwiderstands \(R_2\) aus Zweig 2 nach Zweig 3 führt über $\underline{Z_1} \, \underline{Z_4}\big|_{\Re} = \underline{Z_2} \, \underline{Z_3}|_{\Re}$ zu $R_1 \cdot R_4 = 0$. Das kann nur stimmen, wenn $R_1=0$, das $R_C$ glied rein Induktiv ist, oder $R_4=0$ dann wäre es aber keine Abgleichbrücke mehr. Da nun weder $R_1$ noch $R_4$ 0 ist, lässt sich die brücke nicht abgleichen.
+
+\paragraph{Zeigerdiagram}
 Die Zeigerdiagramme (Abb.~\ref{fig:AC-Kond-Zeigerdiagramm}) zeigen entsprechend:
 im Originalfall decken sich \(U_{R3}\) und \(U_{R4}\) (\(U_0\approx 0\)), nach Verlagerung besteht eine
 deutliche Differenz (\(U_0\neq 0\)).
@@ -109,7 +113,7 @@ deutliche Differenz (\(U_0\neq 0\)).
 \subsubsection{Erkenntnisse}
 Zu erkennen ist, dass bei ($R_3=R_4$) der Abgleich entkoppelt ist ($R_1=R_2,
 	C_1=C_2$) und die berechneten Werte ($R_1=\SI{280}{\ohm}$),
-($C_1\approx\SI{96}{\nano\farad}$) die Messung gut treffen; kleine Abweichungen
+($C_1=\SI{96}{\nano\farad}$) die Messung gut treffen; kleine Abweichungen
 erklären sich durch Bauteiltoleranzen, Leitungsparasiten und die Annahme
 idealer Verhältnisse in der Rechnung. Aus ($\tan\delta=\omega C_1
 	R_1\approx0{,}17<1$) folgt ein überwiegend kapazitiver Charakter ($|X_C|\gg
