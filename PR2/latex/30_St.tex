@@ -10,47 +10,32 @@ Qualität der Speisespannung. Im Folgenden werden die wichtigsten Einflüsse sam
 konkreter Maßnahmen kurz zusammengefasst.
 
 \paragraph{Magnetische Felder}
-Zeitlich veränderliche magnetische Felder induzieren Schleifenspannungen
+Zeitlich veränderliche magnetische Felder induzieren Schleifenspannungen \cite[S.~49, Gl.~2.24]{EMTPraktikum2025}
 \[
-	u_{\text{ind}} \propto A\,\frac{\mathrm d B}{\mathrm dt}
+	u_{\text{ind}} \propto A\,\frac{\mathrm{d} B}{\mathrm{d}t}
 \]
 und verschieben den Brückenabgleich. \textit{Maßnahmen:} kleine Schleifenflächen,
 verdrillte/bifilare Leitungen zwischen Brückeneckpunkten, kurze Abstände der Knoten,
 magnetisch ruhige Aufstellung, ggf.\ Ferritkerne für kleinere Streufelder.
 
 \paragraph{Elektrische Felder \& parasitäre Kapazitäten}
-Potenzialunterschiede zwischen Knoten und Erde bilden parasitäre Kapazitäten. Ströme über
-diese erzeugen zusätzliche Spannungsabfälle an den
-Brückenimpedanzen. \textit{Maßnahmen:} geschirmte, verdrillte Paare; Schirme
-einseitig auf Referenzpotenzial/Erdung. Auch die räumliche Position des Erdknotens ist relevant. Meist wird ein Kontakt des Nullinstruments geerdet.
+Potenzialunterschiede zwischen Brücken-knoten und Erde bilden parasitäre Kapazitäten.
+Ströme über diese erzeugen zusätzliche Spannungsabfälle an den
+Brückenimpedanzen.
 
-\paragraph{Versorgung \& Speisesignal}
-Oberwellen (THD) und Frequenzdrift der Quelle sowie Sättigungseffekte des
-Übertragers (z.\,B.\ Übersetzung $4{,}7{:}1$) erzeugen hochfrequente Anteile und
-Phasenfehler. \textit{Maßnahmen:} Quelle mit wenig Oberwellen; frequenzstabile Quelle; ausreichend
-große Sättigungsreserve; Bandpass um die Betriebsfrequenz; konstante Amplitude.
+\textit{Maßnahmen:} Eine Schirmung der Leitungen gegen Erde reduziert den
+Einfluss externer elektrischer Felder. Die Positionierung des Erdknotens ist
+relevant, oft wird ein Kontakt des Nullinstruments geerdet. \cite[S.50]{EMTPraktikum2025}
 
-\paragraph{Masseschleifen \& Gleichtakt}
-Mehrfache Erdverbindungen koppeln Netzbrumm ein; Gleichtaktanteile belasten das
-Nullinstrument. \textit{Maßnahmen:} galvanische Trennung (Übertrager), einpunktige
-Masseführung, differenzieller Instrumentenverstärker mit hohem CMRR, nur eine
-Schirmanbindung.
+\paragraph{Versorgung}
+Oberwellen und Frequenzdrift der Quelle sowie Sättigungseffekte des
+Übertragers (z.B. Übersetzung $4.7:1$) erzeugen hochfrequente Anteile und
+Phasenfehler. Dieser Einfluss erschwert den Abgleich, da kein reines Sinussignal mehr
+vorliegt.
 
-\paragraph{Temperatur- und Kontakteinflüsse}
-Kontaktwiderstände und thermoelektrische EMKs an Metallübergängen erzeugen Offsets;
-Bauteile driften mit der Temperatur. \textit{Maßnahmen:} feste, saubere Schraubklemmen,
-identische Materialien/isotherme Klemmen, Warmlaufzeit, ggf.\ AC-Erregung und
-synchrone Demodulation (Lock-In) zur Offset-Unterdrückung. (Hier eher nicht relevant, da die Ströme niedrig waren)
-
-\paragraph{Bauteiltoleranzen \& Frequenzgang}
-Toleranzen/Nichtlinearitäten der Brückenimpedanzen sowie der frequenzabhängige
-Übertrag von Verstärker und Übertrager verändern den Abgleich über die Frequenz $f$.
-\textit{Maßnahmen:} Dokumentation von Toleranzen und
-Temperaturkoeffizienten, Wahl einer Betriebsfrequenz abseits von Netz- und
-Resonanzbereichen, Antialias-Tiefpass und ausreichend hohe Abtastrate bei digitaler
-Erfassung.
-
-\medskip
-Mit geeigneter Leitungsführung (kurz, verdrillt, geschirmt), sauberer Erdung/Trennung
-und signaltechnischer Filterung lassen sich externe Felder sowie
-Versorgungsstörungen bei AC-Brücken wirkungsvoll minimieren.
+\textit{Maßnahmen:} Zunächst ist die Qualität der Quelle zu beachten. Die
+Quelle soll die Eigenschaften: wenig Oberwellen, frequenzstabile Quelle und
+ausreichend große Sättigungsreserve erfüllen.
+Die Quelle soll so eingestellt werden, dass weder niedrige Frequenzen (z.B. Netzfrequenz)
+noch hohe Frequenzen wo die Kapazitäten stärkeren einfluss haben, einen großen einfluss auf das
+Brückensignal haben. \cite[S.50]{EMTPraktikum2025}
