@@ -1,0 +1,75 @@
+\newpage
+\section{Messverstärker}\label{sec:1}
+
+\subsection{Messen der Offsetspannung}\label{sec:1-1}
+\subsubsection{Aufgabenstellung}
+Es sei mit einer geeigneten schaltung die Offsetspannung ($U_{OS}$) des OP-A3 ($\mu$A741 Biploar) auf dem Messbrett mittels geeigneter Schalung ermittelt werden. Anschließend soll $U_{OS}$ mittels dem zu A3 zugehörigen Potientiometer abgelichen werden.
+
+\subsubsection{Verwendetes Material}
+
+\subsubsection{Versuchsaufbau}
+
+\begin{figure}[h]
+	\centering
+	\begin{circuitikz}[european, scale=0.9, transform shape]
+		% --- Op-amp A3 ---
+		\node[op amp, rotate=180, xscale = -1] (A3) at (0,0) {};
+		\node at ($(A3.center)+(0.8,0.3)$) {\small $A_3$};
+
+		% Supply arrows (+12V, -12V)
+		\draw[->] ($(A3.center)+(0.2,0.4)$) -- +(0,0.5) node[above]{\small $+12$V};
+		\draw[->] ($(A3.center)+(0.2,-0.4)$) -- +(0,-0.5) node[below]{\small $-12$V};
+
+		% --- Output node ---
+		\coordinate (out) at ($(A3.out)+(1.0,0)$);
+		\draw (A3.out) -- (out);
+
+		% --- R1 and R2 stack ---
+		\draw (out) to[R,l_=$R_1$] ++(0,-2) coordinate (mid)
+		to[R,l_=$R_2$] ++(0,-2) node[ground]{};
+
+		% Feedback from midpoint to inverting input
+		\draw (mid) -- ++(-3.4,0) -- (A3.-);
+
+		% --- Non-inverting input: voltage source G1 with U_os ---
+		\coordinate (srcbottom) at (-4,-1);
+		\node[ground] at (srcbottom) {};
+		\draw (srcbottom) to[voltage source, v_={$U_{OS}$}] ++(0,1.5) coordinate (srcnode);
+		\draw (srcnode) -- (A3.+);
+
+		% --- Output osset arrow U_a,os ---
+		\draw[->] ($(out)+(0.7,0)$) -- ($(mid)+(0.7,-2)$)
+		node[midway,right]{$U_{a,os}$};
+	\end{circuitikz}
+	\caption{Messschaltung}\label{fig:wheatstone}
+\end{figure}
+
+\subsubsection{Berechnungen der Verstärkung}
+
+\begin{gather}
+	A=\frac{R_1+R_2}{R_2}\approx \frac{R_1}{R_2}
+\end{gather}
+
+Da in der Tabelle~\cite[S.~77, Abb.~3.13]{EMTPraktikum2025} steht,
+dass A3, $U_{OS}=\SI{1}{\milli\volt}$ besitzt ist eine Verstärkung von $1000$ bei der Versorgung $\pm\SI{12}{\volt}$ geeignet.
+
+Demnach wurden die Werte für $R_1$ und $R_2$ gewählt:
+\begin{gather}
+	R_2=\SI{1}{\kilo\ohm} \\
+	R_1 = A \cdot R_2 = 1000 \cdot \SI{1}{\kilo\ohm} = \SI{1}{\mega\ohm}
+\end{gather}
+
+\subsubsection{Messung}
+Bei der Messung der Offsetspannung am Ausgang vom OP ist es notwendig den Taster neben den Potentiometers zu betätigen, um den Potentiometer zu überbrücken. Ansonsten würde dieser $U_{OS}$ Verändern.
+
+Mit dem Multimeter Metex (20V DC Messbereich, siehe Geräteliste~\ref{sec:geraeteliste}) wurde $U_{a,OS}=\SI{3.45}{\volt}$ gemessen.
+\begin{gather}
+	U_{OS} = \frac{U_{a,OS}}{A} = \frac{\SI{3.45}{\volt}}{1000} = \SI{3.45}{\milli\volt}
+\end{gather}
+
+\subsubsection{Ableichen von A3}
+Nun wird der Taster nicht mehr gedrückt und weiter mit dem Multimeter $U_{a,OS}$ gemessen. Das Potentiometer wird eingestellt bis beim kleinsten messbereich vom Multimeter~\ref{sec:geraeteliste} (200mV) die Spannung 0 wird, bzw. bis sie nicht mehr kleiner wird. Im Anschluß wurde eine Spannung von $\SI{0.7}{\milli\volt}$ gemessen.
+
+\subsubsection{Erkenntnisse}
+Die errechnete Offsetspannung $U_{OS}=\SI{3.45}{\milli\volt}$ liegt über dem im Skriptum angegebenen typischen Wert von $\SI{1}{\milli\volt}$, ist für einen $\mu$A741 jedoch keineswegs ungewöhnlich.
+
