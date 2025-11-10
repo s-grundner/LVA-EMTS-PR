@@ -1,0 +1,146 @@
+\newpage
+
+\subsection{Übertragungsverhalten von invertierenden und nicht invertierenden Verstärken}\label{sec:1-4}
+\subsubsection{Aufgabenstellung}
+
+\subsubsection{Verwendetes Material}
+
+\begin{table}[h]
+	\centering
+	\caption{Verwendetes Material}
+	\begin{tabularx}{\textwidth}{XXX}
+		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
+		Messverstärker & $A_3, R_1, R_2$ & $A_{GK} \approx\SI{40}{\decibel}$\\
+		Funktionsgenerator & Eingangsspannung $U_E$ & \\
+		Oszilloskop & Ausgangsspannung $U_A$& \\
+	\end{tabularx}	
+\end{table}
+\subsubsection{Versuchsaufbau}
+
+\begin{figure}[h]
+	\begin{minipage}[t]{.49\textwidth}
+	\centering
+	\begin{circuitikz}[scale=0.9, transform shape]
+		\myIA{A3}{(0,0)}{$R_1$}{$R_2$};
+		\draw (A3-in) to[open, v=$U_E$, o-o] (A3-in |- A3-gnd) node[ground]{};
+		\draw (A3-out) to[open, v=$U_A$, o-o] (A3-out |- A3-gnd) node[ground]{};
+	\end{circuitikz}
+	\caption{Messschaltung i. Verstärker}
+	\end{minipage}\hfill
+	\begin{minipage}[t]{.49\textwidth}
+	\centering
+	\begin{circuitikz}[scale=0.9, transform shape]
+		\myNIA{A3}{(0,0)}{$R_1$}{$R_2$};
+		\draw (A3-in) to[open, v=$U_E$, o-o] (A3-in |- A3-gnd) node[ground]{};
+		\draw (A3-out) to[open, v=$U_A$, o-o] (A3-out |- A3-gnd) node[ground]{};
+	\end{circuitikz}
+	\caption{Messschaltung n.i. Verstärker}
+	\end{minipage}
+\end{figure}
+
+Um anhand diesen Schaltungen die Übertragungsfunktion beder Verstärkertypen zu bestimmen, wird die Eingangsspannung $U_E$ als Sinus mit variabler Frequenz und konstanter Amplitude eingestellt und für eine Reihe an ausgewählter Frequenzen die Ausgangsamplitude $U_A$ sowie die Phasenverschiebung gemessen.
+
+\subsubsection{Berechnungen}
+
+Es war mittels Gegenkopplung eine Verstärkung von $A_{GK}\approx\SI{40}{\decibel} = 10^{\frac{40}{20}} = 100$ einzustellen. Um diese zu erreichen, wurden die Widerstandswerte wie folgt gewählt:
+
+\begin{itemize}
+	\item Invertierender Verstärker:
+	\begin{equation*}
+		A_{GK} = \frac{R_2}{R_1} = 100 \implies R_2 = 100 R_1 \implies \underline{R_1 = \SI{1}{\kilo\ohm}, R_2 = \SI{100}{\kilo\ohm}}
+	\end{equation*}
+	\item Nicht invertierender Verstärker:
+	\begin{equation*}
+		A_{GK} = 1 + \frac{R_2}{R_1} = 100 \implies R_2 = 99 R_1 \implies \underline{R_1 = \SI{1}{\kilo\ohm}, R_2 \approx \SI{100}{\kilo\ohm}}
+	\end{equation*}
+\end{itemize}
+
+Für den i.-Verstärker wird das Verstärkungsziel genau erreicht, für den n.i.-Verstärker wurde ein Widerstand von $\SI{100}{\kilo\ohm}$ verwendet, da kein $\SI{99}{\kilo\ohm}$ Widerstand verfügbar war. Dies führt zu einer minimal höheren Verstärkung von $A_{GK} = 1 + \frac{\SI{100}{\kilo\ohm}}{\SI{1}{\kilo\ohm}} = 101$.
+
+Auf Basis dieser Verstärkung wird die Spitzenspannung $U_{E,sp}$ so gewählt dass sich das Ausgangssignal bei der Größten Verstärkung im linearen Aussteuerbereich befindet. Dieser Bereich befindet sich jeweils ca. \SI{3}{\volt} unterhalb der Versorgungsspannung von $\pm \SI{12}{\volt}$, also bei $\pm \SI{9}{\volt}$. Für beide Verstärkergilt für die Wahl von $U_{E,sp}=\SI{50}{\milli\volt}$:
+\begin{equation*}
+	U_{A,pp} = A_{GK} \cdot U_{E,pp} = 100 \cdot \SI{50}{\milli\volt} = \SI{5}{\volt} < \SI{9}{\volt}
+\end{equation*}
+
+\subsubsection{Durchführung}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+	\centering\vspace{-10pt}
+	\includegraphics[width=0.38\textwidth]{BodeMessung.png}
+	\caption{Messung der Dämpfung und Phasenverschiebung}
+\end{wrapfigure}
+
+Um nun die Übertragungsfunktion zu bestimmen, wird die Frequenz des Eingangssignals von $\SI{10}{\hertz}$ bis $\SI{1}{\mega\hertz}$ in logarithmischen abständen variiert. Die Messung der Phase erfolgt durch die Messung der Zeitdifferenz $\Delta t$ zwischen Ein- und Ausgangswellenberge, welche in eine Phasenverschiebung umgerechnet werden kann:
+\begin{equation*}
+	\varphi = \Delta t\cdot f \cdot \SI{360}{\degree}
+\end{equation*}
+
+Für die Messung des Betragsganges wird die Spitzenspannung des Ausgangssignals abgelesen und in Dezibel umgerechnet:
+\begin{equation*}
+	A_{dB} = 20 \cdot \log_{10}\left(\frac{U_{A,sp}}{U_{E,sp}}\right)
+\end{equation*}
+
+\newpage
+\subsubsection{Messergebnisse}
+
+Die Messergebnisse sind in \autoref{tab:i_bode} für den invertierenden
+Verstärker und in \autoref{tab:ni_bode} für den nicht invertierenden Verstärker
+zusammengefasst.
+
+\begin{table}[h]
+\centering
+\label{tab:i_bode}
+\caption{Messergebnisse des invertiernden Verstärker}
+\begin{tabularx}{\textwidth}{YYYYY}
+$f$ / \si{\hertz} & $U_A$ / \si{\volt} & $\Delta t$ / \si{\second} & $A$ / \si{\decibel} & $\varphi$ / \si{\degree} \\ \midrule
+1e+01 & 4.80 & 5.00e-02 & 39.65 & 180.00 \\
+1e+02 & 4.80 & 5.00e-03 & 39.65 & 180.00 \\
+3e+02 & 4.80 & 1.65e-03 & 39.65 & 178.20 \\
+1e+03 & 4.80 & 4.90e-04 & 39.65 & 176.40 \\
+3e+03 & 4.40 & 1.52e-04 & 38.89 & 164.16 \\
+1e+04 & 4.32 & 3.60e-05 & 38.73 & 129.60 \\
+3e+04 & 1.30 & 9.60e-06 & 28.30 & 103.68 \\
+1e+05 & 0.35 & 2.60e-06 & 16.90 & 93.60  \\
+3e+05 & 0.12 & 6.80e-07 & 7.23  & 73.44  \\
+8e+05 & 0.04 & 1.40e-07 & -1.94 & 40.32  \\
+\end{tabularx}
+\end{table}
+
+\begin{table}[h]
+\centering
+\label{tab:ni_bode}
+\caption{Messergebnisse des nicht invertierenden Verstärker}
+\begin{tabularx}{\textwidth}{YYYYY}
+$f$ / \si{\hertz} & $U_A$ / \si{\volt} & $\Delta t$ / \si{\second} & $A$ / \si{\decibel} & $\varphi$ \si{\degree} \\ \midrule
+1e+01 & 5.36 & -0.00e+00 & 40.60 & -0.00   \\
+1e+02 & 5.12 & -0.00e+00 & 40.21 & -0.00   \\
+3e+02 & 5.36 & -0.00e+00 & 40.60 & -0.00   \\
+1e+03 & 5.20 & -3.20e-05 & 40.34 & -11.52  \\
+3e+03 & 4.72 & -2.20e-05 & 39.50 & -23.76  \\
+1e+04 & 2.80 & -1.64e-05 & 34.96 & -59.04  \\
+3e+04 & 1.00 & -7.20e-06 & 26.02 & -77.76  \\
+1e+05 & 0.34 & -2.50e-06 & 16.65 & -90.00  \\
+3e+05 & 0.11 & -8.00e-07 & 7.16  & -86.40  \\
+1e+06 & 0.03 & -3.30e-07 & -3.22 & -118.80 \\
+\end{tabularx}
+\end{table}
+
+\newpage
+Die in den Tabellen angeführten Daten werden in den Bodediagrammen in
+\autoref{fig:bode_plots} dargestellt.
+
+\begin{figure}[h]
+	\label{fig:bode_plots}
+	\begin{minipage}[t]{.49\textwidth}
+	\centering
+	\includegraphics[width=\textwidth]{bode_I.png}
+	\caption{Bodediagramm i. Verstärker}
+	\end{minipage}\hfill
+	\begin{minipage}[t]{.49\textwidth}
+	\centering
+	\includegraphics[width=\textwidth]{bode_NI.png}
+	\caption{Bodediagramm n.i. Verstärker}
+	\end{minipage}
+\end{figure}
+
+\subsubsection{Erkenntnisse}
