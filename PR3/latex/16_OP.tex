@@ -1,6 +1,6 @@
 \newpage
 
-\subsection{...}
+\subsection{Messung der Thermischen Zeitkonstante des PT-1000}
 \subsubsection{Aufgabenstellung}
 
 \subsubsection{Verwendetes Material}
@@ -9,32 +9,32 @@
 	\centering
 	\caption{Verwendetes Material}
 	\begin{tabularx}{\textwidth}{XXX}
-		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen}\\ \midrule
-		& & \\
-		& & \\
+		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen} \\ \midrule
+		Messverstärker & $A_1$, $A_2$, $R$, $R_p$ & Offsetspannung abgleichen! \\
+		Temperatursensor & PT-1000 ($R + \Delta R(\vartheta)$) & $R=\SI{1}{\kilo\ohm}, \Delta R(\SI{0}{\degree}) = \SI{0}{\ohm}$ \\
+		Labornetzteil & Hilfsspannung ($U_H$) & $U_H = \SI{-1}{\volt}$ \\
 		& & \\
 	\end{tabularx}	
 \end{table}
 \subsubsection{Versuchsaufbau}
 
+Bevor die Schaltung aufgebaut wird, müssen jeweils die Offsetspannungen der beiden Operationsverstärker wie in \autoref{sec:1-1} beschrieben abgeglichen werden.
+
 \begin{figure}[h]
 	\centering
 	\begin{circuitikz}[scale=0.9, transform shape]
+		\draw (0,0) to[vR, l_=$R + \Delta R(\vartheta)$, o-o] (0,2) coordinate(pt1000)
+			to[R, l_=$R$] ++(0,2) to[short, -*] ++(1.5,0) node[vcc]{$U_H = -1V$} -- ++(1.5,0)
+			to[R=$R$, -*] ++(0,-2) coordinate(sense) to[R=$R$] ++(0,-2) -- ++(-3,0);
+		\myNIA{A2}{(sense)}{$\SI{10}{\kilo\ohm} - R_P$}{$R_P$};
+		\draw (0,0) node[op amp, anchor=out](A1){\texttt{A1}};
+		\draw (A1.-) |- (pt1000);
+		\draw (A1.+) -- (A1.+ |- A2-gnd) node[ground]{};
+		\draw (A2-out) to[open, v=$U_A$, o-o] (A2-out |- A2-gnd) node[ground]{};
 	\end{circuitikz}
 	\caption{Messschaltung}
 \end{figure}
 
 \subsubsection{Berechnungen}
-
-\begin{table}[h]
-	\centering
-	\caption{Messergebnisse}
-	\begin{tabularx}{\textwidth}{YYYY}
-		$a$ / \si{\ohm} & $b$ / \si{\ohm} & $c$ / \si{\ohm} \\ \midrule
-		 &  & \\
-		 &  & \\
-		 &  & \\
-	\end{tabularx}
-\end{table}
 
 \subsubsection{Erkenntnisse}
