@@ -1,13 +1,12 @@
 \newpage
 \subsection{Messen der Eingangsruheströme}\label{sec:2-1}
 \subsubsection{Aufgabenstellung}
-% TODO add Aufgabenstellung
-% Es sei mit einer geeigneten schaltung die Offsetspannung ($U_{OS}$) des OP-A3 ($\mu$A741 Biploar) auf dem Messbrett mittels geeigneter Schalung ermittelt werden. Anschließend soll $U_{OS}$ mittels dem zu A3 zugehörigen Potientiometer abgelichen werden.
+Es sei mit einer geeigneten Schaltung die Eingangsruheströme ($I_{Bn}$ und $I_{Bp}$) des OP-A3 ($\mu$A741 Biploar) auf dem Messbrett mittels geeigneter Schalung ermittelt werden.
 
 \subsubsection{Versuchsaufbau}
-Zur Messung von $I_{Bn}$ wurde die Schaltung aus Abbildung~\ref{fig:ibn} verwendet.
+Zur Messung von $I_{Bn}$ wird die Schaltung aus Abbildung~\ref{fig:ibn} verwendet. An $U_a$ wird das Osziloskop (siehe Geräteliste~\ref{sec:geraeteliste}) geschlossen. Sobald der Schalter $S_1$ geöffnet wird lädt sich $C$ mit $I_{Bn}$ linear auf. Der Schalter ist notwendig um den Kondensator vor der Messung zu entladen.
 
-Zur Messung von $I_{Bp}$ die aus Abbildung~\ref{fig:ibp} ein Invertierender Verstärker als Schaltung verwendet.
+Ähnlich ist es mit $I_{Bp}$. Hier wird die Schalung aus Abbildung~\ref{fig:ibp} verwendet. Auch hier lädt sich der Kondensator $C$ nach dem öffnen des Schalters $S_1$ linear auf. Der OP wird als Impedanzwandler betrieben.
 
 Alle Bauteile sind auf dem Messverstärkerbrett (siehe Geräteliste~\ref{sec:geraeteliste})
 
@@ -30,14 +29,16 @@ Alle Bauteile sind auf dem Messverstärkerbrett (siehe Geräteliste~\ref{sec:ger
 			%capacitor and switch
 			\coordinate (a-neg-mid) at ($(A3.-)+(-0.2,0)$);
 			\coordinate (a-out-mid) at ($(A3.out)+(0.2,0)$);
-			\coordinate (c-in) at ($(a-neg-mid)+(0,2.2)$);
-			\coordinate (c-out) at ($(a-out-mid)+(0,2.7)$);
+			\coordinate (c-in) at ($(a-neg-mid)+(0,2.7)$);
+			\coordinate (c-out) at ($(a-out-mid)+(0,3.2)$);
 			\coordinate (switch-in) at ($(c-in)+(0,1.4)$);
 			\coordinate (switch-out) at ($(c-out)+(0,1.4)$);
-			\draw (c-in) to[C, l_={C}] (c-out);
-			\draw (switch-in) to[ospst, l_={$S_1$}] (switch-out);
+			\draw (c-in) to[C, l^={C}] (c-out);
+			\draw (switch-in) to[ospst, l^={$S_1$}] (switch-out);
 			\draw (switch-in) -- (a-neg-mid);
 			\draw (switch-out) -- (a-out-mid);
+			\draw[->] ($(c-in)+(+0.5,-0.7)$) -- ($(c-out)+(-0.5,-0.7)$)
+			node[midway,below] {$U_C$};
 
 			% V_+
 			\node[ground] at (A3.+) {};
@@ -81,12 +82,14 @@ Alle Bauteile sind auf dem Messverstärkerbrett (siehe Geräteliste~\ref{sec:ger
 			\coordinate (c-out) at ($(a-pos-mid)+(0,0)$);
 			\coordinate (switch-in) at ($(c-in)+(0,1.4)$);
 			\coordinate (switch-out) at ($(c-out)+(0,1.4)$);
-			\draw (c-in) to[C, l_={C}] (c-out);
-			\draw (switch-in) to[ospst, l_={$S_1$}] (switch-out);
+			\draw (c-in) to[C, l^={C}] (c-out);
+			\draw (switch-in) to[ospst, l^={$S_1$}] (switch-out);
 			\draw (switch-in) -- (a-pos-far-left);
 			\draw (switch-out) -- (a-pos-mid);
 			\draw (A3.+) -- (a-pos-mid);
 			\node[ground] at ($(a-pos-far-left)+(0,0)$) {};
+			\draw[<-] ($(c-in)+(+0.5,-0.7)$) -- ($(c-out)+(-0.5,-0.7)$)
+			node[midway,below] {$U_C$};
 
 			% V_-
 			\coordinate (a-out-mid) at ($(A3.out)+(0.2,0)$);
@@ -111,11 +114,62 @@ Alle Bauteile sind auf dem Messverstärkerbrett (siehe Geräteliste~\ref{sec:ger
 	\end{minipage}
 \end{figure}
 
-\subsubsection{Berechnungen der Verstärkung}
+\subsubsection{Dimensionierung}
+Laut Tabelle~\cite[S.~77, Abb.~3.13]{EMTPraktikum2025} ist ein $I_B = 80\,\mu\mathrm{A}$ zu erwarten. Zum messen ist ein Zeitraum $t=\SI{1}{\second}$ gut geeignet. Um die Verstärkung gut zu nützen soll der Kondensator nach der Zeit $t$ auf $\SI{10}{\volt}$ aufgeladen sein. Mit dem Kondensator von $\SI{10}{\nano\farad}$ ist man den $\SI{10}{\volt}$ wie man in Gleichung~\ref{eq:ib-kondensator} sehen kann sehr nahe.
 
+Allgemein gilt für die Spannung am Kondensator wenn er an $t_0$ entladen war die folgende Formel.
+\begin{gather}
+	U_C = \frac{1}{C} \int_{0}^{t} i(\tau)\,\mathrm{d}\tau
+\end{gather}
 
-\subsubsection{Messung}
+Mit konstanten Strom vereinfacht sich das
+\begin{gather}
+	U_C = \frac{I\cdot t}{C}, \quad \implies{} C = \frac{I \cdot t}{U_A} = \frac{\SI{80}{\nano\ampere} \cdot \SI{1}{\second}}{\SI{10}{\volt}} = \SI{8}{\nano\farad} \label{eq:ib-kondensator} \\[1.3em]
+	\text{Gewählt wurde: }
+	C = 10\,\mathrm{nF}
+	\quad\Rightarrow
+	U_C = 8\,\mathrm{V}.
+\end{gather}
 
+\subsubsection{Messung und Berechnung $I_{Bn}$}
+In Abbildung~\ref{fig:ibn-messung} sieht man, dass $U_a$ innerhalb von $\SI{3}{\second}$ um $\SI{9}{\volt}$ angestiegen ist. Daraus wird $I_{Bn}$ berechnet.
+
+\begin{gather}
+	\Delta t = \SI{3}{\second}, \quad	\Delta U_A = \SI{9}{\volt}, \quad U_C=-U_A \\[1.5em]
+	I_{Bn}=-C \, \frac{\Delta U_A}{\Delta t}
+	= -\SI{10}{\nano\farad} \, \frac{\SI{9}{\volt}}{\SI{3}{\second}}
+	= -\SI{30}{\nano\ampere}
+\end{gather}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=0.95\textwidth]{IB-N-Messung.JPG}
+	\end{center}
+	\caption{Messung von $I_{Bn}$}\label{fig:ibn-messung}
+\end{figure}
+
+\subsubsection{Messung und Berechnung $I_{Bp}$}
+In Abbildung~\ref{fig:ibp-messung} sieht man, dass $U_a$ innerhalb von $\SI{3}{\second}$ um $\SI{6.6}{\volt}$ angestiegen ist. Daraus wird $I_{Bp}$ berechnet.
+
+\begin{gather}
+	\Delta t = \SI{3}{\second}, \quad	\Delta U_A = \SI{6.6}{\volt}, \quad U_C=U_A \\[1.5em]
+	I_{Bp}=C \, \frac{\Delta U_A}{\Delta t}
+	= \SI{10}{\nano\farad} \, \frac{\SI{-6.6}{\volt}}{\SI{3}{\second}}
+	= -\SI{22}{\nano\ampere}
+\end{gather}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=0.95\textwidth]{IB-P-Messung.JPG}
+	\end{center}
+	\caption{Messung von $I_{Bp}$}\label{fig:ibp-messung}
+\end{figure}
+
+\subsubsection{Berechnung $I_B$ und $I_{\text{offset}}$}
+\begin{gather}
+	I_B = \frac{I_{Bp}+I_{Bn}}{2} = \frac{-\SI{22}{\nano\ampere}-\SI{30}{\nano\ampere}}{2} = \SI{-26}{\nano\ampere} \\
+	I_{\text{offset}} = |I_{Bp}-I_{Bn}| = |-\SI{22}{\nano\ampere}+\SI{30}{\nano\ampere}| = \SI{4}{\nano\ampere}
+\end{gather}
 
 \subsubsection{Erkenntnisse}
-
+Die \SI{-26}{\nano\ampere} von $I_B$ sind 3 mal weniger als die \SI{80}{\nano\ampere} aus der Tabelle~\cite[S.~77, Abb.~3.13]{EMTPraktikum2025}. Abweichungen zum Typwert sind plausibel durch Temperatur, Exemplarstreuung sowie Leckströme von Kondensator/Schalter und Messaufbau.
