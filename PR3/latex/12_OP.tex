@@ -1,0 +1,121 @@
+\newpage
+\subsection{Messen der Eingangsruheströme}\label{sec:2-1}
+\subsubsection{Aufgabenstellung}
+% TODO add Aufgabenstellung
+% Es sei mit einer geeigneten schaltung die Offsetspannung ($U_{OS}$) des OP-A3 ($\mu$A741 Biploar) auf dem Messbrett mittels geeigneter Schalung ermittelt werden. Anschließend soll $U_{OS}$ mittels dem zu A3 zugehörigen Potientiometer abgelichen werden.
+
+\subsubsection{Versuchsaufbau}
+Zur Messung von $I_{Bn}$ wurde die Schaltung aus Abbildung~\ref{fig:ibn} verwendet.
+
+Zur Messung von $I_{Bp}$ die aus Abbildung~\ref{fig:ibp} ein Invertierender Verstärker als Schaltung verwendet.
+
+Alle Bauteile sind auf dem Messverstärkerbrett (siehe Geräteliste~\ref{sec:geraeteliste})
+
+\begin{figure}[h]
+	\begin{minipage}[position]{0.48\textwidth}
+		\centering
+		\begin{circuitikz}[european, scale=0.8, transform shape]
+			% --- Op-amp A3 ---
+			\node[op amp] (A3) at (0,0) {};
+			\node at ($(A3.center)+(0.8,0.3)$) {\small $A_3$};
+
+			% Supply arrows (+12V, -12V)
+			\draw[->] ($(A3.center)+(0.2,0.4)$) -- +(0,0.5) node[above]{\small $+12$V};
+			\draw[->] ($(A3.center)+(0.2,-0.4)$) -- +(0,-0.5) node[below]{\small $-12$V};
+
+			% --- Output node ---
+			\coordinate (out) at ($(A3.out)+(1.0,0)$);
+			\draw (A3.out) -- (out);
+
+			%capacitor and switch
+			\coordinate (a-neg-mid) at ($(A3.-)+(-0.2,0)$);
+			\coordinate (a-out-mid) at ($(A3.out)+(0.2,0)$);
+			\coordinate (c-in) at ($(a-neg-mid)+(0,2.2)$);
+			\coordinate (c-out) at ($(a-out-mid)+(0,2.7)$);
+			\coordinate (switch-in) at ($(c-in)+(0,1.4)$);
+			\coordinate (switch-out) at ($(c-out)+(0,1.4)$);
+			\draw (c-in) to[C, l_={C}] (c-out);
+			\draw (switch-in) to[ospst, l_={$S_1$}] (switch-out);
+			\draw (switch-in) -- (a-neg-mid);
+			\draw (switch-out) -- (a-out-mid);
+
+			% V_+
+			\node[ground] at (A3.+) {};
+
+			% --- Non-inverting input: voltage source G1 with U_os ---
+			\coordinate (srcbottom) at (-2,-1.7);
+			\node[ground] at ($(srcbottom)+(0,0.5)$) {};
+			\draw (srcbottom) to[current source, i_={$I_{Bn}$}] ++(0,2.2) coordinate (srcnode);
+			\draw (srcnode) -- (A3.-);
+
+			% Output 
+			\node[ocirc] at (out) {};
+			\draw[->] ($(out.south)+(0,-0.2)$) -- ++(0,-0.7)
+			node[midway,right] {$U_a$}
+			coordinate (mid);
+			\node[ocirc] (C2) at ($(mid)+(0,-0.2)$) {};
+			\draw (C2.south) -- ++(0,-0.0) node[ground] {};
+
+		\end{circuitikz}
+		\caption{Messschaltung für $I_{Bn}$}\label{fig:ibn}
+	\end{minipage}\hfill
+	\begin{minipage}[position]{0.48\textwidth}
+		\centering
+		\begin{circuitikz}[european, scale=0.8, transform shape]
+			% --- Op-amp A3 ---
+			\node[op amp, yscale=-1] (A3) at (0,0) {};
+			\node at ($(A3.center)+(0.8,0.3)$) {\small $A_3$};
+
+			% Supply arrows (+12V, -12V)
+			\draw[->] ($(A3.center)+(0.2,0.4)$) -- +(0,0.5) node[above]{\small $+12$V};
+			\draw[->] ($(A3.center)+(0.2,-0.4)$) -- +(0,-0.5) node[below]{\small $-12$V};
+
+			% --- Output node ---
+			\coordinate (out) at ($(A3.out)+(1.0,0)$);
+			\draw (A3.out) -- (out);
+
+			%capacitor and switch
+			\coordinate (a-pos-mid) at ($(A3.+)+(-1.0,0)$);
+			\coordinate (a-pos-far-left) at ($(a-pos-mid)+(-2,0)$);
+			\coordinate (c-in) at ($(a-pos-far-left)+(0,0)$);
+			\coordinate (c-out) at ($(a-pos-mid)+(0,0)$);
+			\coordinate (switch-in) at ($(c-in)+(0,1.4)$);
+			\coordinate (switch-out) at ($(c-out)+(0,1.4)$);
+			\draw (c-in) to[C, l_={C}] (c-out);
+			\draw (switch-in) to[ospst, l_={$S_1$}] (switch-out);
+			\draw (switch-in) -- (a-pos-far-left);
+			\draw (switch-out) -- (a-pos-mid);
+			\draw (A3.+) -- (a-pos-mid);
+			\node[ground] at ($(a-pos-far-left)+(0,0)$) {};
+
+			% V_-
+			\coordinate (a-out-mid) at ($(A3.out)+(0.2,0)$);
+			\draw (A3.-) -- ++(0,-1.3) -- ++(2.6,0) -- (a-out-mid);
+
+			% ibp
+			\coordinate (srcbottom) at ($(a-pos-mid)+(0,-2.3)$);
+			\node[ground] at ($(srcbottom)+(0,0.5)$) {};
+			\draw (srcbottom) to[current source, i_={$I_{Bp}$}] ++(0,2.2) coordinate (srcnode);
+			\draw (srcnode) -- (a-pos-mid);
+
+			% Output 
+			\node[ocirc] at (out) {};
+			\draw[->] ($(out.south)+(0,-0.2)$) -- ++(0,-0.7)
+			node[midway,right] {$U_a$}
+			coordinate (mid);
+			\node[ocirc] (C2) at ($(mid)+(0,-0.2)$) {};
+			\draw (C2.south) -- ++(0,-0.0) node[ground] {};
+
+		\end{circuitikz}
+		\caption{Messschaltung für $I_{Bp}$}\label{fig:ibp}
+	\end{minipage}
+\end{figure}
+
+\subsubsection{Berechnungen der Verstärkung}
+
+
+\subsubsection{Messung}
+
+
+\subsubsection{Erkenntnisse}
+
