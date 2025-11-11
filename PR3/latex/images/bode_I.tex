@@ -1,13 +1,68 @@
-\begin{tabular}{rrrrr}
-f & Ua & DeltaT & A & phi \\
-1e+01 & 4.80 & 5.00e-02 & 39.65 & 180.00 \\
-1e+02 & 4.80 & 5.00e-03 & 39.65 & 180.00 \\
-3e+02 & 4.80 & 1.65e-03 & 39.65 & 178.20 \\
-1e+03 & 4.80 & 4.90e-04 & 39.65 & 176.40 \\
-3e+03 & 4.40 & 1.52e-04 & 38.89 & 164.16 \\
-1e+04 & 4.32 & 3.60e-05 & 38.73 & 129.60 \\
-3e+04 & 1.30 & 9.60e-06 & 28.30 & 103.68 \\
-1e+05 & 0.35 & 2.60e-06 & 16.90 & 93.60 \\
-3e+05 & 0.12 & 6.80e-07 & 7.23 & 73.44 \\
-8e+05 & 0.04 & 1.40e-07 & -1.94 & 40.32 \\
-\end{tabular}
+% This file was created with matplot2tikz v0.5.1.
+\begin{tikzpicture}
+
+\definecolor{darkgray176}{RGB}{176,176,176}
+\definecolor{steelblue31119180}{RGB}{31,119,180}
+
+\begin{groupplot}[group style={group size=1 by 2}]
+\nextgroupplot[
+log basis x={10},
+tick align=outside,
+tick pos=left,
+x grid style={darkgray176},
+xmin=5.68650598600475, xmax=1406839.2822744,
+xmode=log,
+xtick style={color=black},
+y grid style={darkgray176},
+ylabel={A / dB},
+ymin=-4.01738150620875, ymax=41.724605906839,
+ytick style={color=black}
+]
+\addplot [semithick, steelblue31119180]
+table {%
+10 39.6454238891602
+1000 39.6454238891602
+3000.00073242188 38.8896522521973
+10000 38.7302742004395
+30000.005859375 28.299467086792
+100000 16.9019603729248
+300000.0625 7.23455667495728
+800000 -1.93820023536682
+};
+
+\nextgroupplot[
+log basis x={10},
+tick align=outside,
+tick pos=left,
+x grid style={darkgray176},
+xlabel={f / Hz},
+xmin=5.68650598600475, xmax=1406839.2822744,
+xmode=log,
+xtick style={color=black},
+y grid style={darkgray176},
+ylabel={\(\displaystyle \varphi\) / },
+ymin=33.336, ymax=186.984,
+ytick style={color=black}
+]
+\addplot [semithick, steelblue31119180]
+table {%
+10 180
+100 180
+300.000061035156 178.199996948242
+1000 176.399993896484
+3000.00073242188 164.160003662109
+10000 129.600006103516
+30000.005859375 103.680000305176
+100000 93.5999984741211
+300000.0625 73.4400024414062
+800000 40.3199996948242
+};
+\end{groupplot}
+
+\draw ({$(current bounding box.south west)!0.5!(current bounding box.south east)$}|-{$(current bounding box.south west)!0.98!(current bounding box.north west)$}) node[
+  scale=0.72,
+  anchor=north,
+  text=black,
+  rotate=0.0
+]{Bodediagramm invertierender Verstrker};
+\end{tikzpicture}

@@ -1,7 +1,14 @@
 \newpage
 
-\subsection{Übertragungsverhalten von invertierenden und nicht invertierenden Verstärken}\label{sec:1-4}
+\subsection{Übertragungsverhalten von Verstärkerschaltungen}\label{sec:1-4}
 \subsubsection{Aufgabenstellung}
+
+In diesem Abschnitt wird das Übertragungsverhalten eines invertierenden und eines nicht
+invertierenden Operationsverstärkers untersucht. Dazu wird der OPV \texttt{A3} (LM741)
+mit dem jeweiligen Widerstandsnetzwerk gegenkoppelt, wobei in beiden Fällen eine
+Verstärkung von ca. \SI{40}{\decibel} eingestellt wird. Es wird untersucht, wie die 
+Ausgangsspannung $U_A$ auf sinusförmige Eingangsspannungen $U_E$ bei verscheidenen
+Frequenzen reagiert. 
 
 \subsubsection{Verwendetes Material}
 
@@ -25,7 +32,7 @@
 		\draw (A3-in) to[open, v=$U_E$, o-o] (A3-in |- A3-gnd) node[ground]{};
 		\draw (A3-out) to[open, v=$U_A$, o-o] (A3-out |- A3-gnd) node[ground]{};
 	\end{circuitikz}
-	\caption{Messschaltung i. Verstärker}
+	\caption{Messschaltung i. Verstärker}\label{fig:i_amplifier}
 	\end{minipage}\hfill
 	\begin{minipage}[t]{.49\textwidth}
 	\centering
@@ -34,15 +41,18 @@
 		\draw (A3-in) to[open, v=$U_E$, o-o] (A3-in |- A3-gnd) node[ground]{};
 		\draw (A3-out) to[open, v=$U_A$, o-o] (A3-out |- A3-gnd) node[ground]{};
 	\end{circuitikz}
-	\caption{Messschaltung n.i. Verstärker}
+	\caption{Messschaltung n.i. Verstärker}\label{fig:ni_amplifier}
 	\end{minipage}
 \end{figure}
 
-Um anhand diesen Schaltungen die Übertragungsfunktion beder Verstärkertypen zu bestimmen, wird die Eingangsspannung $U_E$ als Sinus mit variabler Frequenz und konstanter Amplitude eingestellt und für eine Reihe an ausgewählter Frequenzen die Ausgangsamplitude $U_A$ sowie die Phasenverschiebung gemessen.
+Zu beachten ist, dass die Offsetspannung des OPV \texttt{A3} wie in
+\autoref{sec:1-1} abgeglichen werden muss.
 
 \subsubsection{Berechnungen}
 
-Es war mittels Gegenkopplung eine Verstärkung von $A_{GK}\approx\SI{40}{\decibel} = 10^{\frac{40}{20}} = 100$ einzustellen. Um diese zu erreichen, wurden die Widerstandswerte wie folgt gewählt:
+Mittels Gegenkopplung wird eine Verstärkung von $A_{GK}\approx\SI{40}{\decibel}
+= 10^{\frac{40}{20}} = 100$ eingestellt. Um diese zu erreichen, wurden die
+Widerstandswerte wie folgt gewählt:
 
 \begin{itemize}
 	\item Invertierender Verstärker:
@@ -57,20 +67,30 @@ Es war mittels Gegenkopplung eine Verstärkung von $A_{GK}\approx\SI{40}{\decibe
 
 Für den i.-Verstärker wird das Verstärkungsziel genau erreicht, für den n.i.-Verstärker wurde ein Widerstand von $\SI{100}{\kilo\ohm}$ verwendet, da kein $\SI{99}{\kilo\ohm}$ Widerstand verfügbar war. Dies führt zu einer minimal höheren Verstärkung von $A_{GK} = 1 + \frac{\SI{100}{\kilo\ohm}}{\SI{1}{\kilo\ohm}} = 101$.
 
-Auf Basis dieser Verstärkung wird die Spitzenspannung $U_{E,sp}$ so gewählt dass sich das Ausgangssignal bei der Größten Verstärkung im linearen Aussteuerbereich befindet. Dieser Bereich befindet sich jeweils ca. \SI{3}{\volt} unterhalb der Versorgungsspannung von $\pm \SI{12}{\volt}$, also bei $\pm \SI{9}{\volt}$. Für beide Verstärkergilt für die Wahl von $U_{E,sp}=\SI{50}{\milli\volt}$:
+Auf Basis dieser Verstärkung wird die Spitzenspannung $U_{E,sp}$ so gewählt,
+dass sich das Ausgangssignal bei der größten Verstärkung noch im linearen
+Aussteuerbereich befindet. Dieser Bereich befindet sich jeweils ca.
+\SI{3}{\volt} unterhalb der Versorgungsspannung \cite[S.~66]{EMTPraktikum2025}
+von $\pm \SI{12}{\volt}$, also bei $\pm \SI{9}{\volt}$. Für beide
+Verstärkergilt für die Wahl von
+$U_{E,sp}=\SI{50}{\milli\volt}$:
 \begin{equation*}
 	U_{A,pp} = A_{GK} \cdot U_{E,pp} = 100 \cdot \SI{50}{\milli\volt} = \SI{5}{\volt} < \SI{9}{\volt}
 \end{equation*}
 
 \subsubsection{Durchführung}
 
-\begin{wrapfigure}{r}{0.4\textwidth}
+\begin{wrapfigure}{r}{0.48\textwidth}
 	\centering\vspace{-10pt}
-	\includegraphics[width=0.38\textwidth]{BodeMessung.png}
+	\includegraphics[width=0.48\textwidth]{BodeMessung.png}
 	\caption{Messung der Dämpfung und Phasenverschiebung}
 \end{wrapfigure}
 
-Um nun die Übertragungsfunktion zu bestimmen, wird die Frequenz des Eingangssignals von $\SI{10}{\hertz}$ bis $\SI{1}{\mega\hertz}$ in logarithmischen abständen variiert. Die Messung der Phase erfolgt durch die Messung der Zeitdifferenz $\Delta t$ zwischen Ein- und Ausgangswellenberge, welche in eine Phasenverschiebung umgerechnet werden kann:
+Um nun die Übertragungsfunktion zu bestimmen, wird die Frequenz des
+Eingangssignals von $\SI{10}{\hertz}$ bis $\SI{1}{\mega\hertz}$ in
+logarithmischen gleichmäßigen abständen variiert. Die Messung der Phase erfolgt
+durch die Messung der Zeitdifferenz $\Delta t$ zwischen Ein- und
+Ausgangswellenberge, welche in eine Phasenverschiebung umgerechnet werden kann:
 \begin{equation*}
 	\varphi = \Delta t\cdot f \cdot \SI{360}{\degree}
 \end{equation*}
@@ -85,12 +105,13 @@ Für die Messung des Betragsganges wird die Spitzenspannung des Ausgangssignals 
 
 Die Messergebnisse sind in \autoref{tab:i_bode} für den invertierenden
 Verstärker und in \autoref{tab:ni_bode} für den nicht invertierenden Verstärker
-zusammengefasst.
+zusammengefasst. Für den invertierenden Verstärker wurde die Frequenz nur bis
+$\SI{800}{\kilo\hertz}$ statt $\SI{1}{\mega\hertz}$ erhöht, da das
+Ausgangssignal darüber für eine aussagekräftige Messung zu stark verrauscht war.
 
 \begin{table}[h]
 \centering
-\label{tab:i_bode}
-\caption{Messergebnisse des invertiernden Verstärker}
+\caption{Messergebnisse des invertiernden Verstärker}\label{tab:i_bode}
 \begin{tabularx}{\textwidth}{YYYYY}
 $f$ / \si{\hertz} & $U_A$ / \si{\volt} & $\Delta t$ / \si{\second} & $A$ / \si{\decibel} & $\varphi$ / \si{\degree} \\ \midrule
 1e+01 & 4.80 & 5.00e-02 & 39.65 & 180.00 \\
@@ -108,13 +129,12 @@ $f$ / \si{\hertz} & $U_A$ / \si{\volt} & $\Delta t$ / \si{\second} & $A$ / \si{\
 
 \begin{table}[h]
 \centering
-\label{tab:ni_bode}
-\caption{Messergebnisse des nicht invertierenden Verstärker}
+\caption{Messergebnisse des nicht invertierenden Verstärker}\label{tab:ni_bode}
 \begin{tabularx}{\textwidth}{YYYYY}
-$f$ / \si{\hertz} & $U_A$ / \si{\volt} & $\Delta t$ / \si{\second} & $A$ / \si{\decibel} & $\varphi$ \si{\degree} \\ \midrule
-1e+01 & 5.36 & -0.00e+00 & 40.60 & -0.00   \\
-1e+02 & 5.12 & -0.00e+00 & 40.21 & -0.00   \\
-3e+02 & 5.36 & -0.00e+00 & 40.60 & -0.00   \\
+$f$ / \si{\hertz} & $U_A$ / \si{\volt} & $\Delta t$ / \si{\second} & $A$ / \si{\decibel} & $\varphi$ / \si{\degree} \\ \midrule
+1e+01 & 5.36 & 0.00 & 40.60 & 0.00   \\
+1e+02 & 5.12 & 0.00 & 40.21 & 0.00   \\
+3e+02 & 5.36 & 0.00 & 40.60 & 0.00   \\
 1e+03 & 5.20 & -3.20e-05 & 40.34 & -11.52  \\
 3e+03 & 4.72 & -2.20e-05 & 39.50 & -23.76  \\
 1e+04 & 2.80 & -1.64e-05 & 34.96 & -59.04  \\
@@ -127,20 +147,28 @@ $f$ / \si{\hertz} & $U_A$ / \si{\volt} & $\Delta t$ / \si{\second} & $A$ / \si{\
 
 \newpage
 Die in den Tabellen angeführten Daten werden in den Bodediagrammen in
-\autoref{fig:bode_plots} dargestellt.
+\autoref{fig:bode_I} und \ref{fig:bode_NI} dargestellt.
 
 \begin{figure}[h]
-	\label{fig:bode_plots}
 	\begin{minipage}[t]{.49\textwidth}
 	\centering
-	\includegraphics[width=\textwidth]{bode_I.png}
-	\caption{Bodediagramm i. Verstärker}
+	\includegraphics[height=6.4cm]{bode_I.png}
+	\caption{Bodediagramm i. Verstärker}\label{fig:bode_I}
 	\end{minipage}\hfill
 	\begin{minipage}[t]{.49\textwidth}
 	\centering
-	\includegraphics[width=\textwidth]{bode_NI.png}
-	\caption{Bodediagramm n.i. Verstärker}
+	\includegraphics[height=6.4cm]{bode_NI.png}
+	\caption{Bodediagramm n.i. Verstärker}\label{fig:bode_NI}
 	\end{minipage}
 \end{figure}
 
 \subsubsection{Erkenntnisse}
+
+Anhand des Phasenverlaufs in den Bodediagrammen ist zu erkennen, dass die
+Transitfrequenz wie in \cite[S.~77, Abb.~3.13]{EMTPraktikum2025} angegeben,
+etwa bei $\SI{1}{\mega\hertz}$ liegt. Auch der Betrag hat etwa in diesem
+Bereich seinen Null-Durchgang. Wegen des starken Rauschens und Verzerrungen
+bei hohen Frequenzen kann hier jedoch nur eine ungefähre Aussage getroffen
+werden. Weiters ist zu erkennen, dass die Verstärkerschaltung bei der eingestellten
+Verstärkung von ca. \SI{40}{\decibel} die \SI{3}{\decibel}-Grenzfrequenz
+($\Delta\varphi = \SI{45}{\degree}$) etwa bei $\SI{10}{\kilo\hertz}$ aufweist.
