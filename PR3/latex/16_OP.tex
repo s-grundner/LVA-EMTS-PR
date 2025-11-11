@@ -3,6 +3,15 @@
 \subsection{Messung der Thermischen Zeitkonstante des PT-1000}
 \subsubsection{Aufgabenstellung}
 
+Mittels einer aktiven Viertelbrücke und dem newtonschen Abkühlungsgesetz
+\cite[S.~79, Gl.~3.30]{EMTPraktikum2025} wird die thermische Zeitkonstante des
+PT-1000 Metallwiderstandsthermometers bestimmt. Dazu wird der PT-1000
+als Messobjekt in die Brückenschaltung \autoref{fig:pt1000_circuit} eingebunden
+und mit einer Betriebsspannung von $U_B = \SI{-1}{\volt}$ versorgt. Die
+Verstärkerschaltung soll so dimensioniert werden, dass eine Empfindlichkeit von
+$\frac{\partial U_A}{\partial \vartheta} = \SI{200}{\milli\volt\per\kelvin}$
+erreicht wird. Anschließend wird der PT-1000 auf \SI{50}{\degreeCelsius} und die abkühlung des Sensors aufgezeichnet, um daraus die Zeitkonstante zu bestimmen.
+
 \subsubsection{Verwendetes Material}
 
 \begin{table}[h]
@@ -12,19 +21,21 @@
 		\textbf{Material} & \textbf{Verwendung} & \textbf{Anmerkungen} \\ \midrule
 		Messverstärker & $A_1$, $A_2$, $R$, $R_p$ & Offsetspannung abgleichen! \\
 		Temperatursensor & PT-1000 ($R + \Delta R(\vartheta)$) & $R=\SI{1}{\kilo\ohm}, \Delta R(\SI{0}{\degree}) = \SI{0}{\ohm}$ \\
-		Labornetzteil & Hilfsspannung ($U_H$) & $U_H = \SI{-1}{\volt}$ \\
-		& & \\
+		Labornetzteil & Hilfsspannung ($U_B$) & $U_B = \SI{-1}{\volt}$ \\
 	\end{tabularx}	
 \end{table}
 \subsubsection{Versuchsaufbau}
 
-Bevor die Schaltung aufgebaut wird, müssen jeweils die Offsetspannungen der beiden Operationsverstärker wie in \autoref{sec:1-1} beschrieben abgeglichen werden.
+Bevor die Schaltung aufgebaut wird, müssen jeweils die Offsetspannungen der
+beiden Operationsverstärker wie in \autoref{sec:1-1} beschrieben abgeglichen
+werden. Um die Messbrücke im Empfindlichsten Fall zu betreiben, werden alle Widerstände
+auf gleiche Werte gewählt, also $R = \SI{1}{\kilo\ohm}$.
 
 \begin{figure}[h]
 	\centering
-	\begin{circuitikz}[scale=0.9, transform shape]
-		\draw (0,0) to[vR, l_=$R + \Delta R(\vartheta)$, o-o] (0,2) coordinate(pt1000)
-			to[R, l_=$R$] ++(0,2) to[short, -*] ++(1.5,0) node[vcc]{$U_H = -1V$} -- ++(1.5,0)
+	\begin{circuitikz}[scale=0.8, transform shape]
+		\draw (0,0) to[thRp, l_=$R + \Delta R(\vartheta)$, o-o] (0,2) coordinate(pt1000)
+			to[R, l_=$R$] ++(0,2) to[short, -*] ++(1.5,0) node[vcc]{$U_B = -1V$} -- ++(1.5,0)
 			to[R=$R$, -*] ++(0,-2) coordinate(sense) to[R=$R$] ++(0,-2) -- ++(-3,0);
 		\myNIA{A2}{(sense)}{$\SI{10}{\kilo\ohm} - R_P$}{$R_P$};
 		\draw (0,0) node[op amp, anchor=out](A1){\texttt{A1}};
@@ -32,9 +43,106 @@ Bevor die Schaltung aufgebaut wird, müssen jeweils die Offsetspannungen der bei
 		\draw (A1.+) -- (A1.+ |- A2-gnd) node[ground]{};
 		\draw (A2-out) to[open, v=$U_A$, o-o] (A2-out |- A2-gnd) node[ground]{};
 	\end{circuitikz}
-	\caption{Messschaltung}
+	\caption{Aktive Viertelbrückenschaltung zur Messung der thermischen Zeitkonstante des PT-1000}\label{fig:pt1000_circuit}
 \end{figure}
+
+Dabei ist der Gegenkopplungszweig des nicht-invertierenden Verstärkers
+$A_2$ in \autoref{fig:pt1000_circuit} in zwei Teile aufgeteilt, um das
+Potentiometer $R_P$ in der Schaltung darzustellen. Im Schaltungsaufbau wird der
+Schleifer des Potentiometers mit dem invertiernden Eingang des
+Operationsverstärkers verbunden.
 
 \subsubsection{Berechnungen}
 
+Das Potentiometer $R_P$ wird so gestellt, dass die gewünschte Empfindlichkeit von $\frac{\partial U_A}{\partial \vartheta} = \SI{200}{\milli\volt\per\kelvin}$ erreicht wird.
+Die Ausgangsspannung der Brückenschaltung in \autoref{fig:pt1000_circuit} ist gegeben mit \cite[S.~76 Gl.~3.29]{EMTPraktikum2025}:
+\begin{equation}
+	U_A = -\frac{U_B}{2}\frac{\Delta R(\vartheta)}{R}\left(1+\frac{R_P}{\SI{10}{\kilo\ohm} - R_P}\right)\label{eq:pt1000_UA}
+\end{equation}
+
+Um die Widerstandsänderung $\Delta R(\vartheta)$ in einen Ausdruck in
+Abhängigkeit der Temperatur zu bringen, wird die lineare
+Taylorreihenapproximation \cite[S.~17, Gl.~1.24]{EMTPraktikum2025} des PT-1000 mit $\theta_0 = \SI{0}{\degreeCelsius}$,
+$R(\theta_0) = R = \SI{1000}{\ohm}$ und $R(\vartheta) = R + \Delta R(\vartheta)$ verwendet und vereinfacht:
+\begin{equation*}
+	\Delta R(\vartheta) = R \cdot \alpha \cdot \vartheta \implies \frac{\Delta R(\vartheta)}{R} = \alpha\cdot \vartheta
+\end{equation*}
+Durch einsetzen in \autoref{eq:pt1000_UA} und vereinfachen ergibt sich für die Ausgangsspannung:
+\begin{equation*}
+	U_A(\vartheta) = -\alpha \cdot \vartheta \cdot \frac{U_B}{2} \frac{\SI{10}{\kilo\ohm}}{\SI{10}{\kilo\ohm} - R_P}
+\end{equation*}
+Mit $\alpha = \SI{3.85e-3}{\per\kelvin}$ als Temperaturkoeffizient von Platin
+\cite[S.~46]{EMTPraktikum2025}. Um die gewünschte Empfindlichkeit zu erreichen,
+wird die Ableitung nach der Temperatur gebildet:
+
+\begin{equation*}
+	\frac{\partial U_A(\vartheta)}{\partial \vartheta} = -\alpha \cdot \frac{U_B}{2} \frac{\SI{10}{\kilo\ohm}}{\SI{10}{\kilo\ohm} - R_P} \stackrel{!}{=} \SI{200}{\milli\volt\per\kelvin}
+\end{equation*}
+
+Man erhält durch umformen auf $R_P$:
+\begin{itemize}[noitemsep]
+	\item $R_P = \SI{97.75}{\ohm}$ bzw.
+	\item $\SI{10}{\kilo\ohm} - R_P = \SI{9902.25}{\ohm}$.
+\end{itemize}
+
+Mit dem Ohmmeter wird das stufenlose Potentiometer auf den berechenten Wert
+eingestellt und anschließend mit der Schaltung verbunden.
+
+\subsubsection{Ermittlung der Zeitkonstante}
+
+Da die gemessene Spannung mit $U_A = \SI{200}{\milli\volt\per\kelvin}\cdot\vartheta$ direkt proportional zur Temperatur des PT-1000 ist,
+können die gemessenen Spannungswerte zur Bestimmung der Zeitkonstante
+verwendet werden. 
+\begin{equation*}
+	\frac{\vartheta(t) - \vartheta(t_\infty)}{\vartheta(t_0) - \vartheta(t_\infty)}
+	= \frac{U_A(t) - U_A(t_\infty)}{U_A(t_0) - U_A(t_\infty)}
+	= \exp\left(-\frac{t}{T_\vartheta}\right)
+\end{equation*}
+
+Durch umformen auf $T_\vartheta$ folgt:
+\begin{equation}
+	T_\vartheta = -t\cdot \ln^{-1}\left(\frac{U_A(t) - U_A(t_\infty)}{U_A(t_0) - U_A(t_\infty)}\right)\label{eq:pt1000_timeconstant}
+\end{equation}
+
+\subsubsection{Messung}
+
+Die Ausgangsspannung $U_A(t)$ wird mit einem Oszilloskop mit sehr großem
+Zeitraster aufgenommen. Bevor der PT-1000 erhitz wird, wird die Spannung bei
+Raumtemperatur gemessen, welche $U_A(t_\infty)=\SI{4.807}{\volt}$ entspricht.
+Anschließend wird der PT-1000 mit einem Heißluftföhn erhitzt. Die gemessene
+Spannung bei \SI{50}{\degreeCelsius} beträgt
+\[
+U_A(t_0)=\SI{50}{\degreeCelsius}\cdot \SI{100}{\milli\volt\per\kelvin} = \SI{10}{\volt}
+\]
+Die Abkühlkurve ist in \autoref{fig:pt1000_abkuehlung}
+dargestellt.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{PT1000_Abkuehlung.jpg}
+	\caption{Abkühlkurve des PT-1000 nach Erhitzung auf \SI{50}{\degreeCelsius}}\label{fig:pt1000_abkuehlung}
+\end{figure}
+
+Im Oszillogramm werden verschiedene Zeitpunkte $t$ ausgewählt und die entsprechenden Spannungswerte $U_A(t)$ abgelesen.
+Die Werte werden anschließend in \autoref{eq:pt1000_timeconstant} eingesetzt, um die Zeitkonstante zu bestimmen.
+
+\begin{table}[h]
+	\centering
+	\caption{Abkühlwerte des PT-1000}\label{tab:pt1000_abkuehlwerte}
+	\begin{tabularx}{\textwidth}{YYY}
+		$t$ / \si{\second} & $U_A(t)$ / \si{\volt} & $T_\vartheta$ / \si{\second} \\ \midrule
+		$t_0 = 0$   & 10.000  & - \\
+		46          & 8.16    & 104.5 \\
+		96          & 7.2     & 123.0 \\
+		146         & 6.56    & 133.3 \\
+		$\to\infty$ & 4.832   & - \\
+	\end{tabularx}
+\end{table}
+
+Aus den drei Messwerten ergibt sich ein Mittelwert von $T_\vartheta = \SI{120.3}{\second}$ für die thermische Zeitkonstante des PT-1000.
+
 \subsubsection{Erkenntnisse}
+
+Eigentlich sollte der Wert von $T_\vartheta$ für jede Messung gleich sein. Die Abweichungen
+kommen wahrscheinlich durch ungleichmäßige Abkühlung z.B. durch Luftzüge oder
+Abwärme über die Zuleitungen zustande.
