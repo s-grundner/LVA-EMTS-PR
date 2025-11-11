@@ -72,7 +72,7 @@
 	\draw #2 coordinate(#1-in)
 		to[short] ++(1,0) node[op amp, noinv input up, anchor=+](#1-OA){\texttt{#1}}
 		(#1-OA.-) -- ++(0,-1) coordinate(#1-FB)
-		to[R=#3] ++(0,-2) node[ground]{} coordinate(#1-gnd)
+		to[R, l_=#3] ++(0,-2) node[ground]{} coordinate(#1-gnd)
 		(#1-FB) to[R=#4, *-] (#1-FB -| #1-OA.out) -- (#1-OA.out)
 		to [short, *-] ++(1,0) coordinate(#1-out);
 }

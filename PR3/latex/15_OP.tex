@@ -1,6 +1,72 @@
-\newpage
-
 \subsection{Eigenschaften der Verstärkerschaltungen}
-
 \subsubsection{Aufgabenstellung}
+
+Im Folgenden werden die Eigenschaften in hinsicht zur Eingagnsimpedanz und der
+Phasenverschiebung bei invertierenden und nicht-invertierenden
+Verstärkerschaltungen, wie in \autoref{fig:i_amplifier} und
+\autoref{fig:ni_amplifier} dargestellt, verglichen.
+
+\subsubsection{Eingangsimpedanz}
+
+Der Eingangswiderstand ist gegeben durch das Verhältnis der Eingangsspannungsänderung zur Eingangsstromänderung:
+\[
+r_E = \frac{\partial u_E}{\partial i_E}
+\]
+
+\begin{wrapfigure}[7]{r}{0.4\textwidth}
+	\centering\vspace{-11pt}
+	\begin{circuitikz}[scale=0.8, transform shape]
+		\myIA{A3}{(0,0)}{$R_1$}{$R_2$};
+		\draw (A3-in) to[open, v=$U_E$, o-o] (A3-in |- A3-gnd) node[ground]{};
+		\draw (A3-out) to[open, v=$U_A$, o-o] (A3-out |- A3-gnd) node[ground]{};
+		\draw (A3-in) to[open, i=$I_E$] ++(0.2,0);
+		\draw (A3-in) ++(0,-0.5) to[open, v=$U_1$] ++(2,0);
+		\draw (A3-OA.-) to[open, v=$\SI{0}{\volt}$] (A3-OA.+);
+	\end{circuitikz}
+	\caption{Messschaltung i. Verstärker}\label{fig:i_amplifier_re}
+\end{wrapfigure}
+
+\paragraph{Invertierender Verstärker} Hier ist die Eingangsspanung $U_E$ aufgrund der virtuellen Masse am Knotenpunkt äquivalent zum Spannungsabfall $U_1$ über $R_1$. Der Eingagsstrom ist nun gegeben durch $I_E = \frac{U_1}{R_1}$, woraus folgt:
+\[
+r_E = \frac{U_E}{I_E} = \frac{U_1}{U_1/R_1} = R_1
+\]
+
+\begin{wrapfigure}[12]{r}{0.4\textwidth}
+	\centering\vspace{-11pt}
+	\begin{circuitikz}[scale=0.8, transform shape]
+		\myNIA{A3}{(0,0)}{$R_1$}{$R_2$};
+		\draw (A3-in) to[short, *-, i_<=$I_E$] ++(-1,0) coordinate(in) to[open, v=$U_E$, o-o] (in |- A3-gnd) node[ground]{};
+		\draw (A3-in) to[R, l_=$r_D$] (A3-in |- A3-FB) -- (A3-FB);
+		\draw (A3-out) to[open, v=$U_A$, o-o] (A3-out |- A3-gnd) node[ground]{};
+	\end{circuitikz}
+	\caption{Eingangswiderstand des nicht-invertierenden Verstärkers}
+	\label{fig:ni_amplifier_re}
+\end{wrapfigure}
+
+\paragraph{Nicht-Invertierender Verstärker}
+
+Der Eingangsstrom $I_E$ ist hier nur durch den Biasstrom $I_{B,P}$ des Operationsverstärkers bestimmt. Zieht man die Größen aus dem Modell des realen OPVs \cite[S.~66, Abb.~3.3]{EMTPraktikum2025} heran, ist zu sehen, dass der Differenzeingangswiderstand $r_D$ wie in \autoref{fig:ni_amplifier_re} in Serie geschalten ist, woraus folgt:
+\[
+r_E = R_1 + r_D \approx r_D \quad \text{da } r_D \gg R_1
+\]
+Auch die parallel leigenden Gleichtakteingangswiderstände $r_{GL}$ können
+vernachlässigt werden, da dies ebenfalls sehr groß gegenüber $R_1$ sind.
+
+\subsubsection{Phasenverschiebung}
+
+\paragraph{Invertierender Verstärker} Das invertierende verhalten der Verstärkerschaltung führt, wie in \autoref{fig:bode_I} zu sehen, im Durchlassbereich des Frequenzgangs durch den vorzeichenwechsel der Spannung zu einer standardmäßigen Phasenverschiebung von $\varphi = \SI{180}{\degree}$
+
+\paragraph{Nicht-Invertierender Verstärker} Hier bleibt das Ausgangssignal im durchlassbereich in Phase mit dem Eingangssignal.
+
+\subsubsection{Erkenntnisse}
+
+Es ist zu erkennen dass der nicht-invertierende Verstärker eine deutlich höhere
+Eingangsimpedanz aufweist, da der Eingangsstrom nur durch den Biasstrom des
+Operationsverstärkers bestimmt wird. Der invertierende Verstärker hat hingegen eine wesentlich geringer Eingangsimpedanz, die durch den Widerstand $R_1$ festgelegt ist.
+
+Ein weiterer Unterschied liegt im Gleichtaktverhalten der beiden
+Verstärkerschaltungen. Beim invertierenden Verstärker tritt keine Gleichtaktaussteuerung auf, da beide Eingänge des OPVs auf Massepotential liegen.
+Beim nicht-invertierenden Verstärker hingegen wirkt die Spannung $U_1$ als Gleichtakteingangsspannung. Hat der OPV also eine beträchtliche Gleichtaktverstärkung (idealerweise $0$), muss das bei der Berechnung der Ausgangsspannung berücksichtigt werden.
+
+
 

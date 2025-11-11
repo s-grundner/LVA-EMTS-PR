@@ -1,15 +1,14 @@
 \newpage
 
-\subsection{Übertragungsverhalten von invertierenden und nicht invertierenden Verstärken}\label{sec:1-4}
+\subsection{Übertragungsverhalten von Verstärkerschaltungen}\label{sec:1-4}
 \subsubsection{Aufgabenstellung}
 
 In diesem Abschnitt wird das Übertragungsverhalten eines invertierenden und eines nicht
 invertierenden Operationsverstärkers untersucht. Dazu wird der OPV \texttt{A3} (LM741)
 mit dem jeweiligen Widerstandsnetzwerk gegenkoppelt, wobei in beiden Fällen eine
 Verstärkung von ca. \SI{40}{\decibel} eingestellt wird. Es wird untersucht, wie die 
-Ausgangsspannung $U_A$ auf Sinusförmige Eingangsspannungen $U_E$ bei verscheidenen
-Frequenzsn reagiert. Zu beachten ist, dass die Offsetspannung des OPV \texttt{A3} wie in
-\autoref{sec:1-1} abgeglichen werden muss.
+Ausgangsspannung $U_A$ auf sinusförmige Eingangsspannungen $U_E$ bei verscheidenen
+Frequenzen reagiert. 
 
 \subsubsection{Verwendetes Material}
 
@@ -33,7 +32,7 @@ Frequenzsn reagiert. Zu beachten ist, dass die Offsetspannung des OPV \texttt{A3
 		\draw (A3-in) to[open, v=$U_E$, o-o] (A3-in |- A3-gnd) node[ground]{};
 		\draw (A3-out) to[open, v=$U_A$, o-o] (A3-out |- A3-gnd) node[ground]{};
 	\end{circuitikz}
-	\caption{Messschaltung i. Verstärker}
+	\caption{Messschaltung i. Verstärker}\label{fig:i_amplifier}
 	\end{minipage}\hfill
 	\begin{minipage}[t]{.49\textwidth}
 	\centering
@@ -42,14 +41,12 @@ Frequenzsn reagiert. Zu beachten ist, dass die Offsetspannung des OPV \texttt{A3
 		\draw (A3-in) to[open, v=$U_E$, o-o] (A3-in |- A3-gnd) node[ground]{};
 		\draw (A3-out) to[open, v=$U_A$, o-o] (A3-out |- A3-gnd) node[ground]{};
 	\end{circuitikz}
-	\caption{Messschaltung n.i. Verstärker}
+	\caption{Messschaltung n.i. Verstärker}\label{fig:ni_amplifier}
 	\end{minipage}
 \end{figure}
 
-Um anhand diesen Schaltungen die Übertragungsfunktion beider Verstärkertypen zu
-bestimmen, wird die Eingangsspannung $U_E$ als Sinus mit variabler Frequenz und
-konstanter Amplitude eingestellt und für eine Reihe an ausgewählter Frequenzen
-die Ausgangsamplitude $U_A$ sowie die Phasenverschiebung gemessen.
+Zu beachten ist, dass die Offsetspannung des OPV \texttt{A3} wie in
+\autoref{sec:1-1} abgeglichen werden muss.
 
 \subsubsection{Berechnungen}
 
@@ -174,4 +171,4 @@ Bereich seinen Null-Durchgang. Wegen des starken Rauschens und Verzerrungen
 bei hohen Frequenzen kann hier jedoch nur eine ungefähre Aussage getroffen
 werden. Weiters ist zu erkennen, dass die Verstärkerschaltung bei der eingestellten
 Verstärkung von ca. \SI{40}{\decibel} die \SI{3}{\decibel}-Grenzfrequenz
-etwa bei $\SI{10}{\kilo\hertz}$ aufweist.
+($\Delta\varphi = \SI{45}{\degree}$) etwa bei $\SI{10}{\kilo\hertz}$ aufweist.
