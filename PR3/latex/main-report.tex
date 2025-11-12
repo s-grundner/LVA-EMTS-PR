@@ -68,6 +68,9 @@
 \usetikzlibrary{patterns,shapes.arrows}
 \pgfplotsset{compat=newest}
 
+
+% OP Schaltungen aus der circuitikz dokumentation
+% https://ctan.dcc.uchile.cl/graphics/pgf/contrib/circuitikz/doc/circuitikzmanual.pdf
 \newcommand\myNIA[4]{%1: name of this amplifier, %2 start coordinate, %3 R1, %4 R2
 	\draw #2 coordinate(#1-in)
 		to[short] ++(1,0) node[op amp, noinv input up, anchor=+](#1-OA){\texttt{#1}}

@@ -3,42 +3,26 @@
 
 \subsection{Messen der Offsetspannung}\label{sec:1-1}
 \subsubsection{Aufgabenstellung}
-Es sei mit einer geeigneten Schaltung die Offsetspannung ($U_{OS}$) des OP-A3 ($\mu$A741 Biploar) auf dem Messbrett mittels geeigneter Schalung ermittelt werden. Anschließend soll $U_{OS}$ mittels dem zu A3 zugehörigen Potientiometer abgelichen werden.
+
+Zu ermitteln ist die Offsetspannung ($U_{OS}$) des OP-A3 ($\mu$A741 Biploar)
+auf dem Messbrett mittels geeigneter Schaltung. Anschließend soll $U_{OS}$
+mittels dem zu A3 zugehörigen Potientiometer abgelichen werden.
 
 \subsubsection{Versuchsaufbau}
-Zur Messung wird ein Invertierender Verstärker als Schaltung verwendet. Allebauteile sind auf dem Messverstärkerbrett (siehe Geräteliste~\ref{sec:geraeteliste})
+
+Zur Messung wird ein nicht invertierender Verstärker als Schaltung verwendet. Alle
+Bauteile sind auf dem Messverstärkerbrett (siehe
+Geräteliste~\ref{sec:geraeteliste}). Die geziegte Spannungsquelle $U_{OS}$
+modelliert die Offsetspannung des OPs. Am Aufbau wird der nicht invertierende
+Eingang auf Masse gelegt.
 
 \begin{figure}[h]
 	\centering
-	\begin{circuitikz}[european, scale=0.9, transform shape]
-		% --- Op-amp A3 ---
-		\node[op amp, rotate=180, xscale = -1] (A3) at (0,0) {};
-		\node at ($(A3.center)+(0.8,0.3)$) {\small $A_3$};
-
-		% Supply arrows (+12V, -12V)
-		\draw[->] ($(A3.center)+(0.2,0.4)$) -- +(0,0.5) node[above]{\small $+12$V};
-		\draw[->] ($(A3.center)+(0.2,-0.4)$) -- +(0,-0.5) node[below]{\small $-12$V};
-
-		% --- Output node ---
-		\coordinate (out) at ($(A3.out)+(1.0,0)$);
-		\draw (A3.out) -- (out);
-
-		% --- R1 and R2 stack ---
-		\draw (out) to[R,l_=$R_1$] ++(0,-2) coordinate (mid)
-		to[R,l_=$R_2$] ++(0,-2) node[ground]{};
-
-		% Feedback from midpoint to inverting input
-		\draw (mid) -- ++(-3.4,0) -- (A3.-);
-
-		% --- Non-inverting input: voltage source G1 with U_os ---
-		\coordinate (srcbottom) at (-4,-1);
-		\node[ground] at (srcbottom) {};
-		\draw (srcbottom) to[voltage source, v_={$U_{OS}$}] ++(0,1.5) coordinate (srcnode);
-		\draw (srcnode) -- (A3.+);
-
-		% --- Output osset arrow U_a,os ---
-		\draw[->] ($(out)+(0.7,0)$) -- ($(mid)+(0.7,-2)$)
-		node[midway,right]{$U_{a,os}$};
+	\begin{circuitikz}[scale=0.9, transform shape]
+			% siehe PR3/latex/main-report.tex 
+			\myNIA{A3}{(0,0)}{$R_2$}{$R_1$};
+			\draw (A3-in) to[voltage source, v_={$U_{OS}$}] (A3-in |- A3-gnd) node[ground]{};
+			\draw (A3-out) to[open, v^={$U_{a,OS}$},o-o] (A3-out |- A3-gnd) node[ground]{};
 	\end{circuitikz}
 	\caption{Messung Offsetspannung $U_{OS}$}\label{fig:offsetspannung}
 \end{figure}
@@ -59,16 +43,26 @@ Demnach wurden die Werte für $R_1$ und $R_2$ gewählt:
 \end{gather}
 
 \subsubsection{Messung}
-Bei der Messung der Offsetspannung am Ausgang vom OP ist es notwendig den Taster neben den Potentiometers zu betätigen, um den Potentiometer zu überbrücken. Ansonsten würde dieser $U_{OS}$ Verändern.
+
+Bei der Messung der Offsetspannung am Ausgang vom OP, ist es notwendig den
+Taster neben den Potentiometers zu betätigen, um das Potentiometer zu
+überbrücken. Ansonsten würde dieser $U_{OS}$ Verändern.
 
 Mit dem Multimeter Metex (20V DC Messbereich, siehe Geräteliste~\ref{sec:geraeteliste}) wurde $U_{a,OS}=\SI{3.45}{\volt}$ gemessen.
 \begin{gather}
 	U_{OS} = \frac{U_{a,OS}}{A} = \frac{\SI{3.45}{\volt}}{1000} = \SI{3.45}{\milli\volt}
 \end{gather}
 
-\subsubsection{Ableichen von A3}
-Nun wird der Taster nicht mehr gedrückt und weiter mit dem Multimeter $U_{a,OS}$ gemessen. Das Potentiometer wird eingestellt bis beim kleinsten messbereich vom Multimeter~\ref{sec:geraeteliste} (200mV) die Spannung 0 wird, bzw. bis sie nicht mehr kleiner wird. Im Anschluß wurde eine Spannung von $\SI{0.7}{\milli\volt}$ gemessen.
+\subsubsection{Abgleichen der Offsetspannung}
+
+Nun wird der Taster nicht mehr gedrückt und weiter mit dem Multimeter
+$U_{a,OS}$ gemessen. Das Potentiometer wird so eingestellt, bis beim kleinsten
+Messbereich vom Multimeter~\ref{sec:geraeteliste} (200mV) die Spannung 0 wird,
+bzw. bis sie nicht mehr kleiner wird. Im Anschluss wurde eine Spannung von $\SI{0.7}{\milli\volt}$ gemessen.
 
 \subsubsection{Erkenntnisse}
-Die errechnete Offsetspannung $U_{OS}=\SI{3.45}{\milli\volt}$ liegt über dem im Skriptum angegebenen typischen Wert von $\SI{1}{\milli\volt}$, ist für einen $\mu$A741 jedoch keineswegs ungewöhnlich.
+
+Zu sehen ist, dass die Offsetspannung $U_{OS}=\SI{3.45}{\milli\volt}$ nahe an dem im
+Skriptum angegebenen typischen Wert von $\SI{1}{\milli\volt}$ liegt. Die Abgleichung
+muss für OPVs in den folgenden Versuchen immer durchgeführt werden.
 

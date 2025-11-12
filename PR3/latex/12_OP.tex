@@ -1,19 +1,29 @@
 \newpage
 \subsection{Messen der Eingangsruheströme}\label{sec:2-1}
 \subsubsection{Aufgabenstellung}
-Es sei mit einer geeigneten Schaltung die Eingangsruheströme ($I_{Bn}$ und $I_{Bp}$) des OP-A3 ($\mu$A741 Biploar) auf dem Messbrett mittels geeigneter Schalung ermittelt werden.
+
+Mit einer geeigneten Schaltung sollen die Eingangsruheströme ($I_{Bn}$ und
+$I_{Bp}$) des OP-A3 (LMA741) auf dem Messbrett ermittelt werden. Im Anschluss
+werden daraus der Biasstrom $I_B$ und der Offsetstrom $I_{OS}$ berechnet.
 
 \subsubsection{Versuchsaufbau}
-Zur Messung von $I_{Bn}$ wird die Schaltung aus Abbildung~\ref{fig:ibn} verwendet. An $U_a$ wird das Osziloskop (siehe Geräteliste~\ref{sec:geraeteliste}) geschlossen. Sobald der Schalter $S_1$ geöffnet wird lädt sich $C$ mit $I_{Bn}$ linear auf. Der Schalter ist notwendig um den Kondensator vor der Messung zu entladen.
 
-Ähnlich ist es mit $I_{Bp}$. Hier wird die Schalung aus Abbildung~\ref{fig:ibp} verwendet. Auch hier lädt sich der Kondensator $C$ nach dem öffnen des Schalters $S_1$ linear auf. Der OP wird als Impedanzwandler betrieben.
+Zur Messung von $I_{Bn}$ wird die Schaltung aus \autoref{fig:ibn}
+verwendet. An $U_a$ wird das Osziloskop (siehe \nameref{sec:geraeteliste}) geschlossen.
+Sobald der Schalter $S_1$ geöffnet wird lädt sich $C$ mit $I_{Bn}$ linear
+(siehe \autoref{eq:ib-kondensator}) auf. Der Schalter ist notwendig um den
+Kondensator vor der Messung zu entladen.
 
-Alle Bauteile sind auf dem Messverstärkerbrett (siehe Geräteliste~\ref{sec:geraeteliste})
+Ähnlich ist es mit $I_{Bp}$. Hier wird die Schalung aus \autoref{fig:ibp}
+verwendet. Auch hier lädt sich der Kondensator $C$ nach dem öffnen des
+Schalters $S_1$ linear auf. Der OP wird als Impedanzwandler betrieben.
+
+Alle Bauteile sind auf dem Messverstärkerbrett (siehe \nameref{sec:geraeteliste})
 
 \begin{figure}[h]
 	\begin{minipage}[position]{0.48\textwidth}
 		\centering
-		\begin{circuitikz}[european, scale=0.8, transform shape]
+		\begin{circuitikz}[scale=0.8, transform shape]
 			% --- Op-amp A3 ---
 			\node[op amp] (A3) at (0,0) {};
 			\node at ($(A3.center)+(0.8,0.3)$) {\small $A_3$};
@@ -33,7 +43,7 @@ Alle Bauteile sind auf dem Messverstärkerbrett (siehe Geräteliste~\ref{sec:ger
 			\coordinate (c-out) at ($(a-out-mid)+(0,3.2)$);
 			\coordinate (switch-in) at ($(c-in)+(0,1.4)$);
 			\coordinate (switch-out) at ($(c-out)+(0,1.4)$);
-			\draw (c-in) to[C, l^={C}] (c-out);
+			\draw (c-in) to[C, l^={C},*-*] (c-out);
 			\draw (switch-in) to[ospst, l^={$S_1$}] (switch-out);
 			\draw (switch-in) -- (a-neg-mid);
 			\draw (switch-out) -- (a-out-mid);
@@ -115,7 +125,13 @@ Alle Bauteile sind auf dem Messverstärkerbrett (siehe Geräteliste~\ref{sec:ger
 \end{figure}
 
 \subsubsection{Dimensionierung}
-Laut Tabelle~\cite[S.~77, Abb.~3.13]{EMTPraktikum2025} ist ein $I_B = 80\,\mu\mathrm{A}$ zu erwarten. Zum messen ist ein Zeitraum $t=\SI{1}{\second}$ gut geeignet. Um die Verstärkung gut zu nützen soll der Kondensator nach der Zeit $t$ auf $\SI{10}{\volt}$ aufgeladen sein. Mit dem Kondensator von $\SI{10}{\nano\farad}$ ist man den $\SI{10}{\volt}$ wie man in Gleichung~\ref{eq:ib-kondensator} sehen kann sehr nahe.
+
+Laut Tabelle~\cite[S.~77, Abb.~3.13]{EMTPraktikum2025} ist ein $I_B =
+80\,\mu\mathrm{A}$ zu erwarten. Zum messen ist ein Zeitraum $t=\SI{1}{\second}$
+gut geeignet. Um die Verstärkung gut zu nützen soll der Kondensator nach der
+Zeit $t$ auf $\SI{10}{\volt}$ aufgeladen sein. Mit dem Kondensator von
+$\SI{10}{\nano\farad}$ ist man den $\SI{10}{\volt}$ wie man in
+\autoref{eq:ib-kondensator} sehen kann sehr nahe.
 
 Allgemein gilt für die Spannung am Kondensator wenn er an $t_0$ entladen war die folgende Formel.
 \begin{gather}
@@ -123,15 +139,16 @@ Allgemein gilt für die Spannung am Kondensator wenn er an $t_0$ entladen war di
 \end{gather}
 
 Mit konstanten Strom vereinfacht sich das
-\begin{gather}
-	U_C = \frac{I\cdot t}{C}, \quad \implies{} C = \frac{I \cdot t}{U_A} = \frac{\SI{80}{\nano\ampere} \cdot \SI{1}{\second}}{\SI{10}{\volt}} = \SI{8}{\nano\farad} \label{eq:ib-kondensator} \\[1.3em]
-	\text{Gewählt wurde: }
-	C = 10\,\mathrm{nF}
-	\quad\Rightarrow
-	U_C = 8\,\mathrm{V}.
-\end{gather}
+\begin{equation}
+	U_C = \frac{I\cdot t}{C}, \quad \implies C 
+	    = \frac{I \cdot t}{U_A} = \frac{\SI{80}{\nano\ampere} \cdot \SI{1}{\second}}{\SI{10}{\volt}}
+		= \SI{8}{\nano\farad} \label{eq:ib-kondensator}
+\end{equation}
+
+Gewählt wurde: $C = 10\,\mathrm{nF} \Rightarrow U_C = 8\,\mathrm{V}$
 
 \subsubsection{Messung und Berechnung $I_{Bn}$}
+
 In Abbildung~\ref{fig:ibn-messung} sieht man, dass $U_a$ innerhalb von $\SI{3}{\second}$ um $\SI{9}{\volt}$ angestiegen ist. Daraus wird $I_{Bn}$ berechnet.
 
 \begin{gather}
@@ -149,7 +166,10 @@ In Abbildung~\ref{fig:ibn-messung} sieht man, dass $U_a$ innerhalb von $\SI{3}{\
 \end{figure}
 
 \subsubsection{Messung und Berechnung $I_{Bp}$}
-In Abbildung~\ref{fig:ibp-messung} sieht man, dass $U_a$ innerhalb von $\SI{3}{\second}$ um $\SI{6.6}{\volt}$ angestiegen ist. Daraus wird $I_{Bp}$ berechnet.
+
+In \autoref{fig:ibp-messung} sieht man, dass $U_a$ innerhalb von
+$\SI{3}{\second}$ um $\SI{6.6}{\volt}$ angestiegen ist. Daraus wird $I_{Bp}$
+berechnet.
 
 \begin{gather}
 	\Delta t = \SI{3}{\second}, \quad	\Delta U_A = \SI{6.6}{\volt}, \quad U_C=U_A \\[1.5em]
@@ -172,4 +192,9 @@ In Abbildung~\ref{fig:ibp-messung} sieht man, dass $U_a$ innerhalb von $\SI{3}{\
 \end{gather}
 
 \subsubsection{Erkenntnisse}
-Die \SI{-26}{\nano\ampere} von $I_B$ sind 3 mal weniger als die \SI{80}{\nano\ampere} aus der Tabelle~\cite[S.~77, Abb.~3.13]{EMTPraktikum2025}. Abweichungen zum Typwert sind plausibel durch Temperatur, Exemplarstreuung sowie Leckströme von Kondensator/Schalter und Messaufbau.
+
+Die \SI{-26}{\nano\ampere} von $I_B$ sind 3 mal weniger als die
+\SI{80}{\nano\ampere} aus der Tabelle~\cite[S.~77,
+Abb.~3.13]{EMTPraktikum2025}. Abweichungen zum Typwert sind plausibel durch
+Temperatur, Exemplarstreuung sowie Leckströme von Kondensator/Schalter und
+Messaufbau.
