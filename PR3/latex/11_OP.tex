@@ -19,10 +19,10 @@ Eingang auf Masse gelegt.
 \begin{figure}[h]
 	\centering
 	\begin{circuitikz}[scale=0.9, transform shape]
-			% siehe PR3/latex/main-report.tex 
-			\myNIA{A3}{(0,0)}{$R_2$}{$R_1$};
-			\draw (A3-in) to[voltage source, v_={$U_{OS}$}] (A3-in |- A3-gnd) node[ground]{};
-			\draw (A3-out) to[open, v^={$U_{a,OS}$},o-o] (A3-out |- A3-gnd) node[ground]{};
+		% siehe PR3/latex/main-report.tex 
+		\myNIA{A3}{(0,0)}{$R_2$}{$R_1$};
+		\draw (A3-in) to[voltage source, v_={$U_{OS}$}] (A3-in |- A3-gnd) node[ground]{};
+		\draw (A3-out) to[open, v^={$U_{a,OS}$},o-o] (A3-out |- A3-gnd) node[ground]{};
 	\end{circuitikz}
 	\caption{Messung Offsetspannung $U_{OS}$}\label{fig:offsetspannung}
 \end{figure}
@@ -46,7 +46,7 @@ Demnach wurden die Werte für $R_1$ und $R_2$ gewählt:
 
 Bei der Messung der Offsetspannung am Ausgang vom OP, ist es notwendig den
 Taster neben den Potentiometers zu betätigen, um das Potentiometer zu
-überbrücken. Ansonsten würde dieser $U_{OS}$ Verändern.
+überbrücken. Ansonsten würde dieser $U_{OS}$ verändern.
 
 Mit dem Multimeter Metex (20V DC Messbereich, siehe Geräteliste~\ref{sec:geraeteliste}) wurde $U_{a,OS}=\SI{3.45}{\volt}$ gemessen.
 \begin{gather}
