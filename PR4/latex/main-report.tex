@@ -1,0 +1,118 @@
+% !TeX program = xelatex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+% !BIB program = biber
+%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 
+%%            JJJJ   K                         K   UUUU         UUUU  
+%%            JJJJ   KKKK                   KKKK   UUUU         UUUU  
+%%            JJJJ   KKKKKK               KKKKKK   UUUU         UUUU  
+%%            JJJJ      KKKKKK         KKKKKK      UUUU         UUUU  
+%%            JJJJ         KKKKKK   KKKKKK         UUUU         UUUU  
+%%            JJJJ            KKKKKKKKK            UUUU         UUUU  
+%%    JJ     JJJJJ               KKK               UUUUU       UUUUU  
+%%  JJJJJJJJJJJJJ    KKKKKKKKKKKKKKKKKKKKKKKKKKK    UUUUUUUUUUUUUUU   
+%%    JJJJJJJJJ      KKKKKKKKKKKKKKKKKKKKKKKKKKK      UUUUUUUUUUU     
+%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 
+\documentclass[a4paper,oneside,11pt,ngerman]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[
+	TNF,
+	techreport,
+	nofancyfonts,
+	equalmargins,
+	fontpath=../../assets/fonts,
+	logopath=../../assets/logos
+]{jkureport}
+%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 
+%% Include Packages
+%% 
+
+\usepackage{amsfonts}
+\usepackage{subfigure}
+\usepackage{pdfpages}
+\usepackage[european, straightvoltages]{circuitikz}
+\usepackage{marginnote}
+\usepackage{wrapfig}
+\usepackage{ragged2e}
+\usepackage{caption}
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{pgfplotstable}
+\usepackage{enumitem}
+
+%% Custom Commands and Packages Settings
+
+\setcounter{tocdepth}{2}
+
+\tikzset{vmeter/.style={rmeterwa, t=V}}
+\tikzset{ameter/.style={rmeterwa, t=A}}
+\tikzset{ometer/.style={rmeterwa, t=$\Omega$}}
+\tikzset{ni/.style={rmeterwa, t=\textbf{NI}}}
+\tikzset{ai/.style={rmeterwa, t=\textbf{AI}}}
+
+\usepackage{pgfplots}
+\DeclareUnicodeCharacter{2212}{−}
+\usepgfplotslibrary{groupplots,dateplot}
+\usetikzlibrary{patterns,shapes.arrows}
+\pgfplotsset{compat=newest}
+
+\newcommand\myNIA[4]{%1: name of this amplifier, %2 start coordinate, %3 R1, %4 R2
+	\draw #2 coordinate(#1-in)
+		to[short] ++(1,0) node[op amp, noinv input up, anchor=+](#1-OA){\texttt{#1}}
+		(#1-OA.-) -- ++(0,-1) coordinate(#1-FB)
+		to[R, l_=#3] ++(0,-2) node[ground]{} coordinate(#1-gnd)
+		(#1-FB) to[R=#4, *-] (#1-FB -| #1-OA.out) -- (#1-OA.out)
+		to [short, *-] ++(1,0) coordinate(#1-out);
+}
+\newcommand\myIA[4]{%1: name of this amplifier, %2 start coordinate, %3 R1, %4 R2
+	\draw #2 coordinate(#1-in)
+		to[R=#3] ++(2,0) coordinate(#1--)
+		(#1--) -- ++(0,-1) coordinate(#1-FB)
+		node[op amp, anchor=-](#1-OA){\texttt{#1}}
+		(#1-OA.+) -- ++(0,-0.5) node[ground]{} coordinate(#1-gnd)
+		(#1--) to[R=#4, *-] (#1-- -| #1-OA.out)
+		to[short, -*] (#1-OA.out) -- ++(1,0) coordinate(#1-out);
+}
+
+\renewcaptionname{ngerman}{\figurename}{Abb.}
+\captionsetup{font=small}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+\newcommand{\datapath}[1]{../data/#1}
+\newcommand{\marginref}[1]{%
+\reversemarginpar\marginnote{\textbf{(#1)}}[7pt]
+}
+\graphicspath{{images/}}
+
+
+
+%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{Messung grundlegender elektrischer Größen}
+\author{Simon Grundner (k12136610) \and Paul Kronegger (k12344729)}
+\setbottommark{Paul Kronegger (k12344729), Simon Grundner (k12136610)}
+
+\includepdf{coversheet/coversheet.pdf}
+\tableofcontents
+
+\input{01_Geraeteliste.tex}
+\input{11_OP.tex}
+\input{00_Literatur.tex}
+
+\end{document}
+\endinput
