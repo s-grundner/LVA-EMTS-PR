@@ -1,14 +1,118 @@
 \newpage
-% \section{Integrator}\label{sec:1}
 
-\subsection{...}\label{sec:1-5}
+\subsection{Belichtungssteuerung mit einer Fotodiode}\label{sec:1-5}
+
 \subsubsection{Aufgabenstellung}
+
+Für eine Kamera soll mithilfe einer Fotodiode mit einer Empfindlichkeit von \SI{80}{\nano\ampere\per\lux} eine automatische Belichtungssteuerung realisiert werden. Ziel ist es, einen Film mit einer Empfindlichkeit von \SI{21}{DIN} korrekt zu belichten. Der von der Fotodiode erzeugte Fotostrom wird hierzu in einer Integratorschaltung über die Zeit aufsummiert, bis die Ausgangsspannung des Integrators den Wert von \SI{10}{\volt} erreicht. Bei dieser Spannung soll der Kameraverschluss schließen.
 
 \subsubsection{Versuchsaufbau}
 
+Die Umsetzung erfolgt mittels einer Integratorschaltung, bei der der Fotostrom der Diode einen Kondensator am invertierenden Eingang eines Operationsverstärkers lädt. Die Ausgangsspannung steigt dadurch kontinuierlich an, bis der Abschaltwert von \SI{10}{\volt} erreicht ist. Der prinzipielle Aufbau ist in Abbildung~\ref{fig:15-schaltplan} dargestellt.
+
+\begin{figure}[h]
+	\centering
+	\begin{circuitikz}[scale=0.9, transform shape]
+		% --- Op-amp A3 ---
+		\node[op amp] (A3) at (0,0) {};
+
+		% --- Output node ---
+		\coordinate (out) at ($(A3.out)+(1.0,0)$);
+		\draw (A3.out) -- (out);
+
+		%capacitor (feedback) – ohne Schalter
+		\coordinate (a-neg-mid) at ($(A3.-)+(-0.2,0)$);
+		\coordinate (a-out-mid) at ($(A3.out)+(0.2,0)$);
+		\coordinate (c-in) at ($(a-neg-mid)+(0,2.0)$);
+		\coordinate (c-out) at ($(a-out-mid)+(0,2.5)$);
+
+		\draw (c-in) to[C, l^={C}] (c-out);
+		% direkte Verbindung zum OP-Eingang und Ausgang (kein S_1 mehr)
+		\draw (c-in) -- (a-neg-mid);
+		\draw (c-out) -- (a-out-mid);
+
+		% V_+
+		\node[ground] at (A3.+) {};
+
+		% --- Inverting input: Photodiode gegen Masse ---
+		\coordinate (srcbottom) at (-3,-1.2);
+		\node[ground] at ($(srcbottom)+(0,+0.1)$) {};
+		\coordinate (srcnode) at  ($(srcbottom)+(0,1.7)$);
+		\draw (srcnode) to[photodiode, v={$U_0$}] ++(0,-1.7);
+		\draw (srcnode) -- (A3.-);
+
+		% Strompfeil I_0 auf dem Pfad von V_- zur Photodiode
+		\draw[line width=1.2pt, -{Triangle[length=3mm,width=2mm]}]
+		($(A3.-)+(-0.4,0.0)$) -- ($(srcnode)+(0.4,0.0)$)
+		node[midway,above] {$I_0$};
+
+		% Output 
+		\node[ocirc] at (out) {};
+		\draw[->] ($(out.south)+(0,-0.2)$) -- ++(0,-0.7)
+		node[midway,right] {$U_A$}
+		coordinate (mid);
+		\node[ocirc] (C2) at ($(mid)+(0,-0.2)$) {};
+		\draw (C2.south) -- ++(0,-0.0) node[ground] {};
+
+	\end{circuitikz}
+	\caption{Messschaltung für $I_{Bn}$ mit Photodiode}\label{fig:15-schaltplan}
+\end{figure}
+
 \subsubsection{Berechnungen}
 
-\subsubsection{Messung}
+Die Filmempfindlichkeit von \SI{21}{DIN} lässt sich über die Beziehung
+
+\begin{equation}
+	E_{\mathrm{DIN}} = 10 \log \left( \frac{B_0}{B_M} \right)
+\end{equation}
+
+in die zur Belichtung benötigte Belichtungsmenge \(B_M\) umrechnen. Mit der sensitometrischen Konstante \(B_0 = \SI{1}{\lux\second}\) ergibt sich:
+
+\begin{gather}
+	10^{E_{\mathrm{DIN}}/10}
+	= \frac{B_0}{B_M}        \\
+	B_M  = \frac{B_0}{10^{21/10}}
+	= 7.94 \cdot 10^{-3}~\mathrm{lx\,s}.
+\end{gather}
+
+Während einer Integrationszeit \(\Delta t\) ergibt sich daraus eine mittlere Beleuchtungsstärke
+
+\begin{equation}
+	E_V = \frac{B_M}{\Delta t}.
+\end{equation}
+
+Unter Berücksichtigung der Fotodiodenempfindlichkeit \(E_D\) folgt für den erzeugten Diodenstrom:
+
+\begin{equation}
+	I_D = E_D \cdot E_V = \frac{E_D B_M}{\Delta t}.
+\end{equation}
+
+Für den Integrator gilt aufgrund des Zusammenhangs zwischen Kondensatorstrom und Spannung:
+
+\begin{equation}
+	I_D = C \frac{dU_A}{dt}.
+\end{equation}
+
+Integration über die Dauer \(\Delta t\) ergibt:
+
+\begin{align}
+	U_A & = \frac{1}{C} \int_0^{\Delta t} I_D\, d\tau \\
+	    & = \frac{E_D B_M}{C}.
+\end{align}
+
+Durch Einsetzen der gewünschten Abschaltspannung \(U_A = \SI{10}{\volt}\) lässt sich die benötigte Kapazität bestimmen:
+
+\begin{equation}
+	C = \frac{E_D B_M}{U_A}
+	= \frac{80~\mathrm{nA/lx} \cdot 7.94\cdot 10^{-3}~\mathrm{lx\,s}}
+	{10~\mathrm{V}}
+	= 63.54~\mathrm{pF}.
+\end{equation}
+
+Damit muss für die Schaltung ein Kondensator mit einer Kapazität von etwa \(\SI{63.5}{\pico\farad}\) verwendet werden.
 
 \subsubsection{Erkenntnisse}
+
+Die theoretische Betrachtung zeigt, dass sich die benötigte Belichtungsmenge eindeutig aus der Filmempfindlichkeit und der Fotodiodenkennlinie bestimmen lässt. Daraus folgt die erforderliche Integratorkapazität von rund \SI{63.5}{\pico\farad}, sodass der Abschaltpunkt von \SI{10}{\volt} genau bei korrekter Belichtung erreicht wird.
+
 
