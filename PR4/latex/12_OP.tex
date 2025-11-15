@@ -1,0 +1,99 @@
+\newpage
+\subsection{Realisierung mit Bipolar- und Fet-OPV}\label{sec:2-1}
+\subsubsection{Aufgabenstellung}
+Die Schaltung~\ref{fig:integrator-schaltung} soll mit dem Bipolar-OPV $A_3$ ($\mu$A741) und einem der FET-OPVs $A_1$/$A_2$ (TL081) realisiert werden und so der Biasstrom gemessen werden.
+
+\subsubsection{Versuchsaufbau}
+Die in Abbildung \ref{fig:ibn} gezeigte Schaltung wird nun erweitert, sodass der Kondensator (C) über den Schalter (S) entladen werden kann. Die entsprechende Anpassung ist in Abbildung 2 dargestellt. Die Werte von (R) und (C) entsprechen dabei weiterhin jenen aus Abschnitt\ref{sec:1-1}
+Durch die Virtuelle Masse an $V_-$ kann R aus Abb.~\ref{fig:integrator-schaltung} weggelassen werden. Es reicht den negativen Biasstrom zu messen, da der positive OPV-Eingang mit Masse verbunden ist.
+\begin{figure}[h]
+	\centering
+	\begin{circuitikz}[scale=0.9, transform shape]
+		% --- Op-amp A3 ---
+		\node[op amp] (A3) at (0,0) {};
+		\node at ($(A3.center)+(0.8,0.3)$) {\small $A_3$};
+
+		% Supply arrows (+12V, -12V)
+		\draw[->] ($(A3.center)+(0.2,0.4)$) -- +(0,0.5) node[above]{\small $+12$V};
+		\draw[->] ($(A3.center)+(0.2,-0.4)$) -- +(0,-0.5) node[below]{\small $-12$V};
+
+		% --- Output node ---
+		\coordinate (out) at ($(A3.out)+(1.0,0)$);
+		\draw (A3.out) -- (out);
+
+		%capacitor and switch
+		\coordinate (a-neg-mid) at ($(A3.-)+(-0.2,0)$);
+		\coordinate (a-out-mid) at ($(A3.out)+(0.2,0)$);
+		\coordinate (c-in) at ($(a-neg-mid)+(0,2.7)$);
+		\coordinate (c-out) at ($(a-out-mid)+(0,3.2)$);
+		\coordinate (switch-in) at ($(c-in)+(0,1.4)$);
+		\coordinate (switch-out) at ($(c-out)+(0,1.4)$);
+		\draw (c-in) to[C, l^={C},*-*] (c-out);
+		\draw (switch-in) to[ospst, l^={$S_1$}] (switch-out);
+		\draw (switch-in) -- (a-neg-mid);
+		\draw (switch-out) -- (a-out-mid);
+		\draw[->] ($(c-in)+(+0.5,-0.7)$) -- ($(c-out)+(-0.5,-0.7)$)
+		node[midway,below] {$U_C$};
+
+		% V_+
+		\node[ground] at (A3.+) {};
+
+		% --- Non-inverting input: voltage source G1 with U_os ---
+		\coordinate (srcbottom) at (-2,-1.7);
+		\node[ground] at ($(srcbottom)+(0,0.5)$) {};
+		\draw (srcbottom) to[current source, i_={$I_{Bn}$}] ++(0,2.2) coordinate (srcnode);
+		\draw (srcnode) -- (A3.-);
+
+		% Output 
+		\node[ocirc] at (out) {};
+		\draw[->] ($(out.south)+(0,-0.2)$) -- ++(0,-0.7)
+		node[midway,right] {$U_a$}
+		coordinate (mid);
+		\node[ocirc] (C2) at ($(mid)+(0,-0.2)$) {};
+		\draw (C2.south) -- ++(0,-0.0) node[ground] {};
+
+	\end{circuitikz}
+	\caption{Messschaltung für $I_{Bn}$}\label{fig:ibn}
+\end{figure}
+
+\subsubsection{Messung}
+Die Schaltung von Abb.~\ref{fig:ibn} wird nun einmal mit $A_1$ und einmal mit $A_3$ aufgebaut. Auf Abb.~\ref{fig:ibn-a1-oszi} und Abb.~\ref{fig:ibn-a3-oszi} ist die Ausgangsspannung zu sehen wenn sich der Kondensator nach öffnen des Schalters $S1$ mit dem Strom $I_{Bn}$ auflädt.
+
+\begin{figure}[h]
+	\begin{minipage}[position]{0.49\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{oszi/12-IBn-A1.JPG}
+		\caption{$I_{Bn}$ von FET-OPV $A_1$}\label{fig:ibn-a1-oszi}
+	\end{minipage}\hfill
+	\begin{minipage}[position]{0.49\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{oszi/12-IBn-A3.JPG}
+		\caption{$I_{Bn}$ von Bipolar-OPV $A_3$}\label{fig:ibn-a3-oszi}
+	\end{minipage}
+\end{figure}
+
+\subsubsection{Berechnung}
+In der Schaltung~\ref{fig:integrator-schaltung} gilt $U_a=-U_C$, als auch $I_{Bn}=I_C$ und am Kondensator die normale Stromspannungsbeziehung $I_C=C\frac{dU_C}{dt}$. Daraus folgt
+\begin{gather}
+	I_{Bn}=C \frac{\Delta U_a}{\Delta t} \label{eq:ibn-oszi} \\[1.2em]
+\end{gather}
+
+Aus Abb.~\ref{fig:ibn-a1-oszi} und Abb.~\ref{fig:ibn-a3-oszi} und der Gleichung~\ref{eq:ibn-oszi} ergeben sich folgende Werte
+\begin{table}[h]
+	\centering
+	\begin{tabular}{c|c|c|c}
+		\textbf{OPV} & \textbf{Typ} & \textbf{$\frac{\Delta U_a}{\Delta t}$} & \textbf{$I_{Bn}$}         \\
+		\hline
+		$A_1$        & FET          & \SI{161.29}{\mu\volt\per\second}       & \SI{161.29}{\pico\ampere} \\
+		$A_3$        & Bipolar      & \SI{40.32}{\milli\volt\per\second}     & \SI{40.32}{\nano\ampere}  \\
+	\end{tabular}
+	\caption{Messwerte der Operationsverstärker}
+	\label{tab:op-messwerte}
+\end{table}
+
+
+\subsubsection{Erkenntnisse}
+
+Vergleicht man die gemessenen Eingangsruheströme mit den typischen Datenblattangaben, so liegt der Wert von $I_{Bn}$ für den FET-OPV $A_1$ etwas oberhalb der üblichen \SI{30}{\pico\ampere}, während der gemessene Wert für den Bipolar-OPV $A_3$ leicht unter den typischen \SI{80}{\nano\ampere} bleibt. Insgesamt liegen beide Ergebnisse in einem realistischen Bereich und erscheinen daher plausibel.
+
+

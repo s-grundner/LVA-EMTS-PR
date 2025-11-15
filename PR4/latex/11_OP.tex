@@ -1,14 +1,28 @@
 \newpage
-\section{Messverstärker 2}\label{sec:1}
+\section{Integrator}\label{sec:1}
 
-\subsection{...}\label{sec:1-1}
+\subsection{Entwurf der Integratorschaltung}\label{sec:1-1}
 \subsubsection{Aufgabenstellung}
+Mittels einer Integratorschaltung soll für eine konstante Eingangspannung $U_e=\SI{100}{\milli\volt}$ eine Ausgangsspannungsänderung von $\SI{500}{\milli\volt}$ erzeugt werden.
 
-\subsubsection{Versuchsaufbau}
+\subsubsection{Versuchsaufbau und Dimensionierung}
 
-\subsubsection{Berechnungen}
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=0.55\textwidth]{Integrator_Schaltung.png}
+	\end{center}
+	\caption{Umkehrintegrator}\label{fig:integrator-schaltung}
+\end{figure}
 
-\subsubsection{Messung}
+Wenn man $I_N=0$ annimmt, kann man sich daraus $\tau$ berechnen. Die Ausgangsspannungsänderung $\frac{d U_A}{dt}$ muss negativ sein, da $RC$ positiv ist.
 
-\subsubsection{Erkenntnisse}
+\begin{gather}
+	I_1=-I_C \\
+	\frac{U_1}{R}=-C \frac{d U_A}{dt} \\
+	RC = - \frac{U_1}{\frac{d U_A}{dt}} = - \frac{\SI{100}{\milli\volt}}{\SI{-500}{\milli\volt\per\second}} = \SI{0.2}{\second} \\
+	\tau = RC = \SI{0.2}{\second} \label{eq:1-tau}
+\end{gather}
+
+Wird für den Kondensator ($C$) $\SI{1}{\mu\farad}$ gewählt so ergibt sich aus Gl.~\ref{eq:1-tau} für  den Widerstand ($R$) $\SI{200}{\kilo\ohm}$. Der Widerstand wurde mit der R-Dekade RS-200 siehe Geräteliste~\ref{sec:geraeteliste} realisiert.
+
 
