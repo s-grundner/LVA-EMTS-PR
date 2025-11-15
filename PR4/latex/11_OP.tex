@@ -3,7 +3,7 @@
 
 \subsection{Entwurf der Integratorschaltung}\label{sec:1-1}
 \subsubsection{Aufgabenstellung}
-Mittels einer Integratorschaltung soll für eine konstante Eingangspannung $U_e=\SI{100}{\milli\volt}$ eine Ausgangsspannungsänderung von $\SI{500}{\milli\volt}$ erzeugt werden.
+Mittels einer Integratorschaltung soll für eine konstante Eingangsspannung $U_e=\SI{100}{\milli\volt}$ eine Ausgangsspannungsänderung von $\SI{500}{\milli\volt}$ erzeugt werden.
 
 \subsubsection{Versuchsaufbau und Dimensionierung}
 
@@ -14,15 +14,15 @@ Mittels einer Integratorschaltung soll für eine konstante Eingangspannung $U_e=
 	\caption{Umkehrintegrator}\label{fig:integrator-schaltung}
 \end{figure}
 
-Wenn man $I_N=0$ annimmt, kann man sich daraus $\tau$ berechnen. Die Ausgangsspannungsänderung $\frac{d U_A}{dt}$ muss negativ sein, da $RC$ positiv ist.
+Nimmt man $I_N=0$ an, kann daraus die Zeitkonstante $\tau$ bestimmt werden. Die Ausgangsspannungsänderung $\frac{dU_A}{dt}$ muss dabei negativ sein, da das Produkt $RC$ positiv ist.
 
 \begin{gather}
-	I_1=-I_C \\
-	\frac{U_1}{R}=-C \frac{d U_A}{dt} \\
-	RC = - \frac{U_1}{\frac{d U_A}{dt}} = - \frac{\SI{100}{\milli\volt}}{\SI{-500}{\milli\volt\per\second}} = \SI{0.2}{\second} \\
+	I_1 = -I_C \\
+	\frac{U_1}{R} = -C \frac{dU_A}{dt} \\
+	RC = - \frac{U_1}{\frac{dU_A}{dt}}
+	= - \frac{\SI{100}{\milli\volt}}{\SI{-500}{\milli\volt\per\second}}
+	= \SI{0.2}{\second} \\
 	\tau = RC = \SI{0.2}{\second} \label{eq:1-tau}
 \end{gather}
 
-Wird für den Kondensator ($C$) $\SI{1}{\mu\farad}$ gewählt so ergibt sich aus Gl.~\ref{eq:1-tau} für  den Widerstand ($R$) $\SI{200}{\kilo\ohm}$. Der Widerstand wurde mit der R-Dekade RS-200 siehe Geräteliste~\ref{sec:geraeteliste} realisiert.
-
-
+Wird für den Kondensator ($C$) ein Wert von $\SI{1}{\mu\farad}$ gewählt, ergibt sich aus Gl.~\ref{eq:1-tau} für den Widerstand ($R$) ein Wert von $\SI{200}{\kilo\ohm}$. Der Widerstand wurde mit der R-Dekade RS-200 (siehe Geräteliste~\ref{sec:geraeteliste}) realisiert.
