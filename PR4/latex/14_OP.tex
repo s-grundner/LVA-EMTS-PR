@@ -1,14 +1,41 @@
 \newpage
-\section{Integrator}\label{sec:1}
-
-\subsection{...}\label{sec:1-4}
+\subsection{Betragsgang des Kompensierten FET-OPVs}\label{sec:1-4}
 \subsubsection{Aufgabenstellung}
+Der Betragsgang der Schaltung aus Abschnitt~\ref{sec:1-3}
+soll am OPV mit FET-Eingangsstufe aufgenommen werden.
 
 \subsubsection{Versuchsaufbau}
+Zur Aufnahme des Betragsgangs wird die Integratorschaltung mit einer sinusförmigen Eingangsspannung variabler Frequenz aus dem Funktionsgenerator angeregt. Am Generator wurden dabei die Einstellungen "High Z" sowie eine Spitzen-Spitzen-Spannung von $U_{PP} = \SI{10}{\volt}$ gewählt. Die Eingangsspannung und die Ausgangsspannung $U_A$ werden am Oszilloskop über zwei getrennte Kanäle erfasst.
 
-\subsubsection{Berechnungen}
+Während der Messung ist zu berücksichtigen, dass $U_A$ trotz Abgleich der Schaltung einen leichten Gleichanteil aufweisen kann. Ursache dafür ist der verbleibende Driftstrom, der den Kondensator $C$ langsam auf- oder entlädt. Deshalb wird zwischen den einzelnen Messpunkten regelmäßig neu abgeglichen, um eine Drift des Arbeitspunktes möglichst gering zu halten.
 
 \subsubsection{Messung}
 
+\begin{table}[h]
+	\centering
+	\begin{tabular}{c|c|c}
+		$f \; (\mathrm{Hz})$ & $U_a \; (\mathrm{V})$ & $A \; (\mathrm{dB})$ \\
+		\hline
+		$1 \times 10^{0}$    & 6.88                  & -3.25                \\
+		$2 \times 10^{0}$    & 3.52                  & -9.07                \\
+		$5 \times 10^{0}$    & 1.44                  & -16.83               \\
+		$1 \times 10^{1}$    & 0.72                  & -22.85               \\
+		$2 \times 10^{1}$    & 0.36                  & -28.97               \\
+		$5 \times 10^{1}$    & 0.15                  & -36.59               \\
+		$1 \times 10^{2}$    & 0.08                  & -42.16               \\
+	\end{tabular}
+	\caption{Messungen der Ausgangsspannung für gegebene Frequenzen}\label{tab:14-ua-fuer-frequenzen}
+\end{table}
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=0.55\textwidth]{14_bode_1d_Abs.png}
+	\end{center}
+	\caption{Betragsgang der Kompensierten Integratorschaltung}\label{fig:14-betragsgang}
+\end{figure}
+
+
 \subsubsection{Erkenntnisse}
 
+Zur Phase weiß ich nicht was ich sagen soll. Die \SI{-3}{\decibel}-Grenzfrequenz ist wie man in tabelle~\ref{tab:14-ua-fuer-frequenzen}
+bei etwas unter $\SI{1}{hertz}$, also schon sehr nahe DC. In Abbildung~\ref{fig:14-betragsgang} sieht man dass der betragsgang mit ca \SI{20}{\decibel} abnimmt. Das passt mit einem idealen integrator gut zusammen.

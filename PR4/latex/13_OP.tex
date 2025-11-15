@@ -1,14 +1,123 @@
 \newpage
-\section{Integrator}\label{sec:1}
-
-\subsection{...}\label{sec:1-3}
+\subsection{Schaltung mit kompensierten Drift–Kondensatorstrom}\label{sec:1-3}
 \subsubsection{Aufgabenstellung}
+Die Schaltung ist so zu modifizieren, dass der beobachtbare Driftstrom des Kondensators verschwindet. Anschließend ist zu untersuchen, ob die Schaltung trotz dieser Anpassung weiterhin die Eigenschaften eines Integrators aufweist.
+Darüber hinaus ist der Betragsgang der kompensierten Integratorschaltung unter Verwendung eines Operationsverstärkers mit FET-Eingangsstufe aufzunehmen.
 
 \subsubsection{Versuchsaufbau}
+Die verwendete Schaltung wird in Abbildung\ref{fig:ibn-konensatordirftkompensiert} gezeigt. Über die Widerstände $R_K$ und $R_P$ wirken die Stromquellen dem Strom $I_{Bn}$ entgegen. Da $I_{Bn}$ sehr niedrig ist und das Labornetzteil nur auf ca. \SI{100}{\milli\volt} genau ist wird der Strom $I_K$ den hochomigen $R_K$ Widerständen reduziert und mit dem potentiometer $R_P$ exakt so eingestellt, dass der Strom durch den Kondensator = 0. Das sieht man indem die Amplitude von $U_A$ minimal wird.
 
-\subsubsection{Berechnungen}
+\begin{figure}[h]
+	\centering
+	\begin{circuitikz}[scale=0.9, transform shape]
+		% --- Op-amp A3 ---
+		\node[op amp] (A3) at (5,0) {};
+		\node at ($(A3.center)+(0.8,0.3)$) {\small $A_3$};
+
+		% Supply arrows (+12V, -12V)
+		\draw[->] ($(A3.center)+(0.2,0.4)$) -- +(0,0.5) node[above]{\small $+12$V};
+		\draw[->] ($(A3.center)+(0.2,-0.4)$) -- +(0,-0.5) node[below]{\small $-12$V};
+
+		% --- Output node ---
+		\coordinate (out) at ($(A3.out)+(1.0,0)$);
+		\draw (A3.out) -- (out);
+
+		% Ua nach unten
+		\node[ocirc] at (out) {};
+		\draw[->] ($(out.south)+(0,-0.2)$) -- ++(0,-0.7)
+		node[midway,right] {$U_A$}
+		coordinate (mid);
+		\node[ocirc] (C2) at ($(mid)+(0,-0.2)$) {};
+		\draw (C2.south) -- ++(0,-0.0) node[ground] {};
+
+		% --- Eingänge ---
+		\node[ground] at (A3.+) {};      % nichtinvertierender Eingang
+		\coordinate (nin) at (A3.-);     % invertierender Eingang
+
+		% --- Widerstand R zum Massepunkt ---
+		\coordinate (Rleft) at ($(nin)+(-2.2,0)$);
+		\draw (Rleft) to[R,l={$R$}] (nin);
+		\draw (Rleft) -- ++(0,-2) node[ground] {};
+
+		% --- IK-Knoten über dem invertierenden Eingang ---
+		\coordinate (IkR) at ($(nin)+(0,2.3)$);
+		\draw (nin) -- (IkR);    % senkrechter Abgang vom IK-Knoten zum Eingang
+
+		% --- Zweig zum Ausgang nach oben ---
+		\coordinate (outU) at ($(A3.out)+(0,2.8)$);
+		\draw (A3.out) -- (outU);
+
+		% --- Kondensator C und Schalter S zwischen IK-Knoten und Ausgang ---
+		\draw (IkR) to[C,l_={$C$},*-*] (outU);
+
+		\coordinate (IkRup)  at ($(IkR)+(0,1.2)$);
+		\coordinate (outUup) at ($(outU)+(0,1.2)$);
+		\draw (IkRup) to[ospst,l^={$S$}] (outUup);
+		\draw (IkRup) -- (IkR);
+		\draw (outUup) -- (outU);
+
+		% --- Linkes Netzwerk: RK1, RP, RK2, UK1, UK2 ---
+		% RK1-Zweig
+		\coordinate (RK1top) at ($(Rleft)+(-3.0,0)$);
+		\coordinate (RK1mid) at ($(RK1top)+(0,-2.3)$);
+		\coordinate (RK1bot) at ($(RK1mid)+(0,-1)$);
+
+		\draw (RK1top) to[R,l={$R_{K}$}] (RK1mid);
+		\draw (RK1mid)  to[V,v_={$U_{K}$}] (RK1bot);
+		\node[ground] at (RK1bot) {};
+
+		% RK2-Zweig
+		\coordinate (RK2top) at ($(Rleft)+(-1.0,0)$);
+		\coordinate (RK2mid) at ($(RK2top)+(0,-2.3)$);
+		\coordinate (RK2bot) at ($(RK2mid)+(0,-1)$);
+
+		\draw (RK2top) to[R,l={$R_{K}$}] (RK2mid);
+		\draw (RK2bot)  to[V,v={$U_{K}$}] (RK2mid);
+		\node[ground] at (RK2bot) {};
+
+		% Potentiometer RP zwischen RK1top und RK2top
+		\draw (RK1top) to[variable resistor,l_={$R_P$},*-*] (RK2top);
+		\coordinate (RPmid) at ($(RK1top)!0.5!(RK2top)$);
+
+		% IK-Hauptknoten (oben) und Verbindung zum Potentiometer
+		\coordinate (IkL) at ($(RPmid)+(0,2.3)$);
+		\draw (IkL) -- (RPmid);
+
+		% Verbindung des linken IK-Punkts mit dem rechten (über dem OP)
+		\draw (IkL) -- (IkR);
+
+		% Strompfeile IK1 und IK2
+		\draw[->] ($(RK1top)+(-0.9,0)$) -- ($(RK1top)+(-0.1,0)$)
+		node[midway,above] {$I_{K1}$};
+		\draw[->] ($(RK2top)+(-0.3,0)$) -- ($(RK2top)+(0.5,0)$)
+		node[midway,above] {$I_{K2}$};
+
+		% Hauptstrom IK = I_B,N
+		\draw[->] ($(IkL)+(0.2,0)$) -- ($(IkR)+(-0.2,0)$)
+		node[midway,above] {$I_K = I_{B,N}$};
+
+	\end{circuitikz}
+	\caption{Messschaltung mit kompensierten Biasstrom}
+	\label{fig:ibn-konensatordirftkompensiert}
+\end{figure}
 
 \subsubsection{Messung}
+In Abbildung 5 wird der Verlauf der Ausgangsspannung U A nach Kompensation und möglichst feiner Einstellung des Potentiometers gezeigt. Wie zu erkennen ist, wird der Abgleich zunehmend schwerer, da Störeinflüsse wie Rauschen das Signal am Bildschirm verzerren. Da man in Abb.~\ref{fig:ibn-a1-oszi} sieht, dass $I_{Bn}$ schon sehr klein ist haben wir die kompensation zuerst nur mit $A_3$ vorgenommen. $I_{Bn}$ ist quasi schon kompensiert. In Abb.~\ref{fig:13-ibn-a3-kopmensation} ist $U_a$ vor und nach kompensation vom Kondensatordrift sichtbar.
+
+\begin{figure}[h]
+	\begin{minipage}{0.49\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{oszi/13-IBn-A3-2.Messung.JPG}
+		\caption{$I_{Bn}$ nicht kompensiert}\label{fig:13-ibn-a3-oszi-2.messung}
+	\end{minipage}\hfill
+	\begin{minipage}{0.49\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{oszi/13-ibn-a3-ibn-kompensiert.JPG}
+		\caption{$I_{Bn}$ kompensiert}\label{fig:13-ibn-a3-ibn-kompensiert}
+	\end{minipage}
+	\caption{$U_a$ des Bipolar-OPV $A_3$}\label{fig:13-ibn-a3-kopmensation}
+\end{figure}
 
 \subsubsection{Erkenntnisse}
+Die schaltung behaelt das integrierende verhalten am eingang vor R nachwievor bei, denn die spannungsquellen mit dem spannungsteiler heben einfach nur den biasstrom auf ohne den kondensator zu beeinträchtigen.
 
