@@ -1,11 +1,10 @@
 \newpage
-\subsection{Schaltung mit kompensierten Drift–Kondensatorstrom}\label{sec:1-3}
+\subsection{Schaltung mit kompensiertem Drift- und Kondensatorstrom}\label{sec:1-3}
 \subsubsection{Aufgabenstellung}
 Die Schaltung ist so zu modifizieren, dass der beobachtbare Driftstrom des Kondensators verschwindet. Anschließend ist zu untersuchen, ob die Schaltung trotz dieser Anpassung weiterhin die Eigenschaften eines Integrators aufweist.
-Darüber hinaus ist der Betragsgang der kompensierten Integratorschaltung unter Verwendung eines Operationsverstärkers mit FET-Eingangsstufe aufzunehmen.
 
 \subsubsection{Versuchsaufbau}
-Die verwendete Schaltung wird in Abbildung\ref{fig:ibn-konensatordirftkompensiert} gezeigt. Über die Widerstände $R_K$ und $R_P$ wirken die Stromquellen dem Strom $I_{Bn}$ entgegen. Da $I_{Bn}$ sehr niedrig ist und das Labornetzteil nur auf ca. \SI{100}{\milli\volt} genau ist wird der Strom $I_K$ den hochomigen $R_K$ Widerständen reduziert und mit dem potentiometer $R_P$ exakt so eingestellt, dass der Strom durch den Kondensator = 0. Das sieht man indem die Amplitude von $U_A$ minimal wird.
+Die verwendete Schaltung wird in Abbildung~\ref{fig:ibn-konensatordirftkompensiert} gezeigt. Über die Widerstände $R_K$ und $R_P$ wirken die Stromquellen dem Strom $I_{Bn}$ entgegen. Da $I_{Bn}$ sehr niedrig ist und das Labornetzteil nur auf etwa \SI{100}{\milli\volt} genau ist, wird der Strom $I_K$ durch die hochohmigen $R_K$-Widerstände reduziert und mit dem Potentiometer $R_P$ exakt so eingestellt, dass der Strom durch den Kondensator verschwindet. Dies erkennt man daran, dass die Amplitude von $U_A$ minimal wird.
 
 \begin{figure}[h]
 	\centering
@@ -97,12 +96,12 @@ Die verwendete Schaltung wird in Abbildung\ref{fig:ibn-konensatordirftkompensier
 		node[midway,above] {$I_K = I_{B,N}$};
 
 	\end{circuitikz}
-	\caption{Messschaltung mit kompensierten Biasstrom}
+	\caption{Messschaltung mit kompensiertem Biasstrom}
 	\label{fig:ibn-konensatordirftkompensiert}
 \end{figure}
 
 \subsubsection{Messung}
-In Abbildung 5 wird der Verlauf der Ausgangsspannung U A nach Kompensation und möglichst feiner Einstellung des Potentiometers gezeigt. Wie zu erkennen ist, wird der Abgleich zunehmend schwerer, da Störeinflüsse wie Rauschen das Signal am Bildschirm verzerren. Da man in Abb.~\ref{fig:ibn-a1-oszi} sieht, dass $I_{Bn}$ schon sehr klein ist haben wir die kompensation zuerst nur mit $A_3$ vorgenommen. $I_{Bn}$ ist quasi schon kompensiert. In Abb.~\ref{fig:13-ibn-a3-kopmensation} ist $U_a$ vor und nach kompensation vom Kondensatordrift sichtbar.
+In Abbildung~\ref{fig:13-ibn-a3-kopmensation} wird der Verlauf der Ausgangsspannung $U_A$ nach der Kompensation und möglichst feiner Einstellung des Potentiometers gezeigt. Wie zu erkennen ist, wird der Abgleich zunehmend schwieriger, da Störeinflüsse wie Rauschen das Signal am Bildschirm beeinflussen. Da in Abb.~\ref{fig:ibn-a1-oszi} zu sehen ist, dass $I_{Bn}$ bereits sehr klein ist, wurde die Kompensation zunächst nur mit $A_3$ durchgeführt. $I_{Bn}$ ist dadurch nahezu vollständig kompensiert. In Abb.~\ref{fig:13-ibn-a3-kopmensation} ist $U_A$ vor und nach der Kompensation des Kondensatordrifts sichtbar.
 
 \begin{figure}[h]
 	\begin{minipage}{0.49\textwidth}
@@ -115,9 +114,8 @@ In Abbildung 5 wird der Verlauf der Ausgangsspannung U A nach Kompensation und m
 		\includegraphics[width=1\textwidth]{oszi/13-ibn-a3-ibn-kompensiert.JPG}
 		\caption{$I_{Bn}$ kompensiert}\label{fig:13-ibn-a3-ibn-kompensiert}
 	\end{minipage}
-	\caption{$U_a$ des Bipolar-OPV $A_3$}\label{fig:13-ibn-a3-kopmensation}
+	\caption{$U_A$ des Bipolar-OPV $A_3$}\label{fig:13-ibn-a3-kopmensation}
 \end{figure}
 
 \subsubsection{Erkenntnisse}
-Die schaltung behaelt das integrierende verhalten am eingang vor R nachwievor bei, denn die spannungsquellen mit dem spannungsteiler heben einfach nur den biasstrom auf ohne den kondensator zu beeinträchtigen.
-
+Die Schaltung behält das integrierende Verhalten am Eingang vor dem Widerstand $R$ weiterhin bei, denn die Spannungsquellen mit dem Spannungsteiler heben lediglich den Biasstrom auf, ohne den Kondensator zu beeinflussen.
