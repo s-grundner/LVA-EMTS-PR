@@ -2,7 +2,7 @@
 
 \subsection{Aufgabenstellung}
 
-Es wird ein Instrumentenverstärker (INA) gemäß \autoref{fig:41_schaltplan} aufgebaut und so Dimensioniert, dass mittels dem Potentiometer $R_P$ eine Spannungsverstärkung im Intervall $V_u \in [2.0, 2000]\si{\volt}$ eingestellt werden kann. Am Eingang soll eine Messbrücke angeschlossen werden, welche zwei an einem Balken angebrachten Dehnmessstreifen (DMS) betriebt. Die Hilfsspannug der Brücke soll dabei \SI{3}{\volt} betragen. Die OPVs sind intern mit \SI{12}{\volt} versorgt. Die Verstärkung soll mit $R_P$ im Endeffekt so eingestellt werden, dass eine Empfindlichkeit von \SI{100}{\milli\volt\per\newton} erreicht wird.
+Es wird ein Instrumentenverstärker (INA) gemäß \autoref{fig:41_schaltplan} aufgebaut und so Dimensioniert, dass mittels dem Potentiometer $R_P$ eine Spannungsverstärkung im Intervall $V_u \in [2.0, 2000]\si{\volt}$ eingestellt werden kann. Am Eingang soll eine Messbrücke angeschlossen werden, welche zwei an einem Balken angebrachten Dehnmessstreifen (DMS) betreibt. Die Hilfsspannug der Brücke soll dabei \SI{3}{\volt} betragen. Die OPVs sind intern mit \SI{12}{\volt} versorgt. Die Verstärkung soll mit $R_P$ im Endeffekt so eingestellt werden, dass eine Empfindlichkeit von \SI{100}{\milli\volt\per\newton} erreicht wird.
 
 \subsection{Versuchsaufbau}
 
@@ -67,10 +67,10 @@ Für den Instrumentenverstärker ist die Ausgangsspannung durch die Gleichung \c
 \[
 	U_A = \frac{R_3}{R_4}\left(1+\frac{2R_1}{R_P}\right) (U_1 - U_2)
 \]
-gegeben. Um die Differenz gleichmäßig zu verstärken, werden die Widerstände $R_2$ und $R_3$ auf den gleichen Wert gewählt. Es wird $R_2 = R_3 = \SI{1}{\kilo\ohm}$ gewählt. Für $R_2$ wurden die günstig auf dem Messverstärkerbrett platzierten Werte $R_1 = \SI{10}{\kilo\ohm}$. Damit ergibt sich für die Verstärkung
-\[
-	V_u = \frac{U_A}{U_1 - U_2} = 1 + \frac{2 \cdot \SI{10}{\kilo\ohm}}{R_P} = 1 + \frac{\SI{20}{\kilo\ohm}}{R_P}.
-\]
+gegeben. Um die Differenz gleichmäßig zu verstärken, werden die Widerstände $R_2$ und $R_3$ auf den gleichen Wert gewählt. Es wird $R_2 = R_3 = \SI{1}{\kilo\ohm}$ gewählt. Für $R_2$ wurden die günstig auf dem Messverstärkerbrett platzierten Widerstände mit $R_1 = \SI{10}{\kilo\ohm}$ gewählt. Damit ergibt sich für die Verstärkung
+\begin{equation}
+	V_u = \frac{U_A}{U_1 - U_2} = 1 + \frac{2 \cdot \SI{10}{\kilo\ohm}}{R_P} = 1 + \frac{\SI{20}{\kilo\ohm}}{R_P}\label{eq:vu}
+\end{equation}
 
 Nun werden die Intervallgrenzen für $R_P$ bestimmt:
 \begin{itemize}[noitemsep]
@@ -80,30 +80,57 @@ Nun werden die Intervallgrenzen für $R_P$ bestimmt:
 
 Der ungedehnte DMS weist einen Widerstand von $R=\SI{120}{\ohm}$ auf. Um die maximale Empfindlichkeit der Brücke zu erreichen, werden alle Widerstände $R=\SI{120}{\ohm}$ gewählt. Im Anschluss wird die Brücke an einem der Widerstände $R$ abgeglichen. Dazu wurde eine externe Widerstandsdekade verwendet.
 
-
-
 \subsubsection{Statische Eigenschaften}
 
-\paragraph{Abgleichen der Offsetspannung} Zunächst wurde festgestellt, dass der Instrumenten bei einer Eingangsdifferenzspannung von $U_{in} = 0\si{\volt}$ sofort in die Sättigung geht. Als erstes wurde grob mit den Trimpotentiometern der beiden Eingangs FET-OPs (A1, A2) die Offsetspannung eingestellt. Danach wurde fein mit dem Trimpotentiometer des Ausgangs OP (A3) die Offsetspannung auf nahezu $0\si{\volt}$ eingestellt.
+\paragraph{Abgleichen der Offsetspannung} Im vorhinein wurde für alle OPs eine nicht invertierende Verstärker Schaltung aufgebaut und die Trimpotentiometer so eingestellt, dass am Ausgang ca. \SI{0}{\volt} gemessen wurde. Nach dem Aufbau des INA wurden dann beide Eingänge auf Masse gelegt und am Subtrahierer OP (A3) nocheinmal fein nachgetrimmt.
 
-Am Ausgang wurden dann $U_{A0} = \SI{0.10}{\micro\volt}$ festgestellt. 
+Am Ausgang wurden dann $U_{A0} = \SI{0.10}{\milli\volt}$ festgestellt. 
 
 \paragraph{Differenzspannungsverstärkung} Für die Differenzenspannug wurde mit dem Labornetzteil an $U_1=\SI{0.5}{\volt}$ und an $U_2=\SI{-0.5}{\volt}$ eingestellt, um eine Differenzspannung von $U_{0}=\SI{1}{\volt}$ zu erhalten. Am Ausgang wurde dann eine Spannung von $U_A = \SI{9.29}{\volt}$ gemessen. Daraus ergibt sich eine Differenzverstärkung von
-\[A_D=\frac{U_A}{U_0} = 9.29,\]
-für den Widerstandsstellwert $R_P = \SI{1}{\ohm}$.
+\[A_D=\frac{U_A}{U_0} = 9.29\]
+für den Widerstandsstellwert $R_P = \SI{47}{\ohm}$.
 
-\paragraph{Gleichtaktverstärkung} Zur Bestimmung der Gleichtaktverstärkung wurden beide Eingänge auf $U_1 = U_2 = \SI{1}{\volt}$ gesetzt. Am Ausgang wurde eine Spannung von $U_A = \SI{0.12}{\milli\volt}$ gemessen. Daraus ergibt sich eine Gleichtaktverstärkung von
-\[A_G = \frac{U_A}{U_1} = \SI{120e-6}{}.\]
+\paragraph{Gleichtaktverstärkung} Zur Bestimmung der Gleichtaktverstärkung wurden beide Eingänge auf $U_1 = U_2 = \SI{1}{\volt}$ gesetzt. Am Ausgang wurde eine Spannung von $U_A = \SI{0.60}{\milli\volt}$ gemessen. Daraus ergibt sich eine Gleichtaktverstärkung von
+\[A_G = \frac{U_A}{U_1} = \SI{600e-6}{}\]
 
 \paragraph{Gleichtaktunterdrückung} Setzt man die beiden Verstärkungen ins Verhältnis, so ergibt sich eine Gleichtaktunterdrückung
 \[
-	G_U = 20 \cdot \lg\left(\frac{A_D}{A_G}\right) = \SI{97.75}{\decibel}.
+	G_U = 20 \cdot \lg\left(\frac{A_D}{A_G}\right) = \SI{83.75}{\decibel}.
 \]
 
+\subsection{Einstellung der Empfindlichkeit}
+
+Damit die Änderungen kontinuierlich ablesbar sind, wurde der Ausgang des INA auf einen Kanal am Oszilloskop angeschlossen. Interessant war, dass man dort auch die Schwingung des Balkens beobachten konnte, wenn man ihn anzieht und loslässt.
+
+Für die Einstellung der Empfindlichkeit wurde mit einer Federwaage mit \SI{10}{\newton} am Ende des Balken angezogen und das Potentiometer verstellt, bis ca. \SI{1}{\volt} am Oszilloskop angezeigt wurden. Der Stellwert des Potentiometer ist in diesem Fall $R_P=\SI{47}{\ohm}$. Durch die Abstufung des Potentiometers wird jedoch eine abweichung zum theoretischen Wert erwartet. Die Eingestellte Verstärkung ist dadurch
+\[
+	V_u = 1 + \frac{\SI{20}{\kilo\ohm}}{\SI{47}{\ohm}} = 427
+\]
+Zur Überprüfung wird in \cite[S.~92, Gl.~4.32]{EMTPraktikum2025} eingesetzt.
+\[
+U_0 = -U_H \frac{3kl}{Ebd^{2}}F
+\]
+Dabei sind die Daten des Biegebalken:
+\begin{itemize}[noitemsep]
+	\item Elastizitätsmodul: $E = \SI{2.05e11}{\newton\per\meter\squared}$
+	\item $l = \SI{350}{\milli\meter}$, $b = \SI{25}{\milli\meter}$, $d = \SI{2} {\milli\meter}$, $k \approx 2$
+	\item $F = -\SI{10}{\newton}$ (Der Balken wurde in die negative Richtung angezogen da der Ablesewert der Spannung positiv war)
+\end{itemize}
+
+Setzt man ein, erhält man das Ergebnis $U_0 = \SI{3.08}{\milli\volt}$. Verstärkt ergibt das $U_A = \SI{1.31}{\volt}$. Man erkennt, dass die Abstufung des Potentiometers zu einer Abweichung geführt hat. Man kann den Wert mit der Folgenden Einstellung exakt erzielen:
+\[
+V_{\mathrm{korr}}=\frac{U_A}{U_E} = \frac{\SI{1}{\volt}}{\SI{3.08}{\milli\volt}} = 324.7
+\]
+Eingesetzt in \autoref{eq:vu} ist der äquivalente Potentiometerwiderstand $R_P=\SI{61}{\ohm}$.
+
 \subsection{Erkenntnisse}
-
-
 
 \begin{highlightblock}
 Es ist dringend zu beachten, dass das Stufenpotenziometer der Messbrücke am Brückenwiderstand $R_2$ zum eigentlichen Anzeigewert um \textbf{4 Stufen} verstellt ist.
 \end{highlightblock}
+
+Bei der Differenzspannung wurde im nachhinein festgestellt, dass die gemessene Spannung dem Sättigungswert entspricht und es hätte eine geringere Differenzspannung eingestellt werden sollen. Man sieht aber trotzdem, dass das CMRR wegen dem hohen Eingangswiderstand der Elektrometer Rückkopplung sehr hoch ist. Jedoch ist trotzdem zu vermuten, dass das eigentliche CMRR viel größer ist.
+
+Hätte man außerdem statt dem Abgestuften Potentiometer $R_P$ eine Widerstandsdekade eingesetzt, hätte man die exakte Empfindlichkeit erreichen können.
+
+Ein Temperatur drift konnte kurzfristig nicht erkannt werden.
