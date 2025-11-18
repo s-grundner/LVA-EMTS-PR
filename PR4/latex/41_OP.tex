@@ -1,0 +1,84 @@
+\section{Instrumentenverstärker}\label{sec:5}
+
+\subsection{Aufgabenstellung}
+
+Es wird ein Instrumentenverstärker entworfen der mittels dem Potentiometer $R_P$ eine Spannungsverstärkung im Intervall $V_u \in [2.0, 2000]\si{\volt}$. Am Eingang soll eine Messbrücke angeschlossen werden, welche zwei an einem Balken angebrachten Dehnmessstreifen betriebt. Die Hilfsspannug der Brücke soll dabei \SI{3}{\volt} betragen. Die OPVs sind intern mit \SI{12}{\volt} versorgt.
+
+\subsection{Versuchsaufbau}
+
+\begin{figure}[h]
+	\centering
+	\begin{circuitikz}[scale=0.9, transform shape]
+		% --- Messbrücke ---
+		\newcommand{\wireSep}{2}
+		\newcommand{\bridgeSep}{2}
+		\coordinate (bridgeLeft) at (0,0);
+		\coordinate (bridgeRight) at (\bridgeSep,0);
+
+		\draw (bridgeLeft) node[vcc]{$U_H$}
+			to[R, l_=$R + \Delta R$,-*] ++(0,-2) coordinate(U01)
+			-- ++(0, -\wireSep)
+			to[R, l_=$R - \Delta R$] ++(0,-2) node[ground]{};
+		\draw (bridgeRight) node[vcc]{$U_H$}
+			to[R, l_=$R$] ++(0,-2)
+			-- ++(0, -\wireSep) coordinate(U02)
+			to[R, l_=$R$, *-] ++(0,-2) node[ground]{};
+
+		% --- Eingangs OPVs ---
+		\draw (U01)
+			-| ++(3, 2) node[anchor=south](U1){$U_1$}
+			-- ++(1,0) node[op amp, noinv input up, anchor=+] (A1){$A_1$};
+		\draw (U02)
+			-| ++(3-\bridgeSep, -2) node[anchor=north](U2){$U_2$}
+			-- ++(1,0) node[op amp, anchor=+] (A2){$A_2$};
+
+		\draw (U1 |- U01) to[open, v=$U_0$, o-o] (U2 |- U02);
+
+		%% -- Widerstands Netzwerk --
+		\draw (A1.out)
+			to[R, l_=$R_1$,*-*] (A2.out |- U01)
+			to[vR, l_=$R_P$, name=P] (A2.out |- U02)
+			to[R, l_=$R_1$,*-*] (A2.out);
+		\draw (P.wiper) to[short, -*] (P.wiper |- U01);
+		\draw (A1.-) |- (A1.out |- U01);
+		\draw (A2.-) |- (A2.out |- U02);
+		
+		% -- Subtrahierer --
+		\coordinate (mid) at ($(A1.out)!0.5!(A2.out)$);
+		\draw (A1.out)
+			to[R, l=$R_{2}$, -*] ++(3,0) coordinate(sub1)
+			to[R, l=$R_{2}$] ++(3,0) coordinate(subOut);
+		\coordinate (A3mid) at ($(sub1)!0.5!(subOut)$);
+		\draw (A3mid |- mid) node[op amp] (A3){$A_3$} (A3.out) -| (subOut);
+		\draw (A2.out)
+			to[R, l=$R_{2}$, -*] ++(3,0) coordinate(sub2) 
+			to[R, l=$R_{2}$] ++(3,0) node[ground]{};
+		\draw (sub1) |- (A3.-);
+		\draw (sub2) |- (A3.+);
+		\draw (A3.out -| subOut) to[short, *-o] ++(1,0) node[anchor=west]{$U_A$} coordinate(out);
+
+	\end{circuitikz}
+	\caption{Messaufbau des INA}\label{fig:41_schaltplan}
+\end{figure}
+
+\subsection{Dimensionierung}
+
+Der ungedehnte DMS weist einen Widerstand von $R=\SI{120}{\ohm}$ auf. Um die maximale Empfindlichkeit der Brücke zu erreichen, werden alle Widerstände $R=\SI{120}{\ohm}$ gewählt. Im Anschluss wird die Brücke an einem der Widerstände $R$ abgeglichen. Dazu wurde eine externe Widerstandsdekade verwendet.
+
+\subsubsection{Statische Eigenschaften}
+
+\paragraph{Abgleichen der Offsetspannung} Zunächst wurde festgestellt, dass der Instrumenten bei einer Eingangsdifferenzspannung von $U_{in} = 0\si{\volt}$ sofort in die Sättigung geht. Als erstes wurde grob mit den Trimpotentiometern der beiden Eingangs FET-OPs (A1, A2) die Offsetspannung eingestellt. Danach wurde fein mit dem Trimpotentiometer des Ausgangs OP (A3) die Offsetspannung auf nahezu $0\si{\volt}$ eingestellt.
+
+Am Ausgang wurden dann $U_{A0} = \SI{0.10}{\micro\volt}$ festgestellt. 
+
+\paragraph{Differenzspannungsverstärkung} Für die Differenzenspannug wurde mit dem Labornetzteil an $U_1=\SI{0.5}{\volt}$ und an $U_2=\SI{-0.5}{\volt}$ eingestellt, um eine Differenzspannung von $U_{0}=\SI{1}{\volt}$ zu erhalten. Am Ausgang wurde dann eine Spannung von $U_A = \SI{9.29}{\volt}$ gemessen. Daraus ergibt sich eine Differenzverstärkung von $A_D=\frac{U_A}{U_0} = 9.29$, für den Widerstandsstellwert $R_P = \SI{1}{\ohm}$.
+
+\paragraph{Gleichtaktverstärkung}
+
+\paragraph{Gleichtaktunterdrückung}
+
+\subsection{Erkenntnisse}
+
+\begin{highlightblock}
+Es ist dringend zu beachten, dass das Stufenpotenziometer der Messbrücke am Brückenwiderstand $R_2$ zum eigentlichen Anzeigewert um \textbf{4 Stufen} verstellt ist.
+\end{highlightblock}

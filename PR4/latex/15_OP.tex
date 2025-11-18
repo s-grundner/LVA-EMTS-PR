@@ -59,13 +59,11 @@ Die Umsetzung erfolgt mittels einer Integratorschaltung, bei der der Fotostrom d
 \subsubsection{Berechnungen}
 
 Die Filmempfindlichkeit von \SI{21}{DIN} lässt sich über die Beziehung
-
 \begin{equation}
 	E_{\mathrm{DIN}} = 10 \log \left( \frac{B_0}{B_M} \right)
 \end{equation}
 
 in die zur Belichtung benötigte Belichtungsmenge \(B_M\) umrechnen. Mit der sensitometrischen Konstante \(B_0 = \SI{1}{\lux\second}\) ergibt sich:
-
 \begin{gather}
 	10^{E_{\mathrm{DIN}}/10}
 	= \frac{B_0}{B_M}        \\
@@ -74,29 +72,24 @@ in die zur Belichtung benötigte Belichtungsmenge \(B_M\) umrechnen. Mit der sen
 \end{gather}
 
 Während einer Integrationszeit \(\Delta t\) ergibt sich daraus eine mittlere Beleuchtungsstärke
-
 \begin{equation}
 	E_V = \frac{B_M}{\Delta t}.
 \end{equation}
 
 Unter Berücksichtigung der Fotodiodenempfindlichkeit \(E_D\) folgt für den erzeugten Diodenstrom:
-
 \begin{equation}
 	I_D = E_D \cdot E_V = \frac{E_D B_M}{\Delta t}.
 \end{equation}
 
 Für den Integrator gilt aufgrund des Zusammenhangs zwischen Kondensatorstrom und Spannung:
-
 \begin{equation}
 	I_D = C \frac{dU_A}{dt}.
 \end{equation}
 
 Integration über die Dauer \(\Delta t\) ergibt:
-
-\begin{align}
-	U_A & = \frac{1}{C} \int_0^{\Delta t} I_D\, d\tau \\
-	    & = \frac{E_D B_M}{C}.
-\end{align}
+\begin{equation}
+	U_A = \frac{1}{C} \int_0^{\Delta t} I_D\, d\tau = \frac{E_D B_M}{C}.
+\end{equation}
 
 Durch Einsetzen der gewünschten Abschaltspannung \(U_A = \SI{10}{\volt}\) lässt sich die benötigte Kapazität bestimmen:
 

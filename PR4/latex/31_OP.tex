@@ -19,11 +19,11 @@ Für den Aufbau wurden die Verfügbaren Komponenten am Messverstärkerbrett verw
 
 Die Funktion der Schaltung ist zum einen, den Betrag des Eingangssignals zu bilden.
 
-Ein Umkehrsummierer bildet die negative Summe der Eingangsspannung $U_1$ und der Spannung an Punkt $P$ in \autoref{fig:30_schaltung}. Dabei ist der Widerstand $R_2$ am Punkt $P$ halb so groß wie die Restliche Beschaltung mit $2R_2$ des Umkehrsummierers, sodass durch den größeren Strom diese Spannung doppelt gewichtet wird. (Vergleiche \cite[S.~80. Gl.~4.1]{EMTPraktikum2025})
+Ein Umkehrsummierer (OP2) bildet die negative Summe der Eingangsspannung $U_1$ und der Spannung an Punkt $P$ in \autoref{fig:30_schaltung}. Dabei ist der Widerstand $R_2$ am Punkt $P$ halb so groß wie die Restliche Beschaltung mit $2R_2$ des Umkehrsummierers, sodass durch den größeren Strom diese Spannung doppelt gewichtet wird. (Vergleiche \cite[S.~80. Gl.~4.1]{EMTPraktikum2025})
 \begin{equation}
 U_\mathrm{A} = -\left(\frac{2R_2}{2R_2}U_1 + \frac{2R_2}{R_2}U_P\right) = -\left(U_1 + 2U_P\right) = \lvert U_1\rvert\label{eq:30_betrag}
 \end{equation}
-OP 1 dient als invertierender Verstärker. Die Dioden verursachen eine Fallunterscheidung.
+OP1 dient als invertierender Verstärker. Die Dioden verursachen eine Fallunterscheidung.
 \begin{itemize}[noitemsep]
 	\item Ist $U_1 < 0$, so leitet $D_2$ und $D_1$ sperrt. Dadurch liegt Punkt $P$ auf \SI{0}{\volt}.
 	\item Ist $U_1 > 0$, so leitet $D_1$ und $D_2$ sperrt. Dadurch liegt Punkt $P$ auf $-U_1$.
