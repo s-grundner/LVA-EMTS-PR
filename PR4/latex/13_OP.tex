@@ -60,8 +60,8 @@ Die verwendete Schaltung wird in Abbildung~\ref{fig:ibn-konensatordirftkompensie
 		\coordinate (RK1mid) at ($(RK1top)+(0,-2.3)$);
 		\coordinate (RK1bot) at ($(RK1mid)+(0,-1)$);
 
-		\draw (RK1top) to[R,l={$R_{K}$}] (RK1mid);
-		\draw (RK1mid)  to[V,v_={$U_{K}$}] (RK1bot);
+		\draw (RK1top) to[R,l={$R_{K}$}, i<^=$I_{K1}$] (RK1mid);
+		\draw (RK1mid) to[V,v_={$U_{K}$}] (RK1bot);
 		\node[ground] at (RK1bot) {};
 
 		% RK2-Zweig
@@ -69,30 +69,16 @@ Die verwendete Schaltung wird in Abbildung~\ref{fig:ibn-konensatordirftkompensie
 		\coordinate (RK2mid) at ($(RK2top)+(0,-2.3)$);
 		\coordinate (RK2bot) at ($(RK2mid)+(0,-1)$);
 
-		\draw (RK2top) to[R,l={$R_{K}$}] (RK2mid);
+		\draw (RK2top) to[R,l={$R_{K}$},i^=$I_{K2}$] (RK2mid);
 		\draw (RK2bot)  to[V,v={$U_{K}$}] (RK2mid);
 		\node[ground] at (RK2bot) {};
 
 		% Potentiometer RP zwischen RK1top und RK2top
-		\draw (RK1top) to[variable resistor,l_={$R_P$},*-*] (RK2top);
+		\draw (RK2top) to[vR,l_={$R_P$}, name=P] (RK1top);
 		\coordinate (RPmid) at ($(RK1top)!0.5!(RK2top)$);
 
 		% IK-Hauptknoten (oben) und Verbindung zum Potentiometer
-		\coordinate (IkL) at ($(RPmid)+(0,2.3)$);
-		\draw (IkL) -- (RPmid);
-
-		% Verbindung des linken IK-Punkts mit dem rechten (über dem OP)
-		\draw (IkL) -- (IkR);
-
-		% Strompfeile IK1 und IK2
-		\draw[->] ($(RK1top)+(-0.9,0)$) -- ($(RK1top)+(-0.1,0)$)
-		node[midway,above] {$I_{K1}$};
-		\draw[->] ($(RK2top)+(-0.3,0)$) -- ($(RK2top)+(0.5,0)$)
-		node[midway,above] {$I_{K2}$};
-
-		% Hauptstrom IK = I_B,N
-		\draw[->] ($(IkL)+(0.2,0)$) -- ($(IkR)+(-0.2,0)$)
-		node[midway,above] {$I_K = I_{B,N}$};
+		\draw (P.wiper) -- (P.wiper |- IkR) to[short, i=$I_K\equiv I_{B,N}$] (IkR);
 
 	\end{circuitikz}
 	\caption{Messschaltung mit kompensiertem Biasstrom}
