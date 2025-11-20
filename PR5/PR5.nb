@@ -1,0 +1,130 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[      4388,        122]
+NotebookOptionsPosition[      3724,        103]
+NotebookOutlinePosition[      4123,        119]
+CellTagsIndexPosition[      4080,        116]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["Ripple spannung berechnen", "Text",
+ CellChangeTimes->{{3.97262117376254*^9, 
+  3.972621181739259*^9}},ExpressionUUID->"7ffe0ce3-7fda-4bcb-b1cd-\
+889c848faab2"],
+
+Cell[BoxData[
+ RowBox[{"Clear", "[", 
+  RowBox[{"ub", ",", " ", "ton", ",", " ", "toff", ",", " ", "\[Tau]"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.972620131667445*^9, 3.972620154823072*^9}, {
+   3.972620263033353*^9, 3.972620287069165*^9}, 
+   3.972621168546274*^9},ExpressionUUID->"76ae2be8-646f-45c1-b80a-\
+6db826c33437"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"uRipple", "[", 
+   RowBox[{"ub_", ",", " ", "ton_", ",", "toff_", ",", " ", "\[Tau]_"}], 
+   "]"}], ":=", " ", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"eon", ",", " ", "eoff", ",", " ", "num", ",", " ", "den"}], 
+     "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"eon", " ", "=", " ", 
+      RowBox[{"ton", "/", "\[Tau]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"eoff", " ", "=", " ", 
+      RowBox[{"toff", " ", "/", " ", "\[Tau]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"num", " ", "=", " ", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"Exp", "[", "eoff", "]"}], "-", "1"}], ")"}], "*", 
+       RowBox[{"(", 
+        RowBox[{"1", "-", 
+         RowBox[{"Exp", "[", 
+          RowBox[{"-", "eon"}], "]"}]}], ")"}]}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"den", " ", "=", " ", 
+      RowBox[{
+       RowBox[{"Exp", "[", "eoff", "]"}], "-", 
+       RowBox[{"Exp", "[", 
+        RowBox[{"-", "eon"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"ub", "*", 
+      RowBox[{"num", "/", "den"}]}]}]}], "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"trefl", " ", "=", " ", 
+   RowBox[{"600", "*", 
+    RowBox[{"10", "^", 
+     RowBox[{"(", 
+      RowBox[{"-", "3"}], ")"}]}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ton", " ", "=", " ", 
+   RowBox[{"10", "*", 
+    RowBox[{"10", "^", 
+     RowBox[{"(", 
+      RowBox[{"-", "3"}], ")"}]}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"toff", " ", "=", " ", 
+   RowBox[{"trefl", " ", "-", " ", "ton"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"NSolve", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"uRipple", "[", 
+     RowBox[{"5", ",", "ton", ",", " ", "toff", ",", "\[Tau]"}], "]"}], "==", 
+    "0.2"}], ",", "\[Tau]"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.972620236037197*^9, 3.972620387165175*^9}, {
+  3.9726205258475857`*^9, 3.972620526625246*^9}, {3.972620692936075*^9, 
+  3.972620699383643*^9}, {3.9726207326530523`*^9, 3.972620864857778*^9}, {
+  3.972620958981317*^9, 3.972621026355607*^9}, {3.9726210665480433`*^9, 
+  3.9726210801049023`*^9}, {3.9726211159388638`*^9, 3.972621149005423*^9}, {
+  3.9726211858412333`*^9, 3.9726212070538797`*^9}, {3.972621282983786*^9, 
+  3.972621294554554*^9}, {3.972621352320484*^9, 3.972621355480681*^9}},
+ CellLabel->"In[6]:=",ExpressionUUID->"5711ddfe-2398-47f0-a668-43d4dc4bc184"],
+
+Cell[BoxData["$Aborted"], "Output",
+ CellChangeTimes->{3.972621615256853*^9},
+ CellLabel->"Out[10]=",ExpressionUUID->"1033c827-510b-4dd1-8a15-fdc9fdb03dd5"]
+}, Open  ]]
+},
+WindowSize->{720, 363.75},
+WindowMargins->{{-64.5, Automatic}, {Automatic, -810}},
+FrontEndVersion->"14.2 for Linux x86 (64-bit) (March 16, 2025)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"2f1ca7b1-44e9-471f-a60e-f9ad68c5b2e4"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[554, 20, 166, 3, 33, "Text",ExpressionUUID->"7ffe0ce3-7fda-4bcb-b1cd-889c848faab2"],
+Cell[723, 25, 329, 7, 30, "Input",ExpressionUUID->"76ae2be8-646f-45c1-b80a-6db826c33437"],
+Cell[CellGroupData[{
+Cell[1077, 36, 2472, 60, 249, "Input",ExpressionUUID->"5711ddfe-2398-47f0-a668-43d4dc4bc184"],
+Cell[3552, 98, 156, 2, 33, "Output",ExpressionUUID->"1033c827-510b-4dd1-8a15-fdc9fdb03dd5"]
+}, Open  ]]
+}
+]
+*)
+
