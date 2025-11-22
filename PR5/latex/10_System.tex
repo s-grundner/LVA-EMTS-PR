@@ -1,0 +1,87 @@
+\newpage
+\section{Gesamtsystem}
+
+Das Gesamtsystem des geschlossenen Regelkreises kann wie in \autoref{fig:gesamtsystem} dargestellt werden. Dabei stellt der Leistungsverstärker das Gerät aus \autoref{tab:geraeteliste} Pos. 5 mit dem Verstärkungsfaktor $5$ dar. Der Prüfstand aus \autoref{tab:geraeteliste} Pos. 6 wird durch die Blöcke $G_1(s)$ und $G_2(s)$ Modelliert sowie dem eingebauten Tachogenerator mit dem Faktor $k_3$. Der PI-Regler wurde in \autoref{sec:reglerentwurf} ausgelegt und zunächst umgangen.
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[auto,>=latex', transform shape, scale=0.8]
+
+	% Creating Blocks and Connection Nodes
+	% Styles defined in main-report.tex
+	\node at (0,0) (input) {};
+	\node [sum, right of=input, node distance=2cm] (s1) {$+$};
+	\node [block, right of=s1, node distance=2cm] (regler) {$R(s)$};
+	\node [factor, right of=regler] (k1) {$5$};
+	\node [block, right of=k1] (motor) {$G_1(s)$};
+	\node [block, above of=motor, node distance=2cm] (stoer) {$G_2(s)$};
+	\node [sum, right of=motor, node distance=2cm] (s2) {$+$};
+	\node [factor, right of=s2, node distance=2cm] (tacho) {$k_3$};
+
+	% Annotations
+	\node [below left=0pt of s1] {$-$};
+	\node [above left=0pt of s1] {$+$};
+	\node [below=9pt of regler] {PI-Regler};
+	\node [below=9pt of k1, text width=3cm, align=center] {Leistungs-verstärker};
+	\node [below=9pt of motor, text width=3cm, align=center] {Motorüber-tragungsfunktion};
+	\node [above=9pt of stoer, text width=3cm, align=center] {Störgrößenüber-tragungsfunktion};
+	\node [below=9pt of tacho, text width=3cm, align=center] {Tachogenerator};
+
+	% Connecting Blocks
+	\begin{scope}[line width=1pt]
+		\draw[->] (input) node[midway]{$u_\text{soll}(s)$} -- (s1);
+		\draw[->] (s1) -- (regler);
+		\draw[->] (regler) -- (k1) node[midway,above]{$u_\text{stell}(s)$};
+		\draw[->] (k1) -- (motor) node[midway,above]{$u_\text{A}(s)$};
+		\draw[->] (motor) -- (s2) node[midway,above]{$\tilde{n}(s)$};
+		\draw[->] (s2) -- (tacho) node[midway,above]{$n_\text{ist}(s)$};
+		\draw[->] (k1 |- stoer) -- (stoer) node[midway,above]{$M_\text{L}(s)$};
+		\draw[->] (stoer) -| (s2) node[midway,above]{$n_\text{stör}(s)$};
+		\draw[->] (tacho) -- ++(2,0) node[midway]{$u_\text{ist}(s)$} -- ++(0,-3) -| (s1);
+	\end{scope}
+	\end{tikzpicture}
+	\caption{Blockschaltbild des geschlossenen Regelkreises}\label{fig:gesamtsystem}
+\end{figure}
+
+\subsection{Aufgabenstellung}
+
+Zuerst soll der $k_3$-Faktor des Tachogenerators bestimmt werden. Dazu wird der Motor mit unterschiedlichen Stellspannungen angesteuert und im stationären Zustand die jeweilige Drehzahl mit einem induktiv Sensor gemeinsam mit der Tachospannung gemessen und in Verhältnis gesetzt. Für die Stellspannung muss beachtet werden, dass die Ankerspannung $u_\mathrm{A}$ niemals $\pm\SI{24}{\volt}$ überschreiten darf.
+
+Anschließend wird der Proportionalitätsfaktor $K_{Si}$ und die Zeitkonstante $T_a$ des Gesamtsystems ermittelt. Dazu wird die Sprungantwort des Systems aufgenommen, indem mit einem Funktionsgenerator eine niederfrequente Rechteckspannung mit $U_\mathrm{pp} = \SI{4}{\volt}$, $U_\mathrm{ofs} = \SI{2}{\volt}$ und einer Periodendauer von $T=\SI{5}{\second}$ als $u_\text{soll}(s)$ an den Leistungsverstärker angelegt wird. Der Verlauf der Tachospannung $u_\text{ist}(s)$ wird dann mit dem Oszilloskop aufgezeichnet.
+
+\subsection{Drehzahlmessung mit induktivem Sensor}
+
+\subsection{Bestimmung des Tachofaktors}
+
+\subsection{Bestimmung der Systemparameter}
+
+Zunächst wird das System des leerlaufenden Motors ohne Regler und externe Störeinflüssen betrachtet.
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[auto,>=latex', transform shape, scale=0.8]
+
+	%Creating Blocks and Connection Nodes
+	\node at (0,0) (input) {};
+	\node [factor, right of=input,node distance=2cm] (k1) {$5$};
+	\node [block, right of=k1] (motor) {$G_1(s)$};
+	\node [factor, right of=motor] (tacho) {$k_3$};
+
+	%Connecting Blocks
+	\begin{scope}[line width=1pt]
+		\draw[->] (input) node[midway,above right]{$u_\text{soll}(s)$} -- (k1);
+		\draw[->] (k1) -- (motor) node[midway,above]{$u_\text{A}(s)$};
+		\draw[->] (motor) -- (tacho) node[midway,above]{$n(s)$};
+		\draw[->] (tacho) -- ++(2,0) node[midway]{$u_\text{ist}(s)$};
+	\end{scope}
+	\end{tikzpicture}
+	\caption{Blockschaltbild des vereinfachten Systems}\label{fig:vereinfachtes-system}
+\end{figure}
+
+Dabei lautet die Übertragungsfunktion des Gesamtsystems der offenen Regelstrecke, angenähert als PT1-Glied~\cite[S.~129, Gl.~6.9]{EMTPraktikum2025}.
+\begin{equation}
+G(s) = 5\cdot G(s)\cdot k_3 = \frac{u_\text{ist}}{u_\text{soll}(s)} = \frac{K_{Si}}{1+T_a s}\label{eq:gesamt-sys}
+\end{equation}
+\subsubsection{Erkenntnisse}
+
+Die Eingebauten BNC-Anschlüsse am Motorprüfstand sind defekt.

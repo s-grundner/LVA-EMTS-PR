@@ -7,3 +7,4 @@ matplot2tikz
 ipykernel
 notebook
 jinja2
+scipy

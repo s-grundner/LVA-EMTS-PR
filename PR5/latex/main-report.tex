@@ -62,10 +62,23 @@
 \tikzset{ni/.style={rmeterwa, t=\textbf{NI}}}
 \tikzset{ai/.style={rmeterwa, t=\textbf{AI}}}
 
+% Control System Blocks
+\tikzset{
+	block/.style={draw, shape=rectangle, minimum height=3em, minimum width=3em, node distance=3cm, line width=1pt},
+	factor/.style={
+		draw, shape=isosceles triangle, isosceles triangle stretches,
+		minimum height=3em, minimum width=4em,
+		node distance=3cm, line width=1pt, inner sep=2pt},
+	sum/.style={draw, shape=circle, node distance=1.5cm, line width=1pt, minimum width=1.25em, node distance=3cm},
+	branch/.style={fill,shape=circle,minimum size=4pt,inner sep=0pt}
+}
+
 \usepackage{pgfplots}
 \DeclareUnicodeCharacter{2212}{−}
 \usepgfplotslibrary{groupplots,dateplot}
-\usetikzlibrary{patterns,shapes.arrows}
+\usetikzlibrary{patterns,shapes,arrows,positioning}
+\usetikzlibrary{shapes.arrows,shapes.geometric}
+
 \pgfplotsset{compat=newest}
 
 \newcommand\myNIA[4]{%1: name of this amplifier, %2 start coordinate, %3 R1, %4 R2
@@ -96,8 +109,6 @@
 }
 \graphicspath{{images/}}
 
-
-
 %% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -112,6 +123,9 @@
 \tableofcontents
 
 \input{01_Geraeteliste.tex}
+\input{10_System.tex}
+\input{20_Stroboskop.tex}
+\input{50_Regler.tex}
 \input{00_Literatur.tex}
 
 \end{document}
