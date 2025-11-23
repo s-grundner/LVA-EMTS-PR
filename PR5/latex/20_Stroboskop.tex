@@ -1,3 +1,49 @@
 \newpage
 \section{Drehzahlmessung mit dem Stroboskop-Prinzip}\label{sec:stroboskop}
 
+\subsection{Aufbau}
+
+Die Verdrahtung des Leistungsverstärkers mit dem Motorprüfstand und den Messgeräten ist in \autoref{fig:indu-rpm-aufbau} dargestellt.
+
+\begin{figure}[h]
+	\centering
+	\begin{circuitikz}[transform shape, scale=0.8]
+		\ctikzset{bipoles/oscope/waveform=sin}
+		\ctikzset{left text distance=0.6em}
+		\ctikzset{sources/symbol/rotate=auto}
+		\coordinate (input) at (0,0);
+		\coordinate (gndlvl) at (0,-2);
+		\draw (input) to[V, o-o, v_=$u_\text{stell}$] (input |- gndlvl) node[rground]{};
+		\draw (input)
+			-- ++(1,0) node[buffer, anchor=in, component text=left](pa){$5$} (pa.out)
+			-- ++(2,0) to[Telmech=$M$, name=motor] ++(gndlvl) node[rground]{};
+		\draw (pa.center) node[above=0.7cm]{Leistungsverstärker};
+		\draw (pa.out) ++(1,0) to[vmeter, v=$u_A$, o-o] ++(gndlvl) node[rground]{};
+		\draw (pa.out) ++(7,0) coordinate (gen) to[Telmech=$TG$, name=tacho, o-] ++(gndlvl) node[rground]{};
+		\draw ($(motor.center)!0.5!(tacho.center)$) node[circulator,scale=0.7](mid){};
+		\draw[->>] (motor.left) -- (mid.left) (mid.right) -- (tacho.right);
+		\draw (mid) ++(-1,-1.7) coordinate(l1) to[open, o-o] ++(2,0) coordinate(l2);
+		\draw (l1) -- ++(0,0.5) to[led] ++(2,0) -- (l2);
+		\draw (mid) node[above=0.4cm, text width=4cm, align=center]{Motorwelle mit reflektierendem Spalt};
+		\draw (l1) -- ++(0,-0.5) to[sqV, l_={$u_\mathrm{pp}=\SI{10}{\volt}, u_\mathrm{ofs}=u_\mathrm{pp}/2, Z=\SI{50}{\ohm}, d=0.25$}] ++(2,0) -- (l2);
+	\end{circuitikz}
+	\caption{Aufbau zur Drehzahlmessung mittels induktiven Sensor}\label{fig:strob-rpm-aufbau}
+\end{figure}
+
+\subsection{Messergebnis}
+
+\begin{table}[h]
+	\caption{Messwerte zur Bestimmung des $k_3$-Faktors des Tachogenerators}\label{tab:strob-messwerte}
+	\begin{tabularx}{\textwidth}{YYY|YY}
+		$u_\text{stell}$ / V & $u_\text{A}$ / V & $f$ / $\si{\hertz}$ & $n$ & $n/u_A$ \\ \midrule
+		0.8 & 4.02 & 15.43 & 925.8 & 230.3\\
+		1.6 & 8.04 & 26.87 & 1612  & 200.5\\
+		2.4 & 11.9 & 41.60 & 2496  & 209.7\\
+		3.2 & 16.1 & 58.20 & 3492  & 216.9\\
+		4.0 & 20.3 & 75.00 & 4500  & 221.7
+	\end{tabularx}
+\end{table}
+
+\subsection{Erkenntnisse}
+
+Erhöht man das Tastverhältnis der Stroboskop-LED so wird es zunehmend schwieriger ein stehendes Bild des Spalts zu erkennen, da das Bild mit längerer Beleuchtungsdauer verschwimmt.
