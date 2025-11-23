@@ -24,12 +24,12 @@ Das Gesamtsystem des geschlossenen Regelkreises kann wie in \autoref{fig:gesamts
 	\node [below=9pt of regler] {PI-Regler};
 	\node [below=9pt of k1, text width=3cm, align=center] {Leistungs-verstärker};
 	\node [below=9pt of motor, text width=3cm, align=center] {Motorüber-tragungsfunktion};
-	\node [above=9pt of stoer, text width=3cm, align=center] {Störgrößenüber-tragungsfunktion};
+	\node [above=9pt of stoer, align=center] {Störgrößenübertragungsfunktion};
 	\node [below=9pt of tacho, text width=3cm, align=center] {Tachogenerator};
 
 	% Connecting Blocks
 	\begin{scope}[line width=1pt]
-		\draw[->] (input) node[midway]{$u_\text{soll}(s)$} -- (s1);
+		\draw[->] (input) node[above right]{$u_\text{soll}(s)$} -- (s1);
 		\draw[->] (s1) -- (regler);
 		\draw[->] (regler) -- (k1) node[midway,above]{$u_\text{stell}(s)$};
 		\draw[->] (k1) -- (motor) node[midway,above]{$u_\text{A}(s)$};
@@ -37,25 +37,145 @@ Das Gesamtsystem des geschlossenen Regelkreises kann wie in \autoref{fig:gesamts
 		\draw[->] (s2) -- (tacho) node[midway,above]{$n_\text{ist}(s)$};
 		\draw[->] (k1 |- stoer) -- (stoer) node[midway,above]{$M_\text{L}(s)$};
 		\draw[->] (stoer) -| (s2) node[midway,above]{$n_\text{stör}(s)$};
-		\draw[->] (tacho) -- ++(2,0) node[midway]{$u_\text{ist}(s)$} -- ++(0,-3) -| (s1);
+		\draw[->] (tacho) -- ++(2,0) node[midway]{$u_\text{ist}(s)$} -- ++(0,-2.5) -| (s1);
 	\end{scope}
 	\end{tikzpicture}
 	\caption{Blockschaltbild des geschlossenen Regelkreises}\label{fig:gesamtsystem}
 \end{figure}
 
-\subsection{Aufgabenstellung}
+\subsection{Drehzahlmessung mit induktivem Sensor}
+
+\subsubsection{Aufgabenstellung}
 
 Zuerst soll der $k_3$-Faktor des Tachogenerators bestimmt werden. Dazu wird der Motor mit unterschiedlichen Stellspannungen angesteuert und im stationären Zustand die jeweilige Drehzahl mit einem induktiv Sensor gemeinsam mit der Tachospannung gemessen und in Verhältnis gesetzt. Für die Stellspannung muss beachtet werden, dass die Ankerspannung $u_\mathrm{A}$ niemals $\pm\SI{24}{\volt}$ überschreiten darf.
 
-Anschließend wird der Proportionalitätsfaktor $K_{Si}$ und die Zeitkonstante $T_a$ des Gesamtsystems ermittelt. Dazu wird die Sprungantwort des Systems aufgenommen, indem mit einem Funktionsgenerator eine niederfrequente Rechteckspannung mit $U_\mathrm{pp} = \SI{4}{\volt}$, $U_\mathrm{ofs} = \SI{2}{\volt}$ und einer Periodendauer von $T=\SI{5}{\second}$ als $u_\text{soll}(s)$ an den Leistungsverstärker angelegt wird. Der Verlauf der Tachospannung $u_\text{ist}(s)$ wird dann mit dem Oszilloskop aufgezeichnet.
+\subsubsection{Aufbau}
 
-\subsection{Drehzahlmessung mit induktivem Sensor}
+Die Verdrahtung des Leistungsverstärkers mit dem Motorprüfstand und den Messgeräten ist in \autoref{fig:indu-rpm-aufbau} dargestellt.
 
-\subsection{Bestimmung des Tachofaktors}
+\begin{figure}[h]
+	\centering
+	\begin{circuitikz}[transform shape, scale=0.8]
+		\ctikzset{bipoles/oscope/waveform=sin}
+		\ctikzset{left text distance=0.6em}
+		\coordinate (input) at (0,0);
+		\coordinate (gndlvl) at (0,-2);
+		\draw (input) to[V, o-o, v_=$u_\text{stell}$] (input |- gndlvl) node[rground]{};
+		\draw (input)
+			-- ++(1,0) node[buffer, anchor=in, component text=left](pa){$5$} (pa.out)
+			-- ++(2,0) to[Telmech=$M$, name=motor] ++(gndlvl) node[rground]{};
+		\draw (pa.center) node[above=0.7cm]{Leistungsverstärker};
+		\draw (pa.out) ++(1,0)
+			to[vmeter, v=$u_A$, o-o] ++(gndlvl) node[rground]{};
+		\draw (pa.out) ++(6,0) coordinate (gen)
+			to[Telmech=$TG$, name=tacho] ++(gndlvl) node[rground]{};
+		\draw ($(motor.center)!0.5!(tacho.center)$) node[circulator,scale=0.7](mid){};
+		\draw[->>] (motor.left)
+			-- (mid.left) (mid.right)
+			-- (tacho.right);
+		\draw (gen)
+			-- ++(2,0)
+			to[vmeter, o-o, v^=$u_\text{ist}$] ++(gndlvl) node[rground]{};
+		\draw (mid) ++(-1,-1.7) coordinate(l1)
+			to[open, v=$u_\text{ind}$, o-o] ++(2,0) coordinate(l2);
+		\draw (l1)
+			-- ++(0,0.5)
+			to[L={ind. Sensor}] ++(2,0)
+			-- (l2);
+		\draw (mid) node[above=0.4cm, text width=3cm, align=center]{Motorwelle mit Inkrementrad};
+		\draw (l1)
+			-- ++(0,-1)
+			to[oscope, l_=CH2] ++(2,0)
+			-- (l2);
+	\end{circuitikz}
+	\caption{Aufbau zur Drehzahlmessung mittels induktiven Sensor}\label{fig:indu-rpm-aufbau}
+\end{figure}
+
+\subsubsection{Durchführung}\label{sec:indu-rpm}
+
+Es wird eine konstante Stellspannung $u_\text{stell}$ angelegt und im stationären Zustand die Drehzahl $n$ des Motors mit dem induktiven Sensor gemessen. Um die maximale Ankerspannung von $\pm \SI{24}{\volt}$ nicht zu überschreiten, darf die Stellspannung $u_\text{stell}$ maximal $\pm\SI{24}{\volt}/5 = \pm \SI{4.8}{\volt}$ betragen. Für die Messung wurde daher $u_\text{stell} = \{1, 1.6, 2.4, 3.2, 4\}\si{\volt}$ gewählt.
+
+\begin{itemize}[noitemsep]
+	\item Die Tachospannung $u_\text{ist}$ wird gleichzeitig mit einem Multimeter gemessen.
+	\item Zur Messung der Drehzahl wird $u_\text{ind}$ wie in \autoref{fig:wellenform-induktiv} am Oszilloskop aufgenommen und die Zeit zwischen den Wellenbergen des Signals gemessen. 
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{11_wellenform-induktiv}
+	\caption{Wellenform des induktiven Sensors und Messung der Signalperiode bei $u_\text{stell} = \SI{3.2}{\volt}$}\label{fig:wellenform-induktiv}
+\end{figure}
+
+\subsubsection{Berechnungen}
+
+Mit der gemessenen Periodendauer $T_{1/6}$ des induktiven Sensorsignals kann die Drehzahl $n$ in $\mathrm{U}~\si{\per\minute}$ berechnet werden. Dabei ist zu beachten, dass das inkrement Rad am Prüfstand aus $N=6$ Schraubenköpfen besteht. Die gemessene Periodendauer $T_{1/6}$ ist somit $1/6$ der gesamten Umdrehungsdauer $T$ der Welle.
+\begin{equation}
+n = \frac{60}{T_{1/N} \cdot N} \label{eq:drehzahl}
+\end{equation}
+Ist die Drehzahl $n$ und die Tachospannung $u_\text{ist}$ bekannt, kann der Faktor $k_3$ des Tachogenerators bestimmt werden:
+\begin{equation}
+k_3 = \frac{u_\text{ist}}{n} \label{eq:k3-faktor}
+\end{equation}
+
+\subsubsection{Messergebnisse}
+
+Mit der Messung wie beschrieben in \autoref{sec:indu-rpm} und Gleichungen \ref{eq:drehzahl} und \ref{eq:k3-faktor} ergeben sich die in \autoref{tab:k3-messwerte} dargestellten Messwerte. 
+
+\begin{table}
+	\caption{Messwerte zur Bestimmung des $k_3$-Faktors des Tachogenerators}\label{tab:k3-messwerte}
+	\begin{tabularx}{\textwidth}{YYYY|YY}
+		$u_\text{stell}$ / V & $u_\text{A}$ / V & $u_\text{ist}$ / V & $T_{1/6}$ / $\si{\milli\second}$ & $n$ / $\frac{\mathrm{U}}{\si{\minute}}$ & $k_3$ / $\frac{\si{\milli\volt\minute}}{\mathrm{U}}$ \\ \midrule
+		1.0 & 5.13 & 2.0 & 10.8 & 925.9  & 2.16 \\
+		1.6 & 8.06 & 3.3 & 6.20 & 1612.9 & 2.05 \\
+		2.4 & 12.1 & 5.0 & 3.90 & 2564.1 & 1.95 \\
+		3.2 & 16.2 & 7.2 & 2.78 & 3597.1 & 2.00 \\
+		4.0 & 20.2 & 8.8 & 2.20 & 4545.5 & 1.94
+	\end{tabularx}
+\end{table}
+
+Trägt man wie in \autoref{fig:tachospannung-drehzahl} die Tachospannung über der Drehzahl auf erkennt man einen linearen Zusammenhang. Der Mittelwert des $k$-Wertes über die Messwerte ist $\bar{k}_3=2.02\si{\milli\volt\minute}~U^{-1}$ und ist die Steigung dieser Geraden.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{11_tachospannung_drehzahl}
+	\caption{Tachospannung über Drehzahl}\label{fig:tachospannung-drehzahl}	
+\end{figure}
 
 \subsection{Bestimmung der Systemparameter}
 
-Zunächst wird das System des leerlaufenden Motors ohne Regler und externe Störeinflüssen betrachtet.
+\subsubsection{Aufgabenstellung}
+
+Anschließend wird der Proportionalitätsfaktor $K_\mathrm{S}$ und die Zeitkonstante $T_\mathrm{a}$ des Gesamtsystems ermittelt. Dazu wird die Sprungantwort des Systems aufgenommen, indem mit einem Funktionsgenerator eine niederfrequente Rechteckspannung mit $U_\mathrm{pp} = \SI{4}{\volt}$, $U_\mathrm{ofs} = \SI{2}{\volt}$ und einer Periodendauer von $T=\SI{5}{\second}$ als $u_\text{soll}(s)$ an den Leistungsverstärker angelegt wird. Der Verlauf der Tachospannung $u_\text{ist}(s)$ wird dann mit dem Oszilloskop aufgezeichnet.
+
+\subsubsection{Aufbau}
+
+Die Verdrahtung des Leistungsverstärkers mit dem Motorprüfstand und den Messgeräten ist in \autoref{fig:system-aufbau} dargestellt.
+
+\begin{figure}[h]
+	\centering
+	\begin{circuitikz}[transform shape, scale=0.8]
+		\ctikzset{bipoles/oscope/waveform=square}
+		\ctikzset{left text distance=0.6em}
+		\coordinate (input) at (0,0);
+		\coordinate (gndlvl) at (0,-2);
+		\draw (input) to[sqV, o-o, v_=$u_\text{stell}$] (input |- gndlvl) node[rground]{};
+		\draw (input) ++(1,0) to[oscope, l=CH1, o-o] ++(gndlvl) node[rground]{};
+		\draw (input)
+			-- ++(2,0) node[buffer, anchor=in, component text=left](pa){$5$} (pa.out)
+			-- ++(1,0) to[Telmech=$M$, name=motor] ++(gndlvl) node[rground]{};
+		\draw (pa.center) node[above=0.6cm]{Leistungsverstärker};
+		\draw (pa.out) ++(5,0) coordinate (gen) to[Telmech=$TG$, name=tacho] ++(gndlvl) node[rground]{};
+		\draw ($(motor.center)!0.5!(tacho.center)$) node[circulator,scale=0.7](mid){};
+		\draw[->>] (motor.left) -- (mid.left) (mid.right) -- (tacho.right);
+		\draw (gen) -- ++(2,0) to[oscope, l_=CH2, o-o, v^=$u_\text{ist}$] ++(gndlvl) node[rground]{};
+		\draw (mid) node[above=0.4cm, text width=3cm, align=center]{Motorwelle};
+	\end{circuitikz}
+	\caption{Aufbau zur Untersuchung des Gesamtsystems}\label{fig:system-aufbau}
+\end{figure}
+
+\subsubsection{Berechnung}
+
+Zunächst wird das System des leerlaufenden Motors ohne Regler und externe Störeinflüssen in \autoref{fig:vereinfachtes-system} betrachtet.
 
 \begin{figure}[h]
 	\centering
@@ -69,7 +189,7 @@ Zunächst wird das System des leerlaufenden Motors ohne Regler und externe Stör
 
 	%Connecting Blocks
 	\begin{scope}[line width=1pt]
-		\draw[->] (input) node[midway,above right]{$u_\text{soll}(s)$} -- (k1);
+		\draw[->] (input) node[midway,above right]{$u_\text{stell}(s)$} -- (k1);
 		\draw[->] (k1) -- (motor) node[midway,above]{$u_\text{A}(s)$};
 		\draw[->] (motor) -- (tacho) node[midway,above]{$n(s)$};
 		\draw[->] (tacho) -- ++(2,0) node[midway]{$u_\text{ist}(s)$};
@@ -78,10 +198,69 @@ Zunächst wird das System des leerlaufenden Motors ohne Regler und externe Stör
 	\caption{Blockschaltbild des vereinfachten Systems}\label{fig:vereinfachtes-system}
 \end{figure}
 
-Dabei lautet die Übertragungsfunktion des Gesamtsystems der offenen Regelstrecke, angenähert als PT1-Glied~\cite[S.~129, Gl.~6.9]{EMTPraktikum2025}.
+Dabei lautet die Übertragungsfunktion des Gesamtsystems der offenen Regelstrecke, angenähert als PT1-Glied~\cite[S.~129, Gl.~6.9]{EMTPraktikum2025}
 \begin{equation}
-G(s) = 5\cdot G(s)\cdot k_3 = \frac{u_\text{ist}}{u_\text{soll}(s)} = \frac{K_{Si}}{1+T_a s}\label{eq:gesamt-sys}
+G(s) = 5\cdot G_1(s)\cdot k_3 = \frac{u_\text{ist}(s)}{u_\text{stell}(s)} = \frac{K_{S}}{1+T_a s}\label{eq:gesamt-sys}
 \end{equation}
-\subsubsection{Erkenntnisse}
+und die dazugehörige Sprungantwort
+\begin{equation}
+h(t) = K_{S}\left(1-e^{-\frac{t}{T_a}}\right).\label{eq:sprungantwort}
+\end{equation}
+Die Systemparameter sind
+\begin{itemize}[noitemsep]
+	\item $K_{S}$: Verhältnis der stationären Ausgangs- zur stationären Eingangsspannung.
+	\item $T_a$: Zeit nach der \SI{63.2}{\percent} des Maximalwertes erreicht sind
+\end{itemize}
 
-Die Eingebauten BNC-Anschlüsse am Motorprüfstand sind defekt.
+\subsubsection{Durchführung}
+
+Wie in \autoref{fig:system-aufbau} gezeigt, werden die Messgeräte Verdrahtet. Die Einstellungen des Funktionsgenerators an $u_\text{stell}$ sind dabei:
+
+\begin{itemize}[noitemsep]
+	\item Spitzen-Spitzen Spannung: $u_\text{stell,pp}=\SI{4}{\volt}$
+	\item Offset-Spannung: $u_\text{stell,ofs}\SI{2}{\volt}$
+	\item Periodendauer: $T=\SI{5}{\second}$
+	\item Signalform: Rechteck
+\end{itemize}
+
+\subsubsection{Messergebnisse}
+
+Das Oszillogramm der Sprungantwort des Systems ist in \autoref{fig:sprungantwort} dargestellt.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{13_sprungantwort}
+	\caption{Aufgenommene Sprungantwort des Systems. CH1: $u_\text{stell}(t)$, \SI{2}{\volt}/div, CH2: $u_\text{ist}(t)$, \SI{5}{\volt}/div}\label{fig:sprungantwort}	
+\end{figure}
+
+Zur Messung der stationären Spannungen werden beide Kanäle am Ende der Periode abgelesen.
+\[
+u_\text{stell}(t\to\infty) = \SI{3.5}{\volt},\quad u_\text{ist}(t\to\infty) = \SI{8}{\volt}
+\]
+Um die Zeitkonstante $T_a$ zu bestimmen, werden die Cursor bei \SI{0}{\volt} und bei $0.63\cdot\SI{8}{\volt} = \SI{5.04}{\volt}$ gesetzt und die Zeitdifferenz abgelesen. Die Messung ergibt:
+\[
+T_a = \SI{260}{\milli\second}
+\]
+
+\subsubsection{Auswertung}
+
+Mit
+\[
+K_p = \frac{u_\text{ist}(t\to\infty)}{u_\text{stell}(t\to\infty)} = \frac{\SI{8}{\volt}}{\SI{3.5}{\volt}} = 2.29, \qquad T_a = \SI{260}{\milli\second}
+\]
+kann das Gesamtsystem erster Ordnung mit Zahlenwerten angegeben werden:
+\[
+G(s) = \frac{2.29}{1 + 0.26\cdot s},\qquad h(t) = 2.29\left(1-e^{-\frac{t}{0.26}}\right)
+\]
+
+\subsection{Erkenntnisse}
+
+Bei der Messung des induktiven Sensors konnte man ein erheblich besseres Signal-Rausch-Verhältnis durch verbindung aller Massepunkte der Geräte erzielen. Betrachtet man die Wellenform des induktiven Sensors in \autoref{fig:wellenform-induktiv}, ist zu erkennen, dass das Signal kein reiner Sinus ist, sondern mit einem anderen Signal überlagert ist. Eine FFT-Analyse mit dem Oszilloskop, zeigt
+
+\begin{figure}[h]
+	\centering	
+	\includegraphics[width=0.5\textwidth]{11_fft-induktiv}
+	\caption{Spektrum der Wellenform des induktiven Sensors bei $u_\text{stell} = \SI{1}{\volt}$}\label{fig:fft-induktiv}
+\end{figure}
+
+Die Eingebauten BNC-Anschlüsse am Motorprüfstand sind defekt. 
