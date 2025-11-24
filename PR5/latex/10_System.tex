@@ -1,7 +1,7 @@
 \newpage
 \section{Gesamtsystem}
 
-Das Gesamtsystem des geschlossenen Regelkreises kann wie in \autoref{fig:gesamtsystem} dargestellt werden. Dabei stellt der Leistungsverstärker das Gerät aus \autoref{tab:geraeteliste} Pos. 5 mit dem Verstärkungsfaktor $5$ dar. Der Prüfstand aus \autoref{tab:geraeteliste} Pos. 6 wird durch die Blöcke $G_1(s)$ und $G_2(s)$ Modelliert sowie dem eingebauten Tachogenerator mit dem Faktor $k_3$. Der PI-Regler wurde in \autoref{sec:reglerentwurf} ausgelegt und zunächst umgangen.
+Das Gesamtsystem des geschlossenen Regelkreises kann wie in \autoref{fig:gesamtsystem} dargestellt werden. Dabei stellt der Leistungsverstärker das Gerät aus \devref{pos:pa} mit dem Verstärkungsfaktor $5$ dar. Der Prüfstand aus \devref{pos:mot} wird durch die Blöcke $G_1(s)$ und $G_2(s)$ Modelliert sowie dem eingebauten Tachogenerator mit dem Faktor $k_3$. Der PI-Regler wurde in \autoref{sec:reglerentwurf} ausgelegt und zunächst umgangen.
 
 \begin{figure}[h]
 	\centering
@@ -49,9 +49,7 @@ Das Gesamtsystem des geschlossenen Regelkreises kann wie in \autoref{fig:gesamts
 
 Zuerst soll der $k_3$-Faktor des Tachogenerators bestimmt werden. Dazu wird der Motor mit unterschiedlichen Stellspannungen angesteuert und im stationären Zustand die jeweilige Drehzahl mit einem induktiv Sensor gemeinsam mit der Tachospannung gemessen und in Verhältnis gesetzt. Für die Stellspannung muss beachtet werden, dass die Ankerspannung $u_\mathrm{A}$ niemals $\pm\SI{24}{\volt}$ überschreiten darf.
 
-\subsubsection{Aufbau}
-
-Die Verdrahtung des Leistungsverstärkers mit dem Motorprüfstand und den Messgeräten ist in \autoref{fig:indu-rpm-aufbau} dargestellt.
+\subsubsection{Aufbau und Durchführung}
 
 \begin{figure}[h]
 	\centering
@@ -91,7 +89,7 @@ Die Verdrahtung des Leistungsverstärkers mit dem Motorprüfstand und den Messge
 	\caption{Aufbau zur Drehzahlmessung mittels induktiven Sensor}\label{fig:indu-rpm-aufbau}
 \end{figure}
 
-\subsubsection{Durchführung}\label{sec:indu-rpm}
+Die Verdrahtung des Leistungsverstärkers mit dem Motorprüfstand und den Messgeräten ist in \autoref{fig:indu-rpm-aufbau} dargestellt.
 
 Es wird eine konstante Stellspannung $u_\text{stell}$ angelegt und im stationären Zustand die Drehzahl $n$ des Motors mit dem induktiven Sensor gemessen. Um die maximale Ankerspannung von $\pm \SI{24}{\volt}$ nicht zu überschreiten, darf die Stellspannung $u_\text{stell}$ maximal $\pm\SI{24}{\volt}/5 = \pm \SI{4.8}{\volt}$ betragen. Für die Messung wurde daher $u_\text{stell} = \{1, 1.6, 2.4, 3.2, 4\}\si{\volt}$ gewählt.
 
@@ -173,7 +171,15 @@ Die Verdrahtung des Leistungsverstärkers mit dem Motorprüfstand und den Messge
 	\caption{Aufbau zur Untersuchung des Gesamtsystems}\label{fig:system-aufbau}
 \end{figure}
 
-\subsubsection{Berechnung}
+Die Einstellungen des Funktionsgenerators an $u_\text{stell}$ sind dabei:
+
+\begin{itemize}[noitemsep]
+	\item Spitzen-Spitzen Spannung: $u_\text{stell,pp}=\SI{4}{\volt}$
+	\item Offset-Spannung: $u_\text{stell,ofs}\SI{2}{\volt}$
+	\item Periodendauer: $T=\SI{5}{\second}$
+	\item Signalform: Rechteck
+\end{itemize}
+\subsubsection{Berechnungen}
 
 Zunächst wird das System des leerlaufenden Motors ohne Regler und externe Störeinflüssen in \autoref{fig:vereinfachtes-system} betrachtet.
 
@@ -212,20 +218,7 @@ Die Systemparameter sind
 	\item $T_a$: Zeit nach der \SI{63.2}{\percent} des Maximalwertes erreicht sind
 \end{itemize}
 
-\subsubsection{Durchführung}
-
-Wie in \autoref{fig:system-aufbau} gezeigt, werden die Messgeräte Verdrahtet. Die Einstellungen des Funktionsgenerators an $u_\text{stell}$ sind dabei:
-
-\begin{itemize}[noitemsep]
-	\item Spitzen-Spitzen Spannung: $u_\text{stell,pp}=\SI{4}{\volt}$
-	\item Offset-Spannung: $u_\text{stell,ofs}\SI{2}{\volt}$
-	\item Periodendauer: $T=\SI{5}{\second}$
-	\item Signalform: Rechteck
-\end{itemize}
-
 \subsubsection{Messergebnisse}
-
-Das Oszillogramm der Sprungantwort des Systems ist in \autoref{fig:sprungantwort} dargestellt.
 
 \begin{figure}[h]
 	\centering
@@ -233,7 +226,7 @@ Das Oszillogramm der Sprungantwort des Systems ist in \autoref{fig:sprungantwort
 	\caption{Aufgenommene Sprungantwort des Systems. CH1: $u_\text{stell}(t)$, \SI{2}{\volt}/div, CH2: $u_\text{ist}(t)$, \SI{5}{\volt}/div}\label{fig:sprungantwort}	
 \end{figure}
 
-Zur Messung der stationären Spannungen werden beide Kanäle am Ende der Periode abgelesen.
+Das Oszillogramm der Sprungantwort des Systems ist in \autoref{fig:sprungantwort} dargestellt. Zur Messung der stationären Spannungen werden beide Kanäle am Ende der Periode abgelesen.
 \[
 u_\text{stell}(t\to\infty) = \SI{3.5}{\volt},\quad u_\text{ist}(t\to\infty) = \SI{8}{\volt}
 \]

@@ -51,11 +51,21 @@
 \usepackage{tabularx}
 \usepackage{pgfplotstable}
 \usepackage{enumitem}
-\usepackage{xfrac}
+\usepackage{zref-xr,zref-user}
 
 %% Custom Commands and Packages Settings
 
 \setcounter{tocdepth}{2}
+
+% For device position referencing
+\newcounter{posctr}
+\newcommand{\pos}[1]{%
+	\refstepcounter{posctr}%
+	\zlabel{#1}%
+}
+\newcommand{\devref}[1]{%
+	\autoref{tab:geraeteliste} Pos.~\zref{#1}%
+}
 
 \tikzset{vmeter/.style={rmeterwa, t=V}}
 \tikzset{ameter/.style={rmeterwa, t=A}}

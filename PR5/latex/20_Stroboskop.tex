@@ -1,7 +1,15 @@
 \newpage
 \section{Drehzahlmessung mit dem Stroboskop-Prinzip}\label{sec:stroboskop}
 
-\subsection{Aufbau}
+\subsection{Aufgabenstellung}
+
+Mit dem Stroboskop-Prinzip soll die Drehzahl eines Motorprüfstands gemessen werden und das Verhältnis von Drehzahl zu Ankerspannung an 5 Punkten ermittelt werden.
+
+\subsection{Funktionsweise}
+
+Es ist um die Motorwelle ein streifen schwarzes Klebeband geklebt, wobei ein spalt ausgespart bleibt, durch den das Metall der Welle sichtbar ist. Eine LED wird mit einem PWM-Signal mit \SI{10}{\volt} Amplitude und \num{25}\% Tastverhältnis angesteuert. Durch Variation der Frequenz des PWM-Signals wird die LED so angesteuert, dass das Licht immer dann aufleuchtet, wenn sich der Spalt vor der LED befindet. Dadurch entsteht der Eindruck, dass der Spalt stillsteht. Durch Ablesen der Frequenz des PWM-Signals kann so die Drehzahl des Motors bestimmt werden.
+
+\subsection{Aufbau und Durchführung}
 
 Die Verdrahtung des Leistungsverstärkers mit dem Motorprüfstand und den Messgeräten ist in \autoref{fig:indu-rpm-aufbau} dargestellt.
 
@@ -27,15 +35,31 @@ Die Verdrahtung des Leistungsverstärkers mit dem Motorprüfstand und den Messge
 		\draw (mid) node[above=0.4cm, text width=4cm, align=center]{Motorwelle mit reflektierendem Spalt};
 		\draw (l1) -- ++(0,-0.5) to[sqV, l_={$u_\mathrm{pp}=\SI{10}{\volt}, u_\mathrm{ofs}=u_\mathrm{pp}/2, Z=\SI{50}{\ohm}, d=0.25$}] ++(2,0) -- (l2);
 	\end{circuitikz}
-	\caption{Aufbau zur Drehzahlmessung mittels induktiven Sensor}\label{fig:strob-rpm-aufbau}
+	\caption{Aufbau zur Drehzahlmessung mit der Stroboskop LED}\label{fig:strob-rpm-aufbau}
 \end{figure}
 
+Die Einstellungen des Funktionsgenerators \devref{pos:fgen} an der LED sind dabei:
+
+\begin{itemize}[noitemsep]
+	\item Spitzen-Spitzen Spannung: $u_\text{stell,pp}=\SI{10}{\volt}$
+	\item Offset-Spannung: $u_\text{stell,ofs}\SI{5}{\volt}$
+	\item Frequenz, Tastverhöltnis: variabel, \num{25}\%
+	\item Signalform: Rechteck
+	\item Last: $Z=\SI{50}{\ohm}$
+\end{itemize}
+
+Die Lasteinstellung von \SI{50}{\ohm} dient als Strombegrenzung für die LED aus \devref{pos:strb}.
+
+Für die Stellspannug wurden mit dem Labornetzteil \devref{pos:psu} die Werte $u_\text{stell}\in\{0.8, 1.6, 2.4, 3.2, 4.0\}\si{\volt}$ eingestellt und die Ankerspannung $u_A$ mit dem Multimeter \devref{pos:mmeter} überwacht.
+
 \subsection{Messergebnis}
+
+Die gemessenen Werte sind in \autoref{tab:strob-messwerte} dargestellt. Die Drehzahl $n$ in $\frac{\mathrm{U}}{\si{\minute}}$ wurde aus der Frequenz $f$ mit $n = f\cdot 60$ berechnet und anschließend das Verhältnis $\frac{n}{u_A}$ gebildet.
 
 \begin{table}[h]
 	\caption{Messwerte zur Bestimmung des $k_3$-Faktors des Tachogenerators}\label{tab:strob-messwerte}
 	\begin{tabularx}{\textwidth}{YYY|YY}
-		$u_\text{stell}$ / V & $u_\text{A}$ / V & $f$ / $\si{\hertz}$ & $n$ & $n/u_A$ \\ \midrule
+		$u_\text{stell}$ / V & $u_\text{A}$ / V & $f$ / $\si{\hertz}$ & $n$ / $\frac{\mathrm{U}}{\si{\minute}}$ & $\frac{n}{u_A}$ / $\frac{\mathrm{U}}{\si{\minute\volt}}$ \\ \midrule
 		0.8 & 4.02 & 15.43 & 925.8 & 230.3\\
 		1.6 & 8.04 & 26.87 & 1612  & 200.5\\
 		2.4 & 11.9 & 41.60 & 2496  & 209.7\\
@@ -46,4 +70,4 @@ Die Verdrahtung des Leistungsverstärkers mit dem Motorprüfstand und den Messge
 
 \subsection{Erkenntnisse}
 
-Erhöht man das Tastverhältnis der Stroboskop-LED so wird es zunehmend schwieriger ein stehendes Bild des Spalts zu erkennen, da das Bild mit längerer Beleuchtungsdauer verschwimmt.
+Das Verhältnis der Drehzahl zur Ankerspannung sollt fü jede Messung konstant bleiben. Die Abweichung kommt daher, dass die Frequenz des PWM-Signals nach augenmaß eingestellt wird und eine exakte Einstellung schwierig ist. Erhöht man das Tastverhältnis der Stroboskop-LED so wird es zunehmend schwieriger ein stehendes Bild des Spalts zu erkennen, da das Bild mit längerer Beleuchtungsdauer verschwimmt.
