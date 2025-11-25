@@ -1,3 +1,158 @@
 \newpage
 \section{Reglerentwurf}\label{sec:reglerentwurf}
 
+\begin{alertblock}
+Aus Zeitgründen konnte der Aufbau des Reglers nicht mehr durchgeführt werden. Der Reglerentwurf wird im Folgenden theoretisch diskutiert.
+\end{alertblock}
+
+\subsection{Aufgabenstellung}
+
+Bisher wurde das System als offenes System betrieben. Ziel ist es nun, eine Regelschleife zu entwerfen, welche durch Rückkopplung der Tachospannung $u_\mathrm{tach}$ auf die Stellspannung $u_\mathrm{stell}$ die Drehzahl des Motors regelt, sollte der Motor einer Störung oder Belastung ausgesetzt werden. Betrachtet wird dabei wieder das Gesamtsystem in \autoref{fig:gesamtsystem}.
+
+Der Regler ist auf einen stationären Verstärkungsfaktor $\frac{n_\text{ist}}{u_\text{soll}} = 1000\frac{\mathrm{U}}{\si{\minute\volt}}$ zu diomensionieren. Das Tachometer soll beim Aufbau mit einem Impedanzwandler entlastet werden.
+
+\subsection{Schaltungsentwurf}
+
+Der PI-Regler weist folgende Übertragungsfunktion auf:
+\begin{equation}
+R(s) = K_P \left( 1 + \frac{1}{T_I s} \right)\label{eq:pi-regler}
+\end{equation}
+Naheliegend ist es daher, für den Aufbau des Reglers eine OPV-Integratorschaltung zu verwenden. Durch Kombination der Schaltung mit einem Umkehrsummierer wird zugleich die Summierung implementiert. Den Proportional-Anteil verursacht dabei der Widerstand $R_3$ im Rückkopplungszweig.
+
+\begin{figure}[h]
+	\centering
+	\begin{circuitikz}[transform shape, scale=0.8, >=latex']
+		\begin{scope}
+			\coordinate (input) at (0,0.5);
+			\node[sum, right of=input, node distance=1cm](s){$+$};
+			\node[block, right of=s, node distance=2.5cm](pi){$R(s)$};
+			\node[below of=s, node distance=1cm](rk){};
+			\node[below left of=s, node distance=0.6cm]{$-$};
+			\node[above left of=s, node distance=0.6cm]{$+$};
+			\draw[->] (input) node[left]{$u_\text{soll}(s)$} -- (s);
+			\draw[->] (s) -- node[midway, above]{$\Delta u(s)$} (pi);
+			\draw[->] (rk) node[below]{$u_\text{ist}(s)$} -- (s);
+			\draw[->] (pi) -- node[midway, above]{$u_\text{stell}(s)$} ++(2,0);
+		\end{scope}
+		\begin{scope}[xshift=8cm]
+		\node at (-1.5,0)[scale=2]{$\equiv$};
+		\draw (0,0) node[left]{$u_\text{ist}$}
+			to[R=$R_2$, i^<=$i_2$, o-*] ++(2,0) node[op amp, anchor=-, scale=0.7](op1){}
+			-- ++(0,1) coordinate(k1)
+			to[R=$R_3$, i<^=$i_3$, *-] ++(2,0)
+			to[C=$1/sC$] ++(1.5,0) coordinate (out) |- (op1.out);
+		\draw (k1) to[R, l_=$R_1$, i<_=$i_1$, -o] ++(-2,0) node[left]{$u_\text{soll}$};
+		\draw (op1.+) -- ++(-0.3,0) node[rground]{};
+		\draw (out) to[short, *-o] ++(0.5,0) node[right]{$u_\text{stell}$};
+		\node at (op1.center){$A_1$};
+		\end{scope}
+	\end{circuitikz}
+	\caption{PI-Regler als Umkehrsummierer mit Integrator}\label{fig:op-pi-regler}
+\end{figure}
+
+Mit der Knotenregel am Kontenpunkt des Invertierenden Eingangs folgt:
+\begin{equation}
+\frac{u_\text{soll}}{R_1} - \frac{u_\text{ist}}{R_2} + \frac{u_\text{stell}}{R_3+1/(sC)} = 0
+\quad\implies\quad
+\frac{1}{R_1}\underbrace{\left(u_\text{soll} - \frac{R_1}{R_2}u_\text{ist}\right)}_{\Delta u} = 
+\frac{-u_\text{stell}}{R_3+1/(sC)}\label{eq:knotenregel}
+\end{equation}
+Daraus folgt für die Übertragungsfunktion des Reglers:
+\begin{equation}
+R(s) = \frac{u_\text{stell}}{\Delta u} = -\frac{R_3}{R_1} \left(1 + \frac{1}{R_3 Cs}\right)
+\end{equation}
+
+Zu bemerken ist, dass durch den Umkehrsummierer die Stellspannung negativ ist. Dadurch dreht sich der Motor in die entgegengesetzte Richtung, wodurch auch die Tachospannung negativ wird (Stromrichtung von $i_2$ beachten). Dieses Verhalten sorgt für die gegenkopplung im Regelkreis.
+
+\subsection{Dimensionierung}
+
+Für den stationären Zustand soll ein Verstärkungsfaktor eingestellt werden. Beachtet man die Proportionalität $k_3\approx\SI{2}{\milli\volt\minute}~\mathrm{U}^{-1}$ zwischen Drehzahl und Tachospannung aus \autoref{sec:k3-messung} erhält man.
+\begin{equation}
+\frac{n_\text{ist}}{u_\text{soll}} = \frac{u_\text{ist}/k_3}{u_\text{soll}} = 1000\frac{\mathrm{U}}{\si{\minute\volt}} \implies u_\text{soll} = \frac{u_\text{ist}}{1000 k_3} = \frac{u_\text{ist}}{2}\label{eq:stat-verstaerkung}
+\end{equation}
+Das System befindet sich im stationären Zustand, wenn der Regelfehler verschwindet, also die Differenz zwischen Soll- und Istwert $\Delta u = 0$ ist. Mit $\Delta u$ wie in \autoref{eq:knotenregel} folgt:
+\begin{equation}
+\Delta u \overset{!}{=} 0 \implies u_\text{soll} = \frac{R_1}{R_2} u_\text{ist}\label{eq:stat-bed}
+\end{equation}
+Vergleicht man nun Gleichung \ref{eq:stat-verstaerkung} mit \ref{eq:stat-bed} muss gelten, dass $\frac{R_1}{R_2} = \frac{1}{2} \implies R_2 = 2 R_1$ um die gewünschte Verstärkung zu erreichen. Werte für $R_1$ und $R_2$ wären zum Beispiel:
+\[
+R_1 = \SI{10}{\kilo\ohm}, \quad R_2 = \SI{20}{\kilo\ohm}
+\]
+Zur bestimmung von $K_P$ und $T_I$ wird die Methode des Stabilitätsrandes nach Ziegler-Nichols verwendet. Hierzu wird der Regler zunächst als reiner P-Regler ausgelegt, indem $C$ überbrückt wird. Die Verstärkung $K_P = -\frac{R_3}{R_1}$ wird dann mit $R_3$ solange erhöht, bis das System gerade noch stabil ist und eine Dauerschwingung aufweist.
+
+Da der Aufbau nicht mehr durchgeführt werden konnte, werden die Werte für $K_\mathrm{P,krit}$ und $T_\mathrm{I,krit}$ eines anderen Aufbaus herangezogen:
+\[
+K_\mathrm{P,krit} = -9.5, \quad T_\mathrm{I,krit} = 1.6\si{\milli\second}
+\]
+Mit den Ziegler-Nichols Regeln für einen PI-Regler \cite[S.~127, Tab.~6.1]{EMTPraktikum2025} folgt:
+\[
+K_P = 0.45\cdot K_\mathrm{P,krit} = -4.275, \quad T_I = 0.85\cdot T_\mathrm{I,krit} = 1.36\si{\milli\second}
+\]
+Mit diesen Kennwerten lassen sich nun die Bauteilwerte der Schaltung bestimmen
+\[
+R_3 = -K_P R_1 = \SI{42.75}{\kilo\ohm}, \quad C = \frac{T_I}{R_3} = \SI{286.3}{\nano\farad}
+\]
+
+\subsection{Aufbau}
+
+Der Regelkreis wird mit Operationsverstärkern des Messvertärkersteckbretts \devref{pos:opamp} aufgebaut. Die Verdrahtung des Reglers ist in \autoref{fig:regler-aufbau} dargestellt. 
+
+Es werden die zuvor bestimmten Bauteilwerte verwendet. Für den eigentlichen Aufbau könnte es notwendig sein, die Werte nach Verfügbarkeit der Dekaden oder den Werten auf dem Messverstärkersteckbrett anzupassen.
+\begin{itemize}[noitemsep]
+	\item $R_1 = \SI{10}{\kilo\ohm}$
+	\item $R_2 = \SI{20}{\kilo\ohm}$
+	\item $R_3 = \SI{42.75}{\kilo\ohm}$
+	\item $C = \SI{286.3}{\nano\farad}$
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\begin{circuitikz}[transform shape, scale=0.8]
+		\ctikzset{bipoles/oscope/waveform=square}
+		\ctikzset{left text distance=0.6em}
+		\coordinate (input) at (0,0);
+		\coordinate (gndlvl) at (0,-1);
+		
+		\draw (0,0)
+			to[R=$R_2$, i^<=$i_2$, -*] ++(2,0) node[op amp, anchor=-, scale=0.7](op1){}
+			-- ++(0,1) coordinate(k1)
+			to[R=$R_3$, i<^=$i_3$, *-] ++(2,0)
+			to[C=$1/sC$, -*] ++(1.5,0) coordinate (out) |- (op1.out);
+		\draw (k1) to[R, l_=$R_1$, i<_=$i_1$] ++(-2,0) to[short] ++(-1,0) coordinate(usoll);
+		\draw (op1.+) -- (op1.+ |- gndlvl) node[rground]{};
+		\draw (out) node[above]{$u_\text{stell}$};
+
+		\draw (usoll) -- ++(-1,0) to[sqV, v_={$u_\text{soll}$}] ++(0,-2) node[rground]{};
+		\draw (usoll) to[oscope, *-] ++(0,-2) node[rground]{};
+
+		\draw (out)
+			-- ++(0.5,0) node[buffer, anchor=in, component text=left](pa){$5$}
+			(pa.out) -- ++(0.5,0) to[Telmech=$M$, name=motor] ++(0,-2) node[rground]{};
+		\draw (pa.out) ++(3,0) coordinate (gen) to[Telmech=$TG$, name=tacho] ++(0,-2) node[rground]{};
+		\draw ($(motor.center)!0.5!(tacho.center)$) node[circulator, scale=0.7](mid){};
+		\draw[->>] (motor.left) -- (mid.left) (mid.right) -- (tacho.right);
+		\draw (gen) -- ++(0.5,0) node[op amp, anchor=+, scale=0.7](op2){};
+		\draw (input) to[crossing] ++(0,2) -- ++(0,0.5) -| (op2.-);
+		\node[right=2em of tacho]{$k_3$};
+		\node at (op1.center){$A_1$};
+		\node at (op2.center){$A_2$};
+		\draw (op2.out) |- (op2.- |- 0, 2.5) node[circ]{};
+		\draw (op2.out) to[short, *-] (gen -| op2.out) to[oscope, v^=$u_\text{ist}$] ++(0,-2) node[rground]{};
+		\node at (usoll) [above]{CH1};
+		\node at (op2.out |- op2.+) [above right]{CH2};
+	\end{circuitikz}
+	\caption{Aufbau zum geschlossenen Regelkreis}\label{fig:regler-aufbau}
+\end{figure}
+
+\subsection{Messergebnisse}
+
+Da der Aufbau nicht mehr durchgeführt werden konnte, sind keine Messergebnisse vorhanden. Bei einem erfolgreichen Aufbau sollten die folgenden Messungen durchgeführt werden:
+
+\begin{itemize}[noitemsep]
+	\item Betrachtung der Sprungantwort von $\SI{1}{\volt} (\equiv 1000 U~\si{\per\minute})$ auf $\SI{5}{\volt}(\equiv 5000 U~\si{\per\minute})$ des Sollwerts.
+	\item Beobachtung des Regelverhaltens bei Belastung des Motors durch Anlegen einer mechanischen Last.
+\end{itemize}
+
+\subsection{Erkenntnisse}
+
+In \autoref{fig:regler-aufbau} ist gut zu erkennen, wieso der Tachogenerator mit einem Impedanzwandler entlastet werden muss. Durch die Belastung mit $R_2$ wäre dessen Ankerstrom $i_A\neq 0$ und die proportionalität mit $k_3$ zwischen Drehzahl und Tachospannung ginge verloren. Man müsste die gesamte Systemgleichung \cite[S.~133, Gl.~6.14]{EMTPraktikum2025} in betracht ziehen.
