@@ -3,7 +3,7 @@
 
 \subsection{Aufgabenstellung}
 
-Mit dem Stroboskop-Prinzip soll die Drehzahl eines Motorprüfstands gemessen werden und das Verhältnis von Drehzahl zu Ankerspannung an 5 Punkten ermittelt werden.
+Mit dem Stroboskop-Prinzip soll die Drehzahl des Motorprüfstands gemessen werden und das Verhältnis von Drehzahl zu Ankerspannung an 5 Punkten ermittelt werden.
 
 \subsection{Funktionsweise}
 
@@ -11,7 +11,7 @@ Es ist um die Motorwelle ein streifen schwarzes Klebeband geklebt, wobei ein spa
 
 \subsection{Aufbau und Durchführung}
 
-Die Verdrahtung des Leistungsverstärkers mit dem Motorprüfstand und den Messgeräten ist in \autoref{fig:indu-rpm-aufbau} dargestellt.
+Die Verdrahtung des Leistungsverstärkers mit dem Motorprüfstand und den Messgeräten ist in \autoref{fig:strob-rpm-aufbau} dargestellt.
 
 \begin{figure}[h]
 	\centering
@@ -38,19 +38,7 @@ Die Verdrahtung des Leistungsverstärkers mit dem Motorprüfstand und den Messge
 	\caption{Aufbau zur Drehzahlmessung mit der Stroboskop LED}\label{fig:strob-rpm-aufbau}
 \end{figure}
 
-Die Einstellungen des Funktionsgenerators \devref{pos:fgen} an der LED sind dabei:
-
-\begin{itemize}[noitemsep]
-	\item Spitzen-Spitzen Spannung: $u_\text{stell,pp}=\SI{10}{\volt}$
-	\item Offset-Spannung: $u_\text{stell,ofs}\SI{5}{\volt}$
-	\item Frequenz, Tastverhöltnis: variabel, \num{25}\%
-	\item Signalform: Rechteck
-	\item Last: $Z=\SI{50}{\ohm}$
-\end{itemize}
-
-Die Lasteinstellung von \SI{50}{\ohm} dient als Strombegrenzung für die LED aus \devref{pos:strb}.
-
-Für die Stellspannug wurden mit dem Labornetzteil \devref{pos:psu} die Werte $u_\text{stell}\in\{0.8, 1.6, 2.4, 3.2, 4.0\}\si{\volt}$ eingestellt und die Ankerspannung $u_A$ mit dem Multimeter \devref{pos:mmeter} überwacht.
+Die Lasteinstellung von \SI{50}{\ohm} am Funktionsgenerator dient als Strombegrenzung für die LED aus \devref{pos:strb}. Für die Stellspannug wurden mit dem Labornetzteil \devref{pos:psu} die Werte $u_\text{stell}\in\{0.8, 1.6, 2.4, 3.2, 4.0\}\si{\volt}$ eingestellt und die Ankerspannung $u_A$ mit dem Multimeter \devref{pos:mmeter} überwacht.
 
 \subsection{Messergebnis}
 

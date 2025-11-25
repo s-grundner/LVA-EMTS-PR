@@ -47,7 +47,7 @@ Das Gesamtsystem des geschlossenen Regelkreises kann wie in \autoref{fig:gesamts
 
 \subsubsection{Aufgabenstellung}
 
-Zuerst soll der $k_3$-Faktor des Tachogenerators bestimmt werden. Dazu wird der Motor mit unterschiedlichen Stellspannungen angesteuert und im stationären Zustand die jeweilige Drehzahl mit einem induktiv Sensor gemeinsam mit der Tachospannung gemessen und in Verhältnis gesetzt. Für die Stellspannung muss beachtet werden, dass die Ankerspannung $u_\mathrm{A}$ niemals $\pm\SI{24}{\volt}$ überschreiten darf.
+Zuerst soll der $k_3$-Faktor des Tachogenerators bestimmt werden. Dazu wird der Motor mit unterschiedlichen Stellspannungen angesteuert und im stationären Zustand die jeweilige Drehzahl mit einem induktiv Sensor gemessen. Gleichzeitig wird die Tachospannung aufgenommen und in Verhältnis zur Drehzahl gesetzt. Für die Stellspannung muss beachtet werden, dass die Ankerspannung $u_\mathrm{A}$ niemals $\pm\SI{24}{\volt}$ überschreiten darf.
 
 \subsubsection{Aufbau und Durchführung}\label{sec:indu-rpm}
 
@@ -89,9 +89,7 @@ Zuerst soll der $k_3$-Faktor des Tachogenerators bestimmt werden. Dazu wird der 
 	\caption{Aufbau zur Drehzahlmessung mittels induktiven Sensor}\label{fig:indu-rpm-aufbau}
 \end{figure}
 
-Die Verdrahtung des Leistungsverstärkers mit dem Motorprüfstand und den Messgeräten ist in \autoref{fig:indu-rpm-aufbau} dargestellt.
-
-Es wird eine konstante Stellspannung $u_\text{stell}$ angelegt und im stationären Zustand die Drehzahl $n$ des Motors mit dem induktiven Sensor gemessen. Um die maximale Ankerspannung von $\pm \SI{24}{\volt}$ nicht zu überschreiten, darf die Stellspannung $u_\text{stell}$ maximal $\pm\SI{24}{\volt}/5 = \pm \SI{4.8}{\volt}$ betragen. Für die Messung wurde daher $u_\text{stell} = \{1, 1.6, 2.4, 3.2, 4\}\si{\volt}$ gewählt.
+Die Verdrahtung des Leistungsverstärkers mit dem Motorprüfstand und den Messgeräten ist in \autoref{fig:indu-rpm-aufbau} dargestellt. Um die maximale Ankerspannung von $\pm \SI{24}{\volt}$ nicht zu überschreiten, darf die Stellspannung $u_\text{stell}$ maximal $\pm\SI{24}{\volt}/5 = \pm \SI{4.8}{\volt}$ betragen. Für die Messung wurde daher $u_\text{stell} = \{1, 1.6, 2.4, 3.2, 4\}\si{\volt}$ gewählt.
 
 \begin{itemize}[noitemsep]
 	\item Die Tachospannung $u_\text{ist}$ wird gleichzeitig mit einem Multimeter gemessen.
@@ -106,7 +104,7 @@ Es wird eine konstante Stellspannung $u_\text{stell}$ angelegt und im stationär
 
 \subsubsection{Berechnungen}
 
-Mit der gemessenen Periodendauer $T_{1/6}$ des induktiven Sensorsignals kann die Drehzahl $n$ in $\mathrm{U}~\si{\per\minute}$ berechnet werden. Dabei ist zu beachten, dass das inkrement Rad am Prüfstand aus $N=6$ Schraubenköpfen besteht. Die gemessene Periodendauer $T_{1/6}$ ist somit $1/6$ der gesamten Umdrehungsdauer $T$ der Welle.
+Mit der gemessenen Periodendauer $T_{1/6}$ des induktiven Sensorsignals, kann die Drehzahl $n$ in $\mathrm{U}~\si{\per\minute}$ berechnet werden. Dabei ist zu beachten, dass das Inkrementrad am Prüfstand aus $N=6$ Schraubenköpfen besteht. Die gemessene Periodendauer $T_{1/6}$ ist somit $1/6$ der gesamten Umdrehungsdauer $T$ der Welle.
 \begin{equation}
 n = \frac{60}{T_{1/N} \cdot N} \label{eq:drehzahl}
 \end{equation}
@@ -131,7 +129,7 @@ Mit der Messung wie beschrieben in \autoref{sec:indu-rpm} und Gleichungen \ref{e
 	\end{tabularx}
 \end{table}
 
-Trägt man wie in \autoref{fig:tachospannung-drehzahl} die Tachospannung über der Drehzahl auf erkennt man einen linearen Zusammenhang. Der Mittelwert des $k$-Wertes über die Messwerte ist $\bar{k}_3=2.02\si{\milli\volt\minute}~U^{-1}$ und ist die Steigung dieser Geraden.
+Trägt man wie in \autoref{fig:tachospannung-drehzahl} die Tachospannung über der Drehzahl auf, erkennt man einen linearen Zusammenhang. Der Mittelwert des $k$-Wertes über die Messwerte ist $\bar{k}_3=2.02\si{\milli\volt\minute}~U^{-1}$ und ist die Steigung dieser Geraden.
 
 \begin{figure}
 	\centering
@@ -143,7 +141,7 @@ Trägt man wie in \autoref{fig:tachospannung-drehzahl} die Tachospannung über d
 
 \subsubsection{Aufgabenstellung}
 
-Anschließend wird der Proportionalitätsfaktor $K_\mathrm{S}$ und die Zeitkonstante $T_\mathrm{a}$ des Gesamtsystems ermittelt. Dazu wird die Sprungantwort des Systems aufgenommen, indem mit einem Funktionsgenerator eine niederfrequente Rechteckspannung mit $U_\mathrm{pp} = \SI{4}{\volt}$, $U_\mathrm{ofs} = \SI{2}{\volt}$ und einer Periodendauer von $T=\SI{5}{\second}$ als $u_\text{soll}(s)$ an den Leistungsverstärker angelegt wird. Der Verlauf der Tachospannung $u_\text{ist}(s)$ wird dann mit dem Oszilloskop aufgezeichnet.
+Anschließend wird der Proportionalitätsfaktor $K_\mathrm{S}$ und die Zeitkonstante $T_\mathrm{a}$ des Gesamtsystems ermittelt. Dazu wird die Sprungantwort des Systems aufgenommen, indem mit einem Funktionsgenerator ein Rechtecksignal mit $U_\mathrm{pp} = \SI{4}{\volt}$, $U_\mathrm{ofs} = \SI{2}{\volt}$ und einer Periodendauer von $T=\SI{5}{\second}$ als $u_\text{soll}(s)$ an den Leistungsverstärker angelegt wird. Der Verlauf der Tachospannung $u_\text{ist}(s)$ wird dann mit dem Oszilloskop aufgezeichnet.
 
 \subsubsection{Aufbau}
 
@@ -171,14 +169,6 @@ Die Verdrahtung des Leistungsverstärkers mit dem Motorprüfstand und den Messge
 	\caption{Aufbau zur Untersuchung des Gesamtsystems}\label{fig:system-aufbau}
 \end{figure}
 
-Die Einstellungen des Funktionsgenerators an $u_\text{stell}$ sind dabei:
-
-\begin{itemize}[noitemsep]
-	\item Spitzen-Spitzen Spannung: $u_\text{stell,pp}=\SI{4}{\volt}$
-	\item Offset-Spannung: $u_\text{stell,ofs}\SI{2}{\volt}$
-	\item Periodendauer: $T=\SI{5}{\second}$
-	\item Signalform: Rechteck
-\end{itemize}
 \subsubsection{Berechnungen}
 
 Zunächst wird das System des leerlaufenden Motors ohne Regler und externe Störeinflüssen in \autoref{fig:vereinfachtes-system} betrachtet.
