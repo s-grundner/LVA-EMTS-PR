@@ -1,0 +1,164 @@
+\newpage
+\section{Drehzahlmessung mit Gabellichtschranke und Reﬂexoptokoppler}
+
+\subsection{Aufgabenstellung}
+
+In dieser Aufgabe wird eine Drehzahlmessung mithilfe eines Reflexoptokopplers und einer Gabellichtschranke durchgeführt. Die integrierte LED ist unter Einhaltung des maximalen Stroms von 20 mA mit einem geeigneten Vorwiderstand zu verschalten, anschließend ist eine der in \autoref{fig:30_foto-schaltungen} dargestellten Schaltungen für den Fototransistor auszuwählen und der Widerstand $R_1$ (Richtwert \SI{10}{\kilo\ohm}) zu dimensionieren. Danach soll das Ausgangssignal beobachtet und die Schaltungsgeschwindigkeit durch Bestimmung der Anstiegszeit zwischen \SI{10}{\percent} und \SI{90}{\percent} der Spannungsänderung ermittelt werden. Abschließend ist der Einfluss einer Variation von $R_1$ zu untersuchen und zu dokumentieren.
+
+\subsection{Aufbau und Durchführung}
+
+Für den Fototransistor kommt eine Beschaltung mit Pull-up-Widerstand zum Einsatz; das daraus resultierende Signal wird direkt dem Oszilloskop zugeführt. Die Versorgung des Drehzahlmessprüfstands sowie des Gleichstrommotors erfolgt über zwei voneinander unabhängige Ausgänge des HAMEG-Netzgeräts. Als Bordspannung wird ($U_\mathrm{B}=\SI{5}{\volt}$) eingestellt, während die Eingangsspannung des Leistungsverstärkers ($U_\mathrm{stell}=\SI{2.4}{\volt}$) beträgt.
+Der vollständige Versuchsaufbau ist in \autoref{fig:30_foto-schaltungen} dargestellt. Die Beschaltung des Gleichstrommotors findet sich in \autoref{fig:strob-rpm-aufbau}.
+
+\begin{figure}[h]
+	\centering
+	\begin{circuitikz}[transform shape, scale=0.8]
+		% --- Fotodiode ---
+		\draw
+		(0,4.5) node[vcc]{$U_B$}
+		to[R=$R_D$] (0,2.5)
+		to[short] (0,2)
+		to[led, l_=D] (0,0);
+		\node[rground] at (0,0) {};
+
+		% --- Fototransistor ---
+		\draw
+		(4,4.5) node[vcc]{$U_B$}
+		to[R=$R_1$] (4,2.5)
+		to[short] (4,1.8)
+		node[npn, photo, rotate=0, anchor=C](Q){};
+		\draw (Q.E) -- (4,0);
+		\node[rground] at (4,0) {};
+
+		% Ausgang
+		\coordinate (out) at (5,2);
+		\draw (4,2) -- (out);
+		\node[ocirc] at (5,2) {};
+		\draw[->] ($(out.south)+(0,-0.2)$) -- ++(0,-1.55)
+		node[midway,right] {$U_a$}
+		coordinate (mid);
+		\node[ocirc] (C2) at ($(mid)+(0,-0.2)$) {};
+		\draw (C2.south) -- ++(0,-0.0) node[rground] {};
+	\end{circuitikz}
+	\caption{Schaltung von LED und Phototransistor für Gabellichtschranke und Reflexoktokoppler}
+	\label{fig:30_foto-schaltungen}
+\end{figure}
+
+\subsection{Dimensionierung}
+Vor dem Aufbau der Schaltung sind sowohl der Vorwiderstand ($R_\mathrm{D}$) für die LED als auch der Pull-up-Widerstand ($R_1$) zu dimensionieren. Für die Bestimmung von ($R_\mathrm{D}$) werden die Versorgungsspannung ($U_\mathrm{B}=\SI{5}{\volt}$) sowie der maximal zulässige LED-Strom ($I_{\mathrm{D,max}}=\SI{20}{\milli\ampere}$) herangezogen. Es wrude $I_{\mathrm{D,max}}/2$ als $I_{\mathrm{D,Betriebsspannung}}$ gewählt. Unter der Annahme einer LED-Flussspannung von ($U_{\mathrm{D,F}}\approx\SI{1.4}{\volt}$) ergibt sich der benötigte Vorwiderstand zu
+
+\begin{gather}
+	R_{\mathrm{D}}
+	= \frac{U_\mathrm{B}-U_{\mathrm{D,F}}}{I_{\mathrm{D,Betriebsspannung}}}
+	= \frac{\SI{5}{\volt}-\SI{1.4}{\volt}}{\SI{10}{\milli\ampere}}
+	\approx \SI{360}{\ohm}.
+	\label{eq:30_rdmin}
+\end{gather}
+
+Für den Pull-up-Widerstand ($R_1$) wird aus der Angabe der Wert von \SI{10}{\kilo\ohm} übernommen und zusätzlich, \SI{22}{\kilo\ohm} und \SI{47}{\kilo\ohm} gewählt. $R_1$ und $R_D$ wurden mit den Widerstandsdekaden R-DIG-6 Realisiert. 
+
+
+\subsection{Durchführung}
+
+Die Drehzahlmessung wird für beide VarianteA bei einer Eingangsspannung des Leistungsverstärkers von $U_{stell} = \SI{2.4}{\volt}$ durchgeführt, was einer ungefähren Ankerspannung von $U_A = 5 \cdot \SI{2.4}{\volt} = \SI{12}{\volt}$ entspricht ($U_{\text{A,Gemessen}} = \SI{11.88}{\volt}$). Zusätzlich erfolgen Messungen mit der Gabellichtschranke und dem Reflexoptokoppler, jeweils mit drei unterschiedlichen Widerstandswerten für $R_1$. Die Anstiegs- bzw Abfallzeiten werden wie in \autoref{fig:anstiegszeit} gemessen.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.95\textwidth]{33_anstiegszeit.png}
+	\caption{Grafische Definition der Anstiegs- und Abfallzeit ($t_a$)}
+	\label{fig:anstiegszeit}
+\end{figure}
+
+\subsection{Ergebnisse}
+
+Die zeitlichen Signalverläufe der Gabellichtschranke und des Reflexoptokopplers sind in \autoref{fig:gabel} bzw. \autoref{fig:reflex} dargestellt. Für beide Sensoren werden die Messungen jeweils für unterschiedliche Widerstandswerte von $R_1$ gezeigt. Die ermittelten Anstiegszeiten sind in \autoref{tab:30_ta} zusammengefasst.
+
+\begin{figure}[h]
+	\centering
+	\begin{minipage}{0.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{31_refl-opt_Ta_10k.JPG}
+		\caption*{(a) $R_1 = \SI{10}{\kilo\ohm}$}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{31_refl-opt_Ta_22k.JPG}
+		\caption*{(b) $R_1 = \SI{22}{\kilo\ohm}$}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{31_refl-opt_Ta_47k.JPG}
+		\caption*{(c) $R_1 = \SI{47}{\kilo\ohm}$}
+	\end{minipage}
+	\caption{Reflexoptokoppler für unterschiedliche $R_1$}
+	\label{fig:gabel}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\begin{minipage}{0.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{32_gab_Ta_10k.JPG}
+		\caption*{(a) $R_1 = \SI{10}{\kilo\ohm}$}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{32_gab_Ta_22k.JPG}
+		\caption*{(b) $R_1 = \SI{22}{\kilo\ohm}$}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{32_gab_Ta_47k.JPG}
+		\caption*{(c) $R_1 = \SI{47}{\kilo\ohm}$}
+	\end{minipage}
+  \caption{Gabellichtschranke für unterschiedliche $R_1$}
+	\label{fig:reflex}
+\end{figure}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{c|c|c|c|c|c}
+		\hline
+		Modus & $R$ / \SI{}{\kilo\ohm}    & $t_\text{a}$ / \SI{}{\micro\second}
+		      & $\Delta U$ / \SI{}{\volt} & $\Delta U_{10\%}$ / \SI{}{\volt}    & $\Delta U_{90\%}$ / \SI{}{\volt}               \\
+		\hline
+		\multirow{3}{*}{Gabellichtschranke}
+		      & 10                        & 600                                 & 0.30                             & 0.03 & 0.27 \\
+		      & 22                        & 480                                 & 0.23                             & 0.02 & 0.21 \\
+		      & 47                        & 260                                 & 0.55                             & 0.06 & 0.50 \\
+		\hline
+		\multirow{3}{*}{Reflexoptokoppler}
+		      & 10                        & 300                                 & 1.50                             & 0.15 & 1.35 \\
+		      & 22                        & 260                                 & 3.20                             & 0.32 & 2.88 \\
+		      & 47                        & 380                                 & 4.24                             & 0.42 & 3.82 \\
+		\hline
+	\end{tabular}
+	\caption{Gemessene Anstiegszeit $t_\text{a}$ und Spannungsänderung
+	$\Delta U$ sowie die daraus berechneten 10\,\%- und 90\,\%-Pegel
+	relativ zur minimalen Signalspannung ($\Delta U_{10\%}=0{,}1\Delta U$,
+	$\Delta U_{90\%}=0{,}9\Delta U$).}
+	\label{tab:30_ta}
+\end{table}
+
+\subsection{Erkenntnisse}
+
+\subsubsection{Vergleich und Interpretation der Signalverläufe}
+
+Die Signalformen in \autoref{fig:gabel} und \autoref{fig:reflex} verdeutlichen die unterschiedlichen Funktionsprinzipien von Gabellichtschranke und Reflexoptokoppler. 
+
+Bei der Gabellichtschranke wird der Ausgang über den Pull-up-Widerstand auf HIGH gezogen, sobald der Lichtstrahl zwischen LED und Detektor durch einen an der Welle befestigten Stift unterbrochen wird. Während dieser Abschattung sinkt der vom Fototransistor erzeugte Strom, wodurch am Ausgang ein ansteigender Spannungsverlauf entsteht. Nach Passieren des Stiftes fällt der Ausgang aufgrund der erneuten Beleuchtung wieder auf LOW.
+
+Beim Reflexoptokoppler absorbiert ein schwarzer Abschnitt der Welle das ausgesendete Licht, sodass der Fototransistor sperrt und der Ausgang auf HIGH geht. Ein kleiner reflektierender Bereich führt kurzzeitig zu einem LOW-Pegel. Die beobachteten Spannungsschwankungen im LOW-Zustand lassen sich auf inhomogene Reflexionseigenschaften der Wellenoberfläche sowie auf das nichtideale Schaltverhalten des Fototransistors zurückführen.
+
+\subsubsection{Einfluss von $R_1$ auf die Schaltgeschwindigkeit}
+
+Aus den Messwerten in \autoref{tab:30_ta} lässt sich weder für die Gabellichtschranke noch für den Reflexoptokoppler ein eindeutiger, monotoner Zusammenhang zwischen dem Pull-up-Widerstand $R_1$ und der Anstiegszeit $t_a$ ableiten. Die gemessenen Anstiegszeiten schwanken teilweise deutlich und zeigen insbesondere beim Reflexoptokoppler keine klare Trendrichtung: Während sich $t_a$ beim Übergang von $R_1=\SI{10}{\kilo\ohm}$ auf \SI{22}{\kilo\ohm} leicht verringert, steigt sie bei $R_1=\SI{47}{\kilo\ohm}$ wieder an.
+
+Auch bei der Gabellichtschranke ist zwar eine Abnahme der gemessenen Anstiegszeit mit wachsendem $R_1$ zu beobachten, angesichts der relativ starken Änderungen der Signalspannung sowie möglicher Messunsicherheiten kann dieser Effekt jedoch nicht eindeutig dem Einfluss des Widerstands zugeordnet werden. Es ist daher anzunehmen, dass ein wesentlicher Teil der beobachteten Unterschiede auf experimentelle Randbedingungen zurückzuführen ist, etwa auf wechselnde Beleuchtungsverhältnisse, mechanische Unregelmäßigkeiten bei der Abschattung bzw. Reflexion sowie auf die endliche Bandbreite des Messaufbaus und Ungenauigkeiten beim Ablesen der Signale am Oszilloskop.
+
+Insgesamt zeigen die Ergebnisse, dass im untersuchten Widerstandsbereich der Pull-up-Widerstand $R_1$ keinen dominierenden Einfluss auf die Schaltgeschwindigkeit der verwendeten optischen Sensoren hat, während er primär die Ausgangsamplitude und damit die Signalqualität beeinflusst.
+
