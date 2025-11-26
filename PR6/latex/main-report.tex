@@ -73,17 +73,6 @@
 \tikzset{ni/.style={rmeterwa, t=\textbf{NI}}}
 \tikzset{ai/.style={rmeterwa, t=\textbf{AI}}}
 
-% Control System Blocks
-\tikzset{
-	block/.style={draw, shape=rectangle, minimum height=3em, minimum width=3em, node distance=3cm, line width=1pt},
-	factor/.style={
-		draw, shape=isosceles triangle, isosceles triangle stretches,
-		minimum height=3em, minimum width=4em,
-		node distance=3cm, line width=1pt, inner sep=2pt},
-	sum/.style={draw, shape=circle, node distance=1.5cm, line width=1pt, minimum width=1.25em, node distance=3cm},
-	branch/.style={fill,shape=circle,minimum size=4pt,inner sep=0pt}
-}
-
 \usepackage{pgfplots}
 \DeclareUnicodeCharacter{2212}{−}
 \usepgfplotslibrary{groupplots,dateplot}
@@ -91,24 +80,6 @@
 \usetikzlibrary{shapes.arrows,shapes.geometric}
 
 \pgfplotsset{compat=newest}
-
-\newcommand\myNIA[4]{%1: name of this amplifier, %2 start coordinate, %3 R1, %4 R2
-	\draw #2 coordinate(#1-in)
-		to[short] ++(1,0) node[op amp, noinv input up, anchor=+](#1-OA){\texttt{#1}}
-		(#1-OA.-) -- ++(0,-1) coordinate(#1-FB)
-		to[R, l_=#3] ++(0,-2) node[ground]{} coordinate(#1-gnd)
-		(#1-FB) to[R=#4, *-] (#1-FB -| #1-OA.out) -- (#1-OA.out)
-		to [short, *-] ++(1,0) coordinate(#1-out);
-}
-\newcommand\myIA[4]{%1: name of this amplifier, %2 start coordinate, %3 R1, %4 R2
-	\draw #2 coordinate(#1-in)
-		to[R=#3] ++(2,0) coordinate(#1--)
-		(#1--) -- ++(0,-1) coordinate(#1-FB)
-		node[op amp, anchor=-](#1-OA){\texttt{#1}}
-		(#1-OA.+) -- ++(0,-0.5) node[ground]{} coordinate(#1-gnd)
-		(#1--) to[R=#4, *-] (#1-- -| #1-OA.out)
-		to[short, -*] (#1-OA.out) -- ++(1,0) coordinate(#1-out);
-}
 
 \renewcaptionname{ngerman}{\figurename}{Abb.}
 \captionsetup{font=small}
