@@ -17,24 +17,12 @@
 %%  JJJJJJJJJJJJJ    KKKKKKKKKKKKKKKKKKKKKKKKKKK    UUUUUUUUUUUUUUU   
 %%    JJJJJJJJJ      KKKKKKKKKKKKKKKKKKKKKKKKKKK      UUUUUUUUUUU     
 %% 
-%% This is an example file for using the JKU LaTeX technical report template
-%% for your technical report.
-%% 
-%% Template created by Michael Roland (2021)
-%% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 
 \documentclass[a4paper,oneside,11pt,ngerman]{scrartcl}
 \usepackage[utf8]{inputenc}
-%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% 
-%% Use the JKU LaTeX technical report template for this document.
-%% 
 \usepackage[
 	TNF,
 	techreport,
@@ -44,31 +32,12 @@
 	logopath=../../assets/logos
 ]{jkureport}
 %% 
-%% Space-efficient monospace font options (requires XeTeX/LuaTeX):
-%%  * compactmono   ... Use condensed fixed-width font everywhere.
-%%  * nocompactverb ... Do not use condensed fixed-width font for verbatim and listings.
-%% 
-%% Style-breaking options:
-%%  * noimprint      ... Do not insert imprint on title pages.
-%%  * nojkulogo      ... Do not insert JKU & K logos on title pages.
-%%  * capstitle      ... Set document title in capital letters.
-%%  * nofancyfonts   ... Do not use custom TTF fonts with XeTeX/LuaTeX / supress pdfLaTeX warning.
-%%  * equalmargins   ... Decrease the outer page margin to have both page margins of equal size
-%%                       (the additional outer margin is intentional and to be used for
-%%                       anotations; equalmargins also causes the text width to be
-%%                       significantly larger than optimal for reading).
-%% 
-%% Advanced options:
-%%  * logopath={<path>} ... Set the path where the theme can find its own logo resources. This
-%%                          should typically be a relative path and the default is `./logos'.
-%%  * fontpath={<path>} ... Set the path where the theme can find its own font resources. This
-%%                          should typically be a relative path and the default is `./fonts'.
-%% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 
 %% Include Packages
+%% 
 
 \usepackage{amsfonts}
 \usepackage{subfigure}
@@ -82,36 +51,60 @@
 \usepackage{tabularx}
 \usepackage{pgfplotstable}
 \usepackage{enumitem}
+\usepackage{zref-xr,zref-user}
+
+%% Custom Commands and Packages Settings
 
 \setcounter{tocdepth}{2}
+
+% For device position referencing
+\newcounter{posctr}
+\newcommand{\pos}[1]{%
+	\refstepcounter{posctr}%
+	\zlabel{#1}%
+}
+\newcommand{\devref}[1]{%
+	\autoref{tab:geraeteliste} Pos.~\zref{#1}%
+}
 
 \tikzset{vmeter/.style={rmeterwa, t=V}}
 \tikzset{ameter/.style={rmeterwa, t=A}}
 \tikzset{ometer/.style={rmeterwa, t=$\Omega$}}
+\tikzset{ni/.style={rmeterwa, t=\textbf{NI}}}
+\tikzset{ai/.style={rmeterwa, t=\textbf{AI}}}
+
+\usepackage{pgfplots}
+\DeclareUnicodeCharacter{2212}{−}
+\usepgfplotslibrary{groupplots,dateplot}
+\usetikzlibrary{patterns,shapes,arrows,positioning}
+\usetikzlibrary{shapes.arrows,shapes.geometric}
+
+\pgfplotsset{compat=newest}
 
 \renewcaptionname{ngerman}{\figurename}{Abb.}
 \captionsetup{font=small}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
 
+\newcommand{\datapath}[1]{../data/#1}
 \newcommand{\marginref}[1]{%
 \reversemarginpar\marginnote{\textbf{(#1)}}[7pt]
 }
-
-\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\graphicspath{{images/}}
 
 %% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 
-\title{}
+\title{A/D - Umsetzer}
 \author{Simon Grundner (k12136610) \and Paul Kronegger (k12344729)}
 \setbottommark{Paul Kronegger (k12344729), Simon Grundner (k12136610)}
 
+% \includepdf{coversheet/coversheet_signed.pdf}
 \includepdf{coversheet/coversheet.pdf}
 \tableofcontents
 
 \input{01_Geraeteliste.tex}
-\input{xx_Template.tex}
 \input{00_Literatur.tex}
 
 \end{document}
