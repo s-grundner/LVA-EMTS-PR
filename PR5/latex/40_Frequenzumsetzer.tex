@@ -1,0 +1,141 @@
+\newpage
+\section{Drehzahlmessung mit Gabellichtschranke und Reﬂexoptokoppler}
+
+\subsection{Aufgabenstellung}
+
+Mit dem Timer NE555 ist bei einer Betriebsspannung von \(U_B = 5\,\text{V}\) ein Monoflop zur Frequenz-/Spannungsumsetzung eines Reflexoptokopplersignals (siehe Abbildung 6.11) aufzubauen. Der Fototransistor des Reflexoptokopplers ist mit einem Pull-up-Widerstand \(R_1 = 100\,\text{k}\Omega\) bei \(V_{CC}=U_B\) zu betreiben.
+
+Der Widerstand \(R\) des Monoflops ist für \(C = 1\,\mu\text{F}\) so zu dimensionieren, dass die Schaltung für Periodendauern des Reflexoptokopplersignals im Bereich
+\[
+	10\,\text{ms} \leq T_{\text{Reflexion}} \leq 600\,\text{ms}
+\]
+funktioniert.
+
+Zur Glättung der Monoflop-Ausgangsspannung ist ein RC-Tiefpass vorzusehen. Dessen Zeitkonstante \(\tau = R_{\text{TP}}C_{\text{TP}}\) ist so zu wählen, dass der Spannungsrippel von \(U_A\) kleiner als \(0{,}2\,\text{V}\) bleibt (Richtwert: \(C_{\text{TP}} > 1\,\mu\text{F}\)). Die untere messbare Drehzahlgrenze ist experimentell zu bestimmen. Die Signalverläufe \(U_{\text{TH}}\), \(U_{\text{TRIG}}\), \(U_{\text{OUT}}\) und \(U_A\) sind beispielhaft zu skizzieren.
+
+Zur Untersuchung des Übertragungsverhaltens ist die Ausgangsspannung \(U_A\) mit einer Dreiecksspannung des Funktionsgenerators aufzunehmen (\(V_{pp}=4\,\text{V}\), \(V_{\text{Offset}}=2\,\text{V}\), \(T=100\,\text{s}\)). Es ist zu prüfen, ob ein lineares \(f/U_A\)-Verhalten vorliegt, in welchem Drehzahlbereich dieses gegeben ist und wodurch der lineare Bereich begrenzt wird. Dazu sind Messungen mit unterschiedlichen Widerstandswerten \(R\) durchzuführen.
+
+\subsection{Aufbau und Durchführung}
+% TODO
+
+\begin{figure}[h]
+	\centering
+	\begin{circuitikz}[transform shape, scale=0.8]
+
+		% Gemeinsame Masse
+		\node[rground] (GND) at (11,-1.5) {};
+
+		% --- LED / Fotodiode ---
+		\draw
+		(1,4.5) node[vcc]{$U_B$}
+		to[R=$R_v$] (1,2.5)
+		-- (1,2)
+		to[led] (1,0);
+		\node[rground] at (1,0) {};
+
+		\node[left] at (0.7,1.0) {$R_d$};
+
+		% --- Fototransistor Q1 ---
+		\draw
+		(3,4.5) node[vcc]{$U_B$}
+		to[R=$R_1$] (3,3) coordinate (NTRIG);
+		\draw
+		(3,2) node[npn, photo, anchor=C] (Q1) {};
+		\draw (Q1.E) -- (3,0);
+		\node[rground] at (3,0) {};
+		\node[right] at (Q1) {$Q_1$};
+		\draw (Q1.C) -- (NTRIG);
+
+		% --- NE555 Block ---
+		\draw (9,0) rectangle (13,5);
+		\node at (11,2.5) {$NE555$};
+
+		% Pinnummern am Gehäuse
+		\node[anchor=north] at (10,5) {4};
+		\node[anchor=west] at (9,3) {2};
+		\node[anchor=west] at (9,2) {3};
+		\node[anchor=south] at (11,0) {1};
+		\node[anchor=north] at (12,5) {8};
+		\node[anchor=east] at (13,3) {7};
+		\node[anchor=east] at (13,2) {6};
+		\node[anchor=east] at (13,1) {5};
+
+		% Trigger (Pin 2) von Q1
+		\draw (NTRIG) -- (9,3);
+		\node[above] at (6.5,3) {Trigger};
+
+		% Reset (Pin 4)
+		\draw (10,6) node[above]{Reset} -- (10,5);
+		\node[ocirc] at (10,6) {};
+
+		% Output-Pin (3)
+		\coordinate (OUTPIN) at (9,2);
+
+		% Versorgung Pin 8 + Widerstand R
+		\coordinate (VCCPIN) at (12,5);
+		\draw (VCCPIN) -- (12,5.8);
+		\node[vcc] (VB) at (12,5.8) {$U_B$};
+		\draw (VB) -- (15,5.8);
+		\draw (15,5.8) to[R=$R$] (15,3.5);
+
+		% Bus für Discharge (7) und Threshold (6)
+		\draw (15,3.5) -- (15,0.2);
+		\draw (13,3) -- (15,3);   % Pin 7
+		\draw (13,2) -- (15,2);   % Pin 6
+		\node[right] at (15,3) {Discharge};
+		\node[right] at (15,2) {Threshold};
+
+		% Timing-Kondensator C zum Massepunkt (schmaler, Text links)
+		\draw (15,1)
+		to[C, l_=$C$] (15,-1.0) -- (15,-1.5) -- (GND);
+		\node[right, align=left] at (15.6,0.0) {Control\\voltage};
+
+		% Pin 5 mit 10 nF nach Masse (schmaler)
+		\draw (13,1) -- (13.6,1) -- (13.6,-0.5)
+		to[C, l_=$10\,\mathrm{nF}$] (13.6,-1.0) -- (13.6,-1.5) -- (GND);
+
+		% Masse Pin 1
+		\draw (11,0) -- (GND);
+
+		% --- Ausgangsnetzwerk U_A, R_TP, C_TP ---
+		% Knoten U_A (elektrischer Knoten bleibt bei x=6)
+		\coordinate (UA) at (6,2);
+
+		% C_TP von U_A nach Masse (bleibt an derselben Stelle)
+		\coordinate (UA_C_bot) at (6,-0.8);
+		\draw (UA) to[C=$C_{TP}$] (UA_C_bot);
+		\node[rground] at (UA_C_bot) {};
+
+		% R_TP zwischen U_A und Output-Pin
+		\draw (UA) to[R=$R_{TP}$] ($(OUTPIN)+(-1,0)$) -- (OUTPIN);
+		\node[above] at (8.3,2) {Output};
+
+		% U_A-Spannungspfeil links von C_TP mit Abstand 1
+		\coordinate (UAmeasTop) at ($(UA)+(-1,0)$);       % (5,2)
+		\coordinate (UAmeasBot) at ($(UA_C_bot)+(-1,0)$); % (5,-0.8)
+
+		\node[ocirc] (UAnode) at (UAmeasTop) {};
+		\node[ocirc] (UAref)  at (UAmeasBot) {};
+		\draw (UAnode) -- (UA);
+
+		% Spannungs-Pfeil U_A mit eigenem rground
+		\draw[->] ($(UAnode)+(0,-0.2)$) -- ($(UAref)+(0,0.2)$) node[midway,left] {$U_A$};
+		\node[rground] at (UAref) {};
+
+	\end{circuitikz}
+	\caption{Schaltung mit Gabellichtschranke und NE555}
+\end{figure}
+
+\subsection{Dimensionierung}
+% TODO 
+
+
+\subsection{Durchführung}
+% TODO
+
+\subsection{Ergebnisse}
+% TODO
+
+\subsection{Erkenntnisse}
+
+% TODO
