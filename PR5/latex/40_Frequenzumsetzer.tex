@@ -15,8 +15,7 @@ Zur Glättung der Monoflop-Ausgangsspannung ist ein RC-Tiefpass vorzusehen. Dess
 
 Zur Untersuchung des Übertragungsverhaltens ist die Ausgangsspannung \(U_A\) mit einer Dreiecksspannung des Funktionsgenerators aufzunehmen (\(V_{pp}=4\,\text{V}\), \(V_{\text{Offset}}=2\,\text{V}\), \(T=100\,\text{s}\)). Es ist zu prüfen, ob ein lineares \(f/U_A\)-Verhalten vorliegt, in welchem Drehzahlbereich dieses gegeben ist und wodurch der lineare Bereich begrenzt wird. Dazu sind Messungen mit unterschiedlichen Widerstandswerten \(R\) durchzuführen.
 
-\subsection{Aufbau und Durchführung}
-% TODO
+\subsection{Schalplan}
 
 \begin{figure}[h]
 	\centering
@@ -127,15 +126,202 @@ Zur Untersuchung des Übertragungsverhaltens ist die Ausgangsspannung \(U_A\) mi
 \end{figure}
 
 \subsection{Dimensionierung}
-% TODO 
+
+$U_B=\SI{5}{\volt}$ wird mit dem HAMEG-Netzgerät (\autoref{sec:geraeteliste}) eingestellt.
+
+Der Vorwiederstand $R_D$ ist auf \SI{360}{\ohm} dimensioniert (\autoref{eq:30_rd}). $R_1$ ist \SI{100}{\kilo\ohm} gemäß der Angabe. $R_1$ und $R_D$ werden mit den Widerstandsdekaden realisiert.
+
+\subsubsection{Widerstand ($R$)}\label{sec:40_monoflop_r}
+
+Unter der Bedingung einer fest vorgegebenen Kapazität von
+\begin{gather}
+	C = \SI{1}{\micro\farad}
+\end{gather}
+soll der Widerstand $R$ so dimensioniert werden, dass mit dem Reflexoptokoppler Periodendauern
+\begin{gather}
+	T_{\text{Reflexion}} \in [\SI{10}{\milli\second}, \SI{600}{\milli\second}]
+\end{gather}
+gemessen werden können.
+
+Der Monoflop erzeugt bei jeder Triggerung einen Impuls der Dauer ($T_{\text{Puls}}$). Für eine korrekte Auswertung der vom Reflexoptokoppler erzeugten Signale muss ($T_{\text{Puls}}$) kleiner oder gleich der Reflexionszeit ($T_{\text{Reflexion}}$) sein, da sonst ein neuer Puls vor dem Rücksetzen des Monoflops auftreten und das lineare Verhalten des Frequenzumsetzers beeinträchtigen würde.
+\begin{gather}
+	T_{\text{Puls}} \leq T_{\text{Reflexion}}  \label{eq:40_t_puls_condition}
+\end{gather}
+
+Für die Dimensionierung des Widerstands $R$ wird deshalb die kleinste auftretende Periodendauer
+\begin{gather}
+	T_{\text{Puls}} = \SI{10}{\milli\second}
+\end{gather}
+und damit die höchste relevante Frequenz herangezogen.
+
+Im Skript (siehe Seite 135) ist die Impulsdauer des Monoflops gegeben durch
+\begin{gather}
+	T_{\text{Puls}} = R C \ln(3) \label{eq:40_t_puls}
+\end{gather}
+
+Nach Umformen ergibt sich folgender Wert für $R$.
+\begin{gather}
+	R = \frac{T_{\text{Puls}}}{C\cdot\ln(3)} = \frac{\SI{10}{\milli\second}}{\SI{1}{\micro\farad}\cdot \ln(3)} = \SI{9.10}{\kilo\ohm}
+\end{gather}
+
+In der praktischen Umsetzung wird daher der \SI{10}{\kilo\ohm} Potentiometer am Motorprüfstand (Geräteliste~\ref{sec:geraeteliste}) verwendet, mit dem der Widerstandswert auf den berechneten Sollwert eingestellt wird. Die Einstellung erfolgt mithilfe eines Multimeters durch direktes Messen des Widerstandes.
+
+\subsubsection{RC-Tiefpass}\label{sec:40_rc_tiefpass}
+Der nach dem RC-Tiefpass verbleibende Spannungsrippel an der Ausgangsspannung ergibt sich in Abhängigkeit von der Pulsdauer \(T_\mathrm{Puls}\), der Pausendauer \(T_\mathrm{Pause}\) sowie der Zeitkonstante \(\tau\) zu
+
+\begin{equation}
+	U_{A,\mathrm{Rippel}}
+	= U_B \,
+	\frac{\bigl(\exp(T_\mathrm{Pause}/\tau)-1\bigr)
+		\bigl(1-\exp(-T_\mathrm{Puls}/\tau)\bigr)}
+	{\exp(T_\mathrm{Pause}/\tau)-\exp(-T_\mathrm{Puls}/\tau)} \, .
+\end{equation}
+
+Da diese Gleichung nicht analytisch nach der Zeitkonstanten \(\tau\) aufgelöst werden kann, wurde die zur Einhaltung eines vorgegebenen maximalen Spannungsrippels erforderliche Zeitkonstante numerisch mit Python bestimmt.
+Dabei wurde ein maximal zulässiger Spannungsrippel von $U_{A,\mathrm{Rippel}} = \SI{0.2}{\volt}$ bei einer Versorgungsspannung von \(U_B = \SI{5}{\volt}\), einer Pulsdauer von
+\(T_\mathrm{Puls} = \SI{10}{\milli\second}\) sowie einer Periodendauer von
+\(T = \SI{600}{\milli\second}\) zugrunde gelegt.
+Die Pausendauer ergibt sich zu \(T_\mathrm{Pause} = T - T_\mathrm{Puls}\).
+
+Die numerische Lösung der Gleichung liefert für die notwendige Zeitkonstante
+
+\begin{equation}
+	\tau \approx \SI{0.244}{\second}.
+\end{equation}
+
+Für die Dimensionierung des RC-Tiefpasses wurde ein Kondensator mit der Kapazität
+
+\begin{equation}
+	C_{TP} = \SI{2.2}{\micro\farad}
+\end{equation}
+
+gewählt. Daraus ergibt sich der erforderliche Widerstand zu
+
+\begin{equation}
+	R_{TP} = \frac{\tau}{C_{TP}}
+	= \frac{0.244}{2.2 \cdot 10^{-6}}
+	\approx \SI{110}{\kilo\ohm}.
+\end{equation}
+
+$R_{TP}$ und $C_{TP}$ werden mit einer Widerstandsdekade und einer Kapazitätsdekade realisiert.
+
+\subsection{Skizzierung von \(U_{\mathrm{TH}},\,U_{\mathrm{TRIG}},\,U_{\mathrm{OUT}}\) und \(U_A\)}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{44_skizze.png}
+	\caption{Simulierte Signalverläufe am Monoflop-Frequenzumsetzer.}
+	\label{fig:monoflop_signale}
+\end{figure}
+
+In Abbildung~\ref{fig:monoflop_signale} sind die simulierten Signalverläufe des
+Frequenzumsetzers dargestellt. \(U_{\mathrm{TRIG}}\) beschreibt die vom
+Reflexoptokoppler gelieferte Spannung, die durch die Drehung der Motorwelle
+periodisch kurz unter die untere Schaltschwelle des NE555 fällt und damit den
+Monoflop triggert.
+
+Nach jedem Triggerimpuls wird der Ausgang des Timers für
+\(T_{\mathrm{Puls}} = 10\,\mathrm{ms}\) auf High geschaltet (\(U_{\mathrm{OUT}}\)),
+während der Timing-Kondensator über \(R\) geladen wird und \(U_{\mathrm{TH}}\)
+den charakteristischen exponentiellen Anstieg zeigt. Der nachgeschaltete
+RC-Tiefpass bildet aus dem Rechtecksignal die mittlere Ausgangsspannung
+\(U_A\). Aufgrund der endlichen Zeitkonstante bleibt ein kleiner
+Spannungsrippel \(U_{A,\mathrm{Rippel}}\) sichtbar, der im Diagramm
+vergrößert dargestellt ist.
 
 
-\subsection{Durchführung}
-% TODO
+\subsection{Messung der Signalverläufe am Monoflop}
 
-\subsection{Ergebnisse}
-% TODO
+\begin{figure}[h]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{41_NE555_UA-8V.JPG}
+		\caption*{$U_{\text{Anker}} = \SI{8}{\volt}$}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{41_NE555_UA-12V.JPG}
+		\caption*{$U_{\text{Anker}} = \SI{12}{\volt}$}
+	\end{minipage}
+	\caption{Frequenzumsetzer mit konstanter Motordrehzahl im linearen Betrieb}
+	\label{fig:40_frequenzumsetzer_linearer_Betrieb}
+\end{figure}
 
-\subsection{Erkenntnisse}
 
-% TODO
+Zur experimentellen Überprüfung wurden die Signalverläufe des
+Frequenzumsetzers bei zwei konstanten Ankerspannungen von
+\(U_\mathrm{A} = 8\,\mathrm{V}\) und \(U_\mathrm{A} = 12\,\mathrm{V}\)
+aufgenommen (siehe Abbildungen~\ref{fig:40_frequenzumsetzer_linearer_Betrieb}). Dabei erfassen
+CH1 die Triggerspannung \(U_{\mathrm{TRIG}}\) des Reflexoptokopplers,
+CH2 die gefilterte Ausgangsspannung \(U_A\),
+CH3 den Ausgang des NE555 (\(U_{\mathrm{OUT}}\)) und
+CH4 die Kondensatorspannung \(U_{\mathrm{TH}}\).
+
+Mit zunehmender Ankerspannung steigt die Drehzahl des Motors, wodurch die
+Impulse in \(U_{\mathrm{TRIG}}\) dichter auftreten. Entsprechend erhöht sich
+die mittlere Ausgangsspannung \(U_A\), während der Spannungsrippel
+\(U_{A,\mathrm{Rippel}}\) durch den RC-Tiefpass klein bleibt.
+Die Drehzahl wird aus CH1 bestimmt, indem die Periodendauer
+\(T_{\mathrm{Reflexion}}\) der Impulse am Oszilloskop gemessen und in
+\begin{gather}
+	n = \frac{60}{T_{\mathrm{Reflexion}}}
+	\quad\left[\frac{\mathrm{U}}{\mathrm{min}}\right]
+\end{gather}
+eingesetzt wird (mit \(T_{\mathrm{Reflexion}}\) in Sekunden). Die Ergebnisse sind in \autoref{tab:drehzahl_reflexion}.
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{c c c c}
+		\hline
+		$U_\mathrm{A}$ & $T_\mathrm{Reflexion}$ & $n$                    \\
+		\hline
+		\SI{8}{\volt}  & \SI{32}{\milli\second} & \SI{1875}{\per\minute} \\
+		\SI{12}{\volt} & \SI{24}{\milli\second} & \SI{2500}{\per\minute} \\
+		\hline
+	\end{tabular}
+	\caption{Bestimmung der Motordrehzahl aus der Reflexionsperiodendauer}\label{tab:drehzahl_reflexion}
+\end{table}
+
+\subsection{Untersuchung des \(f/U_A\)-Übertragungsverhaltens}
+
+Zur Untersuchung des Übertragungsverhaltens wurde am Anker des Motors mit dem
+Funktionsgenerator (siehe Geräteliste~\ref{sec:geraeteliste}) eine
+Dreiecksspannung mit einer Amplitude von \(U_{\mathrm{pp}} = 4\,\mathrm{V}\),
+einem Offset von \(U_{\mathrm{Offset}} = 2\,\mathrm{V}\) und einer
+Periodendauer von \(T = 50\,\mathrm{s}\) eingestellt.
+Die Aufgabenstellung sieht zwar \(T = 100\,\mathrm{s}\) vor, aufgrund der
+begrenzten Versuchszeit wurde jedoch nur die halbe Periodendauer realisiert.
+In Abbildung~\ref{fig:40_frequenzumsetzer_variable_motordrezahl} sind die am Anker angelegte
+Dreiecksspannung \(U_{\mathrm{Mot}}\) (CH1) sowie die tiefpassgefilterte
+Ausgangsspannung \(U_A\) (CH2) des Frequenzumsetzers dargestellt.
+
+Für kleine Widerstandswerte \(R\) zeigt sich ein annähernd linearer
+Zusammenhang zwischen der Antriebsdrehzahl bzw. Frequenz und der
+Ausgangsspannung \(U_A\). Wird \(R\) jedoch zu groß gewählt, verlängert sich
+die Monoflopzeit \(T_{\mathrm{Puls}}\) so weit, dass die Bedingung
+\(T_{\mathrm{Puls}} \leq T_{\mathrm{Reflexion}}\) nicht mehr erfüllt ist.
+Während ein Puls noch anliegt, wird der Trigger-Eingang bereits erneut auf
+Low gezogen. Dadurch werden einzelne Refleximpulse nicht mehr in zusätzliche
+Ausgangspulse umgesetzt, was zu deutlich sichtbaren Nichtlinearitäten im
+\(f/U_A\)-Verhalten führt.
+
+\begin{figure}[h]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{42_lin_R-10k.JPG}
+		\caption*{Linearer Betrieb mit $R=\SI{10}{\kilo\ohm}$}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{42_non-lin_R-22k.JPG}
+		\caption*{Nicht linearer Betrieb mit $R=\SI{22}{\kilo\ohm}$}
+	\end{minipage}
+	\caption{Frequenzumsetzer mit rampengesteuerter Motordrehzahl}
+	\label{fig:40_frequenzumsetzer_variable_motordrezahl}
+\end{figure}
+
+
