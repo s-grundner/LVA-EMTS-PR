@@ -1,27 +1,34 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 class ADC:
-    def __init__(self, u_fsr, resolution, type='unipolar'):
+    n_levels: int
+    codes: np.ndarray
+    u_edge_meas: np.ndarray
+
+    def __init__(self, name, u_fsr, resolution, type='unipolar'):
+        self.name = name
         self.u_fsr = u_fsr
         self.resolution = resolution
         self.n_levels = 2 ** resolution
+        self.type = type
         match type:
             case 'unipolar':
-                self.codes = np.arange(0, n_levels)
+                self.codes = np.arange(0, self.n_levels)
             case _:
-                self.codes = np.arange(-n_levels/2, n_levels/2)
+                self.codes = np.arange(-self.n_levels/2, self.n_levels/2)
         
     def ideal(self):
         # Stufenmittelpunkte
         match self.type:
             case 'unipolar':
-                u_mid = np.arange(0, u_fsr, u_fsr / n_levels)
+                u_mid = np.arange(0, self.u_fsr, self.u_fsr / self.n_levels)
             case _:
-                u_mid = np.arange(-u_fsr/2, +u_fsr/2, u_fsr / n_levels)
+                u_mid = np.arange(-self.u_fsr/2, self.u_fsr/2, self.u_fsr / self.n_levels)
         
         # Stufenbreite
-        u_width = np.ones(n_levels) * u_fsr / n_levels
+        u_width = np.ones(self.n_levels) * self.u_fsr / self.n_levels
         # Umschaltspunkte
         u_edge = u_mid + u_width / 2
 
@@ -34,11 +41,10 @@ class ADC:
     
     def eval(self, u_edge_real):
         df_ideal = self.ideal()
-        u_edge_diff = abs(u_edge_real - df_ideal['U_edge'][:-1])
-
-        pos_end = u_edge_diff[-2]
-        neg_end = u_edge_diff[0]
-        null_pt = u_edge_diff[int(n_levels/2)]
+        u_edge_diff = abs(u_edge_real - df_ideal['U_edge'][:-1]).to_numpy()
+        pos_end = u_edge_diff[0]
+        neg_end = u_edge_diff[-2]
+        null_pt = u_edge_diff[int(self.n_levels/2)]
 
         # Calc Correcting Factor
         n_vals = self.n_levels-2
@@ -49,7 +55,7 @@ class ADC:
         
         u_width_real = np.array([
             u_edge_korr[i+1] - u_edge_korr[i]
-            for i in range(n_levels-2)
+            for i in range(self.n_levels-2)
         ])
         u_mid_real = u_edge_korr[:-1] + u_width_real / 2
 
@@ -67,7 +73,6 @@ class ADC:
             'dnl': dnl,
             'inl': inl
         }
-        df_errors = pd.DataFrame(data=errors, index=[''])
 
         df_codes = pd.DataFrame({ 'Code': self.codes })
         df = pd.merge(pd.DataFrame({
@@ -76,7 +81,7 @@ class ADC:
             'U_edge_ideal': df_ideal['U_edge'][:-1],
             'U_edge_diff': u_edge_diff
         }), pd.DataFrame({
-            'Code': codes[1:-1],
+            'Code': self.codes[1:-1],
             'U_width_real': u_width_real,
             'U_width_ideal': df_ideal['U_width'][1:-1],
             'U_width_diff': u_width_diff,
@@ -89,3 +94,13 @@ class ADC:
         df = pd.merge(df_codes, df, how='left', on='Code')
 
         return (df, errors)
+    
+    def plot_curve(self, u_edge_real):
+        plt.step(self.ideal()['U_edge'], self.codes, where='pre')
+        plt.step(u_edge_real, self.codes[:-1], where='pre')
+        plt.title(f'Umsetzerkennlinie: {self.name}')
+        plt.xlabel('Eingangsspannung / V')
+        plt.ylabel('Ausgangscode')
+        plt.grid(True)
+        plt.legend(['Ideal', 'Gemessen'])
+        plt.show()

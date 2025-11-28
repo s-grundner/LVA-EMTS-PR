@@ -17,3 +17,4 @@ main-report.pdf
 *.ind
 *.drawio.bkp
 *.auxlock
+__pycache__
