@@ -1,2 +1,20 @@
 \newpage
 \section{Wägeverfahren}
+
+\subsection{Funktion der Successiven Approximation}
+
+Beim Wägeverfahren der Successiven Approximation wird die Eingangsspannung ($U_E$) durch schrittweises Vergleichen mit dual gewichteten Referenzspannungen quantisiert. Grundlage ist ein vom Successive Approximation Register (SAR) gesteuerter Ablauf, bei dem pro Taktzyklus genau ein Bit festgelegt wird. Zu Beginn setzt das SAR das höchstwertige Bit ($MSB$) auf „1“ und vergleicht die dadurch erzeugte Referenzspannung ($U_\text{Ref}(Z)$) mit ($U_E$). Ist ($U_E$) größer, bleibt das Bit gesetzt, andernfalls wird es auf „0“ zurückgenommen. Danach wird das nächstniedrigere Bit getestet, wobei jeweils die schon ermittelten Bits berücksichtigt werden. Dieser Prozess wiederholt sich für alle Bitpositionen, bis nach ($N = \log_2(n)$) Taktzyklen der vollständige digitale Code vorliegt. Während der gesamten Wandlung muss ($U_E$) konstant bleiben, was durch ein Abtast- und Halteglied gewährleistet wird.
+
+\subsection{Aufgabenstellung}
+Für den Versuchsteil zum Wägeverfahren ist der in \autoref{fig:30_schaltung} dargestellte Aufbau zu realisieren. Als Gruppe 2 ist der Fehlercode 2 am D/A-Wandler einzustellen. Der Konverter soll zunächst mit dem manuellen Starter betrieben werden, um die grundsätzliche Funktion des Verfahrens zu überprüfen. Anschließend sind mit dem Oszilloskop sowohl das Taktsignal als auch der Ausgang des D/A-Wandlers aufzunehmen. Darauf aufbauend ist die vollständige Umsetzerkennlinie mithilfe eines der Taktsignale aufzuzeichnen, wobei besonders auf Signalstabilität und gleichmäßige Schrittweiten zu achten ist. Abschließend ist die Kennlinie auf mögliche Fehler wie Missing Codes sowie auf Verstöße gegen die Monotonie zu untersuchen.
+
+\subsection{Aufbau}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.95\textwidth]{35_schaltung.png}
+	\caption{Schaltplan für Successive Approximation}\label{fig:30_schaltung}
+\end{figure}
+
+
+\subsection{Aufgabenstellung}
