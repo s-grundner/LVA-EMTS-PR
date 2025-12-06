@@ -116,9 +116,9 @@ class ADC:
         self.__curve()
         plt.show()
 
-    def save_curve(self, filename):
+    def save_curve(self, dir: str = 'latex/images'):
         self.__curve()
-        plt.savefig(filename)
+        plt.savefig(f'{dir}/{self.name.lower().replace(" ", "_")}_curve.png')
         plt.close()
 
     def __cell_color(self, col):
@@ -143,15 +143,15 @@ class ADC:
 
         rename_map = {
             'Code': 'Code',
-            'U_edge_real':  r'$U^\mathrm{real}_{\mathrm{edge}}$',
-            'U_edge_ideal': r'$U^\mathrm{ideal}_{\mathrm{edge}}$',
-            'U_edge_diff':  r'$\Delta U_{\mathrm{edge}}$',
-            'U_width_real': r'$U^\mathrm{real}_{\mathrm{width}}$',
-            'U_width_diff': r'$\Delta U_{\mathrm{width}}$',
-            'U_width_ideal': r'$U^\mathrm{ideal}_{\mathrm{width}}$',
-            'U_mittel_diff': r'$\Delta U_{\mathrm{mid}}$',
-            'U_mittel_real': r'$U^\mathrm{real}_{\mathrm{mid}}$',
-            'U_mittel_ideal': r'$U^\mathrm{ideal}_{\mathrm{mid}}$'
+            'U_edge_real':  r'$\dfrac{U^\mathrm{real}_{\mathrm{edge}}}{\si{\volt}}$',
+            'U_edge_ideal': r'$\dfrac{U^\mathrm{ideal}_{\mathrm{edge}}}{\si{\volt}}$',
+            'U_edge_diff':  r'$\dfrac{\Delta U_{\mathrm{edge}}}{\si{\volt}}$',
+            'U_width_real': r'$\dfrac{U^\mathrm{real}_{\mathrm{width}}}{\si{\volt}}$',
+            'U_width_diff': r'$\dfrac{\Delta U_{\mathrm{width}}}{\si{\volt}}$',
+            'U_width_ideal': r'$\dfrac{U^\mathrm{ideal}_{\mathrm{width}}}{\si{\volt}}$',
+            'U_mittel_diff': r'$\dfrac{\Delta U_{\mathrm{mid}}}{\si{\volt}}$',
+            'U_mittel_real': r'$\dfrac{U^\mathrm{real}_{\mathrm{mid}}}{\si{\volt}}$',
+            'U_mittel_ideal': r'$\dfrac{U^\mathrm{ideal}_{\mathrm{mid}}}{\si{\volt}}$'
         }
 
         sty = df_meas.style\
@@ -179,30 +179,38 @@ class ADC:
         df, errors = self.eval()
         rows = []
         fsr = 5  # in V
-        uLsb = fsr / 2**4
+        u_lsb = fsr / 2**4
         for key, err in errors.items():
             rows.append({
-                'Fehler': key,
-                'Wert in \\SI{}{\\volt}': err['val'],
-                'Wert in $U_{LSB}$': err['val'] / uLsb,
-                'Wert in \\% FSR': err['val'] / fsr * 100,
+                'Error': key,
+                'Value': err['val'],
+                'Value_LSB': err['val'] / u_lsb,
+                'Value_FSR': err['val'] / fsr * 100,
                 'Code': df['Code'][err['idx']]
             })
         df_err = pd.DataFrame(rows)
 
-        def rename_err(col):
-            match col:
-                case 'pos_end': return f'{{\\cellcolor[HTML]{{{self.POS_END_COLOR}}} Positiver Endwertfehler}}'
-                case 'neg_end': return f'{{\\cellcolor[HTML]{{{self.NEG_END_COLOR}}} Negativer Endwertfehler}}'
-                case 'null_pt': return f'{{\\cellcolor[HTML]{{{self.NULL_COLOR}}} Nullpunktfehler}}'
-                case 'dnl': return f'{{\\cellcolor[HTML]{{{self.DNL_COLOR}}} Differentielle Nichtlinearität}}'
-                case 'inl': return f'{{\\cellcolor[HTML]{{{self.INL_COLOR}}} Integrale Nichtlinearität}}'
-                case _: return col
+        rename_err = {
+            'pos_end': f'{{\\cellcolor[HTML]{{{self.POS_END_COLOR}}} Positiver Endwertfehler}}',
+            'neg_end': f'{{\\cellcolor[HTML]{{{self.NEG_END_COLOR}}} Negativer Endwertfehler}}',
+            'null_pt': f'{{\\cellcolor[HTML]{{{self.NULL_COLOR}}} Nullpunktfehler}}',
+            'dnl': f'{{\\cellcolor[HTML]{{{self.DNL_COLOR}}} Differentielle Nichtlinearität}}',
+            'inl': f'{{\\cellcolor[HTML]{{{self.INL_COLOR}}} Integrale Nichtlinearität}}'
+        }
+
+        rename_idx = {
+            'Error': 'Fehler',
+            'Value': r'Wert / $\si{\volt}$',
+            'Value_LSB': r'Wert / $U_{LSB}$',
+            'Value_FSR': r'Wert / \% FSR',
+            'Code': 'Code'
+        }        
 
         sty = df_err.style\
-            .format({'Fehler': lambda c: rename_err(c)}, precision=3, na_rep='-')\
+            .format({'Error': lambda c: rename_err[c]}, precision=3, na_rep='-')\
             .hide(level=0, axis=0)\
             .set_table_styles([ {'selector': 'midrule', 'props': ':midrule;'} ])\
+            .format_index(rename_idx.get, axis=1)
         
         filename_err = self.name.lower().replace(" ", "_") + '_errors.tex'
         buf = f'{dir}/{filename_err}'
