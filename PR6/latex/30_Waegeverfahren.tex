@@ -8,9 +8,9 @@ Beim Wägeverfahren der Successiven Approximation wird die Eingangsspannung ($U_
 \subsection{Aufgabenstellung}
 Für den Versuchsteil zum Wägeverfahren ist der in \autoref{fig:30_schaltung} dargestellte Aufbau zu realisieren. Als Gruppe 2 ist der Fehlercode 2 am D/A-Wandler einzustellen. Der Konverter soll zunächst mit dem manuellen Starter betrieben werden, um die grundsätzliche Funktion des Verfahrens zu überprüfen. Anschließend sind mit dem Oszilloskop sowohl das Taktsignal als auch der Ausgang des D/A-Wandlers aufzunehmen. Darauf aufbauend ist die vollständige Umsetzerkennlinie mithilfe eines der Taktsignale aufzuzeichnen, wobei besonders auf Signalstabilität und gleichmäßige Schrittweiten zu achten ist. Abschließend ist die Kennlinie auf mögliche Fehler wie Missing Codes sowie auf Verstöße gegen die Monotonie zu untersuchen.
 
-\subsection{Aufbau}
+\subsection{Aufbau}\label{sec:30_aufbau}
 
-Der Versuchsaufbau richtet sich nach der in \autoref{fig:30_schaltung} dargestellten Schaltung. Die Eingangsspannung ($U_E$) wird über den vorgesehenen Einsteller an den Eingangsverstärker geführt und dort auf das benötigte Niveau bezogen zur internen Referenz von $\pm \SI{2.5}{\volt}$ eingestellt. Zusätzlich ist die Referenzspannung ($U_\text{Ref}$) des D/A-Umsetzers mit der \SI{+5}{\volt} V-Versorgung des Übungsboards zu verbinden, um eine stabile Vergleichsspannung für das Wägeverfahren bereitzustellen.
+Der Versuchsaufbau richtet sich nach der in \autoref{fig:30_schaltung} dargestellten Schaltung. Die Eingangsspannung ($U_E$) wird über den vorgesehenen Einsteller an den Eingangsverstärker geführt und dort auf das benötigte Niveau bezogen zur internen Referenz von $\pm \SI{2.5}{\volt}$ eingestellt. Zusätzlich ist die Referenzspannung ($U_\text{Ref}$) des D/A-Umsetzers mit der \SI{+5}{\volt}-Versorgung des Übungsboards zu verbinden, um eine stabile Vergleichsspannung für das Wägeverfahren bereitzustellen.
 
 \begin{figure}[h]
 	\centering
@@ -18,7 +18,35 @@ Der Versuchsaufbau richtet sich nach der in \autoref{fig:30_schaltung} dargestel
 	\caption{Schaltplan für Successive Approximation}\label{fig:30_schaltung}
 \end{figure}
 
+\subsection{Manueller Starter}
+Für den Betrieb mit manueller Auslösung wird der Start-Eingang des Automatikmoduls mit dem Taster des manuellen Starters verbunden. Durch schrittweises Betätigen des Tasters lässt sich der zeitliche Ablauf des A/D-Umsetzers direkt beobachten. In unserem Aufbau zeigt sich, dass der SAR-Umsetzer insgesamt 10 Takte durchläuft. (siehe \autoref{fig:30_signalverlauf}) Die ersten 4 Takte dienen der eigentlichen Successive Approximation, bei der die einzelnen Bits nacheinander bestimmt werden. Anschließend verweilt der Umsetzer für 5 weitere Takte im stabilen Endzustand, wodurch der finale digitale Wert während einer definierten Haltephase ausgegeben wird. Abschließend erfolgt ein zusätzlicher Reset-Takt, in dem der Ausgang wieder auf 0 gesetzt wird, bevor der nächste Wandlungszyklus beginnen kann.
 
 
+\subsection{Darstellung des D/A-Wandlerausgangs und des Board-Takts am Oszilloskop}
+Zur Untersuchung des zeitlichen Verhaltens werden sowohl die Ausgangsspannung $U_{\mathrm{A}}$ des D/A-Wandlers als auch das Taktsignal des Boards am Oszilloskop dargestellt. Dazu wird der in beschriebene Aufbau (\ref{sec:30_aufbau}) verwendet und sowohl der D/A-Ausgang als auch das jeweilige Taktsignal (CLK bzw.\ $(n\cdot\mathrm{CLK})$) auf zwei Kanälen des Oszilloskops angeschlossen. Die Eingangsspannung wird über den Funktionsgenerator variable Spannungsquelle des Eingangsverstärkers auf \SI{0.9}{\volt} eingestellt. Anschließend erfolgt die Messung für beide verfügbaren Taktsignale, sodass deren Einfluss auf den zeitlichen Verlauf des D/A-Wandlerausgangs sichtbar wird.
 
-\subsection{Aufgabenstellung}
+\subsection{Ergebnis und Erkenntnis}
+
+Die gemessenen Signalverläufe sind in \autoref{fig:30_signalverlauf} dargestellt. Es zeigt sich deutlich, dass der SAR-Umsetzer vier Taktimpulse benötigt, um den digitalen Wert aus der Eingangsspannung zu bestimmen. Daran schließen sich die Haltephase sowie der abschließende Rücksetzzyklus an, wodurch sich der insgesamt beobachtete Zeitraum der Wandlung ergibt. Auffällig ist zudem, dass das schnellere Taktsignal $n \cdot$CLK ausgeprägte Übergangswelligkeiten zeigt, insbesondere an den Stellen, an denen zwischen den einzelnen Bits umgeschaltet wird. Diese Unregelmäßigkeiten lassen sich auf die steileren Flanken und die dadurch stärker wirksamen dynamischen Effekte im Schaltungsaufbau zurückführen.
+
+\begin{figure}[h]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{34_mit_clk.JPG}
+		\caption*{Takt: CLK}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{33_mit_n.clk.JPG}
+		\caption*{Takt: $n\cdot\mathrm{CLK}$}
+	\end{minipage}
+
+	\caption{
+		\centering
+		Signalverläufe des SAR-ADCs am Oszilloskop\\
+		$U_E + \SI{2.5}{\volt}$ (CH1), $U_A$ (CH2), Taktsignal (CH3)
+	}\label{fig:30_signalverlauf}
+\end{figure}
+
