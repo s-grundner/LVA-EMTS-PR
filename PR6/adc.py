@@ -142,6 +142,7 @@ class ADC:
 
 
         rename_map = {
+            'Code': 'Code',
             'U_edge_real':  r'$U^\mathrm{real}_{\mathrm{edge}}$',
             'U_edge_ideal': r'$U^\mathrm{ideal}_{\mathrm{edge}}$',
             'U_edge_diff':  r'$\Delta U_{\mathrm{edge}}$',
