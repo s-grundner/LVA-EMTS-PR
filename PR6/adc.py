@@ -178,10 +178,14 @@ class ADC:
     def err_to_latex(self, dir: str = 'latex/tables'):
         df, errors = self.eval()
         rows = []
+        fsr = 5  # in V
+        uLsb = fsr / 2**4
         for key, err in errors.items():
             rows.append({
                 'Fehler': key,
-                'Wert': err['val'],
+                'Wert in \\SI{}{\\volt}': err['val'],
+                'Wert in $U_{LSB}$': err['val'] / uLsb,
+                'Wert in \\% FSR': err['val'] / fsr * 100,
                 'Code': df['Code'][err['idx']]
             })
         df_err = pd.DataFrame(rows)
@@ -209,6 +213,6 @@ class ADC:
             position='htbp',    
             environment='table',
             position_float='centering',
-            column_format='ccc',
+            column_format='ccccc',
             encoding='utf-8'
         )
