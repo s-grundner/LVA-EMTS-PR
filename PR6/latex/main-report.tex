@@ -52,10 +52,16 @@
 \usepackage{pgfplotstable}
 \usepackage{enumitem}
 \usepackage{zref-xr,zref-user}
+\usepackage{booktabs}
+\usepackage{colortab}
+\usepackage{collcell}
 
 %% Custom Commands and Packages Settings
 
 \setcounter{tocdepth}{2}
+\newcommand*{\movedown}[1]{%
+  \smash{\raisebox{-1ex}{#1}}}
+\newcolumntype{q}{>{\collectcell\movedown}r<{\endcollectcell}}
 
 % For device position referencing
 \newcounter{posctr}
@@ -106,6 +112,10 @@
 
 \input{01_Geraeteliste.tex}
 \input{00_Literatur.tex}
+\input{10_FlashConverter.tex}
+\input{20_AD-DA-Umsetzer.tex}
+\input{30_Waegeverfahren.tex}
+\input{40_DualSlope.tex}
 
 \end{document}
 \endinput
