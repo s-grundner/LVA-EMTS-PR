@@ -15,9 +15,18 @@ PDFLATEX = pdflatex
 TECTONIC = tectonic --keep-intermediates --synctex --print
 
 # === Targets ===
-.PHONY: all latexmk tectonic pdflatex watch clean
+.PHONY: all help latexmk tectonic pdflatex watch clean
 
-all: latexmk
+all: help
+
+help:
+	@echo "Available targets:"
+	@echo "  make latexmk    Build using latexmk"
+	@echo "  make tectonic   Build using tectonic"
+	@echo "  make pdflatex   Build using pdflatex"
+	@echo "  make watch      Watch and rebuild on changes"
+	@echo "  make clean      Remove build artifacts"
+	@echo "  make help       Shows this help"
 
 latexmk:
 	$(LATEXMK) $(MAIN).tex
