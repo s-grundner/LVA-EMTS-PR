@@ -50,3 +50,21 @@ Die gemessenen Signalverläufe sind in \autoref{fig:30_signalverlauf} dargestell
 	}\label{fig:30_signalverlauf}
 \end{figure}
 
+
+\subsection{Umsetzerkennlinie}
+
+\subsubsection{Aufbau}
+Hier wird nun die Eingangsspannung $U_E$ variert und mit dem Multimeter werden jene Spannungen $U_E$ gemessen bei welchen ein Sprung niedrigeren auf den höheren Bit-Wert stattfindet. Die Berechnung erfolgt gleich wie in \autoref{sec:30_flash_converter}. $U_E$ wurde über den Labornetzteil eingestellt. So wurden die werte von \SI{-2.578}{\volt} bis \SI{2.553}{\volt}. Hier ist es von Vorteil $n\cdot$CLK zu wählen damit die Schaltung schnell den richtigen Bitwert am Display anzeigt und somit die Schwelspannungen genauer gemessen werden können.
+
+\subsection{Erkenntnis und Ergebnise}
+Es gab zwar keine Missing-codes aber vor allem die Integrale Nichtlinearität ist mit $1.428\cdot U_{LSB}$ sehr groß. Diese spiegelt sich auch in den großen Endwertfehlern wieder. Beides ist sowohl in \autoref{fig:30_umsetzerkennlinie} als auch in \autoref{tab:sar_table} gut zu sehen.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/sar_adc_curve.png}
+	\caption{Umsetzerkennlinie des ADCs mit Wäge-Verfahren}\label{fig:30_umsetzerkennlinie}
+\end{figure}
+
+\input{tables/sar_adc_table.tex}
+\input{tables/sar_adc_errors.tex}\label{tab:sar_table}
+
