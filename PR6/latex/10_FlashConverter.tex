@@ -3,18 +3,48 @@
 
 \subsection{Aufgabenstellung}
 
+Zunächst wird die Funktionsweise eines Flash Converters erläutert. Anschließend wird ein Versuchsaufbau am ADU-Messbrett aufgebaut und ein Fehlerprogramm eingestellt. Nach Funktionskontrolle mir einem manuellen Takt, wird der Umsetzer mit den Taktsignalen des ADU-Messbretts betrieben und die Umsetzerkennlinie aufgenommen. Danach werden die ADC Fehlerkennwerte bestimmt. Abschließend wird untersucht, wie der Flash Converter auf Störungen reagiert. Das zugeteilte Fehlerprogramm ist die Gruppennummer 2.
+
 \subsection{Funktion}
+
+Der Flashconverter ist ein direkter Umsetzer der die Eingangsspannung parallel mittels Komparatoren umsetzt. Für einen $N$-\si{\bit} Flash Converter wird die Referenzspannung in $2^{N}-1$ Teile unterteilt und jeweils mit einem Komparator gelichzeitig mit der Eingangsspannung verglichen. Mit einem Fixierten Umsetzungstaktsignal, werden die Ausgangswerte der Komparatoren in ein Register übernommen. Ein Prioritätsencoder nimmt den Höchstwertigen Komparator Ausgang und wandelt ihn in einen Binärcode um.
 
 \subsection{Versuchsaufbau}
 
+Auf dem ADU-Messbrett ist ein \SI{4}{\bit} Flash Converter verbaut, der gemäß \autoref{fig:10-flash-schaltung} aufgebaut wird. Mit einem Taster können die Fehlerprogramme durchgeschalten werden.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/10_Flash_Schaltung.png}	
+	\caption{Versuchsaufbau Flash Converter}\label{fig:10-flash-schaltung}
+\end{figure}
+
+Zuerst wird der Flash Converter mit einem manuellen Takt betrieben. Man erkennt, dass beim betätigen des Manuellen Starters der Wert am Eingang übernommen wird und sofort auf der Anzeige erscheint. Auf dem Messbrett gibt es zwei unterschiedliche Takte. $CLK$ ist ein langsamer Takt den man noch mit dem Auge beobachten kann, um gegebenenfalls die Umsetzdauer zu beobachten. $n\cdot CLK$ ein schneller Takt, der auch für die Messung der Kennlinien aller ADCs verwendet wird um die Umschaltspannungen besser zu erkennen. 
+
 \subsection{Umsetzerkennlinie}
+
+Um die Umsetzerkennlinie aufzunehmen, wird mit einem Funktionsgenerator im DC-Modus eine Spannung von \SI{-2.5}{\volt} bis \SI{2.5}{\volt} und gleichzeitig mit einem Voltmeter gemessen. Der Takt des Flash Converters wird auf $n\cdot CLK$ gestellt. Die Spannung wird solange erhöht bis sich der Aneigewert am Ausgang ändert. Der Spannungswert wird dann als Umschaltspannung $U_\mathrm{e}^{\mathrm{real}}$ aufgeziechnet. Diese Sprünge sind in der Umsetzerkennlinie in \autoref{fig:10-flash-kennlinie} gezeigt. 
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\textwidth]{images/flash_adc_curve.png}
+	\caption{Umsetzerkennlinie Flash Converter}\label{fig:10-flash-kennlinie}
 \end{figure}
+
+Es ist zu erkennen, dass die Codes \texttt{-1} und \texttt{1} sehr nahe an einem Missing Code Fehler Grenzen. Das bedeutet, dass die Stufenbreite dieser Codes sehr klein ist und somit leicht übersprungen werden können.
 
 \subsection{Fehleranalyse}
 
+Die Auswertung der Umschaltspannungen ($U_\mathrm{e}$), Stufenbreiten ($U_\mathrm{w}$) und Stufenmittelpunkte ($U_\mathrm{m}$) des Flashconverters wird nach der Anleitung in \cite[S.~117]{EMTPraktikum2025} durchgeführt und werden in \autoref{tab:flash_adc} dargestellt. Die markierten Fehlerwerte werden in \autoref{tab:flash_adc_errors} zusammengefasst. Für die Berechnung der Nichtliniearitäten muss zuerst die Umschaltspannung durch gewichtete Subtraktion der Bereichsendwertabweichung wie in der Anleitung beschrieben korrigiert werden. Die unterschiedlichen Fehlerarten werden wie folgt definiert:
+\begin{itemize}[noitemsep]
+	\item Positive Endwertabweichung: Abweichung am positiven Ende der Kennlinie
+	\item Negative Endwertabweichung: Abweichung am negativen Ende der Kennlinie
+	\item Nullpunktabweichung: Abweichung am Nullpunkt der Kennlinie
+	\item DNL (Differential Non-Linearity): Maximale Abweichung der Stufenbreiten von der idealen Stufenbreite
+	\item INL (Integral Non-Linearity): Maximale Abweichung der Stufenmittelpunkte von den idealen Stufenmittelpunkten
+\end{itemize}
+
 \input{tables/flash_adc_table.tex}
 \input{tables/flash_adc_errors.tex}
+
+\subsection{Störung durch Rauschen und Sinussignal}

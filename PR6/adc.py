@@ -54,8 +54,8 @@ class ADC:
         u_edge_diff = abs(self.u_edge_meas - u_edge_ideal[:-1])
         n = self.n_levels
 
-        pos_end = u_edge_diff[0]
-        neg_end = u_edge_diff[-2]
+        pos_end = u_edge_diff[-1]
+        neg_end = u_edge_diff[0]
         null_pt = u_edge_diff[n//2]
 
         # Calc Correcting Factor
@@ -75,8 +75,8 @@ class ADC:
         
         # Pack
         errors = {
-            'pos_end': {'val' : pos_end, 'idx': 0},
-            'neg_end': {'val' : neg_end, 'idx': n-2},
+            'pos_end': {'val' : pos_end, 'idx': n-2},
+            'neg_end': {'val' : neg_end, 'idx': 0},
             'null_pt': {'val' : null_pt, 'idx': n//2},
             'dnl': {'val' : dnl, 'idx': dnl_idx},
             'inl': {'val' : inl, 'idx': inl_idx}
@@ -87,7 +87,8 @@ class ADC:
             'Code': self.codes[:-1],
             'U_edge_real': self.u_edge_meas,
             'U_edge_ideal': df_ideal['U_edge'][:-1],
-            'U_edge_diff': u_edge_diff
+            'U_edge_diff': u_edge_diff,
+            'U_edge_korr': u_edge_korr
         }), pd.DataFrame({
             'Code': self.codes[1:-1],
             'U_width_real': u_width_real,
@@ -129,7 +130,6 @@ class ADC:
         
         def highlight_errors(s):
             props = pd.Series('', index=s.index)
-
             if s.name == 'U_edge_diff':
                 props.iloc[errors['pos_end']['idx']] = self.__cell_color(self.POS_END_COLOR)
                 props.iloc[errors['neg_end']['idx']] = self.__cell_color(self.NEG_END_COLOR)
@@ -140,18 +140,18 @@ class ADC:
                 props.iloc[errors['inl']['idx']] = self.__cell_color(self.INL_COLOR)
             return props
 
-
         rename_map = {
             'Code': 'Code',
-            'U_edge_real':  r'$\dfrac{U^\mathrm{real}_{\mathrm{edge}}}{\si{\volt}}$',
-            'U_edge_ideal': r'$\dfrac{U^\mathrm{ideal}_{\mathrm{edge}}}{\si{\volt}}$',
-            'U_edge_diff':  r'$\dfrac{\Delta U_{\mathrm{edge}}}{\si{\volt}}$',
-            'U_width_real': r'$\dfrac{U^\mathrm{real}_{\mathrm{width}}}{\si{\volt}}$',
-            'U_width_diff': r'$\dfrac{\Delta U_{\mathrm{width}}}{\si{\volt}}$',
-            'U_width_ideal': r'$\dfrac{U^\mathrm{ideal}_{\mathrm{width}}}{\si{\volt}}$',
-            'U_mittel_diff': r'$\dfrac{\Delta U_{\mathrm{mid}}}{\si{\volt}}$',
-            'U_mittel_real': r'$\dfrac{U^\mathrm{real}_{\mathrm{mid}}}{\si{\volt}}$',
-            'U_mittel_ideal': r'$\dfrac{U^\mathrm{ideal}_{\mathrm{mid}}}{\si{\volt}}$'
+            'U_edge_real':  r'$\dfrac{U^\mathrm{real}_{\mathrm{e}}}{\si{\volt}}$',
+            'U_edge_ideal': r'$\dfrac{U^\mathrm{ideal}_{\mathrm{e}}}{\si{\volt}}$',
+            'U_edge_diff':  r'$\dfrac{\Delta U_{\mathrm{e}}}{\si{\volt}}$',
+            'U_edge_korr':  r'$\dfrac{U^\mathrm{korr}_{\mathrm{e}}}{\si{\volt}}$',
+            'U_width_real': r'$\dfrac{U^\mathrm{real}_{\mathrm{w}}}{\si{\volt}}$',
+            'U_width_diff': r'$\dfrac{\Delta U_{\mathrm{w}}}{\si{\volt}}$',
+            'U_width_ideal': r'$\dfrac{U^\mathrm{ideal}_{\mathrm{w}}}{\si{\volt}}$',
+            'U_mittel_diff': r'$\dfrac{\Delta U_{\mathrm{m}}}{\si{\volt}}$',
+            'U_mittel_real': r'$\dfrac{U^\mathrm{real}_{\mathrm{m}}}{\si{\volt}}$',
+            'U_mittel_ideal': r'$\dfrac{U^\mathrm{ideal}_{\mathrm{m}}}{\si{\volt}}$'
         }
 
         sty = df_meas.style\
@@ -171,7 +171,7 @@ class ADC:
             position='htbp',
             environment='table',
             position_float='centering',
-            column_format='c|ccc|ccc|ccc',
+            column_format='c|cccc|ccc|ccc',
         )
 
 
@@ -221,6 +221,6 @@ class ADC:
             position='htbp',    
             environment='table',
             position_float='centering',
-            column_format='ccccc',
+            column_format='lcccc',
             encoding='utf-8'
         )
