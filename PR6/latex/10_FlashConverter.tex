@@ -27,7 +27,7 @@ Um die Umsetzerkennlinie aufzunehmen, wird mit einem Funktionsgenerator im DC-Mo
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.7\textwidth]{images/flash_adc_curve.png}
+	\includegraphics[width=0.6\textwidth]{images/flash_adc_curve.png}
 	\caption{Umsetzerkennlinie Flash Converter}\label{fig:10-flash-kennlinie}
 \end{figure}
 
@@ -48,3 +48,5 @@ Die Auswertung der Umschaltspannungen ($U_\mathrm{e}$), Stufenbreiten ($U_\mathr
 \input{tables/flash_adc_errors.tex}
 
 \subsection{Störung durch Rauschen und Sinussignal}
+
+Am Summiereingang $U_\Sigma$ wird der Eingang mit einem Rauschsignal und einem Sinussignal beaufschlagt. Für beide fälle kann man beobachten, dass sich der Ausgangscode verändert. Je nachdem ob sich $U_\mathrm{e}$ in einem Bereich mit hoher oder niedriger Differenziellen Nichtlinearität befindet, ändert sich der Ausgangscode stärker oder schwächer. Bei dem Rauschsignal ist ein ähnliches Verhalten zu beobachten jedoch ändert sich der Ausgangscode hier zufällig.
