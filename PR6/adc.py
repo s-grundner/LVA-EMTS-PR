@@ -142,10 +142,10 @@ class ADC:
 
         rename_map = {
             'Code': 'Code',
-            'U_edge_real':  r'$\dfrac{U^\mathrm{real}_{\mathrm{e}}}{\si{\volt}}$',
+            'U_edge_real': r'$\dfrac{U^\mathrm{real}_{\mathrm{e}}}{\si{\volt}}$',
             'U_edge_ideal': r'$\dfrac{U^\mathrm{ideal}_{\mathrm{e}}}{\si{\volt}}$',
-            'U_edge_diff':  r'$\dfrac{\Delta U_{\mathrm{e}}}{\si{\volt}}$',
-            'U_edge_korr':  r'$\dfrac{U^\mathrm{korr}_{\mathrm{e}}}{\si{\volt}}$',
+            'U_edge_diff': r'$\dfrac{\Delta U_{\mathrm{e}}}{\si{\volt}}$',
+            'U_edge_korr': r'$\dfrac{U^\mathrm{korr}_{\mathrm{e}}}{\si{\volt}}$',
             'U_width_real': r'$\dfrac{U^\mathrm{real}_{\mathrm{w}}}{\si{\volt}}$',
             'U_width_diff': r'$\dfrac{\Delta U_{\mathrm{w}}}{\si{\volt}}$',
             'U_width_ideal': r'$\dfrac{U^\mathrm{ideal}_{\mathrm{w}}}{\si{\volt}}$',
