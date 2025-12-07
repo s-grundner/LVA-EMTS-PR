@@ -5,12 +5,16 @@
 
 Beim Wägeverfahren der Successiven Approximation wird die Eingangsspannung ($U_E$) durch schrittweises Vergleichen mit dual gewichteten Referenzspannungen quantisiert. Grundlage ist ein vom Successive Approximation Register (SAR) gesteuerter Ablauf, bei dem pro Taktzyklus genau ein Bit festgelegt wird. Zu Beginn setzt das SAR das höchstwertige Bit ($MSB$) auf „1“ und vergleicht die dadurch erzeugte Referenzspannung ($U_\text{Ref}(Z)$) mit ($U_E$). Ist ($U_E$) größer, bleibt das Bit gesetzt, andernfalls wird es auf „0“ zurückgenommen. Danach wird das nächstniedrigere Bit getestet, wobei jeweils die schon ermittelten Bits berücksichtigt werden. Dieser Prozess wiederholt sich für alle Bitpositionen, bis nach ($N = \log_2(n)$) Taktzyklen der vollständige digitale Code vorliegt. Während der gesamten Wandlung muss ($U_E$) konstant bleiben, was durch ein Abtast- und Halteglied gewährleistet wird.
 
-\subsection{Aufgabenstellung}
+\subsection{Aufgabenstellung}\label{sec:30_aufgabenstellung}
 Für den Versuchsteil zum Wägeverfahren ist der in \autoref{fig:30_schaltung} dargestellte Aufbau zu realisieren. Als Gruppe 2 ist der Fehlercode 2 am D/A-Wandler einzustellen. Der Konverter soll zunächst mit dem manuellen Starter betrieben werden, um die grundsätzliche Funktion des Verfahrens zu überprüfen. Anschließend sind mit dem Oszilloskop sowohl das Taktsignal als auch der Ausgang des D/A-Wandlers aufzunehmen. Darauf aufbauend ist die vollständige Umsetzerkennlinie mithilfe eines der Taktsignale aufzuzeichnen, wobei besonders auf Signalstabilität und gleichmäßige Schrittweiten zu achten ist. Abschließend ist die Kennlinie auf mögliche Fehler wie Missing Codes sowie auf Verstöße gegen die Monotonie zu untersuchen.
+
+Danach ist die Kennlinie des D/A-Umsetzers aufzunehmen, dies geschieht mit demselben Taktsignal wie die Aufnahme des A/D-Umsetzers.
+
+Abschließend soll am Summationsverstärker eine Störung simuliert werden, indem die Rauschquelle und das Sinussignal des Übungsboards eingespeist werden.
 
 \subsection{Aufbau}\label{sec:30_aufbau}
 
-Der Versuchsaufbau richtet sich nach der in \autoref{fig:30_schaltung} dargestellten Schaltung. Die Eingangsspannung ($U_E$) wird über den vorgesehenen Einsteller an den Eingangsverstärker geführt und dort auf das benötigte Niveau bezogen zur internen Referenz von $\pm \SI{2.5}{\volt}$ eingestellt. Zusätzlich ist die Referenzspannung ($U_\text{Ref}$) des D/A-Umsetzers mit der \SI{+5}{\volt}-Versorgung des Übungsboards zu verbinden, um eine stabile Vergleichsspannung für das Wägeverfahren bereitzustellen.
+Der Versuchsaufbau richtet sich nach der in \autoref{fig:30_schaltung} dargestellten Schaltung. Die Eingangsspannung ($U_E$) wird über den vorgesehenen Einsteller an den Eingangsverstärker geführt und dort auf das benötigte Niveau bezogen auf die interne Referenz von $\pm \SI{2.5}{\volt}$ eingestellt. Zusätzlich ist die Referenzspannung ($U_\text{Ref}$) des D/A-Umsetzers mit der \SI{+5}{\volt}-Versorgung des Übungsboards zu verbinden, um eine stabile Vergleichsspannung für das Wägeverfahren bereitzustellen.
 
 \begin{figure}[h]
 	\centering
@@ -27,7 +31,7 @@ Zur Untersuchung des zeitlichen Verhaltens werden sowohl die Ausgangsspannung $U
 
 \subsection{Ergebnis und Erkenntnis}
 
-Die gemessenen Signalverläufe sind in \autoref{fig:30_signalverlauf} dargestellt. Es zeigt sich deutlich, dass der SAR-Umsetzer vier Taktimpulse benötigt, um den digitalen Wert aus der Eingangsspannung zu bestimmen. Daran schließen sich die Haltephase sowie der abschließende Rücksetzzyklus an, wodurch sich der insgesamt beobachtete Zeitraum der Wandlung ergibt. Auffällig ist zudem, dass das schnellere Taktsignal $n \cdot$CLK ausgeprägte Übergangswelligkeiten zeigt, insbesondere an den Stellen, an denen zwischen den einzelnen Bits umgeschaltet wird. Diese Unregelmäßigkeiten lassen sich auf die steileren Flanken und die dadurch stärker wirksamen dynamischen Effekte im Schaltungsaufbau zurückführen.
+Die gemessenen Signalverläufe sind in \autoref{fig:30_signalverlauf} dargestellt. Es zeigt sich deutlich, dass der SAR-Umsetzer vier Taktimpulse benötigt, um den digitalen Wert aus der Eingangsspannung zu bestimmen. Daran schließen sich die Haltephase sowie der abschließende Rücksetzzyklus an, wodurch sich der insgesamt beobachtete Zeitraum der Wandlung ergibt. Auffällig ist, dass beim schnelleren Taktsignal $n\cdot\mathrm{CLK}$ stärkere Übergangswelligkeiten am D/A-Ausgang zu beobachten sind. Diese Glitches entstehen hauptsächlich durch das Umschalten der Widerstandsnetzwerke im D/A-Wandler und nicht primär durch das Taktsignal selbst. Durch die höhere Taktfrequenz bleibt dem D/A-Wandler jedoch weniger Zeit, sich zwischen den Bitentscheidungen einzupegeln, sodass die Umschaltvorgänge deutlicher sichtbar werden.
 
 \begin{figure}[h]
 	\centering
@@ -51,13 +55,23 @@ Die gemessenen Signalverläufe sind in \autoref{fig:30_signalverlauf} dargestell
 \end{figure}
 
 
-\subsection{Umsetzerkennlinie}
+\subsection{Umsetzerkennlinie des SAR-ADCs}
 
 \subsubsection{Aufbau}
 Hier wird nun die Eingangsspannung $U_E$ variert und mit dem Multimeter werden jene Spannungen $U_E$ gemessen bei welchen ein Sprung niedrigeren auf den höheren Bit-Wert stattfindet. Die Berechnung erfolgt gleich wie in \autoref{sec:30_flash_converter}. $U_E$ wurde über den Labornetzteil eingestellt. So wurden die werte von \SI{-2.578}{\volt} bis \SI{2.553}{\volt}. Hier ist es von Vorteil $n\cdot$CLK zu wählen damit die Schaltung schnell den richtigen Bitwert am Display anzeigt und somit die Schwelspannungen genauer gemessen werden können.
 
-\subsection{Erkenntnis und Ergebnise}
-Es gab zwar keine Missing-codes aber vor allem die Integrale Nichtlinearität ist mit $1.428\cdot U_{LSB}$ sehr groß. Diese spiegelt sich auch in den großen Endwertfehlern wieder. Beides ist sowohl in \autoref{fig:30_umsetzerkennlinie} als auch in \autoref{tab:sar_table} gut zu sehen.
+\subsubsection{Erkenntnis und Ergebnise}
+Aus den aufgenommenen Messwerten sind keine Missing Codes erkennbar. Jeder Code
+von \(-8\) bis \(6\) tritt genau einmal auf. Dennoch zeigt der Umsetzer deutliche
+Abweichungen von der idealen Kennlinie. Besonders auffällig ist die
+\emph{integrale Nichtlinearität} mit einem Wert von \(1.428 \cdot U_{\mathrm{LSB}}\),
+welche für einen 4-Bit-Umsetzer relativ groß ist. Diese starke INL spiegelt sich
+auch in den ausgeprägten Endwertfehlern am unteren und oberen Messbereich wider.
+Sowohl die grafische Darstellung in \autoref{fig:30_umsetzerkennlinie} als auch die
+numerischen Werte in \autoref{tab:sar_adc} verdeutlichen diese Abweichungen und
+zeigen, dass der tatsächliche Verlauf nur näherungsweise der idealen
+Treppenkennlinie folgt.
+
 
 \begin{figure}[h]
 	\centering
@@ -66,5 +80,77 @@ Es gab zwar keine Missing-codes aber vor allem die Integrale Nichtlinearität is
 \end{figure}
 
 \input{tables/sar_adc_table.tex}
-\input{tables/sar_adc_errors.tex}\label{tab:sar_table}
+\input{tables/sar_adc_errors.tex}
 
+\subsection{Umsetzerkennlinie des DA-Wandlers}
+
+\subsubsection{Aufbau}
+Der Aufbau aus dem vorherigen Abschnitt wird dahingehend angepasst, dass der D/A-Wandler elektrisch vom restlichen System getrennt wird. Die Ausgangsspannung ($U_A$) des Wandlers wird anschließend direkt mit einem METEX-Multimeter erfasst. Die gewünschten Eingangscodes werden manuell erzeugt, indem die entsprechenden Leitungen auf die Referenzspannung ($U_\text{Ref}$) gelegt werden, wenn das jeweilige Bit den Wert „1“ annehmen soll. Soll ein Bit den Wert „0“ darstellen, wird die zugehörige Leitung stattdessen mit Masse verbunden. Auf diese Weise lassen sich sämtliche Kombinationen der 4-Bit-Eingänge systematisch einstellen und die resultierenden Ausgangsspannungen messen.
+
+\subsubsection{Durchführung}
+Um sämtliche Ausgangsspannungen des D/A-Wandlers aufzunehmen, müssen alle möglichen 4-Bit-Kombinationen von ($-8_{10} = 0000_2$) bis ($7_{10} = 1111_2$) eingestellt werden. Dies erfolgt durch entsprechendes Umstecken der Leitungen mittels Bananensteckern, sodass jede Bitposition entweder mit Masse oder mit der Referenzspannung verbunden wird. Für ein komfortableres Arbeiten bietet es sich an, Bananenstecker mit zusätzlicher Buchse zu verwenden, da sich dadurch mehrere Leitungen flexibel und übersichtlich miteinander verbinden lassen.
+
+\subsubsection{Erkenntnis und Ergebnise}
+Die in \autoref{fig:30_adc_kennlinie} gezeigte Kennlinie sowie die Messwerte in Tabelle \ref{tab:30_dac} verdeutlichen, dass der D/A-Wandler zwar einen grundsätzlich linearen Verlauf aufweist, jedoch merkliche Abweichungen von der idealen Stufenkurve auftreten. Besonders die negativen Codes zeigen eine größere Streuung, während die positiven Werte eine bessere Annäherung an die Idealform erreichen.
+
+Diese Nichtlinearitäten beeinflussen direkt das Wägeverfahren, da der D/A-Wandler die Vergleichsspannungen für den Komparator liefert. Abweichende Referenzspannungen können zu Fehlentscheidungen im Vergleich führen und somit eine falsche Bitfolge im SAR erzeugen. Eine möglichst lineare Kennlinie ist daher wesentlich für eine genaue A/D-Umsetzung.
+
+\begin{table}[h]
+	\centering
+	\caption{Kennlinie des D/A Wandlers}
+	\label{tab:30_dac}
+	\begin{tabular}{c|c|c}
+		Code & Code in Bit & $U^\mathrm{real}_{\mathrm{edge}}$ \\
+		\midrule
+		-8   & 0000        & 0.204                             \\
+		-7   & 0001        & 0.250                             \\
+		-6   & 0010        & 0.52                              \\
+		-5   & 0011        & 0.73                              \\
+		-4   & 0100        & 0.987                             \\
+		-3   & 0101        & 1.192                             \\
+		-2   & 0110        & 1.46                              \\
+		-1   & 0111        & 1.67                              \\
+		0    & 1000        & 2.500                             \\
+		1    & 1001        & 2.71                              \\
+		2    & 1010        & 2.98                              \\
+		3    & 1011        & 3.19                              \\
+		4    & 1100        & 3.45                              \\
+		5    & 1101        & 3.65                              \\
+		6    & 1110        & 3.92                              \\
+		7    & 1111        & 4.14
+	\end{tabular}
+\end{table}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/36_dac_kennlinie.png}
+	\caption{Kennlinie des D/A Wandlers}\label{fig:30_adc_kennlinie}
+\end{figure}
+
+
+\subsection{Simulation von Störeinflüssen}
+
+\subsubsection{Aufbau}
+Der bestehende Aufbau gemäß \autoref{fig:30_schaltung} bleibt erhalten. Die Störsignale
+(Rausch- und Sinusquelle) werden vom Frequenzgenerator erzeugt und zusätzlich zur
+Eingangsspannung \(U_E\) an den zweiten Eingang des Eingangsverstärkers angelegt.
+Für das Rauschen wird \(U_{\mathrm{ss}} = 3\,\mathrm{V}\), für die Sinusquelle
+\(U_{\mathrm{ss}} = 1\,\mathrm{V}\) bei \(U_{\mathrm{Off}} = 0\,\mathrm{V}\) und variabler
+Frequenz eingestellt.
+
+\subsubsection{Durchführung}
+Die Auswirkungen der beiden Störsignale werden am Ausgang des Systems beobachtet und
+notiert. Bei der Sinusquelle wird zusätzlich die Frequenz verändert, um deren Einfluss
+auf das resultierende Ausgangsverhalten zu untersuchen.
+
+\subsubsection{Ergebnis und Erkenntnis}
+Da das Wäge-Verfahren eine während der Wandlung konstante Eingangsspannung voraussetzt,
+führen überlagerte Störsignale zu fehlerhaften Vergleichsergebnissen und damit zu
+abweichenden Ausgangscodes. Dies zeigt sich bei der Rauschquelle durch ein permanentes
+Umschalten zwischen \(-1\) und \(0\) unter dem \(n \cdot \mathrm{CLK}\)-Taktsignal.
+Die Sinusquelle erzeugt ein frequenzabhängiges Verhalten: Bei \(1\,\mathrm{Hz}\)
+wechselte der Ausgang zwischen den Codes \(1\) und \(2\), bei \(10\,\mathrm{Hz}\)
+zwischen mehreren Codes wie \(-1\), \(1\), \(2\) und \(5\). Niedrige Frequenzen werden
+durch den Eingangskondensator zum Teil abgeschwächt.
+Insgesamt wird deutlich, dass ein Sample\&Hold-Glied erforderlich ist, um eine
+stabile Umsetzung trotz Störeinflüssen zu gewährleisten.
